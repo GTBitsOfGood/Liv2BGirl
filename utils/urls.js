@@ -5,7 +5,7 @@ export default {
   dbUrl: prod
     ? process.env.MONGO_DB
     : process.env.MONGO_DEV_DB || "mongodb://localhost:27017",
-  dbName: "Liv2BGirl",
+  dbName: "live2bgirl",
   pages: {
     index: "/index"
   },
