@@ -22,4 +22,5 @@ A running instance of MongoDB is required this project.
 - Setup MongoDB with the instructions above
 - Clone this project to your computer
 - Navigate to this project in terminal and enter `npm install`
+- Rename `example.env` to `.env` and fill it out with the dev config
 - Run the dev version of this project by entering `npm run dev`
