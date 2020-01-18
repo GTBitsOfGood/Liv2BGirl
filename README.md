@@ -3,11 +3,26 @@
 ## Stack
 * React.js: Front-end
 * Next.js: API routes and server-side rendering
-* MongoDB: Permanently storing applications and users
+* MongoDB: Permanently storing info
 * Zeit Now: Hosting and automatic GitHub build hooks
+* eslint: Automatically identifying and fixing code errors
+* prettier: Setting a common code style and fixing any issues
+
+### Zeit Now Install
+
+- Run `npm i -g now`, then type `now login`
+- [Create a Zeit Now account](https://zeit.co)
+- On your dashboard, click `New Project` then `From GitHub` and select this project
+
+### Updating Env Vars
+- For dev, update `.env` and `next.config.js`
+- For production, install Now using the instructions above, then
+- For production, to add, use `now secrets add <secret-name> <secret-value>`
+- For production, to remove, use `now secrets rm <secret-name>`
 
 ## Running
-### MongoDB Instructions
+
+### MongoDB
 
 A running instance of MongoDB is required this project.
 - By default, development uses MongoDB on your computer, if you would like to use an external database, enter `export MONGO_DEV_DB='URLHERE'` (macOS/Linux) or `setx MONGO_DEV_DB URLHERE` (Windows) and skip the instructions below.
@@ -24,3 +39,8 @@ A running instance of MongoDB is required this project.
 - Navigate to this project in terminal and enter `npm install`
 - Rename `example.env` to `.env` and fill it out with the dev config
 - Run the dev version of this project by entering `npm run dev`
+
+### Styling
+- By default, this repository uses Next `9.2.0` for styles, which includes native support for global CSS and CSS modules
+- However, this version only allows global css to be in `pages/_app.js`, which can cause issues with external packages
+- If you face this error, the solution is installing `@zeit/next-css` and adding it to `next.config.js`, however you cannot use css modules and global css together with this package (and it defaults to global).
