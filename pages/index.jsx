@@ -1,8 +1,9 @@
-import React from 'react';
+import React from "react";
+import ExampleText from "../client/components/ExampleText";
 
 const HomePage = () => (
   <div>
-    Welcome to Next.js!
+    <ExampleText>Welcome to Next.js!</ExampleText>
   </div>
 );
 
