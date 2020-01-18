@@ -10,6 +10,7 @@
 ### MongoDB Instructions
 
 A running instance of MongoDB is required this project.
+- By default, development uses MongoDB on your computer, if you would like to use an external database, enter `export MONGO_DEV_DB='URLHERE'` (macOS/Linux) or `setx MONGO_DEV_DB URLHERE` (Windows) and skip the instructions below.
 - [Download MongoDB Community Server](https://www.mongodb.com/download-center/community)
 - Go through the installation instructions.
   - Atlas is recommended for basic testing.
@@ -21,5 +22,4 @@ A running instance of MongoDB is required this project.
 - Setup MongoDB with the instructions above
 - Clone this project to your computer
 - Navigate to this project in terminal and enter `npm install`
-- By default, development uses MongoDB on your computer, if you would like to use an external database, enter `export MONGO_DEV_DB='URLHERE'` (macOS/Linux) or `setx MONGO_DEV_DB URLHERE` (Windows).
 - Run the dev version of this project by entering `npm run dev`
