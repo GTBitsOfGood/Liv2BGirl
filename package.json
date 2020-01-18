@@ -18,6 +18,11 @@
     "start": "next start",
     "lint": "eslint --fix --ext .jsx --ext .js ."
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.2.0",
@@ -34,6 +39,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.0",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "husky": "^4.0.10",
     "prettier": "1.19.1",
     "prettier-eslint": "^9.0.1"
   }
