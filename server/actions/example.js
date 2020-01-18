@@ -1,1 +1,1 @@
-export const exampleAction = async () => 'Hello World!';
+export const exampleAction = async () => "Hello World!";

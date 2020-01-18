@@ -5,7 +5,12 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "airbnb",
+        "prettier"
+    ],
+    "plugins": [
+        "react",
+        "prettier"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -18,10 +23,8 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": [
-        "react"
-    ],
     "rules": {
+        "prettier/prettier": ["error"],
         "linebreak-style": 0,
         "no-underscore-dangle": "off",
         "react/jsx-props-no-spreading": "off"
