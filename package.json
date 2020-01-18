@@ -16,7 +16,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint \"**/*.js\""
+    "lint": "eslint --fix --ext .jsx --ext .js ."
   },
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
