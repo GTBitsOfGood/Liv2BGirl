@@ -1,29 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ExampleText from "../client/components/ExampleText";
-import { exampleAction } from "../server/example/actions/example";
+import { helloWorld } from "../client/actions/api";
 
 const SSRPage = ({ message, errorMessage }) => {
   return (
     <>
-      <ExampleText>Welcome to Next.js!</ExampleText>
+      <h2>Welcome to Next.js!</h2>
+      <h3>This page is server-side rendered because it uses getInitialProps</h3>
       {errorMessage == null ? (
-        <ExampleText>
+        <h4>
           SSR Message:
           {message}
-        </ExampleText>
+        </h4>
       ) : (
-        <ExampleText>
+        <h4>
           SSR Error:
           {errorMessage}
-        </ExampleText>
+        </h4>
       )}
+      <p>You can tell because the text above does not flash on refresh</p>
     </>
   );
 };
 
 SSRPage.getInitialProps = async () => {
-  return exampleAction()
+  return helloWorld()
     .then(payload => {
       return {
         message: payload

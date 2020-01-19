@@ -1,21 +1,25 @@
 import React from "react";
-import ExampleText from "../client/components/ExampleText";
-import { exampleAction } from "../server/example/actions/example";
+import { helloWorld } from "../client/actions/api";
 
 const HomePage = () => {
   const [payload, setPayload] = React.useState("");
 
   React.useEffect(() => {
     // Example how to create page without ssr
-    exampleAction().then(resp => {
+    helloWorld().then(resp => {
       setPayload(resp);
     });
   }, []);
 
   return (
     <>
-      <ExampleText>Welcome to Next.js!</ExampleText>
-      <ExampleText>{payload}</ExampleText>
+      <h2>Welcome to Next.js!</h2>
+      <h3>
+        This page is static rendered, because all API calls are made in
+        useEffect
+      </h3>
+      <h4>{payload}</h4>
+      <p>You can tell because the text above flashes on page refresh</p>
     </>
   );
 };
