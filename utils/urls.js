@@ -11,6 +11,7 @@ export default {
     ssr: "/ssr"
   },
   api: {
-    example: () => "/api/example"
+    example: () => "/api/example",
+    login: () => "/api/login"
   }
 };

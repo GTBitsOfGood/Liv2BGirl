@@ -3,10 +3,10 @@ import jwt from "jsonwebtoken";
 import mongoDB from "../index";
 import User from "../models/User";
 
-export async function login(username, password) {
+export async function login(email, password) {
   await mongoDB();
 
-  return User.findOne({ username })
+  return User.findOne({ email })
     .then(user => {
       if (user) {
         return bcrypt.compare(password, user.password).then(result => {

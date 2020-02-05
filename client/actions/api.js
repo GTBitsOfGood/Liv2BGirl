@@ -17,3 +17,20 @@ export const helloWorld = () =>
 
       return json.payload;
     });
+
+export const login = () =>
+  fetch(urls.baseUrl + urls.api.login(), {
+    method: "post",
+    mode: "no-cors",
+    credentials: "include"
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        return json.message;
+      }
+
+      return json.payload;
+    });
