@@ -2,7 +2,7 @@ import { login } from "../../server/mongodb/actions/User";
 
 // @route   POST api/login
 // @desc    Login Request
-// @access  ???
+// @access  Public
 const handler = (req, res) =>
   login(req.body.username, req.body.password)
     .then(user =>

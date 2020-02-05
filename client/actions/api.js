@@ -21,7 +21,7 @@ export const helloWorld = () =>
 export const login = () =>
   fetch(urls.baseUrl + urls.api.login(), {
     method: "post",
-    mode: "no-cors",
+    mode: "same-origin",
     credentials: "include"
   })
     .then(response => response.json())
