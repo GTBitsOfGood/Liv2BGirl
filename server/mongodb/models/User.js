@@ -16,6 +16,13 @@ const UserSchema = new Schema({
   isAdmin: {
     type: Boolean,
     default: false
+  },
+  following: {
+    type: [String],
+  },
+  followers: {
+    type: [String],
+    
   }
 });
 
