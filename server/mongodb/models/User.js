@@ -3,19 +3,28 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
-  username: {
+  email: {
     type: String,
     required: true,
-    index: true,
     unique: true
+  },
+  name: {
+    // admin/ambassador only
+    type: String
   },
   password: {
     type: String,
     required: true
   },
-  isAdmin: {
-    type: Boolean,
-    default: false
+  role: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true,
+    index: true,
+    unique: true
   }
 });
 
