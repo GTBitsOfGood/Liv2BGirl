@@ -18,11 +18,18 @@ export const helloWorld = () =>
       return json.payload;
     });
 
-export const login = () =>
+export const login = (email, password) =>
   fetch(urls.baseUrl + urls.api.login(), {
-    method: "post",
+    method: "POST",
     mode: "same-origin",
-    credentials: "include"
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email,
+      password
+    })
   })
     .then(response => response.json())
     .then(json => {

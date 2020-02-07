@@ -24,7 +24,7 @@ export async function login(email, password) {
       jwt.sign(
         {
           id: user._id,
-          username: user.username
+          email: user.email
         },
         process.env.JWT_SECRET,
         {
