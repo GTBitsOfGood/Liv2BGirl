@@ -73,3 +73,37 @@ export async function verifyToken(token) {
     return Promise.reject(new Error("Invalid token!"));
   });
 }
+
+export async function follow(userId, username) {
+  await mongoDB();
+  // username added to userId's following
+  // userId added to username's follower
+
+  User.userId.update(
+    $push: {
+      following: [username]
+    }
+  );
+
+  User.username.update(
+    $push: {
+      follower: [userId]
+    }
+  );
+}
+
+export async function unfollow(userId, username) {
+  await mongoDB();
+  // "username" deleted from userId's following, "userId" deleted from username's follower reduces
+  User.userId.update(
+    $pull: {
+      following: [username]
+    }
+  );
+
+  User.username.update(
+    $pull: {
+      follower: [userId]
+    }
+  );
+}
