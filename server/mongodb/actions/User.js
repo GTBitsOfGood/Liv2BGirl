@@ -93,7 +93,8 @@ export async function follow(userId, username) {
 
 export async function unfollow(userId, username) {
   await mongoDB();
-  // "username" deleted from userId's following, "userId" deleted from username's follower reduces
+  // "username" deleted from userId's following
+  // "userId" deleted from username's follower reduces
   User.userId.update(
     $pull: {
       following: [username]
