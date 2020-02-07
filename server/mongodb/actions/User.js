@@ -78,7 +78,6 @@ export async function follow(userId, username) {
   await mongoDB();
   // username added to userId's following
   // userId added to username's follower
-
   User.userId.update(
     $push: {
       following: [username]
@@ -100,7 +99,6 @@ export async function unfollow(userId, username) {
       following: [username]
     }
   );
-
   User.username.update(
     $pull: {
       follower: [userId]
