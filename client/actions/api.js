@@ -17,3 +17,35 @@ export const helloWorld = () =>
 
       return json.payload;
     });
+
+export const signUp = (username, password, email, role, name) =>
+  fetch(urls.baseUrl + urls.api.signUp(), {
+    method: "post",
+    mode: "same-origin",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email,
+      password,
+      name,
+      role,
+      username
+    })
+  })
+    .then(response => {
+      console.log("Response:");
+      console.log(response);
+      response.json();
+    })
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+      console.log("JSON Payload:");
+      console.log(json.payload);
+      return json.payload;
+    });
