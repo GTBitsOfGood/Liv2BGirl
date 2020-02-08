@@ -34,28 +34,31 @@ export async function login(username, password) {
     );
 }
 
-export async function signUp(username, password) {
+export async function signUp(username, password, email, role, name) {
   await mongoDB();
 
-  return User.countDocuments({ username })
+  return User.countDocuments({ email })
     .then(count => {
       if (count) {
-        return Promise.reject(new Error("The username has already been used."));
+        return Promise.reject(new Error("This email has already been used."));
       }
 
       return bcrypt.hashSync(password, 10);
     })
     .then(hashedPassword =>
       User.create({
-        username,
-        password: hashedPassword
+        email,
+        name,
+        password: hashedPassword,
+        role,
+        username
       })
     )
     .then(user =>
       jwt.sign(
         {
           id: user._id,
-          name: user.name,
+          email: user.email,
           isAdmin: user.isAdmin
         },
         process.env.JWT_SECRET,
