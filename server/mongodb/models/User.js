@@ -3,19 +3,36 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
+  email: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  name: {
+    // admin/ambassador only
+    type: String
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  role: {
+    type: String,
+    required: true
+  },
   username: {
     type: String,
     required: true,
     index: true,
     unique: true
   },
-  password: {
-    type: String,
+  followers: {
+    type: [String],
     required: true
   },
-  isAdmin: {
-    type: Boolean,
-    default: false
+  following: {
+    type: [String],
+    required: true
   }
 });
 
