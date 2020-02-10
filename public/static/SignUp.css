@@ -1,0 +1,22 @@
+.button {
+    margin-left: 80px;
+    margin-top: 30px;
+    background-color: lightgray;
+    border-radius: 30px; 
+    text-align: center; 
+    width: 200px;
+    height: 50px;
+    border: lightgray;
+}
+
+.logo {
+    margin-left: 130px;
+    margin-top: 50px;
+    background-color: white;
+    border-radius: 100px; 
+    text-align: center; 
+    width: 100px;
+    height: 100px;
+    border: lightgray; 
+}
+

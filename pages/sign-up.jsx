@@ -1,27 +1,19 @@
 import React from "react";
+import { Button } from 'reactstrap';
+
+
 
 const SignUp = () =>  {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         username: '',
-    //         email: '',
-    //         password: ''
-    //     }
-        
-    // }
     
     return (
         <div>
-            <h1>
-                Sign Up
-            </h1>
+            <Button style = {{WebkitTextFillColor: "#111111", backgroundColor:"lightGray"}} className = "logo" disabled> Logo </Button> {' '}
             <form> 
-                <label style = {{marginRight:10}}>Username:</label>   <input type = "text" value = "Username"></input> <br></br>
-                <label style = {{marginRight:43}}>Email:</label>      <input type = "text" value = "Email" style = {{align:"right"}}></input> <br></br>
-                <label style = {{marginRight:12}}>Password: </label>  <input type = "text" value = "Password"></input> <br></br>
-                <label style = {{marginRight:32}}>Submit:</label>     <input type = "submit" value = "Submit"></input> 
+                <input style = {{borderTop:0, borderLeft:0, borderRight:0}} className="form-control transparent-input" type = "text" placeholder = "Email"></input> <br></br>
+                <input style = {{borderTop:0, borderLeft:0, borderRight:0}} className="form-control transparent-input" type = "text" placeholder = "Password"></input> <br></br>
+                <input style = {{borderTop:0, borderLeft:0, borderRight:0}} className="form-control transparent-input" type = "text" placeholder = "Invitation Code"></input> <br></br>
             </form>
+            <Button style = {{WebkitTextFillColor: "#111111"}} className = "button"> Sign Up </Button> {' '}
         </div>
     
     );

@@ -3,6 +3,8 @@ import React from "react";
 import Head from "next/head";
 import Header from "../client/components/Header";
 import "../public/static/App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "../public/static/SignUp.css";
 
 class MyApp extends App {
   render() {
