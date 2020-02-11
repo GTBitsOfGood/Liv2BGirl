@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import ProfilePage from "../../frontend/containers/Profile/ProfilePage";
+import ProfilePage from "../../frontend/components/Profile/ProfilePage";
 
 const Profile = () => {
   const router = useRouter();
