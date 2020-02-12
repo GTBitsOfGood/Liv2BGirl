@@ -35,8 +35,6 @@ export const signUp = (username, password, email, role, name) =>
     })
   })
     .then(response => {
-      console.log("Response:");
-      console.log(response);
       response.json();
     })
     .then(json => {
@@ -45,7 +43,5 @@ export const signUp = (username, password, email, role, name) =>
       } else if (!json.success) {
         throw new Error(json.message);
       }
-      console.log("JSON Payload:");
-      console.log(json.payload);
       return json.payload;
     });

@@ -2,6 +2,7 @@ import App from "next/app";
 import React from "react";
 import Head from "next/head";
 import Header from "../client/components/Header";
+import "bootstrap-css-only/css/bootstrap.min.css";
 import "../public/static/App.css";
 
 class MyApp extends App {
