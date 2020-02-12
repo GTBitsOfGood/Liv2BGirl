@@ -25,7 +25,11 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+<<<<<<< HEAD
     "bootstrap": "^4.4.1",
+=======
+    "bootstrap-css-only": "^4.4.1",
+>>>>>>> 646edff22d267ddf2827d6d73d6bc709afa8eba8
     "dotenv": "^8.2.0",
     "isomorphic-unfetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
