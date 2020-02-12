@@ -4,7 +4,7 @@ import { login } from "../../server/mongodb/actions/User";
 // @desc    Login Request
 // @access  Public
 const handler = (req, res) =>
-  login(req.body.username, req.body.password)
+  login(req.body.email, req.body.password)
     .then(user =>
       res.status(200).json({
         success: true,
