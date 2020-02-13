@@ -5,8 +5,8 @@ const { Schema } = mongoose;
 const UserSchema = new Schema({
   email: {
     type: String,
-    required: true,
-    unique: true
+    unique: true,
+    required: true
   },
   name: {
     // admin/ambassador only
@@ -23,8 +23,15 @@ const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
-    index: true,
     unique: true
+  },
+  followers: {
+    type: [String],
+    required: true
+  },
+  following: {
+    type: [String],
+    required: true
   }
 });
 
