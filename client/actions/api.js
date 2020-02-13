@@ -35,7 +35,7 @@ export const signUp = (username, password, email, role, name) =>
     })
   })
     .then(response => {
-      response.json();
+      return response.json();
     })
     .then(json => {
       if (json == null) {
