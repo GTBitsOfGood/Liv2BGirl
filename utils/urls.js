@@ -12,6 +12,7 @@ export default {
   },
   api: {
     example: () => "/api/example",
-    login: () => "/api/login"
+    login: () => "/api/login",
+    signUp : () => "/api/signUp"
   }
 };
