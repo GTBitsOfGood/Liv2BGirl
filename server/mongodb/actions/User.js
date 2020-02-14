@@ -78,16 +78,10 @@ export async function follow(userId, username) {
   await mongoDB();
   // username added to userId's following
   // userId added to username's follower
-  User.userId.update(
-    $push: {
-      following: [username]
-    }
-  );
-
-  User.username.update(
-    $push: {
-      follower: [userId]
-    }
+  await User.findByIdAndUpdate(userId,
+    { "$push": { "following": toFollowId }});
+  await User.findByIdAndUpdate(toFollowId,
+    { "$push": { "followers": userId } }
   );
 }
 
@@ -95,14 +89,10 @@ export async function unfollow(userId, username) {
   await mongoDB();
   // "username" deleted from userId's following
   // "userId" deleted from username's follower reduces
-  User.userId.update(
-    $pull: {
-      following: [username]
-    }
+  await User.findByIdAndUpdate(userId,
+    { "$pull": { "following": toUnfollowId } }
   );
-  User.username.update(
-    $pull: {
-      follower: [userId]
-    }
+  await User.findByIdAndUpdate(toUnfollowId,
+    { "$push": { "followers": userId } },
   );
 }
