@@ -11,12 +11,31 @@
 
 .logo {
     margin-left: 130px;
-    margin-top: 50px;
+    margin-top: 10px;
     background-color: white;
     border-radius: 100px; 
     text-align: center; 
     width: 100px;
     height: 100px;
     border: lightgray; 
+}
+
+.signUp {
+    margin-top: 20px;
+    margin-left: 115px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    font-size: x-small;
+
+}
+
+.signIn {
+    margin-top: 20px;
+    font-size: x-small;
+    padding-right: 15px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: lightgray;
+    border-color: lightgray;
 }
 
