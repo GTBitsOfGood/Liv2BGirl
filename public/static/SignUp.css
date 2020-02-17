@@ -29,6 +29,7 @@
 
 }
 
+
 .signIn {
     margin-top: 20px;
     font-size: x-small;
@@ -37,5 +38,8 @@
     border-bottom-right-radius: 30px;
     background-color: lightgray;
     border-color: lightgray;
+    color: darkgray;
+    
 }
+
 
