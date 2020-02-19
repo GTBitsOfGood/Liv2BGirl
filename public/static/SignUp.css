@@ -10,18 +10,19 @@
 }
 
 .logo {
-    margin-left: 130px;
+    margin-left: 145px;
     margin-top: 10px;
     background-color: white;
     border-radius: 100px; 
     text-align: center; 
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     border: lightgray; 
 }
 
 .signUp {
     margin-top: 20px;
+    height: 25px;
     margin-left: 115px;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -31,6 +32,7 @@
 
 
 .signIn {
+    height: 25px;
     margin-top: 20px;
     font-size: x-small;
     padding-right: 15px;

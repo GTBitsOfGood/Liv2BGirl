@@ -16,7 +16,7 @@ class MyApp extends App {
           <title>Liv2BGirl</title>
         </Head>
         <div className="App">
-          <Header />
+          
           <div className="Content">
             <Component {...pageProps} />
           </div>

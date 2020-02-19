@@ -8,7 +8,9 @@ export default {
   dbName: "liv2bgirl",
   pages: {
     index: "/",
-    ssr: "/ssr"
+    ssr: "/ssr",
+    signUp: "/sign-up",
+    signIn: "/sign-in"
   },
   api: {
     example: () => "/api/example",
