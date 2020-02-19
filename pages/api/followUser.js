@@ -4,7 +4,7 @@ import { follow } from "../../server/example/actions/User";
 // @desc    Follow Request
 // @access  Public
 const handler = (req, res) =>
-  follow(req.body.userId, req.body.username)
+  follow(req.body.userId, req.body.toFollowId)
     .then(user =>
       res.status(200).json({
         success: true,
