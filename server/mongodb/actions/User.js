@@ -74,7 +74,7 @@ export async function verifyToken(token) {
   });
 }
 
-export async function follow(userId, username) {
+export async function follow(userId, toFollowId) {
   await mongoDB();
   // username added to userId's following
   // userId added to username's follower
@@ -85,7 +85,7 @@ export async function follow(userId, username) {
   );
 }
 
-export async function unfollow(userId, username) {
+export async function unfollow(userId, toUnfollowId) {
   await mongoDB();
   // "username" deleted from userId's following
   // "userId" deleted from username's follower reduces
