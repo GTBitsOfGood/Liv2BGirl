@@ -29,9 +29,12 @@ const UserSchema = new Schema({
     type: [String],
     required: true
   },
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
   following: {
     type: [String],
-    required: true
   }
 });
 
