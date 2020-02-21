@@ -1,4 +1,4 @@
-import { follow } from "../../server/example/actions/User";
+import { follow } from "../../server/mongodb/actions/User";
 
 // @route   POST api/follow
 // @desc    Follow Request
