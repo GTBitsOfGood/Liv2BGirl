@@ -1,10 +1,10 @@
-import { unfollow } from "../../server/example/actions/User";
+import { unfollow } from "../../server/mongodb/actions/User";
 
 // @route   POST api/unfollow
 // @desc    Unfollow Request
 // @access  Public
 const handler = (req, res) =>
-  follow(req.body.userId, req.body.toUnfollowId)
+  unfollow(req.body.userId, req.body.toUnfollowId)
     .then(user =>
       res.status(200).json({
         success: true,
