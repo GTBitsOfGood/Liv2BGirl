@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from 'reactstrap';
-import { Link } from 'next/Link';
+import { Link } from 'next/link';
 import urls from '../utils/urls';
 
 
