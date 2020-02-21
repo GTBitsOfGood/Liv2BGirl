@@ -34,7 +34,7 @@ const UserSchema = new Schema({
     default: false
   },
   following: {
-    type: [String],
+    type: [String]
   }
 });
 

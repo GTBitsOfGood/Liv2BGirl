@@ -10,11 +10,12 @@ export default {
     index: "/",
     ssr: "/ssr",
     signUp: "/sign-up",
-    signIn: "/sign-in"
+    signIn: "/sign-in",
+    avatar: "/avatar"
   },
   api: {
     example: () => "/api/example",
     login: () => "/api/login",
-    signUp : () => "/api/signUp"
+    signUp: () => "/api/signUp"
   }
 };

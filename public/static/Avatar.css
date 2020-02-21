@@ -1,0 +1,19 @@
+.color {
+    height: 50px;
+    width: 50px;
+    background-color: #E0E0E0;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .avatar-logo {
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 100px;
+    text-align: center;
+    width: 125px;
+    height: 125px;
+    border: lightgray;
+  }

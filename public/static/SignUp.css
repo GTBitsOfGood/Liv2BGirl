@@ -1,47 +1,51 @@
 .button {
-    margin-left: 80px;
+    display: block;
+    margin: 0 auto;
     margin-top: 30px;
     background-color: lightgray;
-    border-radius: 30px; 
-    text-align: center; 
+    border-radius: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 200px;
     height: 50px;
     border: lightgray;
 }
 
 .logo {
-    margin-left: 145px;
+    display: block;
+    margin: 0 auto;
     margin-top: 10px;
     background-color: white;
-    border-radius: 100px; 
-    text-align: center; 
+    border-radius: 100px;
+    text-align: center;
     width: 75px;
     height: 75px;
-    border: lightgray; 
+    border: lightgray;
 }
 
 .signUp {
-    margin-top: 20px;
     height: 25px;
-    margin-left: 115px;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     font-size: x-small;
 
 }
 
-
 .signIn {
     height: 25px;
-    margin-top: 20px;
-    font-size: x-small;
-    padding-right: 15px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
+    font-size: x-small;
     background-color: lightgray;
     border-color: lightgray;
     color: darkgray;
-    
 }
 
-
+.signin-group {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    text-align: center;
+}
