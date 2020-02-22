@@ -6,7 +6,6 @@ import urls from "../utils/urls";
 const SignUp = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [invCode, setInvCode] = React.useState("");
 
   return (
     <div>
@@ -18,15 +17,15 @@ const SignUp = () => {
         {" Logo "}
       </Button>
       <br />
-      <Button
-        tag={Link}
-        href={urls.pages.signUp}
-        color="primary"
-        className="signUp"
-      >
+      <Button tag={Link} href={urls.pages.signUp} className="signUp">
         {" SIGN UP "}
       </Button>
-      <Button tag={Link} href={urls.pages.signIn} className="signIn">
+      <Button
+        tag={Link}
+        href={urls.pages.signIn}
+        color="primary"
+        className="signIn"
+      >
         {" SIGN IN "}
       </Button>
       <form>
@@ -46,23 +45,14 @@ const SignUp = () => {
           }}
           style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
           className="form-control transparent-input"
-          type="text"
+          type="password"
           placeholder="Password"
         />
         <br />
-        <input
-          onChange={event => {
-            setInvCode(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="text"
-          placeholder="Invitation Code"
-        />
         <br />
       </form>
       <Button style={{ WebkitTextFillColor: "#111111" }} className="button">
-        {" Sign Up "}
+        {" Sign In"}
       </Button>
     </div>
   );
