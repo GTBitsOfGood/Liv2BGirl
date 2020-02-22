@@ -1,5 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import cookie from "js-cookie";
+import Router from "next/router";
 import mongoDB from "../index";
 import User from "../models/User";
 
@@ -74,6 +76,14 @@ export async function signUp(
       )
     );
 }
+
+export const signOut = () => {
+  cookie.remove("token");
+
+  return Router.push({
+    pathname: "/"
+  });
+};
 
 export async function verifyToken(token) {
   return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
