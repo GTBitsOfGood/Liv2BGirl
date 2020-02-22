@@ -1,9 +1,11 @@
 import React from "react";
 import { Button } from "reactstrap";
 import { Link } from "next/link";
+import { signUp } from "../client/actions/api";
 import urls from "../utils/urls";
 
 const SignUp = () => {
+  const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [invCode, setInvCode] = React.useState("");
@@ -32,6 +34,16 @@ const SignUp = () => {
       <form>
         <input
           onChange={event => {
+            setUsername(event.target.value);
+          }}
+          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
+          className="form-control transparent-input"
+          type="text"
+          placeholder="Username"
+        />
+        <br />
+        <input
+          onChange={event => {
             setEmail(event.target.value);
           }}
           style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
@@ -46,7 +58,7 @@ const SignUp = () => {
           }}
           style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
           className="form-control transparent-input"
-          type="text"
+          type="password"
           placeholder="Password"
         />
         <br />
@@ -61,10 +73,15 @@ const SignUp = () => {
         />
         <br />
       </form>
-      <Button style={{ WebkitTextFillColor: "#111111" }} className="button">
+      <Button
+        style={{ WebkitTextFillColor: "#111111" }}
+        className="button"
+        onClick={() => signUp(username, password, email)}
+      >
         {" Sign Up "}
       </Button>
     </div>
   );
 };
+
 export default SignUp;

@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "reactstrap";
 import { Link } from "next/link";
 import urls from "../utils/urls";
+import { login } from "../client/actions/api";
 
 const SignUp = () => {
   const [email, setEmail] = React.useState("");
@@ -51,7 +52,11 @@ const SignUp = () => {
         <br />
         <br />
       </form>
-      <Button style={{ WebkitTextFillColor: "#111111" }} className="button">
+      <Button
+        style={{ WebkitTextFillColor: "#111111" }}
+        className="button"
+        onClick={() => login(email, password)}
+      >
         {" Sign In"}
       </Button>
     </div>
