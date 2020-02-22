@@ -1,4 +1,6 @@
 import fetch from "isomorphic-unfetch";
+import Router from "next/router";
+import cookie from "js-cookie";
 import urls from "../../utils/urls";
 
 export const helloWorld = () =>
@@ -67,3 +69,11 @@ export const login = (email, password) =>
 
       return json.payload;
     });
+
+export const signOut = () => {
+  cookie.remove("token");
+
+  return Router.push({
+    pathname: "/"
+  });
+};

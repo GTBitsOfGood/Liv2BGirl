@@ -1,14 +1,24 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { Button } from "reactstrap";
 import { Link } from "next/link";
 import { signUp } from "../client/actions/api";
 import urls from "../utils/urls";
 
 const SignUp = () => {
+  const router = useRouter();
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [invCode, setInvCode] = React.useState("");
+
+  const handleSignUp = async () => {
+    await signUp(username, password, email);
+
+    return router.push({
+      pathname: urls.pages.index
+    });
+  };
 
   return (
     <div>
@@ -76,7 +86,7 @@ const SignUp = () => {
       <Button
         style={{ WebkitTextFillColor: "#111111" }}
         className="button"
-        onClick={() => signUp(username, password, email)}
+        onClick={handleSignUp}
       >
         {" Sign Up "}
       </Button>

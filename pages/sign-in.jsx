@@ -1,12 +1,22 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { Button } from "reactstrap";
 import { Link } from "next/link";
-import urls from "../utils/urls";
 import { login } from "../client/actions/api";
+import urls from "../utils/urls";
 
 const SignUp = () => {
+  const router = useRouter();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  const handleLogin = async () => {
+    await login(email, password);
+
+    return router.push({
+      pathname: urls.pages.index
+    });
+  };
 
   return (
     <div>
@@ -55,7 +65,7 @@ const SignUp = () => {
       <Button
         style={{ WebkitTextFillColor: "#111111" }}
         className="button"
-        onClick={() => login(email, password)}
+        onClick={handleLogin}
       >
         {" Sign In"}
       </Button>
