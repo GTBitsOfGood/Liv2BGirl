@@ -9,7 +9,9 @@ export default {
   pages: {
     index: "/",
     ssr: "/ssr",
-    profile: "/profile"
+    profile: "/profile",
+    signUp: "/sign-up",
+    signIn: "/sign-in"
   },
   api: {
     example: () => "/api/example",
