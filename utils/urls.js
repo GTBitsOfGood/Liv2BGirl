@@ -14,6 +14,6 @@ export default {
   api: {
     example: () => "/api/example",
     login: () => "/api/login",
-    signUp : () => "/api/signUp"
+    signUp: () => "/api/signUp"
   }
 };
