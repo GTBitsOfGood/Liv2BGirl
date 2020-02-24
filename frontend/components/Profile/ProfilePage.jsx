@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {
   Row,
   Col,
+  Button,
   Card,
   CardImg,
   CardText,
@@ -15,77 +16,66 @@ const ProfilePage = props => {
 
   return (
     <div>
-      <Row
-        className="bg-secondary"
-        style={{ textAlign: "center", verticalAlign: "middle" }}
-      >
-        <div className="mt-3">
+      <Row className="bg-secondary" style={{ verticalAlign: "middle" }}>
+        <Col xs="5">
           <img
-            style={{ width: "10em", borderRadius: "50%" }}
+            className="mt-4 ml-2"
+            style={{ width: "7em", borderRadius: "50%" }}
             src="https://picsum.photos/200/200"
             alt="Avatar"
           />
-          <br />
-          <h1 className="text-white">{userid}</h1>
-          <p className="text-white">15 yo * 10th Grade</p>
-          <p className="text-white">Bio:</p>
-          <p className="text-white ml-5 mr-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-        </div>
+        </Col>
+        <Col>
+          <div className="mt-3">
+            <p className="text-black font-weight-bold">{userid}</p>
+            <p className="text-white">15 yo * 10th Grade</p>
+            <p className="text-white">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            </p>
+          </div>
+        </Col>
         <Col sm="4" />
       </Row>
-      <Row className="mt-3">
+      <Row className="mt-3 ml-3">
         <div display="table-cell" vertical-align="middle">
-          <h3>Interests</h3>
+          <h3>Interests:</h3>
         </div>
       </Row>
-      <Row className="mb-5 mt-2">
-        <CardDeck>
-          <Card className="rounded-pill clickable" style={{ width: "18rem" }}>
-            <CardBody>
-              <CardText>Swimming</CardText>
-            </CardBody>
-          </Card>
-          <Card className="rounded-pill">
-            <CardBody>
-              <CardText>Dancing</CardText>
-            </CardBody>
-          </Card>
-          <Card className="rounded-pill">
-            <CardBody>
-              <CardText>Netflix</CardText>
-            </CardBody>
-          </Card>
-          <Card className="rounded-pill">
-            <CardBody>
-              <CardText>Music</CardText>
-            </CardBody>
-          </Card>
-          <Card className="rounded-pill" width="50%">
-            <CardBody>
-              <CardText>College</CardText>
-            </CardBody>
-          </Card>
-        </CardDeck>
+      <Row className="mb-5 mt-2 ml-3" style={{ flexDirection: "row" }}>
+        <Button
+          className="bg-white text-dark mr-2"
+          style={{ borderRadius: "48%" }}
+        >
+          Swimming
+        </Button>
+        <Button
+          className="bg-white text-dark mr-2"
+          style={{ borderRadius: "48%" }}
+        >
+          Crying
+        </Button>
+        <Button
+          className="bg-white text-dark mr-2"
+          style={{ borderRadius: "48%" }}
+        >
+          College
+        </Button>
       </Row>
       <Row className="ml-3">
         <div display="table-cell" vertical-align="middle">
-          <h3>Followers</h3>
+          <h3>Followers:</h3>
         </div>
       </Row>
-      <Row className="scrollable-box ml-3">
+      <Row className="ml-3">
         <CardDeck
           style={{
-            justifyContent: "center",
+            justifyContent: "",
             display: "flex",
+            overflowX: "scroll",
             flexDirection: "row"
           }}
         >
-          <Card style={{ flexBasis: "55%" }}>
+          <Card style={{ flex: "0 0 30%" }}>
             <CardImg
               top
               width="100%"
@@ -96,7 +86,7 @@ const ProfilePage = props => {
               <CardText>Sarah</CardText>
             </CardBody>
           </Card>
-          <Card style={{ flexBasis: "55%" }}>
+          <Card style={{ flex: "0 0 30%" }}>
             <CardImg
               top
               width="100%"
@@ -107,7 +97,7 @@ const ProfilePage = props => {
               <CardText>Jessica</CardText>
             </CardBody>
           </Card>
-          <Card style={{ flexBasis: "55%" }}>
+          <Card style={{ flex: "0 0 30%" }}>
             <CardImg
               top
               width="100%"
@@ -118,7 +108,7 @@ const ProfilePage = props => {
               <CardText>Tiffany</CardText>
             </CardBody>
           </Card>
-          <Card style={{ flexBasis: "55%" }}>
+          <Card style={{ flex: "0 0 30%" }}>
             <CardImg
               top
               width="100%"
@@ -129,7 +119,7 @@ const ProfilePage = props => {
               <CardText>Mel</CardText>
             </CardBody>
           </Card>
-          <Card style={{ flexBasis: "55%" }}>
+          <Card style={{ flex: "0 0 30%" }}>
             <CardImg
               top
               width="100%"
@@ -137,41 +127,41 @@ const ProfilePage = props => {
               alt="Card image cap"
             />
             <CardBody>
-              <CardText>Laine</CardText>
+              <CardText>Laura</CardText>
             </CardBody>
           </Card>
-          <Card style={{ flexBasis: "55%" }}>
-            <CardImg
-              top
-              width="100%"
-              src="https://picsum.photos/200/200?image=60"
-              alt="Card image cap"
-            />
-            <CardBody>
-              <CardText>Sarah</CardText>
-            </CardBody>
+        </CardDeck>
+      </Row>
+      <Row className="ml-3 mt-5">
+        <div display="table-cell" vertical-align="middle">
+          <h3>Joined Groups:</h3>
+        </div>
+      </Row>
+      <Row className="ml-3">
+        <CardDeck>
+          <Card>
+            <div className="row card-body">
+              <img width="70em" src="https://picsum.photos/200/200?image=75" alt=""/>
+              <Col>
+                <CardText>Group Name 1</CardText>
+              </Col>
+            </div>
           </Card>
-          <Card style={{ flexBasis: "55%" }}>
-            <CardImg
-              top
-              width="100%"
-              src="https://picsum.photos/200/200?image=70"
-              alt="Card image cap"
-            />
-            <CardBody>
-              <CardText>Sarah</CardText>
-            </CardBody>
+          <Card>
+            <div className="row card-body">
+              <img width="70em" src="https://picsum.photos/200/200?image=85" alt=""/>
+              <Col>
+                <CardText>Group Name 2</CardText>
+              </Col>
+            </div>
           </Card>
-          <Card style={{ flexBasis: "55%" }}>
-            <CardImg
-              top
-              width="100%"
-              src="https://picsum.photos/200/200?image=80"
-              alt="Card image cap"
-            />
-            <CardBody>
-              <CardText>Jane</CardText>
-            </CardBody>
+          <Card>
+            <div className="row card-body">
+              <img width="70em" src="https://picsum.photos/200/200?image=95" alt=""/>
+              <Col>
+                <CardText>Group Name 3</CardText>
+              </Col>
+            </div>
           </Card>
         </CardDeck>
       </Row>
