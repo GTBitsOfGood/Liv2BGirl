@@ -66,7 +66,7 @@ const ProfilePage = props => {
           <h3>Followers:</h3>
         </div>
       </Row>
-      <Row className="ml-3">
+      <Row className="ml-3 mr-3">
         <CardDeck
           style={{
             justifyContent: "",
@@ -75,7 +75,7 @@ const ProfilePage = props => {
             flexDirection: "row"
           }}
         >
-          <Card style={{ flex: "0 0 30%" }}>
+          <Card style={{ flex: "0 0 40%" }}>
             <CardImg
               top
               width="100%"
@@ -86,7 +86,7 @@ const ProfilePage = props => {
               <CardText>Sarah</CardText>
             </CardBody>
           </Card>
-          <Card style={{ flex: "0 0 30%" }}>
+          <Card style={{ flex: "0 0 40%" }}>
             <CardImg
               top
               width="100%"
@@ -97,7 +97,7 @@ const ProfilePage = props => {
               <CardText>Jessica</CardText>
             </CardBody>
           </Card>
-          <Card style={{ flex: "0 0 30%" }}>
+          <Card style={{ flex: "0 0 40%" }}>
             <CardImg
               top
               width="100%"
@@ -108,7 +108,7 @@ const ProfilePage = props => {
               <CardText>Tiffany</CardText>
             </CardBody>
           </Card>
-          <Card style={{ flex: "0 0 30%" }}>
+          <Card style={{ flex: "0 0 40%" }}>
             <CardImg
               top
               width="100%"
@@ -119,7 +119,7 @@ const ProfilePage = props => {
               <CardText>Mel</CardText>
             </CardBody>
           </Card>
-          <Card style={{ flex: "0 0 30%" }}>
+          <Card style={{ flex: "0 0 40%" }}>
             <CardImg
               top
               width="100%"
