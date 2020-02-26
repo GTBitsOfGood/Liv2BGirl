@@ -1,5 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import cookie from "js-cookie";
+import Router from "next/router";
 import mongoDB from "../index";
 import User from "../models/User";
 
@@ -34,7 +36,13 @@ export async function login(email, password) {
     );
 }
 
-export async function signUp(username, password, email, role, name) {
+export async function signUp(
+  username,
+  password,
+  email,
+  role = "User",
+  name = ""
+) {
   await mongoDB();
 
   return User.countDocuments({ email })
@@ -69,10 +77,34 @@ export async function signUp(username, password, email, role, name) {
     );
 }
 
+export const signOut = () => {
+  cookie.remove("token");
+
+  return Router.push({
+    pathname: "/"
+  });
+};
+
 export async function verifyToken(token) {
   return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (decoded) return Promise.resolve(decoded);
 
     return Promise.reject(new Error("Invalid token!"));
   });
+}
+
+export async function follow(userId, toFollowId) {
+  await mongoDB();
+  // username added to userId's following
+  // userId added to username's follower
+  await User.findByIdAndUpdate(userId, { $push: { following: toFollowId } });
+  await User.findByIdAndUpdate(toFollowId, { $push: { followers: userId } });
+}
+
+export async function unfollow(userId, toUnfollowId) {
+  await mongoDB();
+  // "username" deleted from userId's following
+  // "userId" deleted from username's follower reduces
+  await User.findByIdAndUpdate(userId, { $pull: { following: toUnfollowId } });
+  await User.findByIdAndUpdate(toUnfollowId, { $push: { followers: userId } });
 }

@@ -5,6 +5,7 @@ import Header from "../client/components/Header";
 import NavBar from "../client/components/NavBar";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "../public/static/App.css";
+import "../public/static/SignUp.css";
 
 class MyApp extends App {
   render() {
@@ -21,7 +22,6 @@ class MyApp extends App {
         </Head>
 
         <div className="App">
-          <Header />
           <div className="Content">
             <Component {...pageProps} />
           </div>
