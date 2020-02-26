@@ -1,0 +1,11 @@
+.navBarButton {
+    height: 25px;
+    width: 25px;
+    border-radius: 5px;
+    background: #E0E0E0 !important;
+    border-color: #E0E0E0 !important;
+}
+
+.navBarButtonHeader {
+    font-size: 12px;
+}

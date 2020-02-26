@@ -1,5 +1,5 @@
 body {
-    font-family: sans-serif;
+    font-family: "Poppins";
 }
 
 html, body, #__next {
@@ -24,3 +24,5 @@ html, body, #__next {
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+
