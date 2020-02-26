@@ -20,7 +20,7 @@ const NavBar = () => (
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginRight: "16px"
+          marginRight: "19px"
         }}
       >
         <NavLink href="http://localhost:3000">
@@ -35,7 +35,7 @@ const NavBar = () => (
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginRight: "13px"
+          marginRight: "16px"
         }}
       >
         <NavLink href="http://localhost:3000">
@@ -64,7 +64,8 @@ const NavBar = () => (
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginLeft: "-6px"
+          marginLeft: "-1px",
+          marginRight: "-16px"
         }}
       >
         <NavLink href="http://localhost:3000">
