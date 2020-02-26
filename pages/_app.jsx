@@ -1,7 +1,6 @@
 import App from "next/app";
 import React from "react";
 import Head from "next/head";
-import Header from "../client/components/Header";
 import NavBar from "../client/components/NavBar";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "../public/static/App.css";
