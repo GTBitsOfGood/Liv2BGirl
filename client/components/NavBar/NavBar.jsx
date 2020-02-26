@@ -11,7 +11,7 @@ const NavBar = () => (
         dislay: "flex",
         flexDirection: "row",
         justifyContent: "space-around",
-        width: "100%"
+        width: "100%",
       }}
     >
       <NavItem
@@ -20,8 +20,7 @@ const NavBar = () => (
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginRight: "10px",
-          marginLeft: "5px"
+          marginRight: "16px"
         }}
       >
         <NavLink href="http://localhost:3000">
