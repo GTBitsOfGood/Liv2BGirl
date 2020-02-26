@@ -37,7 +37,7 @@ const NavBar = () => (
         }}
       >
         <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton}> </Button>
+          <Button className={style.navBarButton} />
 {" "}
         </NavLink>
         <header className={style.navBarButtonHeader}>Group</header>

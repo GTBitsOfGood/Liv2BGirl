@@ -18,7 +18,6 @@ class MyApp extends App {
             href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
             rel="stylesheet"
           />
-          >
         </Head>
 
         <div className="App">
