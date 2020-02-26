@@ -14,7 +14,6 @@ export default {
     signIn: "/sign-in"
   },
   api: {
-    example: () => "/api/example",
     login: () => "/api/login",
     signUp: () => "/api/signUp"
   }

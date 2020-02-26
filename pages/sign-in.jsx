@@ -2,18 +2,16 @@ import React from "react";
 import { useRouter } from "next/router";
 import { Button } from "reactstrap";
 import { Link } from "next/link";
-import { signUp } from "../client/actions/api";
+import { login } from "../client/actions/api";
 import urls from "../utils/urls";
 
 const SignUp = () => {
   const router = useRouter();
-  const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [invCode, setInvCode] = React.useState("");
 
-  const handleSignUp = async () => {
-    await signUp(username, password, email);
+  const handleLogin = async () => {
+    await login(email, password);
 
     return router.push({
       pathname: urls.pages.index
@@ -30,28 +28,18 @@ const SignUp = () => {
         {" Logo "}
       </Button>
       <br />
-      <Button
-        tag={Link}
-        href={urls.pages.signUp}
-        color="primary"
-        className="signUp"
-      >
+      <Button tag={Link} href={urls.pages.signUp} className="signUp">
         {" SIGN UP "}
       </Button>
-      <Button tag={Link} href={urls.pages.signIn} className="signIn">
+      <Button
+        tag={Link}
+        href={urls.pages.signIn}
+        color="primary"
+        className="signIn"
+      >
         {" SIGN IN "}
       </Button>
       <form>
-        <input
-          onChange={event => {
-            setUsername(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="text"
-          placeholder="Username"
-        />
-        <br />
         <input
           onChange={event => {
             setEmail(event.target.value);
@@ -72,26 +60,16 @@ const SignUp = () => {
           placeholder="Password"
         />
         <br />
-        <input
-          onChange={event => {
-            setInvCode(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="text"
-          placeholder="Invitation Code"
-        />
         <br />
       </form>
       <Button
         style={{ WebkitTextFillColor: "#111111" }}
         className="button"
-        onClick={handleSignUp}
+        onClick={handleLogin}
       >
-        {" Sign Up "}
+        {" Sign In"}
       </Button>
     </div>
   );
 };
-
 export default SignUp;
