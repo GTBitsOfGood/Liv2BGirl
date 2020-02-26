@@ -38,7 +38,7 @@ const ProfilePage = props => {
       </Row>
       <Row className="mt-3 ml-3">
         <div display="table-cell" vertical-align="middle">
-          <h3>Interests:</h3>
+          <h5>Interests</h5>
         </div>
       </Row>
       <Row className="mb-5 mt-2 ml-3" style={{ flexDirection: "row" }}>
@@ -63,7 +63,7 @@ const ProfilePage = props => {
       </Row>
       <Row className="ml-3">
         <div display="table-cell" vertical-align="middle">
-          <h3>Followers:</h3>
+          <h5>Subscriptions</h5>
         </div>
       </Row>
       <Row className="ml-3 mr-3">
@@ -132,9 +132,9 @@ const ProfilePage = props => {
           </Card>
         </CardDeck>
       </Row>
-      <Row className="ml-3 mt-5">
+      <Row className="ml-3 mt-4">
         <div display="table-cell" vertical-align="middle">
-          <h3>Joined Groups:</h3>
+          <h5>Joined Groups</h5>
         </div>
       </Row>
       <Row className="ml-3">
