@@ -8,6 +8,8 @@ export default {
   dbName: "liv2bgirl",
   pages: {
     index: "/",
+    ssr: "/ssr",
+    profile: "/profile",
     signUp: "/sign-up",
     signIn: "/sign-in"
   },
