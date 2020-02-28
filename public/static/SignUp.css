@@ -5,9 +5,12 @@
     background-color: lightgray;
     border-radius: 30px;
     text-align: center;
+<<<<<<< HEAD
     display: flex;
     flex-direction: column;
     justify-content: center;
+=======
+>>>>>>> b627e6e5bdf511a75be9820cecd2751d75b944ae
     width: 200px;
     height: 50px;
     border: lightgray;
@@ -30,17 +33,19 @@
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     font-size: x-small;
-
 }
 
 .signIn {
     height: 25px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
+<<<<<<< HEAD
     font-size: x-small;
     background-color: lightgray;
     border-color: lightgray;
     color: darkgray;
+=======
+>>>>>>> b627e6e5bdf511a75be9820cecd2751d75b944ae
 }
 
 .signin-group {
