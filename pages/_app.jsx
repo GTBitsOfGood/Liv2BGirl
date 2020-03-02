@@ -5,7 +5,7 @@ import Header from "../client/components/Header";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "../public/static/App.css";
 import "../public/static/SignUp.css";
-import "../public/static/Username.css";
+
 
 
 class MyApp extends App {

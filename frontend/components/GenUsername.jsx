@@ -8,7 +8,7 @@ const GenUsername = props => {
   const [describe, setDescribe] = React.useState("");
   const [like, setLike] = React.useState("");
   const [lucky, setLucky] = React.useState("");
-  var genUser = describe.substring(0, 2) + like.substring(0, 2) + lucky.substring(0, 2) + Math.floor(Math.random() * 10)
+  let genUser = describe.substring(0, 2) + like.substring(0, 2) + lucky.substring(0, 2) + Math.floor(Math.random() * 10)
   const [generate, setGenerate] = React.useState(false);
 
 
@@ -19,15 +19,15 @@ const GenUsername = props => {
         <Form>
         <FormGroup>
             <Label>Describe yourself in one word: </Label>
-            <Input onChange={(event) => { setDescribe(event.target.value)}} style={{height:35}} name="email"/>
+            <Input onClick={() => {setGenerate(false)}} onChange={(event) => { setDescribe(event.target.value)}} style={{height:35}} name="email"/>
         </FormGroup>
         <FormGroup>
             <Label> One thing you like:</Label>
-            <Input onChange={(event) => { setLike(event.target.value)}} style={{height:35}} name="password"/>
+            <Input onClick={() => {setGenerate(false)}} onChange={(event) => { setLike(event.target.value)}} style={{height:35}} name="password"/>
         </FormGroup>
         <FormGroup>
             <Label>Your lucky number: </Label>
-            <Input onChange={(event) => { setLucky(event.target.value)}} style={{height:35}} name="select">
+            <Input onClick={() => {setGenerate(false)}} onChange={(event) => { setLucky(event.target.value)}} style={{height:35}} name="select">
             </Input>
         </FormGroup>
         </Form>
@@ -35,7 +35,7 @@ const GenUsername = props => {
         <br></br>
         <Label style={{marginTop:10}}>Pick your username: </Label> 
         <br></br>
-        {generate &&
+        {generate && 
           <Button style={{WebkitBorderRadius: 30, color:'white'}}> {genUser} </Button>
         }
     </div>
