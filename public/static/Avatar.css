@@ -1,7 +1,6 @@
 .color {
-    height: 50px;
-    width: 50px;
-    background-color: #E0E0E0;
+    height: 100px;
+    width: 100px;
     border-radius: 50%;
     display: inline-block;
   }

@@ -1,10 +1,7 @@
 import App from "next/app";
 import React from "react";
 import Head from "next/head";
-<<<<<<< HEAD
-=======
 import NavBar from "../client/components/NavBar";
->>>>>>> b627e6e5bdf511a75be9820cecd2751d75b944ae
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
