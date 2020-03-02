@@ -9,12 +9,12 @@ export default {
   pages: {
     index: "/",
     ssr: "/ssr",
+    profile: "/profile",
     signUp: "/sign-up",
     signIn: "/sign-in"
   },
   api: {
-    example: () => "/api/example",
     login: () => "/api/login",
-    signUp : () => "/api/signUp"
+    signUp: () => "/api/signUp"
   }
 };
