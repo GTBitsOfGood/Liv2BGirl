@@ -2,13 +2,8 @@
     margin-left: 80px;
     margin-top: 30px;
     background-color: lightgray;
-<<<<<<< HEAD
-    border-radius: 30px; 
-    text-align: center; 
-=======
     border-radius: 30px;
     text-align: center;
->>>>>>> b072c36d98093f916e79d351a6267e5c99fd4370
     width: 200px;
     height: 50px;
     border: lightgray;
@@ -18,19 +13,11 @@
     margin-left: 145px;
     margin-top: 10px;
     background-color: white;
-<<<<<<< HEAD
-    border-radius: 100px; 
-    text-align: center; 
-    width: 75px;
-    height: 75px;
-    border: lightgray; 
-=======
     border-radius: 100px;
     text-align: center;
     width: 75px;
     height: 75px;
     border: lightgray;
->>>>>>> b072c36d98093f916e79d351a6267e5c99fd4370
 }
 
 .signUp {
@@ -40,10 +27,6 @@
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     font-size: x-small;
-<<<<<<< HEAD
-
-=======
->>>>>>> b072c36d98093f916e79d351a6267e5c99fd4370
 }
 
 
@@ -54,15 +37,6 @@
     padding-right: 15px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
-<<<<<<< HEAD
-    background-color: lightgray;
-    border-color: lightgray;
-    color: darkgray;
-    
-}
-
-
-=======
 }
 
 .button-pills .btn {
@@ -81,4 +55,3 @@
      color: #FFF;
      box-shadow: none;
 }
->>>>>>> b072c36d98093f916e79d351a6267e5c99fd4370
