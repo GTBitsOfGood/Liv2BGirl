@@ -8,7 +8,8 @@ const GenUsername = props => {
   const [like, setLike] = React.useState("");
   const [lucky, setLucky] = React.useState("");
   const [username, setUsername] = React.useState("");
-  
+  const [generate, setGenerate] = React.useState(false);
+
   function genUser() {
     let randDescBeg = Math.floor(Math.random() * 2);
     let randLikeBeg = Math.floor(Math.random() * 2);
@@ -19,7 +20,6 @@ const GenUsername = props => {
     return username;
   }
   
-  const [generate, setGenerate] = React.useState(false);
   const descriptions = ["", "Kind", "Cool", "Bubbly", "Neat", "Brave", "Social", "Eager",  "Giving", 
   "Shy", "Friendly"];
   const favThings = ["", "Dogs", "Biking", "Bowling", "Reading", "Sports", "Skating", "Cats",  "Movies", 
