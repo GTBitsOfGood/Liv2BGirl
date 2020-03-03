@@ -1,4 +1,4 @@
-const prod = process.env.NODE_ENV === "production";
+const prod = process.env.NODE_ENV === "production"
 
 export default {
   baseUrl: prod ? "https://liv2bgirl.now.sh" : "http://localhost:3000",
@@ -11,10 +11,10 @@ export default {
     ssr: "/ssr",
     profile: "/profile",
     signUp: "/sign-up",
-    signIn: "/sign-in"
+    signIn: "/sign-in",
   },
   api: {
     login: () => "/api/login",
-    signUp: () => "/api/signUp"
-  }
-};
+    signUp: () => "/api/signUp",
+  },
+}

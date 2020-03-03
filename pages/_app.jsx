@@ -1,14 +1,14 @@
-import App from "next/app";
-import React from "react";
-import Head from "next/head";
-import NavBar from "../client/components/NavBar";
-import "bootstrap-css-only/css/bootstrap.min.css";
-import "../public/static/App.css";
-import "../public/static/SignUp.css";
+import App from "next/app"
+import React from "react"
+import Head from "next/head"
+import NavBar from "../client/components/NavBar"
+import "bootstrap-css-only/css/bootstrap.min.css"
+import "../public/static/App.css"
+import "../public/static/SignUp.css"
 
 class MyApp extends App {
   render() {
-    const { Component, pageProps, router } = this.props;
+    const { Component, pageProps, router } = this.props
 
     return (
       <>
@@ -27,7 +27,7 @@ class MyApp extends App {
         </div>
         {!["/sign-up", "/sign-in"].includes(router.asPath) && <NavBar />}
       </>
-    );
+    )
   }
 }
-export default MyApp;
+export default MyApp

@@ -1,24 +1,24 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { Button } from "reactstrap";
-import { Link } from "next/link";
-import { signUp } from "../client/actions/api";
-import urls from "../utils/urls";
+import React from "react"
+import { useRouter } from "next/router"
+import { Button } from "reactstrap"
+import { Link } from "next/link"
+import { signUp } from "../client/actions/api"
+import urls from "../utils/urls"
 
 const SignUp = () => {
-  const router = useRouter();
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [invCode, setInvCode] = React.useState("");
+  const router = useRouter()
+  const [username, setUsername] = React.useState("")
+  const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
+  const [invCode, setInvCode] = React.useState("")
 
   const handleSignUp = async () => {
-    await signUp(username, password, email);
+    await signUp(username, password, email)
 
     return router.push({
-      pathname: urls.pages.index
-    });
-  };
+      pathname: urls.pages.index,
+    })
+  }
 
   return (
     <div>
@@ -44,7 +44,7 @@ const SignUp = () => {
       <form>
         <input
           onChange={event => {
-            setUsername(event.target.value);
+            setUsername(event.target.value)
           }}
           style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
           className="form-control transparent-input"
@@ -54,7 +54,7 @@ const SignUp = () => {
         <br />
         <input
           onChange={event => {
-            setEmail(event.target.value);
+            setEmail(event.target.value)
           }}
           style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
           className="form-control transparent-input"
@@ -64,7 +64,7 @@ const SignUp = () => {
         <br />
         <input
           onChange={event => {
-            setPassword(event.target.value);
+            setPassword(event.target.value)
           }}
           style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
           className="form-control transparent-input"
@@ -74,7 +74,7 @@ const SignUp = () => {
         <br />
         <input
           onChange={event => {
-            setInvCode(event.target.value);
+            setInvCode(event.target.value)
           }}
           style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
           className="form-control transparent-input"
@@ -91,7 +91,7 @@ const SignUp = () => {
         {" Sign Up "}
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp

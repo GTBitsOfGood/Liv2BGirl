@@ -1,4 +1,4 @@
-import { follow } from "../../server/mongodb/actions/User";
+import { follow } from "../../server/mongodb/actions/User"
 
 // @route   POST api/follow
 // @desc    Follow Request
@@ -8,14 +8,14 @@ const handler = (req, res) =>
     .then(user =>
       res.status(200).json({
         success: true,
-        payload: user
+        payload: user,
       })
     )
     .catch(error =>
       res.status(400).json({
         success: false,
-        message: error.message
+        message: error.message,
       })
-    );
+    )
 
-export default handler;
+export default handler

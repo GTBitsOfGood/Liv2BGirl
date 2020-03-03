@@ -1,6 +1,6 @@
-import React from "react";
-import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap";
-import style from "./NavBar.module.css";
+import React from "react"
+import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap"
+import style from "./NavBar.module.css"
 
 const NavBar = () => (
   <Navbar color="light" light expand="md">
@@ -20,12 +20,11 @@ const NavBar = () => (
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginRight: "19px"
+          marginRight: "19px",
         }}
       >
         <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />
-{" "}
+          <Button className={style.navBarButton} />{" "}
         </NavLink>
         <header className={style.navBarButtonHeader}>Home</header>
       </NavItem>
@@ -35,12 +34,11 @@ const NavBar = () => (
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginRight: "16px"
+          marginRight: "16px",
         }}
       >
         <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />
-{" "}
+          <Button className={style.navBarButton} />{" "}
         </NavLink>
         <header className={style.navBarButtonHeader}>Group</header>
       </NavItem>
@@ -49,12 +47,11 @@ const NavBar = () => (
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />
-{" "}
+          <Button className={style.navBarButton} />{" "}
         </NavLink>
         <header className={style.navBarButtonHeader}>Ask Me</header>
       </NavItem>
@@ -65,17 +62,16 @@ const NavBar = () => (
           justifyContent: "center",
           alignItems: "center",
           marginLeft: "-1px",
-          marginRight: "-16px"
+          marginRight: "-16px",
         }}
       >
         <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />
-{" "}
+          <Button className={style.navBarButton} />{" "}
         </NavLink>
         <header className={style.navBarButtonHeader}>Notifications</header>
       </NavItem>
     </Nav>
   </Navbar>
-);
+)
 
-export default NavBar;
+export default NavBar

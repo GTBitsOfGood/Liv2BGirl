@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from "react"
+import PropTypes from "prop-types"
 import {
   Row,
   Col,
@@ -8,11 +8,11 @@ import {
   CardImg,
   CardText,
   CardBody,
-  CardDeck
-} from "reactstrap";
+  CardDeck,
+} from "reactstrap"
 
 const ProfilePage = props => {
-  const { userid } = props;
+  const { userid } = props
 
   return (
     <div>
@@ -72,7 +72,7 @@ const ProfilePage = props => {
             justifyContent: "",
             display: "flex",
             overflowX: "scroll",
-            flexDirection: "row"
+            flexDirection: "row",
           }}
         >
           <Card style={{ flex: "0 0 40%" }}>
@@ -178,11 +178,11 @@ const ProfilePage = props => {
         </CardDeck>
       </Row>
     </div>
-  );
-};
+  )
+}
 
 ProfilePage.propTypes = {
-  userid: PropTypes.string.isRequired
-};
+  userid: PropTypes.string.isRequired,
+}
 
-export default ProfilePage;
+export default ProfilePage
