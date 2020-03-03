@@ -8,16 +8,14 @@ const GenUsername = props => {
   const [like, setLike] = React.useState("");
   const [lucky, setLucky] = React.useState("");
   const [username, setUsername] = React.useState("");
+  
   function genUser() {
     let randDescBeg = Math.floor(Math.random() * 2);
     let randLikeBeg = Math.floor(Math.random() * 2);
-    let randLuckyBeg = Math.floor(Math.random() * 2);
     let randDesc = Math.floor(Math.random() * (describe.length - 2)) + 2;
     let randLike = Math.floor(Math.random() * (like.length - 2)) + 2;
-    let randLucky = Math.floor(Math.random() * (lucky.length - 2)) + 2;
     let username = describe.substring(randDescBeg, randDesc) 
-      + like.substring(randLikeBeg, randLike) + lucky.substring(randLuckyBeg, randLucky) 
-      + Math.floor(Math.random() * 10)
+      + like.substring(randLikeBeg, randLike) + lucky + Math.floor(Math.random() * lucky)
     return username;
   }
   
@@ -83,7 +81,7 @@ const GenUsername = props => {
         <br></br>
         <Label style={{marginTop:10}}>Pick your username: </Label> 
         <br></br>
-        {generate && 
+        {generate && describe != "" && like != "" && lucky != "" && 
           usernames.map((name, i) => {
             return <div style={{alignItems:'center'}}>
                 <Button 
