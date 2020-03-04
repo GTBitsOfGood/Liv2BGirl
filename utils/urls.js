@@ -12,6 +12,7 @@ export default {
     profile: "/profile",
     signUp: "/sign-up",
     signIn: "/sign-in",
+    avatar: "/avatar",
   },
   api: {
     login: () => "/api/login",
