@@ -50,8 +50,7 @@ const Avatar = () => {
       </div>
       <div
         style={{
-          backgroundColor: colorArr[color],
-          display: "flex"
+          backgroundColor: colorArr[color]
         }}
         className="avatar-logo"
         disabled
@@ -59,7 +58,12 @@ const Avatar = () => {
         <img
           src={avatarImg[avatar]}
           alt="Avatar"
-          style={{ margin: "25px", flexGrow: "1" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            padding: 16
+          }}
         />
       </div>
       <br />
