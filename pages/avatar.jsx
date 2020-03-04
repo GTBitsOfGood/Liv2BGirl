@@ -19,7 +19,7 @@ const avatarImg = [
   avatarPhoto3,
   avatarPhoto4,
   avatarPhoto5,
-  avatarPhoto6
+  avatarPhoto6,
 ];
 
 const colorArr = ["red", "blue", "green", "yellow", "cyan", "magenta"];
@@ -39,7 +39,7 @@ const Avatar = () => {
             borderColor: "transparent",
             color: "black",
             float: "left",
-            padding: 0
+            padding: 0,
           }}
         >
           <FontAwesomeIcon icon={faArrowLeft} />
@@ -50,7 +50,7 @@ const Avatar = () => {
       </div>
       <div
         style={{
-          backgroundColor: colorArr[color]
+          backgroundColor: colorArr[color],
         }}
         className="avatar-logo"
         disabled
@@ -62,7 +62,7 @@ const Avatar = () => {
             width: "100%",
             height: "100%",
             objectFit: "contain",
-            padding: 16
+            padding: 16,
           }}
         />
       </div>
@@ -79,7 +79,7 @@ const Avatar = () => {
             display: "flex",
             overflowX: "scroll",
             flexDirection: "row",
-            marginTop: "20px"
+            marginTop: "20px",
           }}
         >
           {avatarImg.map((curAvatar, index) => (
@@ -112,7 +112,7 @@ const Avatar = () => {
             display: "flex",
             overflowX: "scroll",
             flexDirection: "row",
-            marginTop: "20px"
+            marginTop: "20px",
           }}
         >
           {colorArr.map((curColor, index) => (
@@ -131,7 +131,7 @@ const Avatar = () => {
         style={{
           WebkitTextFillColor: "#111111",
           fontWeight: "bold",
-          color: "#4F4F4F"
+          color: "#4F4F4F",
         }}
         className="button"
       >

@@ -16,7 +16,7 @@ const SignUp = () => {
     await signUp(username, password, email);
 
     return router.push({
-      pathname: urls.pages.index
+      pathname: urls.pages.index,
     });
   };
 

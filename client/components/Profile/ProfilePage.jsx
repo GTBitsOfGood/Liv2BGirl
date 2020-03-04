@@ -8,7 +8,7 @@ import {
   CardImg,
   CardText,
   CardBody,
-  CardDeck
+  CardDeck,
 } from "reactstrap";
 
 const ProfilePage = props => {
@@ -72,7 +72,7 @@ const ProfilePage = props => {
             justifyContent: "",
             display: "flex",
             overflowX: "scroll",
-            flexDirection: "row"
+            flexDirection: "row",
           }}
         >
           <Card style={{ flex: "0 0 40%" }}>
@@ -182,7 +182,7 @@ const ProfilePage = props => {
 };
 
 ProfilePage.propTypes = {
-  userid: PropTypes.string.isRequired
+  userid: PropTypes.string.isRequired,
 };
 
 export default ProfilePage;

@@ -9,15 +9,15 @@ export const signUp = (username, password, email, role, name) =>
     mode: "same-origin",
     credentials: "include",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       email,
       password,
       name,
       role,
-      username
-    })
+      username,
+    }),
   })
     .then(response => response.json())
     .then(json => {
@@ -35,12 +35,12 @@ export const login = (email, password) =>
     mode: "same-origin",
     credentials: "include",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       email,
-      password
-    })
+      password,
+    }),
   })
     .then(response => response.json())
     .then(json => {
@@ -57,6 +57,6 @@ export const signOut = () => {
   cookie.remove("token");
 
   return Router.push({
-    pathname: "/"
+    pathname: "/",
   });
 };

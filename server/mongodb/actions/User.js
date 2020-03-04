@@ -26,11 +26,11 @@ export async function login(email, password) {
       jwt.sign(
         {
           id: user._id,
-          email: user.email
+          email: user.email,
         },
         process.env.JWT_SECRET,
         {
-          expiresIn: "7d"
+          expiresIn: "7d",
         }
       )
     );
@@ -59,7 +59,7 @@ export async function signUp(
         name,
         password: hashedPassword,
         role,
-        username
+        username,
       })
     )
     .then(user =>
@@ -67,11 +67,11 @@ export async function signUp(
         {
           id: user._id,
           email: user.email,
-          isAdmin: user.isAdmin
+          isAdmin: user.isAdmin,
         },
         process.env.JWT_SECRET,
         {
-          expiresIn: "7d"
+          expiresIn: "7d",
         }
       )
     );
@@ -81,7 +81,7 @@ export const signOut = () => {
   cookie.remove("token");
 
   return Router.push({
-    pathname: "/"
+    pathname: "/",
   });
 };
 

@@ -8,13 +8,13 @@ const handler = (req, res) =>
     .then(user =>
       res.status(200).json({
         success: true,
-        payload: user
+        payload: user,
       })
     )
     .catch(error =>
       res.status(400).json({
         success: false,
-        message: error.message
+        message: error.message,
       })
     );
 
