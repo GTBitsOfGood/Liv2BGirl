@@ -1,5 +1,5 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from "react";
+import PropTypes from "prop-types";
 import {
   Row,
   Col,
@@ -9,10 +9,10 @@ import {
   CardText,
   CardBody,
   CardDeck,
-} from "reactstrap"
+} from "reactstrap";
 
 const ProfilePage = props => {
-  const { userid } = props
+  const { userid } = props;
 
   return (
     <div>
@@ -178,11 +178,11 @@ const ProfilePage = props => {
         </CardDeck>
       </Row>
     </div>
-  )
-}
+  );
+};
 
 ProfilePage.propTypes = {
   userid: PropTypes.string.isRequired,
-}
+};
 
-export default ProfilePage
+export default ProfilePage;

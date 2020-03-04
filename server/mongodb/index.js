@@ -1,8 +1,8 @@
-import mongoose from "mongoose"
-import urls from "../../utils/urls"
+import mongoose from "mongoose";
+import urls from "../../utils/urls";
 
 export default async () => {
-  if (mongoose.connections[0].readyState) return
+  if (mongoose.connections[0].readyState) return;
 
   await mongoose
     .connect(urls.dbUrl, {
@@ -13,8 +13,8 @@ export default async () => {
       dbName: urls.dbName,
     })
     .catch(e => {
-      console.error("Error connecting to database.")
+      console.error("Error connecting to database.");
 
-      throw e
-    })
-}
+      throw e;
+    });
+};

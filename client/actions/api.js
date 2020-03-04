@@ -1,7 +1,7 @@
-import fetch from "isomorphic-unfetch"
-import Router from "next/router"
-import cookie from "js-cookie"
-import urls from "../../utils/urls"
+import fetch from "isomorphic-unfetch";
+import Router from "next/router";
+import cookie from "js-cookie";
+import urls from "../../utils/urls";
 
 export const signUp = (username, password, email, role, name) =>
   fetch(urls.baseUrl + urls.api.signUp(), {
@@ -22,12 +22,12 @@ export const signUp = (username, password, email, role, name) =>
     .then(response => response.json())
     .then(json => {
       if (json == null) {
-        throw new Error("Could not connect to API!")
+        throw new Error("Could not connect to API!");
       } else if (!json.success) {
-        throw new Error(json.message)
+        throw new Error(json.message);
       }
-      return json.payload
-    })
+      return json.payload;
+    });
 
 export const login = (email, password) =>
   fetch(urls.baseUrl + urls.api.login(), {
@@ -45,18 +45,18 @@ export const login = (email, password) =>
     .then(response => response.json())
     .then(json => {
       if (json == null) {
-        throw new Error("Could not connect to API!")
+        throw new Error("Could not connect to API!");
       } else if (!json.success) {
-        return json.message
+        return json.message;
       }
 
-      return json.payload
-    })
+      return json.payload;
+    });
 
 export const signOut = () => {
-  cookie.remove("token")
+  cookie.remove("token");
 
   return Router.push({
     pathname: "/",
-  })
-}
+  });
+};

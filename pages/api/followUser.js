@@ -1,4 +1,4 @@
-import { follow } from "../../server/mongodb/actions/User"
+import { follow } from "../../server/mongodb/actions/User";
 
 // @route   POST api/follow
 // @desc    Follow Request
@@ -16,6 +16,6 @@ const handler = (req, res) =>
         success: false,
         message: error.message,
       })
-    )
+    );
 
-export default handler
+export default handler;

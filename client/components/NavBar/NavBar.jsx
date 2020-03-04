@@ -1,6 +1,6 @@
-import React from "react"
-import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap"
-import style from "./NavBar.module.css"
+import React from "react";
+import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap";
+import style from "./NavBar.module.css";
 
 const NavBar = () => (
   <Navbar color="light" light expand="md">
@@ -72,6 +72,6 @@ const NavBar = () => (
       </NavItem>
     </Nav>
   </Navbar>
-)
+);
 
-export default NavBar
+export default NavBar;

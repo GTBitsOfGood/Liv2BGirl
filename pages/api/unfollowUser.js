@@ -1,4 +1,4 @@
-import { unfollow } from "../../server/mongodb/actions/User"
+import { unfollow } from "../../server/mongodb/actions/User";
 
 // @route   POST api/unfollow
 // @desc    Unfollow Request
@@ -16,6 +16,6 @@ const handler = (req, res) =>
         success: false,
         message: error.message,
       })
-    )
+    );
 
-export default handler
+export default handler;
