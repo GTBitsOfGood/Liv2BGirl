@@ -1,9 +1,46 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { Button } from "reactstrap";
-import { Link } from "next/link";
 import { signUp } from "../client/actions/api";
+import SignUpInfo from "../client/components/SignUpInfo";
+import CreateAvatar from "../client/components/CreateAvatar";
+import GenUsername from "../client/components/GenUsername";
+import TellUsAbout from "../client/components/TellUsAbout";
 import urls from "../utils/urls";
+
+const getStep = stage => {
+  switch (stage) {
+    case 0: {
+      return <SignUpInfo />;
+    }
+    case 1: {
+      return <CreateAvatar />;
+    }
+    case 2: {
+      return <GenUsername />;
+    }
+    case 3: {
+      return <TellUsAbout />;
+    }
+    default: {
+      return null;
+    }
+  }
+};
+
+const getStepText = stage => {
+  switch (stage) {
+    case 0: {
+      return "Sign Up";
+    }
+    case 3: {
+      return "Create Profile";
+    }
+    default: {
+      return "NEXT STEP";
+    }
+  }
+};
 
 const SignUp = () => {
   const router = useRouter();
@@ -11,6 +48,7 @@ const SignUp = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [invCode, setInvCode] = React.useState("");
+  const [stage, setStage] = React.useState(0);
 
   const handleSignUp = async () => {
     await signUp(username, password, email);
@@ -20,77 +58,33 @@ const SignUp = () => {
     });
   };
 
+  const goToPrev = () => {
+    if (stage - 1 >= 0) {
+      setStage(prevState => prevState - 1);
+    }
+  };
+
+  const goToNext = () => {
+    if (stage + 1 <= 3) {
+      setStage(prevState => prevState + 1);
+    }
+  };
+
   return (
-    <div>
+    <>
+      {getStep(stage)}
       <Button
-        style={{ WebkitTextFillColor: "#111111", backgroundColor: "lightGray" }}
-        className="logo"
-        disabled
-      >
-        {" Logo "}
-      </Button>
-      <br />
-      <Button
-        tag={Link}
-        href={urls.pages.signUp}
-        color="primary"
-        className="signUp"
-      >
-        {" SIGN UP "}
-      </Button>
-      <Button tag={Link} href={urls.pages.signIn} className="signIn">
-        {" SIGN IN "}
-      </Button>
-      <form>
-        <input
-          onChange={event => {
-            setUsername(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="text"
-          placeholder="Username"
-        />
-        <br />
-        <input
-          onChange={event => {
-            setEmail(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="text"
-          placeholder="Email"
-        />
-        <br />
-        <input
-          onChange={event => {
-            setPassword(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="password"
-          placeholder="Password"
-        />
-        <br />
-        <input
-          onChange={event => {
-            setInvCode(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="text"
-          placeholder="Invitation Code"
-        />
-        <br />
-      </form>
-      <Button
-        style={{ WebkitTextFillColor: "#111111" }}
+        style={{
+          WebkitTextFillColor: "#111111",
+          fontWeight: "bold",
+          color: "#4F4F4F",
+        }}
         className="button"
-        onClick={handleSignUp}
+        onClick={goToNext}
       >
-        {" Sign Up "}
+        {getStepText(stage)}
       </Button>
-    </div>
+    </>
   );
 };
 

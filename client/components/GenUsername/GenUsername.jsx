@@ -1,9 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-const GenUsername = props => {
-  const { userid } = props;
+const GenUsername = () => {
   const [describe, setDescribe] = React.useState("");
   const [like, setLike] = React.useState("");
   const [lucky, setLucky] = React.useState("");
@@ -11,16 +9,17 @@ const GenUsername = props => {
   const [generate, setGenerate] = React.useState(false);
 
   function genUser() {
-    let randDescBeg = Math.floor(Math.random() * 2);
-    let randLikeBeg = Math.floor(Math.random() * 2);
-    let randDesc = Math.floor(Math.random() * (describe.length - 2)) + 2;
-    let randLike = Math.floor(Math.random() * (like.length - 2)) + 2;
-    let username =
+    const randDescBeg = Math.floor(Math.random() * 2);
+    const randLikeBeg = Math.floor(Math.random() * 2);
+    const randDesc = Math.floor(Math.random() * (describe.length - 2)) + 2;
+    const randLike = Math.floor(Math.random() * (like.length - 2)) + 2;
+
+    return (
       describe.substring(randDescBeg, randDesc) +
       like.substring(randLikeBeg, randLike) +
       lucky +
-      Math.floor(Math.random() * lucky);
-    return username;
+      Math.floor(Math.random() * lucky)
+    );
   }
 
   const descriptions = [
@@ -72,9 +71,9 @@ const GenUsername = props => {
             type="select"
             style={{ height: 35 }}
           >
-            {descriptions.map((word, i) => {
-              return <option> {word} </option>;
-            })}
+            {descriptions.map(word => (
+              <option>{word}</option>
+            ))}
           </Input>
         </FormGroup>
         <FormGroup>
@@ -89,9 +88,9 @@ const GenUsername = props => {
             type="select"
             style={{ height: 35 }}
           >
-            {favThings.map((word, i) => {
-              return <option> {word} </option>;
-            })}
+            {favThings.map(word => (
+              <option>{word}</option>
+            ))}
           </Input>
         </FormGroup>
         <FormGroup>
@@ -106,9 +105,9 @@ const GenUsername = props => {
             style={{ height: 35 }}
             type="select"
           >
-            {numbers.map((word, i) => {
-              return <option> {word} </option>;
-            })}
+            {numbers.map(word => (
+              <option>{word}</option>
+            ))}
           </Input>
         </FormGroup>
       </Form>
@@ -127,18 +126,18 @@ const GenUsername = props => {
       >
         Generate!
       </Button>
-      <br></br>
+      <br />
       <Label style={{ marginTop: 10 }}>Pick your username: </Label>
-      <br></br>
+      <br />
       {generate &&
-        describe != "" &&
-        like != "" &&
-        lucky != "" &&
-        usernames.map((name, i) => {
+        describe !== "" &&
+        like !== "" &&
+        lucky !== "" &&
+        usernames.map(name => {
           return (
             <div style={{ alignItems: "center" }}>
               <Button
-                onClick={e => {
+                onClick={() => {
                   setUsername(name[0]);
                 }}
                 style={{
@@ -156,7 +155,7 @@ const GenUsername = props => {
               </Button>
 
               <Button
-                onClick={e => {
+                onClick={() => {
                   setUsername(name[1]);
                 }}
                 style={{
@@ -174,7 +173,7 @@ const GenUsername = props => {
               </Button>
 
               <Button
-                onClick={e => {
+                onClick={() => {
                   setUsername(name[2]);
                 }}
                 style={{
@@ -189,24 +188,10 @@ const GenUsername = props => {
               >
                 {name[2]}
               </Button>
-              <br></br>
+              <br />
             </div>
           );
         })}
-      <br></br>
-      <Button
-        style={{
-          outlineColor: "lightgray",
-          backgroundColor: "lightgray",
-          marginLeft: 130,
-          height: 30,
-          WebkitBorderRadius: 40,
-          color: "black",
-          paddingBottom: 28,
-        }}
-      >
-        Next Step
-      </Button>
     </div>
   );
 };

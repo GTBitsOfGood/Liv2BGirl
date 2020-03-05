@@ -3,16 +3,16 @@ import { Button, Card, CardImg, CardDeck, Row } from "reactstrap";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "next/link";
-import urls from "../utils/urls";
+import urls from "../../../utils/urls";
 
-import avatarPhoto1 from "../public/img/avatars/apple.png";
-import avatarPhoto2 from "../public/img/avatars/avocado.png";
-import avatarPhoto3 from "../public/img/avatars/banana.png";
-import avatarPhoto4 from "../public/img/avatars/kiwi.png";
-import avatarPhoto5 from "../public/img/avatars/pear.png";
-import avatarPhoto6 from "../public/img/avatars/strawberry.png";
+import avatarPhoto1 from "../../../public/img/avatars/apple.png";
+import avatarPhoto2 from "../../../public/img/avatars/avocado.png";
+import avatarPhoto3 from "../../../public/img/avatars/banana.png";
+import avatarPhoto4 from "../../../public/img/avatars/kiwi.png";
+import avatarPhoto5 from "../../../public/img/avatars/pear.png";
+import avatarPhoto6 from "../../../public/img/avatars/strawberry.png";
 
-// Avatar Images
+// CreateAvatar Images
 const avatarImg = [
   avatarPhoto1,
   avatarPhoto2,
@@ -24,7 +24,7 @@ const avatarImg = [
 
 const colorArr = ["red", "blue", "green", "yellow", "cyan", "magenta"];
 
-const Avatar = () => {
+const CreateAvatar = () => {
   const [avatar, setAvatar] = useState(0);
   const [color, setColor] = useState(0);
 
@@ -57,7 +57,7 @@ const Avatar = () => {
       >
         <img
           src={avatarImg[avatar]}
-          alt="Avatar"
+          alt="CreateAvatar"
           style={{
             width: "100%",
             height: "100%",
@@ -126,18 +126,8 @@ const Avatar = () => {
           ))}
         </CardDeck>
       </Row>
-
-      <Button
-        style={{
-          WebkitTextFillColor: "#111111",
-          fontWeight: "bold",
-          color: "#4F4F4F",
-        }}
-        className="button"
-      >
-        NEXT STEP
-      </Button>
     </div>
   );
 };
-export default Avatar;
+
+export default CreateAvatar;
