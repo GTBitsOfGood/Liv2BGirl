@@ -6,6 +6,7 @@ import SignUpInfo from "../client/components/SignUpInfo";
 import CreateAvatar from "../client/components/CreateAvatar";
 import GenUsername from "../client/components/GenUsername";
 import TellUsAbout from "../client/components/TellUsAbout";
+import SignUpProgressBar from "../client/components/SignUpProgressBar";
 import urls from "../utils/urls";
 
 const getStep = stage => {
@@ -35,6 +36,9 @@ const getStepText = stage => {
     }
     case 3: {
       return "Create Profile";
+    }
+    case 4: {
+      return "GET STARTED";
     }
     default: {
       return "NEXT STEP";
@@ -72,6 +76,7 @@ const SignUp = () => {
 
   return (
     <>
+      <SignUpProgressBar stage={stage} />
       {getStep(stage)}
       <Button
         style={{
