@@ -9,7 +9,7 @@ import TellUsAbout from "../client/components/TellUsAbout";
 import SignUpProgressBar from "../client/components/SignUpProgressBar";
 import urls from "../utils/urls";
 
-const getStep = stage => {
+const CurrentStep = ({ stage }) => {
   switch (stage) {
     case 0: {
       return <SignUpInfo />;
@@ -76,8 +76,8 @@ const SignUp = () => {
 
   return (
     <>
-      <SignUpProgressBar stage={stage} />
-      {getStep(stage)}
+      <SignUpProgressBar stage={stage} setStage={setStage} />
+      <CurrentStep stage={stage} />
       <Button
         style={{
           WebkitTextFillColor: "#111111",
