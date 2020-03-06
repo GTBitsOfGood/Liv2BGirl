@@ -20,11 +20,11 @@ export async function createGroup(
 }
 
 export async function deleteGroup(
-  id
+  groupId
 ) {
   await mongoDB();
 
-  return Group.findOneAndDelete({ _id : id })
+  return Group.findOneAndDelete({ _id : groupId })
     .then(deletedGroup => {
       if(deletedGroup) {
         console.log(`Successfully deleted group`)
@@ -33,7 +33,7 @@ export async function deleteGroup(
       }
       return deletedGroup
     })
-    .catch(err => console.error(`Failed to find and delete group: ${err}`))
+
 }
 
 export async function followGroup(groupId, userId) {
