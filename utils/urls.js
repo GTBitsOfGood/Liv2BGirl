@@ -8,11 +8,14 @@ export default {
   dbName: "liv2bgirl",
   pages: {
     index: "/",
-    ssr: "/ssr"
+    ssr: "/ssr",
+    profile: "/profile",
+    signUp: "/sign-up",
+    signIn: "/sign-in",
+    avatar: "/avatar",
   },
   api: {
-    example: () => "/api/example",
     login: () => "/api/login",
-    signUp : () => "/api/signUp"
-  }
+    signUp: () => "/api/signUp",
+  },
 };

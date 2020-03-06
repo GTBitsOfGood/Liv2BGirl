@@ -6,28 +6,32 @@ const UserSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   name: {
     // admin/ambassador only
-    type: String
+    type: String,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   role: {
     type: String,
-    required: true
+    required: true,
   },
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   followers: {
     type: [String],
-    required: true
+    required: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
   },
   isAdmin: {
     type: Boolean,
@@ -35,7 +39,7 @@ const UserSchema = new Schema({
   },
   following: {
     type: [String],
-  }
+  },
 });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

@@ -5,16 +5,21 @@ import { login } from "../../server/mongodb/actions/User";
 // @access  Public
 const handler = (req, res) =>
   login(req.body.email, req.body.password)
-    .then(user =>
+    .then(token => {
+      res.setHeader(
+        "Set-Cookie",
+        `token=${token}; Max-Age=604800; SameSite=Lax; Path=/`
+      );
+
       res.status(200).json({
         success: true,
-        payload: user
-      })
-    )
+        payload: token,
+      });
+    })
     .catch(error =>
       res.status(400).json({
         success: false,
-        message: error.message
+        message: error.message,
       })
     );
 
