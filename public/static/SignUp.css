@@ -1,5 +1,6 @@
 .button {
-    margin-left: 80px;
+    display: block;
+    margin: 0 auto;
     margin-top: 30px;
     background-color: lightgray;
     border-radius: 30px;
@@ -10,7 +11,8 @@
 }
 
 .logo {
-    margin-left: 145px;
+    display: block;
+    margin: 0 auto;
     margin-top: 10px;
     background-color: white;
     border-radius: 100px;
@@ -21,20 +23,14 @@
 }
 
 .signUp {
-    margin-top: 20px;
     height: 25px;
-    margin-left: 115px;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     font-size: x-small;
 }
 
-
 .signIn {
     height: 25px;
-    margin-top: 20px;
-    font-size: x-small;
-    padding-right: 15px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
 }

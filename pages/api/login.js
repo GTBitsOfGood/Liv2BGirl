@@ -13,13 +13,13 @@ const handler = (req, res) =>
 
       res.status(200).json({
         success: true,
-        payload: token
+        payload: token,
       });
     })
     .catch(error =>
       res.status(400).json({
         success: false,
-        message: error.message
+        message: error.message,
       })
     );
 
