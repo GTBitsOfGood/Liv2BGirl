@@ -5,35 +5,27 @@ import Router from "next/router";
 import mongoDB from "../index";
 import Group from "../models/Group";
 
-export async function createGroup(
-  name,
-  subscribers = [],
-  description = ""
-) {
+export async function createGroup(name, subscribers = [], description = "") {
   await mongoDB();
 
   return Group.create({
-        name,
-        description,
-        subscribers,
-      })
+    name,
+    description,
+    subscribers,
+  });
 }
 
-export async function deleteGroup(
-  groupId
-) {
+export async function deleteGroup(groupId) {
   await mongoDB();
 
-  return Group.findOneAndDelete({ _id : groupId })
-    .then(deletedGroup => {
-      if(deletedGroup) {
-        console.log(`Successfully deleted group`)
-      } else {
-        console.log("No group matches the provided id.")
-      }
-      return deletedGroup
-    })
-
+  return Group.findOneAndDelete({ _id: groupId }).then(deletedGroup => {
+    if (deletedGroup) {
+      console.log(`Successfully deleted group`);
+    } else {
+      console.log("No group matches the provided id.");
+    }
+    return deletedGroup;
+  });
 }
 
 export async function followGroup(groupId, userId) {

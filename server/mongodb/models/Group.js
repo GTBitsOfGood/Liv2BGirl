@@ -5,14 +5,14 @@ const { Schema } = mongoose;
 const GroupSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
     type: String,
   },
   subscribers: {
     type: [String],
-    required: true
+    required: true,
   },
 });
 
