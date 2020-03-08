@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./SignUpProgressBar.module.css";
+import "./SignUpProgressBar.css";
 
 const ProgressCircle = ({ active, ...rest }) => (
   <div
-    className={styles.circle}
+    className="progressCircle"
     style={{
       backgroundColor: active ? "#BDBDBD" : "#FFFFFF",
     }}
@@ -23,7 +23,7 @@ const SignUpProgressBar = ({ stage, setStage }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="progressContainer">
       <ProgressCircle active={stage > 0} onClick={() => goToStage(1)} />
       <ProgressCircle active={stage > 1} onClick={() => goToStage(2)} />
       <ProgressCircle active={stage > 2} onClick={() => goToStage(3)} />

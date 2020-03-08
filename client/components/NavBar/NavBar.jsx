@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap";
-import style from "./NavBar.module.scss";
 import urls from "../../../utils/urls";
+import "./NavBar.scss";
 
 const NavBar = () => (
   <Navbar
@@ -30,9 +30,9 @@ const NavBar = () => (
         }}
       >
         <NavLink href={urls.pages.app.home}>
-          <Button className={style.navBarButton} />
+          <Button className="navBarButton" />
         </NavLink>
-        <header className={style.navBarButtonHeader}>Home</header>
+        <header className="navBarButtonHeader">Home</header>
       </NavItem>
       <NavItem
         style={{
@@ -44,9 +44,9 @@ const NavBar = () => (
         }}
       >
         <NavLink href={urls.pages.app.groupList}>
-          <Button className={style.navBarButton} />
+          <Button className="navBarButton" />
         </NavLink>
-        <header className={style.navBarButtonHeader}>Group</header>
+        <header className="navBarButtonHeader">Group</header>
       </NavItem>
       <NavItem
         style={{
@@ -57,9 +57,9 @@ const NavBar = () => (
         }}
       >
         <NavLink href={urls.pages.app.askMe}>
-          <Button className={style.navBarButton} />
+          <Button className="navBarButton" />
         </NavLink>
-        <header className={style.navBarButtonHeader}>Ask Me</header>
+        <header className="navBarButtonHeader">Ask Me</header>
       </NavItem>
       <NavItem
         style={{
@@ -72,9 +72,9 @@ const NavBar = () => (
         }}
       >
         <NavLink href={urls.pages.app.notifications}>
-          <Button className={style.navBarButton} />
+          <Button className="navBarButton" />
         </NavLink>
-        <header className={style.navBarButtonHeader}>Notifications</header>
+        <header className="navBarButtonHeader">Notifications</header>
       </NavItem>
     </Nav>
   </Navbar>

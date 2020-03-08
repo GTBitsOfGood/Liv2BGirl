@@ -1,4 +1,4 @@
-.container {
+.progressContainer {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -6,7 +6,7 @@
     padding: 16px;
 }
 
-.container::before {
+.progressContainer::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -17,7 +17,7 @@
     z-index: 1;
 }
 
-.circle {
+.progressCircle {
     width: 24px;
     height: 24px;
     border-radius: 50%;
