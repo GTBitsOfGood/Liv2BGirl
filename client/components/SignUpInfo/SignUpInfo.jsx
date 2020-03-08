@@ -27,7 +27,7 @@ const SignUpInfo = () => {
         className="logo"
         disabled
       >
-        {" Logo "}
+        Logo
       </Button>
       <br />
       <Button
@@ -81,7 +81,6 @@ const SignUpInfo = () => {
           type="text"
           placeholder="Invitation Code"
         />
-        <br />
       </form>
     </div>
   );

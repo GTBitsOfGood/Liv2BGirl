@@ -7,6 +7,7 @@ import CreateAvatar from "../client/components/CreateAvatar";
 import GenUsername from "../client/components/GenUsername";
 import TellUsAbout from "../client/components/TellUsAbout";
 import SignUpProgressBar from "../client/components/SignUpProgressBar";
+import RegistrationCompleted from "../client/components/RegistrationCompleted";
 import urls from "../utils/urls";
 
 const CurrentStep = ({ stage }) => {
@@ -22,6 +23,9 @@ const CurrentStep = ({ stage }) => {
     }
     case 3: {
       return <TellUsAbout />;
+    }
+    case 4: {
+      return <RegistrationCompleted />;
     }
     default: {
       return null;
@@ -68,9 +72,11 @@ const SignUp = () => {
     }
   };
 
-  const goToNext = () => {
-    if (stage + 1 <= 3) {
+  const goToNext = async () => {
+    if (stage + 1 <= 4) {
       setStage(prevState => prevState + 1);
+    } else if (stage + 1 === 5) {
+      await router.replace(urls.pages.index);
     }
   };
 
