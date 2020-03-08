@@ -73,11 +73,7 @@ const GenUsername = props => {
             style={{ height: 35 }}
           >
             {descriptions.map((word, i) => {
-              return <option> 
-{' '}
-{word}
-{' '}
- </option>;
+              return <option> {word} </option>;
             })}
           </Input>
         </FormGroup>
@@ -94,11 +90,7 @@ const GenUsername = props => {
             style={{ height: 35 }}
           >
             {favThings.map((word, i) => {
-              return <option> 
-{' '}
-{word}
-{' '}
- </option>;
+              return <option> {word} </option>;
             })}
           </Input>
         </FormGroup>
@@ -115,11 +107,7 @@ const GenUsername = props => {
             type="select"
           >
             {numbers.map((word, i) => {
-              return <option> 
-{' '}
-{word}
-{' '}
- </option>;
+              return <option> {word} </option>;
             })}
           </Input>
         </FormGroup>
