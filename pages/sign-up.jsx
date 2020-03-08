@@ -70,8 +70,6 @@ const SignUp = () => {
       ...oldObject,
       ...newObj,
     }));
-
-    console.log("values", values);
   };
 
   const goToNext = async () => {
@@ -87,7 +85,7 @@ const SignUp = () => {
           window.alert("Failed to create account!");
         });
     } else if (stage + 1 === 5) {
-      await router.replace(urls.pages.index);
+      await router.replace(urls.pages.app.home);
     }
   };
 
