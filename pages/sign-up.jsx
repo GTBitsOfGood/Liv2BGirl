@@ -74,23 +74,18 @@ const SignUp = () => {
     console.log("values", values);
   };
 
-  const handleSignUp = async () => {
-    await signUp(values);
-
-    return router.push({
-      pathname: urls.pages.index,
-    });
-  };
-
-  const goToPrev = () => {
-    if (stage - 1 >= 0) {
-      setStage(prevState => prevState - 1);
-    }
-  };
-
   const goToNext = async () => {
     if (stage + 1 <= 4) {
       setStage(prevState => prevState + 1);
+    } else if (stage + 1 === 4) {
+      await signUp(values)
+        .then(() => {
+          setStage(prevState => prevState + 1);
+        })
+        .catch(() => {
+          // eslint-disable-next-line no-alert
+          window.alert("Failed to create account!");
+        });
     } else if (stage + 1 === 5) {
       await router.replace(urls.pages.index);
     }
