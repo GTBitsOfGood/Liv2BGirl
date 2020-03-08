@@ -6,7 +6,7 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 import "../public/static/App.scss";
-import "../public/static/SignUp.scss";
+import "../public/static/Account.scss";
 import "../public/static/Avatar.scss";
 
 class MyApp extends App {

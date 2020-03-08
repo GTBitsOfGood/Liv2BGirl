@@ -1,0 +1,75 @@
+.account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.logo {
+  margin-top: 40px;
+  border-radius: 100px;
+  width: 75px;
+  height: 75px;
+  border: none;
+  background-color: lightGray;
+}
+
+.login-buttons {
+  margin: 40px;
+}
+
+.signUp,
+.signIn {
+  padding: 8px 25px;
+  border-radius: 30px;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 19px;
+  background: #828282;
+  color: #ffffff;
+}
+
+.custom-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin-bottom: 40px;
+}
+
+.custom-checkbox {
+  margin-bottom: 50px;
+}
+
+.button {
+  margin-bottom: 50px;
+  background-color: #c4c4c4;
+  border-radius: 137px;
+  border: none;
+  width: 255px;
+  padding: 20px;
+
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: 0.05em;
+  color: #4f4f4f;
+}
+
+.signin-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.forgot-pass {
+  background: transparent;
+  color: #4f4f4f;
+  border: none;
+  font-size: 14px;
+  line-height: 19px;
+  letter-spacing: 0.01em;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-bottom: 30px;
+}
