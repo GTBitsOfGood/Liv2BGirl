@@ -1,24 +1,10 @@
 import React from "react";
-import { useRouter } from "next/router";
 import { Button } from "reactstrap";
 import { Link } from "next/link";
-import { signUp } from "../../actions/api";
 import urls from "../../../utils/urls";
 
-const SignUpInfo = () => {
-  const router = useRouter();
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [invCode, setInvCode] = React.useState("");
-
-  const handleSignUp = async () => {
-    await signUp(username, password, email);
-
-    return router.push({
-      pathname: urls.pages.index,
-    });
-  };
+const SignUpInfo = ({ values, setValues }) => {
+  const { email, password, invCode } = values;
 
   return (
     <div>
@@ -43,18 +29,13 @@ const SignUpInfo = () => {
       </Button>
       <form>
         <input
+          value={email}
           onChange={event => {
-            setUsername(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="text"
-          placeholder="Username"
-        />
-        <br />
-        <input
-          onChange={event => {
-            setEmail(event.target.value);
+            const { value } = event.target;
+
+            setValues({
+              email: value,
+            });
           }}
           style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
           className="form-control transparent-input"
@@ -63,8 +44,13 @@ const SignUpInfo = () => {
         />
         <br />
         <input
+          value={password}
           onChange={event => {
-            setPassword(event.target.value);
+            const { value } = event.target;
+
+            setValues({
+              password: value,
+            });
           }}
           style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
           className="form-control transparent-input"
@@ -73,8 +59,13 @@ const SignUpInfo = () => {
         />
         <br />
         <input
+          value={invCode}
           onChange={event => {
-            setInvCode(event.target.value);
+            const { value } = event.target;
+
+            setValues({
+              invCode: value,
+            });
           }}
           style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
           className="form-control transparent-input"

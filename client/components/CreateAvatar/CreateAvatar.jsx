@@ -24,9 +24,8 @@ const avatarImg = [
 
 const colorArr = ["red", "blue", "green", "yellow", "cyan", "magenta"];
 
-const CreateAvatar = () => {
-  const [avatar, setAvatar] = useState(0);
-  const [color, setColor] = useState(0);
+const CreateAvatar = ({ values, setValues }) => {
+  const { avatar, avatarColor } = values;
 
   return (
     <div>
@@ -50,7 +49,7 @@ const CreateAvatar = () => {
       </div>
       <div
         style={{
-          backgroundColor: colorArr[color],
+          backgroundColor: colorArr[avatarColor],
         }}
         className="avatar-logo"
         disabled
@@ -86,7 +85,11 @@ const CreateAvatar = () => {
             <Card
               key={curAvatar}
               style={{ flex: "0 0 40%", marginRight: "25px", border: "none" }}
-              onClick={() => setAvatar(index)}
+              onClick={() => {
+                setValues({
+                  avatar: index,
+                });
+              }}
             >
               <CardImg
                 style={{ margin: "auto 0" }}
@@ -119,7 +122,11 @@ const CreateAvatar = () => {
             <Card
               key={curColor}
               style={{ flex: "0 0 40%", marginRight: "25px", border: "none" }}
-              onClick={() => setColor(index)}
+              onClick={() => {
+                setValues({
+                  avatarColor: index,
+                });
+              }}
             >
               <span className="color" style={{ backgroundColor: curColor }} />
             </Card>

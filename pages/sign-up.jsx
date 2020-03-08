@@ -10,22 +10,22 @@ import SignUpProgressBar from "../client/components/SignUpProgressBar";
 import RegistrationCompleted from "../client/components/RegistrationCompleted";
 import urls from "../utils/urls";
 
-const CurrentStep = ({ stage }) => {
+const CurrentStep = ({ stage, ...rest }) => {
   switch (stage) {
     case 0: {
-      return <SignUpInfo />;
+      return <SignUpInfo {...rest} />;
     }
     case 1: {
-      return <CreateAvatar />;
+      return <CreateAvatar {...rest} />;
     }
     case 2: {
-      return <GenUsername />;
+      return <GenUsername {...rest} />;
     }
     case 3: {
-      return <TellUsAbout />;
+      return <TellUsAbout {...rest} />;
     }
     case 4: {
-      return <RegistrationCompleted />;
+      return <RegistrationCompleted {...rest} />;
     }
     default: {
       return null;
@@ -52,14 +52,30 @@ const getStepText = stage => {
 
 const SignUp = () => {
   const router = useRouter();
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [invCode, setInvCode] = React.useState("");
   const [stage, setStage] = React.useState(0);
+  const [values, setPureValues] = React.useState({
+    username: "",
+    email: "",
+    password: "",
+    invCode: "",
+    avatar: 0,
+    avatarColor: 0,
+    age: "",
+    grade: "",
+    selectedTopics: [],
+  });
+
+  const setValues = newObj => {
+    setPureValues(oldObject => ({
+      ...oldObject,
+      ...newObj,
+    }));
+
+    console.log("values", values);
+  };
 
   const handleSignUp = async () => {
-    await signUp(username, password, email);
+    await signUp(values);
 
     return router.push({
       pathname: urls.pages.index,
@@ -83,7 +99,7 @@ const SignUp = () => {
   return (
     <>
       <SignUpProgressBar stage={stage} setStage={setStage} />
-      <CurrentStep stage={stage} />
+      <CurrentStep stage={stage} values={values} setValues={setValues} />
       <Button
         style={{
           WebkitTextFillColor: "#111111",

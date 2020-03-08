@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-const TellUsAbout = () => {
-  const [username, setUsername] = useState("omuna"); // TODO: hardcoded
-  const [age, setAge] = useState(13); // TODO: default values?
-  const [grade, setGrade] = useState("7th");
-  const [topics, setTopics] = useState([
-    "Music",
-    "Movies",
-    "Art",
-    "Books",
-    "Career",
-    "Sports",
-    "Science",
-  ]); // TODO: hardcoded
-  const [selectedTopics, setSelectedTopics] = useState([]);
+const topics = [
+  "Music",
+  "Movies",
+  "Art",
+  "Books",
+  "Career",
+  "Sports",
+  "Science",
+];
+
+const TellUsAbout = ({ values, setValues }) => {
+  const { username, age, grade, selectedTopics } = values;
 
   const renderAgeOptions = () => {
     const ages = [13, 14, 15, 16, 17, 18]; // TODO: hardcoded
@@ -35,13 +33,18 @@ const TellUsAbout = () => {
           className="btn"
           active={selectedTopics.includes(topic)}
           onClick={() => {
-            const index = selectedTopics.indexOf(topic);
+            const newTopics = [...selectedTopics];
+            const index = newTopics.indexOf(topic);
+
             if (index < 0) {
-              selectedTopics.push(topic);
+              newTopics.push(topic);
             } else {
-              selectedTopics.splice(index, 1);
+              newTopics.splice(index, 1);
             }
-            setSelectedTopics([...selectedTopics]);
+
+            setValues({
+              selectedTopics: newTopics,
+            });
           }}
         >
           {topic}
@@ -78,7 +81,9 @@ const TellUsAbout = () => {
             onChange={event => {
               const { value } = event.target;
 
-              setAge(value);
+              setValues({
+                age: value,
+              });
             }}
           >
             {renderAgeOptions()}
@@ -102,7 +107,9 @@ const TellUsAbout = () => {
             onChange={event => {
               const { value } = event.target;
 
-              setGrade(value);
+              setValues({
+                grade: value,
+              });
             }}
           >
             {renderGradeOptions()}
