@@ -8,7 +8,13 @@ const GroupPage = props => {
 
   return (
     <div>
-      <div className="group-header">a</div>
+      <div className="group-header">
+        <img
+          style={{ width: "80px", borderRadius: "10px" }}
+          src="https://picsum.photos/200/200"
+          alt="Group Avatar"
+        />
+      </div>
       Test
     </div>
   );
