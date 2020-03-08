@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap";
 import style from "./NavBar.module.scss";
+import urls from "../../../utils/urls";
 
 const NavBar = () => (
   <Navbar
@@ -28,8 +29,8 @@ const NavBar = () => (
           marginRight: "19px",
         }}
       >
-        <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />{" "}
+        <NavLink href={urls.pages.app.home}>
+          <Button className={style.navBarButton} />
         </NavLink>
         <header className={style.navBarButtonHeader}>Home</header>
       </NavItem>
@@ -42,8 +43,8 @@ const NavBar = () => (
           marginRight: "16px",
         }}
       >
-        <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />{" "}
+        <NavLink href={urls.pages.app.groupList}>
+          <Button className={style.navBarButton} />
         </NavLink>
         <header className={style.navBarButtonHeader}>Group</header>
       </NavItem>
@@ -55,8 +56,8 @@ const NavBar = () => (
           alignItems: "center",
         }}
       >
-        <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />{" "}
+        <NavLink href={urls.pages.app.askMe}>
+          <Button className={style.navBarButton} />
         </NavLink>
         <header className={style.navBarButtonHeader}>Ask Me</header>
       </NavItem>
@@ -70,8 +71,8 @@ const NavBar = () => (
           marginRight: "-16px",
         }}
       >
-        <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />{" "}
+        <NavLink href={urls.pages.app.notifications}>
+          <Button className={style.navBarButton} />
         </NavLink>
         <header className={style.navBarButtonHeader}>Notifications</header>
       </NavItem>
