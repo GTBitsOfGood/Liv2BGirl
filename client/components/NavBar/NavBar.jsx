@@ -1,9 +1,14 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap";
-import style from "./NavBar.module.css";
+import style from "./NavBar.module.scss";
 
 const NavBar = () => (
-  <Navbar color="light" light expand="md">
+  <Navbar
+    style={{ position: "fixed", bottom: 0, width: "100%" }}
+    color="light"
+    light
+    expand="md"
+  >
     <Nav
       className="mr-auto d-flex"
       navbar

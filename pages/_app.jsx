@@ -5,9 +5,9 @@ import NavBar from "../client/components/NavBar";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
-import "../public/static/App.css";
-import "../public/static/SignUp.css";
-import "../public/static/Avatar.css";
+import "../public/static/App.scss";
+import "../public/static/SignUp.scss";
+import "../public/static/Avatar.scss";
 
 class MyApp extends App {
   render() {
