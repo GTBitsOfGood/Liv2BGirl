@@ -25,16 +25,33 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
   },
-  followers: {
-    type: [String],
-    required: true,
-  },
   isAdmin: {
     type: Boolean,
     default: false,
   },
+  followers: {
+    type: [String],
+    required: true,
+  },
   following: {
     type: [String],
+    required: true,
+  },
+  avatar: {
+    type: Number,
+    required: true,
+  },
+  avatarColor: {
+    type: Number,
+    required: true,
+  },
+  age: {
+    type: Number,
+    required: true,
+  },
+  grade: {
+    type: String,
+    required: true,
   },
 });
 

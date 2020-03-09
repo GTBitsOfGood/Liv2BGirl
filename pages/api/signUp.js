@@ -5,18 +5,7 @@ import { signUp } from "../../server/mongodb/actions/User";
 // @access  Public
 
 const handler = (req, res) =>
-  signUp(
-    req.body.username,
-    req.body.email,
-    req.body.password,
-    req.body.avatar,
-    req.body.avatarColor,
-    req.body.age,
-    req.body.grade,
-    req.body.selectedTopics,
-    req.body.role,
-    req.body.name
-  )
+  signUp(req.body)
     .then(token => {
       res.setHeader(
         "Set-Cookie",
