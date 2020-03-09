@@ -36,7 +36,7 @@ export async function login(email, password) {
     );
 }
 
-export async function signUp(
+export async function signUp({
   email,
   username,
   password,
@@ -46,8 +46,8 @@ export async function signUp(
   grade,
   selectedTopics,
   role = "User",
-  name = ""
-) {
+  name = "",
+}) {
   await mongoDB();
 
   return User.countDocuments({ email })

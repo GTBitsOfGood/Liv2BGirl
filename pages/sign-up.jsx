@@ -73,7 +73,7 @@ const SignUp = () => {
   };
 
   const goToNext = async () => {
-    if (stage + 1 <= 4) {
+    if (stage + 1 < 4) {
       setStage(prevState => prevState + 1);
     } else if (stage + 1 === 4) {
       await signUp(values)
@@ -81,6 +81,7 @@ const SignUp = () => {
           setStage(prevState => prevState + 1);
         })
         .catch(() => {
+          setStage(0);
           // eslint-disable-next-line no-alert
           window.alert("Failed to create account!");
         });
