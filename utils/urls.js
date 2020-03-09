@@ -2,7 +2,7 @@ const prod = process.env.NODE_ENV === "production";
 
 export default {
   baseUrl: prod
-    ? "https://liv2bgirl.bitsofgood.now.sh"
+    ? "https://liv2bgirl.now.sh"
     : "http://localhost:3000",
   dbUrl: prod
     ? process.env.MONGO_DB
