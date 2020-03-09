@@ -60,8 +60,8 @@ const SignUp = () => {
     invCode: "",
     avatar: 0,
     avatarColor: 0,
-    age: "",
-    grade: "",
+    age: 13,
+    grade: "7th",
     selectedTopics: [],
   });
 
@@ -90,21 +90,13 @@ const SignUp = () => {
   };
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <SignUpProgressBar stage={stage} setStage={setStage} />
       <CurrentStep stage={stage} values={values} setValues={setValues} />
-      <Button
-        style={{
-          WebkitTextFillColor: "#111111",
-          fontWeight: "bold",
-          color: "#4F4F4F",
-        }}
-        className="button"
-        onClick={goToNext}
-      >
+      <Button className="account-button" onClick={goToNext}>
         {getStepText(stage)}
       </Button>
-    </>
+    </div>
   );
 };
 

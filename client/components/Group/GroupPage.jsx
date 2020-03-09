@@ -78,7 +78,7 @@ const GroupPage = props => {
         </div>
         <Button className="group-join">Join</Button>
       </div>
-      <div className="group-content">
+      <div className="page">
         <div className="group-row-1">
           <p>Sort by </p>
           <Dropdown isOpen={dropdownOpen} toggle={toggle}>
