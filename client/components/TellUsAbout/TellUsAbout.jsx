@@ -8,6 +8,7 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
+import { avatarImg, colorArr } from "../../utils/avatars";
 
 const topics = [
   "Music",
@@ -19,8 +20,23 @@ const topics = [
   "Science",
 ];
 
-const TellUsAbout = ({ values, setValues }) => {
-  const { username, age, grade, selectedTopics, ageOpen, gradeOpen } = values;
+const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
+  const {
+    username,
+    age,
+    grade,
+    selectedTopics,
+    ageOpen,
+    gradeOpen,
+    avatar,
+    avatarColor,
+  } = values;
+
+  React.useEffect(() => {
+    if (age > 0 && grade.length > 0 && selectedTopics.length > 0) {
+      setStageCompleted(true);
+    }
+  }, [age, grade, selectedTopics]);
 
   const toggleAge = () => setValues({ ageOpen: !ageOpen });
   const toggleGrade = () => setValues({ gradeOpen: !gradeOpen });
@@ -86,11 +102,18 @@ const TellUsAbout = ({ values, setValues }) => {
     <div className="about-pg page">
       <h1 className="about-head">Tell us more about you.</h1>
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <img
-          className="about-avatar"
-          alt="Avatar"
-          src="https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png"
-        />
+        <div
+          style={{
+            backgroundColor: colorArr[avatarColor],
+          }}
+          className="about-avatar avatar-logo"
+        >
+          <img
+            src={avatarImg[avatar]}
+            alt="CreateAvatar"
+            className="avatar-img"
+          />
+        </div>
         <p className="about-username">{username}</p>
       </div>
       <Form>

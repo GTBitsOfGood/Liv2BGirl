@@ -29,8 +29,14 @@ const favThings = [
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const GenUsername = ({ values, setValues }) => {
+const GenUsername = ({ values, setValues, setStageCompleted }) => {
   const { username } = values;
+
+  React.useEffect(() => {
+    if (username.length > 0) {
+      setStageCompleted(true);
+    }
+  }, [username]);
 
   const [describe, setDescribe] = React.useState(
     descriptions[Math.floor(Math.random() * descriptions.length)]

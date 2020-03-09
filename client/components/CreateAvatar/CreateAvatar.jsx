@@ -1,31 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "reactstrap";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "next/link";
 import urls from "../../../utils/urls";
+import { avatarImg, colorArr } from "../../utils/avatars";
 
-import avatarPhoto1 from "../../../public/img/avatars/apple.png";
-import avatarPhoto2 from "../../../public/img/avatars/avocado.png";
-import avatarPhoto3 from "../../../public/img/avatars/banana.png";
-import avatarPhoto4 from "../../../public/img/avatars/kiwi.png";
-import avatarPhoto5 from "../../../public/img/avatars/pear.png";
-import avatarPhoto6 from "../../../public/img/avatars/strawberry.png";
-
-// CreateAvatar Images
-const avatarImg = [
-  avatarPhoto1,
-  avatarPhoto2,
-  avatarPhoto3,
-  avatarPhoto4,
-  avatarPhoto5,
-  avatarPhoto6,
-];
-
-const colorArr = ["red", "blue", "green", "yellow", "cyan", "magenta"];
-
-const CreateAvatar = ({ values, setValues }) => {
+const CreateAvatar = ({ values, setValues, setStageCompleted }) => {
   const { avatar, avatarColor } = values;
+
+  React.useEffect(() => {
+    setStageCompleted(true);
+  }, []);
 
   return (
     <div className="page" style={{ marginBottom: 0 }}>
