@@ -37,9 +37,14 @@ export async function login(email, password) {
 }
 
 export async function signUp(
+  email,
   username,
   password,
-  email,
+  avatar,
+  avatarColor,
+  age,
+  grade,
+  selectedTopics,
   role = "User",
   name = ""
 ) {
@@ -56,10 +61,15 @@ export async function signUp(
     .then(hashedPassword =>
       User.create({
         email,
-        name,
-        password: hashedPassword,
-        role,
         username,
+        password: hashedPassword,
+        avatar,
+        avatarColor,
+        age,
+        grade,
+        selectedTopics,
+        role,
+        name,
       })
     )
     .then(user =>
@@ -97,6 +107,7 @@ export async function follow(userId, toFollowId) {
   await mongoDB();
   // username added to userId's following
   // userId added to username's follower
+
   await User.findByIdAndUpdate(userId, { $push: { following: toFollowId } });
   await User.findByIdAndUpdate(toFollowId, { $push: { followers: userId } });
 }
@@ -105,6 +116,7 @@ export async function unfollow(userId, toUnfollowId) {
   await mongoDB();
   // "username" deleted from userId's following
   // "userId" deleted from username's follower reduces
+
   await User.findByIdAndUpdate(userId, { $pull: { following: toUnfollowId } });
   await User.findByIdAndUpdate(toUnfollowId, { $push: { followers: userId } });
 }

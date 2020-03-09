@@ -3,16 +3,16 @@ import { Button } from "reactstrap";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "next/link";
-import urls from "../utils/urls";
+import urls from "../../../utils/urls";
 
-import avatarPhoto1 from "../public/img/avatars/apple.png";
-import avatarPhoto2 from "../public/img/avatars/avocado.png";
-import avatarPhoto3 from "../public/img/avatars/banana.png";
-import avatarPhoto4 from "../public/img/avatars/kiwi.png";
-import avatarPhoto5 from "../public/img/avatars/pear.png";
-import avatarPhoto6 from "../public/img/avatars/strawberry.png";
+import avatarPhoto1 from "../../../public/img/avatars/apple.png";
+import avatarPhoto2 from "../../../public/img/avatars/avocado.png";
+import avatarPhoto3 from "../../../public/img/avatars/banana.png";
+import avatarPhoto4 from "../../../public/img/avatars/kiwi.png";
+import avatarPhoto5 from "../../../public/img/avatars/pear.png";
+import avatarPhoto6 from "../../../public/img/avatars/strawberry.png";
 
-// Avatar Images
+// CreateAvatar Images
 const avatarImg = [
   avatarPhoto1,
   avatarPhoto2,
@@ -24,12 +24,11 @@ const avatarImg = [
 
 const colorArr = ["red", "blue", "green", "yellow", "cyan", "magenta"];
 
-const Avatar = () => {
-  const [avatar, setAvatar] = useState(0);
-  const [color, setColor] = useState(0);
+const CreateAvatar = ({ values, setValues }) => {
+  const { avatar, avatarColor } = values;
 
   return (
-    <div className="page">
+    <div className="page" style={{ marginBottom: 0 }}>
       <div className="avatar-header">
         <Button tag={Link} href={urls.pages.signUp} className="back-btn">
           <FontAwesomeIcon icon={faArrowLeft} />
@@ -39,11 +38,15 @@ const Avatar = () => {
       </div>
       <div
         style={{
-          backgroundColor: colorArr[color],
+          backgroundColor: colorArr[avatarColor],
         }}
         className="avatar-logo"
       >
-        <img src={avatarImg[avatar]} alt="Avatar" className="avatar-img" />
+        <img
+          src={avatarImg[avatar]}
+          alt="CreateAvatar"
+          className="avatar-img"
+        />
       </div>
       <br />
 
@@ -56,8 +59,16 @@ const Avatar = () => {
                 index === avatar ? "object-card active" : "object-card"
               }
               key={curAvatar}
-              onClick={() => setAvatar(index)}
-              onKeyDown={() => setAvatar(index)}
+              onClick={() => {
+                setValues({
+                  avatar: index,
+                });
+              }}
+              onKeyDown={() => {
+                setValues({
+                  avatar: index,
+                });
+              }}
               role="button"
               tabIndex={index}
             >
@@ -77,9 +88,19 @@ const Avatar = () => {
           {colorArr.map((curColor, index) => (
             <Button
               key={curColor}
-              onClick={() => setColor(index)}
-              onKeyDown={() => setColor(index)}
-              className={index === color ? "color-card active" : "color-card"}
+              onClick={() => {
+                setValues({
+                  avatar: index,
+                });
+              }}
+              onKeyDown={() => {
+                setValues({
+                  avatar: index,
+                });
+              }}
+              className={
+                index === avatarColor ? "color-card active" : "color-card"
+              }
               style={{ backgroundColor: curColor }}
               aria-label="Background Color"
               tabIndex={index}
@@ -87,11 +108,8 @@ const Avatar = () => {
           ))}
         </div>
       </div>
-
-      <div style={{ display: "flex" }}>
-        <Button className="avatar-button">NEXT STEP</Button>
-      </div>
     </div>
   );
 };
-export default Avatar;
+
+export default CreateAvatar;

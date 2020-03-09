@@ -1,82 +1,100 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Button, ButtonGroup, Input, Form } from "reactstrap";
-import { Link } from "next/link";
+import { Button } from "reactstrap";
 import { signUp } from "../client/actions/api";
+import SignUpInfo from "../client/components/SignUpInfo";
+import CreateAvatar from "../client/components/CreateAvatar";
+import GenUsername from "../client/components/GenUsername";
+import TellUsAbout from "../client/components/TellUsAbout";
+import SignUpProgressBar from "../client/components/SignUpProgressBar";
+import RegistrationCompleted from "../client/components/RegistrationCompleted";
 import urls from "../utils/urls";
+
+const CurrentStep = ({ stage, ...rest }) => {
+  switch (stage) {
+    case 0: {
+      return <SignUpInfo {...rest} />;
+    }
+    case 1: {
+      return <CreateAvatar {...rest} />;
+    }
+    case 2: {
+      return <GenUsername {...rest} />;
+    }
+    case 3: {
+      return <TellUsAbout {...rest} />;
+    }
+    case 4: {
+      return <RegistrationCompleted {...rest} />;
+    }
+    default: {
+      return null;
+    }
+  }
+};
+
+const getStepText = stage => {
+  switch (stage) {
+    case 0: {
+      return "Sign Up";
+    }
+    case 3: {
+      return "Create Profile";
+    }
+    case 4: {
+      return "GET STARTED";
+    }
+    default: {
+      return "NEXT STEP";
+    }
+  }
+};
 
 const SignUp = () => {
   const router = useRouter();
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [invCode, setInvCode] = React.useState("");
+  const [stage, setStage] = React.useState(0);
+  const [values, setPureValues] = React.useState({
+    username: "",
+    email: "",
+    password: "",
+    invCode: "",
+    avatar: 0,
+    avatarColor: 0,
+    age: "",
+    grade: "",
+    selectedTopics: [],
+  });
 
-  const handleSignUp = async () => {
-    await signUp(username, password, email);
+  const setValues = newObj => {
+    setPureValues(oldObject => ({
+      ...oldObject,
+      ...newObj,
+    }));
+  };
 
-    return router.push({
-      pathname: urls.pages.index,
-    });
+  const goToNext = async () => {
+    if (stage + 1 <= 4) {
+      setStage(prevState => prevState + 1);
+    } else if (stage + 1 === 4) {
+      await signUp(values)
+        .then(() => {
+          setStage(prevState => prevState + 1);
+        })
+        .catch(() => {
+          // eslint-disable-next-line no-alert
+          window.alert("Failed to create account!");
+        });
+    } else if (stage + 1 === 5) {
+      await router.replace(urls.pages.app.home);
+    }
   };
 
   return (
-    <div className="page account" style={{ marginBottom: 0 }}>
-      <div className="logo" />
-      <ButtonGroup className="login-buttons">
-        <Button tag={Link} href={urls.pages.signUp} className="signUp">
-          SIGN UP
-        </Button>
-        <Button
-          tag={Link}
-          href={urls.pages.signIn}
-          className="signIn"
-          style={{
-            background: "#E0E0E0",
-            color: "#828282",
-            fontWeight: "normal",
-          }}
-        >
-          SIGN IN
-        </Button>
-      </ButtonGroup>
-
-      <Form>
-        <Input
-          onChange={event => {
-            setUsername(event.target.value);
-          }}
-          className="form-control transparent-input custom-input"
-          type="text"
-          placeholder="Username"
-        />
-        <Input
-          onChange={event => {
-            setEmail(event.target.value);
-          }}
-          className="form-control transparent-input custom-input"
-          type="text"
-          placeholder="Email"
-        />
-        <Input
-          onChange={event => {
-            setPassword(event.target.value);
-          }}
-          className="form-control transparent-input custom-input"
-          type="password"
-          placeholder="Password"
-        />
-        <Input
-          onChange={event => {
-            setInvCode(event.target.value);
-          }}
-          className="form-control transparent-input custom-input"
-          type="text"
-          placeholder="Invitation Code"
-        />
-      </Form>
-      <Button className="account-button" onClick={handleSignUp}>
-        SIGN UP
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <SignUpProgressBar stage={stage} setStage={setStage} />
+      <CurrentStep stage={stage} values={values} setValues={setValues} />
+      <Button className="account-button" onClick={goToNext}>
+        {getStepText(stage)}
       </Button>
     </div>
   );

@@ -3,7 +3,18 @@ import Router from "next/router";
 import cookie from "js-cookie";
 import urls from "../../utils/urls";
 
-export const signUp = (username, password, email, role, name) =>
+export const signUp = ({
+  username,
+  email,
+  password,
+  avatar,
+  avatarColor,
+  age,
+  grade,
+  selectedTopics,
+  role,
+  name,
+}) =>
   fetch(urls.baseUrl + urls.api.signUp(), {
     method: "post",
     mode: "same-origin",
@@ -12,11 +23,16 @@ export const signUp = (username, password, email, role, name) =>
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      username,
       email,
       password,
-      name,
+      avatar,
+      avatarColor,
+      age,
+      grade,
+      selectedTopics,
       role,
-      username,
+      name,
     }),
   })
     .then(response => response.json())
