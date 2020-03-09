@@ -88,6 +88,8 @@ const SignUp = () => {
     } else if (stage + 1 === 5) {
       await router.replace(urls.pages.app.home);
     }
+
+    window.scrollTo(0, 0);
   };
 
   return (

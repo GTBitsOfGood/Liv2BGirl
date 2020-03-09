@@ -90,12 +90,12 @@ const CreateAvatar = ({ values, setValues }) => {
               key={curColor}
               onClick={() => {
                 setValues({
-                  avatar: index,
+                  avatarColor: index,
                 });
               }}
               onKeyDown={() => {
                 setValues({
-                  avatar: index,
+                  avatarColor: index,
                 });
               }}
               className={

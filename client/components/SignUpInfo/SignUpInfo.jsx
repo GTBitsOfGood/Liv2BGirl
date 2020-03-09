@@ -31,7 +31,11 @@ const SignUpInfo = ({ values, setValues }) => {
         <Input
           value={email}
           onChange={event => {
-            setEmail(event.target.value);
+            const { value } = event.target;
+
+            setValues({
+              email: value,
+            });
           }}
           className="form-control transparent-input custom-input"
           type="text"
@@ -40,7 +44,11 @@ const SignUpInfo = ({ values, setValues }) => {
         <Input
           value={password}
           onChange={event => {
-            setPassword(event.target.value);
+            const { value } = event.target;
+
+            setValues({
+              password: value,
+            });
           }}
           className="form-control transparent-input custom-input"
           type="password"
@@ -49,7 +57,11 @@ const SignUpInfo = ({ values, setValues }) => {
         <Input
           value={invCode}
           onChange={event => {
-            setInvCode(event.target.value);
+            const { value } = event.target;
+
+            setValues({
+              invCode: value,
+            });
           }}
           className="form-control transparent-input custom-input"
           type="text"
