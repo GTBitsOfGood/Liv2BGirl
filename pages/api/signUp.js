@@ -7,8 +7,13 @@ import { signUp } from "../../server/mongodb/actions/User";
 const handler = (req, res) =>
   signUp(
     req.body.username,
-    req.body.password,
     req.body.email,
+    req.body.password,
+    req.body.avatar,
+    req.body.avatarColor,
+    req.body.age,
+    req.body.grade,
+    req.body.selectedTopics,
     req.body.role,
     req.body.name
   )

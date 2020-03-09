@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import GroupPage from "../../client/components/Group/GroupPage";
+import GroupPage from "../../../client/components/Group/GroupPage";
 
 const Group = () => {
   const router = useRouter();

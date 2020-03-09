@@ -37,9 +37,14 @@ export async function login(email, password) {
 }
 
 export async function signUp(
+  email,
   username,
   password,
-  email,
+  avatar,
+  avatarColor,
+  age,
+  grade,
+  selectedTopics,
   role = "User",
   name = ""
 ) {
@@ -56,10 +61,15 @@ export async function signUp(
     .then(hashedPassword =>
       User.create({
         email,
-        name,
-        password: hashedPassword,
-        role,
         username,
+        password: hashedPassword,
+        avatar,
+        avatarColor,
+        age,
+        grade,
+        selectedTopics,
+        role,
+        name,
       })
     )
     .then(user =>

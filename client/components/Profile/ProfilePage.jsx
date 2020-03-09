@@ -22,7 +22,7 @@ const ProfilePage = props => {
             className="mt-4 ml-2"
             style={{ width: "7em", borderRadius: "50%" }}
             src="https://picsum.photos/200/200"
-            alt="Avatar"
+            alt="CreateAvatar"
           />
         </Col>
         <Col>

@@ -1,96 +1,110 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { Button } from "reactstrap";
-import { Link } from "next/link";
 import { signUp } from "../client/actions/api";
+import SignUpInfo from "../client/components/SignUpInfo";
+import CreateAvatar from "../client/components/CreateAvatar";
+import GenUsername from "../client/components/GenUsername";
+import TellUsAbout from "../client/components/TellUsAbout";
+import SignUpProgressBar from "../client/components/SignUpProgressBar";
+import RegistrationCompleted from "../client/components/RegistrationCompleted";
 import urls from "../utils/urls";
+
+const CurrentStep = ({ stage, ...rest }) => {
+  switch (stage) {
+    case 0: {
+      return <SignUpInfo {...rest} />;
+    }
+    case 1: {
+      return <CreateAvatar {...rest} />;
+    }
+    case 2: {
+      return <GenUsername {...rest} />;
+    }
+    case 3: {
+      return <TellUsAbout {...rest} />;
+    }
+    case 4: {
+      return <RegistrationCompleted {...rest} />;
+    }
+    default: {
+      return null;
+    }
+  }
+};
+
+const getStepText = stage => {
+  switch (stage) {
+    case 0: {
+      return "Sign Up";
+    }
+    case 3: {
+      return "Create Profile";
+    }
+    case 4: {
+      return "GET STARTED";
+    }
+    default: {
+      return "NEXT STEP";
+    }
+  }
+};
 
 const SignUp = () => {
   const router = useRouter();
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [invCode, setInvCode] = React.useState("");
+  const [stage, setStage] = React.useState(0);
+  const [values, setPureValues] = React.useState({
+    username: "",
+    email: "",
+    password: "",
+    invCode: "",
+    avatar: 0,
+    avatarColor: 0,
+    age: "",
+    grade: "",
+    selectedTopics: [],
+  });
 
-  const handleSignUp = async () => {
-    await signUp(username, password, email);
+  const setValues = newObj => {
+    setPureValues(oldObject => ({
+      ...oldObject,
+      ...newObj,
+    }));
+  };
 
-    return router.push({
-      pathname: urls.pages.index,
-    });
+  const goToNext = async () => {
+    if (stage + 1 <= 4) {
+      setStage(prevState => prevState + 1);
+    } else if (stage + 1 === 4) {
+      await signUp(values)
+        .then(() => {
+          setStage(prevState => prevState + 1);
+        })
+        .catch(() => {
+          // eslint-disable-next-line no-alert
+          window.alert("Failed to create account!");
+        });
+    } else if (stage + 1 === 5) {
+      await router.replace(urls.pages.app.home);
+    }
   };
 
   return (
-    <div>
+    <>
+      <SignUpProgressBar stage={stage} setStage={setStage} />
+      <CurrentStep stage={stage} values={values} setValues={setValues} />
       <Button
-        style={{ WebkitTextFillColor: "#111111", backgroundColor: "lightGray" }}
-        className="logo"
-        disabled
-      >
-        {" Logo "}
-      </Button>
-      <br />
-      <Button
-        tag={Link}
-        href={urls.pages.signUp}
-        color="primary"
-        className="signUp"
-      >
-        {" SIGN UP "}
-      </Button>
-      <Button tag={Link} href={urls.pages.signIn} className="signIn">
-        {" SIGN IN "}
-      </Button>
-      <form>
-        <input
-          onChange={event => {
-            setUsername(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="text"
-          placeholder="Username"
-        />
-        <br />
-        <input
-          onChange={event => {
-            setEmail(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="text"
-          placeholder="Email"
-        />
-        <br />
-        <input
-          onChange={event => {
-            setPassword(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="password"
-          placeholder="Password"
-        />
-        <br />
-        <input
-          onChange={event => {
-            setInvCode(event.target.value);
-          }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
-          type="text"
-          placeholder="Invitation Code"
-        />
-        <br />
-      </form>
-      <Button
-        style={{ WebkitTextFillColor: "#111111" }}
+        style={{
+          WebkitTextFillColor: "#111111",
+          fontWeight: "bold",
+          color: "#4F4F4F",
+        }}
         className="button"
-        onClick={handleSignUp}
+        onClick={goToNext}
       >
-        {" Sign Up "}
+        {getStepText(stage)}
       </Button>
-    </div>
+    </>
   );
 };
 
