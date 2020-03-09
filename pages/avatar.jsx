@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, CardImg, CardDeck, Row } from "reactstrap";
+import { Button } from "reactstrap";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "next/link";
@@ -29,114 +29,68 @@ const Avatar = () => {
   const [color, setColor] = useState(0);
 
   return (
-    <div>
-      <div style={{ fontWeight: "bold", textAlign: "center" }}>
-        <Button
-          tag={Link}
-          href={urls.pages.signUp}
-          style={{
-            backgroundColor: "transparent",
-            borderColor: "transparent",
-            color: "black",
-            float: "left",
-            padding: 0,
-          }}
-        >
+    <div className="page">
+      <div className="avatar-header">
+        <Button tag={Link} href={urls.pages.signUp} className="back-btn">
           <FontAwesomeIcon icon={faArrowLeft} />
         </Button>
-        <span style={{ fontSize: "22px", color: "#4F4F4F" }}>
-          Make your own avatar.
-        </span>
+        <div className="avatar-header-text">Make your own avatar.</div>
+        <div />
       </div>
       <div
         style={{
           backgroundColor: colorArr[color],
         }}
         className="avatar-logo"
-        disabled
       >
-        <img
-          src={avatarImg[avatar]}
-          alt="Avatar"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-            padding: 16,
-          }}
-        />
+        <img src={avatarImg[avatar]} alt="Avatar" className="avatar-img" />
       </div>
       <br />
 
-      <Row className="ml-3">
-        <div display="table-cell" vertical-align="middle">
-          <h4 style={{ fontSize: "18px", color: "#4F4F4F" }}>Object</h4>
-        </div>
-      </Row>
-      <Row className="scrollable-box ml-3">
-        <CardDeck
-          style={{
-            display: "flex",
-            overflowX: "scroll",
-            flexDirection: "row",
-            marginTop: "20px",
-          }}
-        >
+      <div className="avatar-object">
+        <h4>Object</h4>
+        <div className="object-deck">
           {avatarImg.map((curAvatar, index) => (
-            <Card
+            <div
+              className={
+                index === avatar ? "object-card active" : "object-card"
+              }
               key={curAvatar}
-              style={{ flex: "0 0 40%", marginRight: "25px", border: "none" }}
               onClick={() => setAvatar(index)}
+              onKeyDown={() => setAvatar(index)}
+              role="button"
+              tabIndex={index}
             >
-              <CardImg
-                style={{ margin: "auto 0" }}
-                width="200px"
+              <img
+                className="object-img"
                 src={curAvatar}
-                alt={index}
+                alt={`Avatar ${index}`}
               />
-            </Card>
+            </div>
           ))}
-        </CardDeck>
-      </Row>
-
-      <Row className="ml-3" style={{ marginTop: "50px" }}>
-        <div display="table-cell" vertical-align="middle">
-          <h4 style={{ fontSize: "18px", color: "#4F4F4F" }}>
-            Background Color
-          </h4>
         </div>
-      </Row>
-      <Row className="scrollable-box ml-3">
-        <CardDeck
-          style={{
-            display: "flex",
-            overflowX: "scroll",
-            flexDirection: "row",
-            marginTop: "20px",
-          }}
-        >
-          {colorArr.map((curColor, index) => (
-            <Card
-              key={curColor}
-              style={{ flex: "0 0 40%", marginRight: "25px", border: "none" }}
-              onClick={() => setColor(index)}
-            >
-              <span className="color" style={{ backgroundColor: curColor }} />
-            </Card>
-          ))}
-        </CardDeck>
-      </Row>
+      </div>
 
-      <Button
-        style={{
-          WebkitTextFillColor: "#111111",
-          fontWeight: "bold",
-          color: "#4F4F4F",
-        }}
-        className="button"
-      >
-        NEXT STEP
-      </Button>
+      <div className="avatar-color">
+        <h4>Background Color</h4>
+        <div className="color-deck">
+          {colorArr.map((curColor, index) => (
+            <Button
+              key={curColor}
+              onClick={() => setColor(index)}
+              onKeyDown={() => setColor(index)}
+              className={index === color ? "color-card active" : "color-card"}
+              style={{ backgroundColor: curColor }}
+              aria-label="Background Color"
+              tabIndex={index}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display: "flex" }}>
+        <Button className="avatar-button">NEXT STEP</Button>
+      </div>
     </div>
   );
 };

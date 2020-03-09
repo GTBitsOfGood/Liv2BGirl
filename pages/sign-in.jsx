@@ -62,7 +62,7 @@ const SignUp = () => {
           <CustomInput type="checkbox" id="rememberMe" label="Remember Me" />
         </div>
       </Form>
-      <Button className="button" onClick={handleLogin}>
+      <Button className="account-button" onClick={handleLogin}>
         SIGN IN
       </Button>
     </div>

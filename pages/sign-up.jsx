@@ -75,7 +75,7 @@ const SignUp = () => {
           placeholder="Invitation Code"
         />
       </Form>
-      <Button className="button" onClick={handleSignUp}>
+      <Button className="account-button" onClick={handleSignUp}>
         SIGN UP
       </Button>
     </div>
