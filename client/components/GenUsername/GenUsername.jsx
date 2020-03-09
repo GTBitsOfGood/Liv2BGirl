@@ -30,6 +30,8 @@ const favThings = [
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const GenUsername = ({ values, setValues }) => {
+  const { username } = values;
+
   const [describe, setDescribe] = React.useState(
     descriptions[Math.floor(Math.random() * descriptions.length)]
   );
@@ -58,16 +60,12 @@ const GenUsername = ({ values, setValues }) => {
     Array.from({ length: 9 }, () => genUser())
   );
 
-  const numColumns = 3;
-  const buttonWidth = 100;
-  const buttonMargin = 16;
-
   return (
-    <div>
-      <h5 style={{ fontWeight: "bold" }}>Generate a username</h5>
+    <div className="gen-username page">
+      <h1 className="gen-header">Generate a username</h1>
       <Form>
         <FormGroup>
-          <Label>Describe yourself in one word: </Label>
+          <Label className="gen-label">Describe yourself in one word: </Label>
           <Input
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
@@ -86,7 +84,7 @@ const GenUsername = ({ values, setValues }) => {
           </Input>
         </FormGroup>
         <FormGroup>
-          <Label> One thing you like:</Label>
+          <Label className="gen-label"> One thing you like:</Label>
           <Input
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
@@ -97,7 +95,6 @@ const GenUsername = ({ values, setValues }) => {
               setLike(value);
             }}
             type="select"
-            style={{ height: 35 }}
           >
             {favThings.map(word => (
               <option>{word}</option>
@@ -105,7 +102,7 @@ const GenUsername = ({ values, setValues }) => {
           </Input>
         </FormGroup>
         <FormGroup>
-          <Label>Your lucky number: </Label>
+          <Label className="gen-label">Your lucky number: </Label>
           <Input
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
@@ -115,7 +112,6 @@ const GenUsername = ({ values, setValues }) => {
 
               setLucky(value);
             }}
-            style={{ height: 35 }}
             type="select"
           >
             {numbers.map(word => (
@@ -128,45 +124,26 @@ const GenUsername = ({ values, setValues }) => {
         onClick={() => {
           setUsernames(Array.from({ length: 9 }, () => genUser()));
         }}
-        style={{
-          outlineColor: "lightgray",
-          backgroundColor: "lightgray",
-          height: 30,
-          WebkitBorderRadius: 40,
-          color: "black",
-          paddingBottom: 28,
-        }}
+        className="gen-btn"
       >
         Generate!
       </Button>
-      <br />
-      <Label style={{ marginTop: 10 }}>Pick your username: </Label>
-      <br />
+      <p className="gen-pick">Pick your username: </p>
       <div
         style={{
-          width: buttonWidth * numColumns + buttonMargin * numColumns,
           display: "flex",
           flexWrap: "wrap",
         }}
       >
         {usernames.map(name => (
           <Button
+            active={username === name}
             onClick={() => {
               setValues({
                 username: name,
               });
             }}
-            style={{
-              marginRight: buttonMargin,
-              marginBottom: buttonMargin,
-              width: buttonWidth,
-              height: 40,
-              maxWidth: 100,
-              fontSize: 11,
-              WebkitBorderRadius: 30,
-              color: "gray",
-              backgroundColor: "white",
-            }}
+            className="username-btn"
           >
             {name}
           </Button>
