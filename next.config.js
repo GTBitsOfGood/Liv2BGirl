@@ -13,8 +13,8 @@ module.exports = withSass(
   withCss(
     withImages({
       env: {
-        MONGO_DB: process.env.MONGO_DB,
-        JWT_SECRET: process.env.JWT_SECRET,
+        MONGODB: process.env.MONGODB,
+        JWTSECRET: process.env.JWTSECRET,
       },
     })
   )

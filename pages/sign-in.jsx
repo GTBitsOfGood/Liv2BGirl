@@ -10,13 +10,17 @@ const SignUp = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const handleLogin = async () => {
-    await login(email, password);
-
-    return router.push({
-      pathname: urls.pages.index,
-    });
-  };
+  const handleLogin = async () =>
+    login(email, password)
+      .then(() =>
+        router.push({
+          pathname: urls.pages.app.home,
+        })
+      )
+      .catch(error => {
+        // eslint-disable-next-line no-alert
+        window.alert(error.message);
+      });
 
   return (
     <div className="page account">

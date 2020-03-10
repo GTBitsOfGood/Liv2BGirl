@@ -53,6 +53,7 @@ const getStepText = stage => {
 const SignUp = () => {
   const router = useRouter();
   const [stage, setStage] = React.useState(0);
+  const [stageCompleted, setStageCompleted] = React.useState(false);
   const [values, setPureValues] = React.useState({
     username: "",
     email: "",
@@ -73,26 +74,39 @@ const SignUp = () => {
   };
 
   const goToNext = async () => {
-    if (stage + 1 <= 4) {
-      setStage(prevState => prevState + 1);
-    } else if (stage + 1 === 4) {
-      await signUp(values)
-        .then(() => {
-          setStage(prevState => prevState + 1);
-        })
-        .catch(() => {
-          // eslint-disable-next-line no-alert
-          window.alert("Failed to create account!");
-        });
-    } else if (stage + 1 === 5) {
-      await router.replace(urls.pages.app.home);
+    if (stageCompleted) {
+      if (stage + 1 < 4) {
+        setStage(prevState => prevState + 1);
+        setStageCompleted(false);
+      } else if (stage + 1 === 4) {
+        await signUp(values)
+          .then(() => {
+            setStage(prevState => prevState + 1);
+            setStageCompleted(true);
+          })
+          .catch(() => {
+            setStage(0);
+            setStageCompleted(false);
+            // eslint-disable-next-line no-alert
+            window.alert("Failed to create account!");
+          });
+      } else if (stage + 1 === 5) {
+        await router.replace(urls.pages.app.home);
+      }
+
+      window.scrollTo(0, 0);
     }
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <SignUpProgressBar stage={stage} setStage={setStage} />
-      <CurrentStep stage={stage} values={values} setValues={setValues} />
+      <CurrentStep
+        stage={stage}
+        values={values}
+        setValues={setValues}
+        setStageCompleted={setStageCompleted}
+      />
       <Button className="account-button" onClick={goToNext}>
         {getStepText(stage)}
       </Button>

@@ -3,8 +3,14 @@ import { Button, ButtonGroup, Input, Form } from "reactstrap";
 import { Link } from "next/link";
 import urls from "../../../utils/urls";
 
-const SignUpInfo = ({ values, setValues }) => {
+const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
   const { email, password, invCode } = values;
+
+  React.useEffect(() => {
+    if (email.length > 0 && password.length > 0 && invCode.length > 0) {
+      setStageCompleted(true);
+    }
+  }, [email, password, invCode]);
 
   return (
     <div className="page account" style={{ marginBottom: 0 }}>

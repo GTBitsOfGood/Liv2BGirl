@@ -63,7 +63,7 @@ export const login = (email, password) =>
       if (json == null) {
         throw new Error("Could not connect to API!");
       } else if (!json.success) {
-        return json.message;
+        throw new Error(json.message);
       }
 
       return json.payload;
