@@ -28,7 +28,7 @@ export async function login(email, password) {
           id: user._id,
           email: user.email,
         },
-        process.env.JWT_SECRET,
+        process.env.JWTSECRET,
         {
           expiresIn: "7d",
         }
@@ -36,13 +36,18 @@ export async function login(email, password) {
     );
 }
 
-export async function signUp(
+export async function signUp({
+  email,
   username,
   password,
-  email,
+  avatar,
+  avatarColor,
+  age,
+  grade,
+  selectedTopics,
   role = "User",
-  name = ""
-) {
+  name = "",
+}) {
   await mongoDB();
 
   return User.countDocuments({ email })
@@ -56,10 +61,15 @@ export async function signUp(
     .then(hashedPassword =>
       User.create({
         email,
-        name,
-        password: hashedPassword,
-        role,
         username,
+        password: hashedPassword,
+        avatar,
+        avatarColor,
+        age,
+        grade,
+        selectedTopics,
+        role,
+        name,
       })
     )
     .then(user =>
@@ -69,7 +79,7 @@ export async function signUp(
           email: user.email,
           isAdmin: user.isAdmin,
         },
-        process.env.JWT_SECRET,
+        process.env.JWTSECRET,
         {
           expiresIn: "7d",
         }
@@ -86,7 +96,7 @@ export const signOut = () => {
 };
 
 export async function verifyToken(token) {
-  return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  return jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
     if (decoded) return Promise.resolve(decoded);
 
     return Promise.reject(new Error("Invalid token!"));
@@ -97,6 +107,7 @@ export async function follow(userId, toFollowId) {
   await mongoDB();
   // username added to userId's following
   // userId added to username's follower
+
   await User.findByIdAndUpdate(userId, { $push: { following: toFollowId } });
   await User.findByIdAndUpdate(toFollowId, { $push: { followers: userId } });
 }
@@ -105,6 +116,7 @@ export async function unfollow(userId, toUnfollowId) {
   await mongoDB();
   // "username" deleted from userId's following
   // "userId" deleted from username's follower reduces
+
   await User.findByIdAndUpdate(userId, { $pull: { following: toUnfollowId } });
   await User.findByIdAndUpdate(toUnfollowId, { $push: { followers: userId } });
 }

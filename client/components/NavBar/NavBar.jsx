@@ -1,74 +1,33 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap";
-import style from "./NavBar.module.css";
+import "./NavBar.scss";
 
 const NavBar = () => (
   <Navbar color="light" light expand="md">
-    <Nav
-      className="mr-auto d-flex"
-      navbar
-      style={{
-        dislay: "flex",
-        flexDirection: "row",
-        justifyContent: "space-around",
-        width: "100%",
-      }}
-    >
-      <NavItem
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          marginRight: "19px",
-        }}
-      >
-        <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />{" "}
+    <Nav navbar>
+      <NavItem>
+        <NavLink href="/" exact>
+          <Button className="navbar-button" />
         </NavLink>
-        <header className={style.navBarButtonHeader}>Home</header>
+        <p>Home</p>
       </NavItem>
-      <NavItem
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          marginRight: "16px",
-        }}
-      >
-        <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />{" "}
+      <NavItem>
+        <NavLink href="/groups">
+          <Button className="navbar-button" />
         </NavLink>
-        <header className={style.navBarButtonHeader}>Group</header>
+        <p>Group</p>
       </NavItem>
-      <NavItem
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />{" "}
+      <NavItem>
+        <NavLink href="/ask-me">
+          <Button className="navbar-button" />
         </NavLink>
-        <header className={style.navBarButtonHeader}>Ask Me</header>
+        <p>Ask Me</p>
       </NavItem>
-      <NavItem
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          marginLeft: "-1px",
-          marginRight: "-16px",
-        }}
-      >
-        <NavLink href="http://localhost:3000">
-          <Button className={style.navBarButton} />{" "}
+      <NavItem>
+        <NavLink href="/notifications">
+          <Button className="navbar-button" />
         </NavLink>
-        <header className={style.navBarButtonHeader}>Notifications</header>
+        <p>Notifications</p>
       </NavItem>
     </Nav>
   </Navbar>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Button } from "reactstrap";
+import { Button, ButtonGroup, CustomInput, Input, Form } from "reactstrap";
 import { Link } from "next/link";
 import { login } from "../client/actions/api";
 import urls from "../utils/urls";
@@ -10,64 +10,64 @@ const SignUp = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const handleLogin = async () => {
-    await login(email, password);
-
-    return router.push({
-      pathname: urls.pages.index,
-    });
-  };
+  const handleLogin = async () =>
+    login(email, password)
+      .then(() =>
+        router.push({
+          pathname: urls.pages.app.home,
+        })
+      )
+      .catch(error => {
+        // eslint-disable-next-line no-alert
+        window.alert(error.message);
+      });
 
   return (
-    <div>
-      <Button
-        style={{ WebkitTextFillColor: "#111111", backgroundColor: "lightGray" }}
-        className="logo"
-        disabled
-      >
-        {" Logo "}
-      </Button>
-      <br />
-      <Button tag={Link} href={urls.pages.signUp} className="signUp">
-        {" SIGN UP "}
-      </Button>
-      <Button
-        tag={Link}
-        href={urls.pages.signIn}
-        color="primary"
-        className="signIn"
-      >
-        {" SIGN IN "}
-      </Button>
-      <form>
-        <input
+    <div className="page account">
+      <div className="logo" />
+      <ButtonGroup className="login-buttons">
+        <Button
+          tag={Link}
+          href={urls.pages.signUp}
+          className="signUp"
+          style={{
+            background: "#E0E0E0",
+            color: "#828282",
+            fontWeight: "normal",
+          }}
+        >
+          SIGN UP
+        </Button>
+        <Button tag={Link} href={urls.pages.signIn} className="signIn">
+          SIGN IN
+        </Button>
+      </ButtonGroup>
+
+      <Form className="signin-form">
+        <Input
           onChange={event => {
             setEmail(event.target.value);
           }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
+          className="transparent-input custom-input"
           type="text"
           placeholder="Email"
         />
-        <br />
-        <input
+        <Input
           onChange={event => {
             setPassword(event.target.value);
           }}
-          style={{ borderTop: 0, borderLeft: 0, borderRight: 0 }}
-          className="form-control transparent-input"
+          style={{ marginBottom: 0 }}
+          className="transparent-input custom-input"
           type="password"
           placeholder="Password"
         />
-        <br />
-        <br />
-      </form>
-      <Button
-        style={{ WebkitTextFillColor: "#111111" }}
-        className="button"
-        onClick={handleLogin}
-      >
-        {" Sign In"}
+        <Button className="forgot-pass">Forgot?</Button>
+        <div>
+          <CustomInput type="checkbox" id="rememberMe" label="Remember Me" />
+        </div>
+      </Form>
+      <Button className="account-button" onClick={handleLogin}>
+        SIGN IN
       </Button>
     </div>
   );
