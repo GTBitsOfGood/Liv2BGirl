@@ -5,7 +5,7 @@ export default {
     ? "https://liv2bgirl.now.sh"
     : "http://localhost:3000",
   dbUrl: prod
-    ? process.env.MONGO_DB
+    ? process.env.MONGODB
     : process.env.MONGO_DEV_DB || "mongodb://localhost:27017",
   dbName: "liv2bgirl",
   pages: {

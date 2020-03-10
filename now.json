@@ -1,7 +1,7 @@
 {
   "version": 2,
   "env": {
-    "MONGO_DB": "@mongodb",
+    "MONGODB": "@mongodb",
     "JWT_SECRET": "@jwt_secret"
   }
 }
