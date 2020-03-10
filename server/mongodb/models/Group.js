@@ -6,13 +6,14 @@ const GroupSchema = new Schema({
   name: {
     type: String,
     required: true,
+    text: true,
   },
   description: {
     type: String,
   },
-  subscribers: {
+  tags: {
     type: [String],
-    required: true,
+    text: true,
   },
 });
 
