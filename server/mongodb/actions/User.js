@@ -28,7 +28,7 @@ export async function login(email, password) {
           id: user._id,
           email: user.email,
         },
-        process.env.JWT_SECRET,
+        process.env.JWTSECRET,
         {
           expiresIn: "7d",
         }
@@ -79,7 +79,7 @@ export async function signUp({
           email: user.email,
           isAdmin: user.isAdmin,
         },
-        process.env.JWT_SECRET,
+        process.env.JWTSECRET,
         {
           expiresIn: "7d",
         }
@@ -96,7 +96,7 @@ export const signOut = () => {
 };
 
 export async function verifyToken(token) {
-  return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  return jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
     if (decoded) return Promise.resolve(decoded);
 
     return Promise.reject(new Error("Invalid token!"));
