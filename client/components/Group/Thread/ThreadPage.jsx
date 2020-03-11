@@ -6,6 +6,7 @@ import { Link } from "next/link";
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
+import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 
 // Stylings
 import "./ThreadPage.scss";
@@ -38,19 +39,26 @@ const fakeComments = [
 const ThreadPage = props => {
   const { threadid, author, date, groupid } = props;
   const [comment, setComment] = useState("");
+  const [saved, setSaved] = useState(false);
 
   return (
     <div className="thread-page">
       <div className="thread-header">
         <Button
           tag={Link}
-          className="thread-back-btn"
+          className="thread-btn"
           href={`/app/groups/${groupid}`}
         >
           <Icon className="thread-back" icon={bxArrowBack} width="18px" />
         </Button>
         <h1 className="thread-label">Thread</h1>
-        <Icon className="thread-save" icon={bxBookmark} width="18px" />
+        <Button onClick={() => setSaved(!saved)} className="thread-btn">
+          {saved ? (
+            <Icon className="thread-save" icon={bxsBookmark} width="18px" />
+          ) : (
+            <Icon className="thread-save" icon={bxBookmark} width="18px" />
+          )}
+        </Button>
       </div>
       <div className="thread-main page">
         <div className="thread-info">
