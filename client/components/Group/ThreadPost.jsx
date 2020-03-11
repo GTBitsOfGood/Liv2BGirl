@@ -1,5 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "next/link";
+
+// Components
+import { Button } from "reactstrap";
 
 // Styling
 import "./GroupPage.scss";
@@ -12,7 +16,11 @@ const ThreadPost = props => {
   const { title, summary, author, comments } = props;
 
   return (
-    <div className="group-thread">
+    <Button
+      tag={Link}
+      className="group-thread"
+      href={`/app/groups/thread/${title}`}
+    >
       <div style={{ display: "flex" }}>
         <h1 className="thread-title">{title}</h1>
         <h2 className="thread-time">5h</h2>
@@ -31,7 +39,7 @@ const ThreadPost = props => {
           <p>{comments}</p>
         </div>
       </div>
-    </div>
+    </Button>
   );
 };
 

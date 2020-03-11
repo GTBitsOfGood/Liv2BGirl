@@ -71,6 +71,14 @@
   padding: 16px;
   margin-bottom: 16px;
   color: #4f4f4f;
+  text-align: left;
+  border: none;
+  outline: none;
+
+  &:hover {
+    background: rgba(224, 224, 224, 0.54);
+    color: #4f4f4f;
+  }
 
   .thread-title {
     font-weight: bold;
