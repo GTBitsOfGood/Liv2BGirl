@@ -59,9 +59,16 @@
     }
   }
 
-  .add-post {
+  .create-thread-btn {
     margin-left: auto;
     margin-right: 5px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+
+  .add-post {
     color: #dadada;
   }
 }

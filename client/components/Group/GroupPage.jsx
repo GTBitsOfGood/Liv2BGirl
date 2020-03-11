@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "next/link";
 
 // Stylings
 import "./GroupPage.scss";
@@ -109,7 +110,18 @@ const GroupPage = props => {
               </div>
             </DropdownMenu>
           </Dropdown>
-          <Icon className="add-post" width="1.5rem" icon={commentPlusOutline} />
+
+          <Button
+            tag={Link}
+            className="create-thread-btn"
+            href={`/app/groups/${groupid}/create-thread`}
+          >
+            <Icon
+              className="add-post"
+              width="1.5rem"
+              icon={commentPlusOutline}
+            />
+          </Button>
         </div>
         {fakeThreads.map(thread => (
           <ThreadPost
