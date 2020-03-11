@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "next/link";
 
@@ -11,7 +11,7 @@ import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import "./ThreadPage.scss";
 
 // Components
-import { Button } from "reactstrap";
+import { Button, Input } from "reactstrap";
 import CommentCard from "./CommentCard";
 
 const fakeComments = [
@@ -37,6 +37,7 @@ const fakeComments = [
 
 const ThreadPage = props => {
   const { threadid, author, date, groupid } = props;
+  const [comment, setComment] = useState("");
 
   return (
     <div className="thread-page">
@@ -86,6 +87,25 @@ const ThreadPage = props => {
             text={thread.text}
           />
         ))}
+      </div>
+      <div className="comment-footer">
+        <img
+          className="user-avatar"
+          src="https://picsum.photos/100/100"
+          alt="User Avatar"
+        />
+        <Input
+          type="text"
+          name="comment"
+          id="comment"
+          placeholder="Comment"
+          className="comment-input"
+          onChange={event => {
+            const { value } = event.target;
+
+            setComment(value);
+          }}
+        />
       </div>
     </div>
   );

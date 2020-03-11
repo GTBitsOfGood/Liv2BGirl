@@ -5,10 +5,14 @@
   height: 100%;
 
   .thread-header {
+    position: absolute;
+    top: 0;
     display: flex;
     justify-content: space-between;
     height: 48px;
+    width: 100%;
     padding: 16px;
+    background: #f2f2f2;
 
     .thread-back-btn {
       background: transparent;
@@ -38,6 +42,7 @@
   }
 
   .thread-info {
+    margin-top: 48px;
     display: flex;
     height: 40px;
     align-items: center;
@@ -103,6 +108,7 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    padding-bottom: 90px;
   }
 
   .comment-pg {
@@ -126,6 +132,31 @@
       background-color: transparent;
       font-weight: bold;
       color: #4f4f4f;
+    }
+  }
+
+  .comment-footer {
+    position: absolute;
+    bottom: 0;
+    height: 90px;
+    width: 100%;
+    background: #f2f2f2;
+    border: 1px solid #bdbdbd;
+    display: flex;
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      margin: auto 0;
+      margin-right: 8px;
+      border-radius: 100%;
+      margin-left: 16px;
+      margin-right: 10px;
+    }
+
+    .comment-input {
+      margin: auto 0;
+      margin-right: 16px;
     }
   }
 }
