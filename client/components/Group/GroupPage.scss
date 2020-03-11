@@ -76,14 +76,12 @@
     font-weight: bold;
     font-size: 16px;
     line-height: 22px;
-    letter-spacing: 0.01em;
   }
 
   .thread-time {
     font-size: 12px;
     line-height: 14px;
     text-align: right;
-    letter-spacing: 0.01em;
     color: #828282;
     margin-left: auto;
   }
@@ -91,7 +89,6 @@
   .thread-summary {
     font-size: 14px;
     line-height: 19px;
-    letter-spacing: 0.01em;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
@@ -102,7 +99,6 @@
   .thread-author {
     font-size: 14px;
     line-height: 17px;
-    letter-spacing: 0.01em;
     color: #828282;
   }
 
@@ -126,7 +122,6 @@
       margin-left: 5px;
       font-size: 12px;
       line-height: 16px;
-      letter-spacing: 0.01em;
     }
   }
 }

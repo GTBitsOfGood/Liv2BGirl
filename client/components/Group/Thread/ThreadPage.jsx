@@ -1,123 +1,89 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "next/link";
+
+// icons
+import { Icon } from "@iconify/react";
+import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
+import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 
 // Stylings
 import "./ThreadPage.scss";
 
-// Icons
-import { Icon } from "@iconify/react";
-import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
-
 // Components
-import { Button, Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
-import GroupPost from "./GroupPost";
+import { Button } from "reactstrap";
+import CommentCard from "./CommentCard";
 
-const fakeThreads = [
+const fakeComments = [
   {
-    title: "Test 1",
-    summary:
+    author: "CrazyPurpleFox",
+    date: "00-00-0000 00:00",
+    text:
       "1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    username: "CrazyPurpleFox",
-    comments: 12,
   },
   {
-    title: "Test 2",
-    summary:
+    author: "SadBlueElephant",
+    date: "00-00-0000 00:00",
+    text:
       "2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    username: "HappyBlueTurtle",
-    comments: 24,
   },
   {
-    title: "Test 3",
-    summary:
+    author: "HappyGreenBear",
+    date: "00-00-0000 00:00",
+    text:
       "3 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    username: "SadRedElephant",
-    comments: 0,
-  },
-  {
-    title: "Test 4",
-    summary:
-      "4 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    username: "GrossWhiteCat",
-    comments: 3,
-  },
-  {
-    title: "Test 5",
-    summary:
-      "5 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    username: "AngryGrayLion",
-    comments: 189,
-  },
-  {
-    title: "Test 6",
-    summary:
-      "6 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    username: "HappyGreenDog",
-    comments: 72,
   },
 ];
 
-const GroupPage = props => {
-  const { groupid } = props;
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [sortedBy, setSortedBy] = useState("latest comment");
-
-  const toggle = () => setDropdownOpen(prevState => !prevState);
+const ThreadPage = props => {
+  const { threadid, author, date, groupid } = props;
 
   return (
-    <div>
-      <div className="group-header">
-        <img
-          className="group-avatar"
-          src="https://picsum.photos/100/100"
-          alt="Group Avatar"
-        />
-        <div className="group-title">
-          <h2 className="group-name">{groupid}</h2>
-          <h3 className="group-description">Description</h3>
-        </div>
-        <Button className="group-join">Join</Button>
+    <div className="thread-page">
+      <div className="thread-header">
+        <Button
+          tag={Link}
+          className="thread-back-btn"
+          href={`/app/groups/${groupid}`}
+        >
+          <Icon className="thread-back" icon={bxArrowBack} width="18px" />
+        </Button>
+        <h1 className="thread-label">Thread</h1>
+        <Icon className="thread-save" icon={bxBookmark} width="18px" />
       </div>
-      <div className="page">
-        <div className="group-row-1">
-          <p>Sort by </p>
-          <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-            <DropdownToggle
-              tag="span"
-              data-toggle="dropdown"
-              aria-expanded={dropdownOpen}
-              caret
-            >
-              {sortedBy}
-            </DropdownToggle>
-            <DropdownMenu>
-              <div
-                onClick={() => setSortedBy("latest comment")}
-                onKeyDown={() => setSortedBy("latest comment")}
-                role="button"
-                tabIndex="0"
-              >
-                latest comment
-              </div>
-              <div
-                onClick={() => setSortedBy("latest post")}
-                onKeyDown={() => setSortedBy("latest post")}
-                role="button"
-                tabIndex="0"
-              >
-                latest post
-              </div>
-            </DropdownMenu>
-          </Dropdown>
-          <Icon className="add-post" width="1.5rem" icon={commentPlusOutline} />
+      <div className="thread-main page">
+        <div className="thread-info">
+          <img
+            className="thread-group-avatar"
+            src="https://picsum.photos/100/100"
+            alt="Group Avatar"
+          />
+          <h1 className="thread-group-name">{groupid}</h1>
         </div>
-        {fakeThreads.map(thread => (
-          <GroupPost
+        <h1 className="thread-name">{threadid}</h1>
+        <div className="thread-details">
+          <img
+            className="author-avatar"
+            src="https://picsum.photos/50/50"
+            alt="Group Avatar"
+          />
+          <p className="thread-author">{author}</p>
+          <p className="thread-date">{date}</p>
+        </div>
+        <p className="thread-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </p>
+      </div>
+      <div className="thread-comments">
+        {fakeComments.map(thread => (
+          <CommentCard
             key="Thread"
-            title={thread.title}
-            summary={thread.summary}
-            author={thread.username}
-            comments={thread.comments}
+            author={thread.author}
+            date={thread.date}
+            text={thread.text}
           />
         ))}
       </div>
@@ -125,8 +91,11 @@ const GroupPage = props => {
   );
 };
 
-GroupPage.propTypes = {
+ThreadPage.propTypes = {
+  threadid: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
   groupid: PropTypes.string.isRequired,
 };
 
-export default GroupPage;
+export default ThreadPage;

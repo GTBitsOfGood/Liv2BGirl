@@ -8,7 +8,7 @@ import "./GroupPage.scss";
 import { Icon } from "@iconify/react";
 import bxCommentDetail from "@iconify/icons-bx/bx-comment-detail";
 
-const GroupPost = props => {
+const ThreadPost = props => {
   const { title, summary, author, comments } = props;
 
   return (
@@ -35,11 +35,11 @@ const GroupPost = props => {
   );
 };
 
-GroupPost.propTypes = {
+ThreadPost.propTypes = {
   title: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   comments: PropTypes.number.isRequired,
 };
 
-export default GroupPost;
+export default ThreadPost;

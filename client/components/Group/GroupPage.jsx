@@ -10,7 +10,7 @@ import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 
 // Components
 import { Button, Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
-import GroupPost from "./GroupPost";
+import ThreadPost from "./ThreadPost";
 
 const fakeThreads = [
   {
@@ -112,7 +112,7 @@ const GroupPage = props => {
           <Icon className="add-post" width="1.5rem" icon={commentPlusOutline} />
         </div>
         {fakeThreads.map(thread => (
-          <GroupPost
+          <ThreadPost
             key="Thread"
             title={thread.title}
             summary={thread.summary}

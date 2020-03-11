@@ -1,0 +1,131 @@
+.thread-page {
+  background: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .thread-header {
+    display: flex;
+    justify-content: space-between;
+    height: 48px;
+    padding: 16px;
+
+    .thread-back-btn {
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0;
+      width: 18px;
+      height: 18px;
+    }
+
+    .thread-back,
+    .thread-save {
+      color: #333333;
+    }
+
+    .thread-label {
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+
+  .thread-main {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    background-color: #fff;
+  }
+
+  .thread-info {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .thread-group-avatar {
+      width: 16px;
+      height: 16px;
+      background: #e0e0e0;
+      border-radius: 3px;
+    }
+
+    .thread-group-name {
+      font-size: 12px;
+      line-height: 17px;
+      margin-left: 8px;
+    }
+  }
+
+  .thread-details,
+  .comment-details {
+    display: flex;
+
+    .author-avatar {
+      width: 32px;
+      height: 32px;
+      margin: auto 0;
+      margin-right: 8px;
+      border-radius: 100%;
+    }
+
+    .thread-author,
+    .comment-author {
+      font-weight: bold;
+      font-size: 13px;
+      line-height: 16px;
+      margin: auto 0;
+    }
+
+    .thread-date,
+    .comment-date {
+      font-size: 12px;
+      line-height: 14px;
+      margin: auto 0;
+      margin-left: auto;
+    }
+  }
+
+  .thread-text,
+  .comment-text {
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 16px;
+  }
+
+  .thread-name {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 16px;
+  }
+
+  .thread-comments {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .comment-pg {
+    margin-top: 8px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+
+  .comment-reply {
+    background: transparent;
+    border: none;
+    color: #828282;
+    font-size: 13px;
+    line-height: 16px;
+    padding: 0;
+    margin-left: auto;
+
+    &:hover {
+      background-color: transparent;
+      font-weight: bold;
+      color: #4f4f4f;
+    }
+  }
+}
