@@ -76,7 +76,7 @@ const CreateAvatar = ({ values, setValues, setStageCompleted }) => {
               key={curColor}
               onClick={() => {
                 setValues({
-                  avatar: index,
+                  avatarColor: index,
                 });
               }}
               onKeyDown={() => {
