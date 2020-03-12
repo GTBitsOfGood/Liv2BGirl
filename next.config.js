@@ -19,6 +19,12 @@ module.exports = withSass(
         MONGODB: process.env.MONGODB,
         JWTSECRET: process.env.JWTSECRET,
       },
+      build: {
+        env: {
+          MONGODB: process.env.MONGODB,
+          JWTSECRET: process.env.JWTSECRET,
+        },
+      },
     })
   )
 );
