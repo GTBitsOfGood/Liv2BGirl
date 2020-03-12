@@ -5,10 +5,12 @@ const { Schema } = mongoose;
 const MessageSchema = new Schema({
   to: {
     type: String,
+    index: true,
     required: true,
   },
   from: {
     type: String,
+    index: true,
     required: true,
   },
   content: {
@@ -21,4 +23,5 @@ const MessageSchema = new Schema({
   },
 });
 
-export default mongoose.models.Message || mongoose.model("Message", MessageSchema);
+export default mongoose.models.Message ||
+  mongoose.model("Message", MessageSchema);

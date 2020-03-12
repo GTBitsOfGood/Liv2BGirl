@@ -5,10 +5,12 @@ const { Schema } = mongoose;
 const CommentSchema = new Schema({
   poster: {
     type: String,
+    index: true,
     required: true,
   },
   parentId: {
     type: String,
+    index: true,
     required: true,
   },
   officialAnswer: {
@@ -24,4 +26,5 @@ const CommentSchema = new Schema({
   },
 });
 
-export default mongoose.models.Comment || mongoose.model("Comment", CommentSchema);
+export default mongoose.models.Comment ||
+  mongoose.model("Comment", CommentSchema);

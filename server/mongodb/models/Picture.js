@@ -5,10 +5,12 @@ const { Schema } = mongoose;
 const PictureSchema = new Schema({
   poster: {
     type: String,
+    index: true,
     required: true,
   },
   parentId: {
     type: String,
+    index: true,
     required: true,
   },
   approved: {
@@ -16,8 +18,8 @@ const PictureSchema = new Schema({
     required: true,
   },
   content: {
-    data: Buffer, 
-    contentType: String
+    data: Buffer,
+    contentType: String,
   },
   postedAt: {
     type: Date,
@@ -25,4 +27,5 @@ const PictureSchema = new Schema({
   },
 });
 
-export default mongoose.models.Picture || mongoose.model("Picture", PictureSchema);
+export default mongoose.models.Picture ||
+  mongoose.model("Picture", PictureSchema);
