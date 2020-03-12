@@ -28,7 +28,9 @@ class MyApp extends App {
             <Component {...pageProps} />
           </div>
         </div>
-        {!["/sign-up", "/sign-in"].includes(router.asPath) && <NavBar />}
+        {!["/sign-up", "/sign-in", "/app/groups/thread"].some(route =>
+          router.asPath.includes(route)
+        ) && <NavBar />}
       </>
     );
   }

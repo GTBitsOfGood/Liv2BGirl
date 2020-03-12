@@ -36,6 +36,7 @@
     background-color: #c4c4c4;
     color: #4f4f4f;
     font-weight: bold;
+    width: 64px;
   }
 }
 
@@ -49,7 +50,9 @@
     margin-left: 6px;
     display: inline-block;
     .dropdown-menu {
+      text-align: left;
       padding: 8px;
+      min-width: 10em;
     }
 
     .dropdown-toggle {
@@ -57,10 +60,17 @@
     }
   }
 
-  .add-post {
+  .create-thread-btn {
     margin-left: auto;
     margin-right: 5px;
-    color: #dadada;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+
+  .add-post {
+    color: #4f4f4f;
   }
 }
 
@@ -71,19 +81,26 @@
   padding: 16px;
   margin-bottom: 16px;
   color: #4f4f4f;
+  text-align: left;
+  border: 2px solid transparent;
+  outline: none;
+
+  &:hover {
+    background: rgba(224, 224, 224, 0.54);
+    color: #4f4f4f;
+    border: 2px solid #333333;
+  }
 
   .thread-title {
     font-weight: bold;
     font-size: 16px;
     line-height: 22px;
-    letter-spacing: 0.01em;
   }
 
   .thread-time {
     font-size: 12px;
     line-height: 14px;
     text-align: right;
-    letter-spacing: 0.01em;
     color: #828282;
     margin-left: auto;
   }
@@ -91,7 +108,6 @@
   .thread-summary {
     font-size: 14px;
     line-height: 19px;
-    letter-spacing: 0.01em;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
@@ -102,7 +118,6 @@
   .thread-author {
     font-size: 14px;
     line-height: 17px;
-    letter-spacing: 0.01em;
     color: #828282;
   }
 
@@ -126,7 +141,65 @@
       margin-left: 5px;
       font-size: 12px;
       line-height: 16px;
-      letter-spacing: 0.01em;
     }
+  }
+}
+
+.create-thread-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  width: 100%;
+  background: #f2f2f2;
+  padding: 0 16px;
+
+  p {
+    margin: 0;
+  }
+
+  .create-thread-post {
+    background: #c4c4c4;
+    border-radius: 137px;
+    color: #4f4f4f;
+    height: 24px;
+    width: 60px;
+    padding: 0;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.05em;
+    border: 2px solid transparent;
+
+    &:hover {
+      border: 2px solid #333333;
+    }
+  }
+
+  .create-thread-back {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #4f4f4f;
+    padding: 0;
+  }
+}
+
+.create-thread-h1 {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 30px;
+  margin: 18px 0;
+}
+
+.create-thread-form {
+  .create-thread-title {
+    height: 40px;
+  }
+
+  .create-thread-text {
+    margin-top: 16px;
+    height: 235px;
+    resize: none;
   }
 }

@@ -18,6 +18,8 @@ export default {
       notifications: "/app/notifications",
       profile: profileId => `/app/profile/${profileId}`,
       myProfile: "/app/profile",
+      thread: threadId => `/app/groups/thread/${threadId}`,
+      createThread: groupId => `/app/groups/${groupId}/create-thread`,
     },
   },
   api: {
