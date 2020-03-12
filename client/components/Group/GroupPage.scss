@@ -36,6 +36,7 @@
     background-color: #c4c4c4;
     color: #4f4f4f;
     font-weight: bold;
+    width: 64px;
   }
 }
 
@@ -59,10 +60,17 @@
     }
   }
 
-  .add-post {
+  .create-thread-btn {
     margin-left: auto;
     margin-right: 5px;
-    color: #dadada;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+
+  .add-post {
+    color: #4f4f4f;
   }
 }
 
@@ -134,5 +142,64 @@
       font-size: 12px;
       line-height: 16px;
     }
+  }
+}
+
+.create-thread-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  width: 100%;
+  background: #f2f2f2;
+  padding: 0 16px;
+
+  p {
+    margin: 0;
+  }
+
+  .create-thread-post {
+    background: #c4c4c4;
+    border-radius: 137px;
+    color: #4f4f4f;
+    height: 24px;
+    width: 60px;
+    padding: 0;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.05em;
+    border: 2px solid transparent;
+
+    &:hover {
+      border: 2px solid #333333;
+    }
+  }
+
+  .create-thread-back {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #4f4f4f;
+    padding: 0;
+  }
+}
+
+.create-thread-h1 {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 30px;
+  margin: 18px 0;
+}
+
+.create-thread-form {
+  .create-thread-title {
+    height: 40px;
+  }
+
+  .create-thread-text {
+    margin-top: 16px;
+    height: 235px;
+    resize: none;
   }
 }

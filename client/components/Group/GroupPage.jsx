@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "next/link";
 
 // Stylings
 import "./GroupPage.scss";
@@ -59,6 +60,7 @@ const fakeThreads = [
 
 const GroupPage = props => {
   const { groupid } = props;
+  const [joined, setJoined] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
 
@@ -76,7 +78,9 @@ const GroupPage = props => {
           <h2 className="group-name">{groupid}</h2>
           <h3 className="group-description">Description</h3>
         </div>
-        <Button className="group-join">Join</Button>
+        <Button className="group-join" onClick={() => setJoined(!joined)}>
+          {joined ? "Leave" : "Join"}
+        </Button>
       </div>
       <div className="page">
         <div className="group-row-1">
@@ -109,7 +113,19 @@ const GroupPage = props => {
               </div>
             </DropdownMenu>
           </Dropdown>
-          <Icon className="add-post" width="1.5rem" icon={commentPlusOutline} />
+
+          <Button
+            tag={Link}
+            className="create-thread-btn"
+            href={`/app/groups/${groupid}/create-thread`}
+            disabled={!joined}
+          >
+            <Icon
+              className="add-post"
+              width="1.5rem"
+              icon={commentPlusOutline}
+            />
+          </Button>
         </div>
         {fakeThreads.map(thread => (
           <ThreadPost
