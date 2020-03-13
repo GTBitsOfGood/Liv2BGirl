@@ -4,5 +4,12 @@
     "MONGODB": "@mongodb",
     "JWTSECRET": "@jwtsecret",
     "TESTENV": "@testenv"
+  },
+  "build": {
+    "env": {
+      "MONGODB": "@mongodb",
+      "JWTSECRET": "@jwtsecret",
+      "TESTENV": "@testenv"
+    }
   }
 }
