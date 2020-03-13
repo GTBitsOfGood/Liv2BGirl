@@ -14,4 +14,5 @@ const PollAnswersSchema = new Schema({
   },
 });
 
-export default mongoose.models.PollAnswers || mongoose.model("PollAnswers", PollAnswersSchema);
+export default mongoose.models.PollAnswers ||
+  mongoose.model("PollAnswers", PollAnswersSchema);

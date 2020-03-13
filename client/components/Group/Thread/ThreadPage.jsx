@@ -102,7 +102,7 @@ const ThreadPage = props => {
           src="https://picsum.photos/100/100"
           alt="User Avatar"
         />
-        <Input
+        <textarea
           type="text"
           name="comment"
           id="comment"
