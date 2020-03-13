@@ -2,14 +2,12 @@
   "version": 2,
   "env": {
     "MONGODB": "@mongodb",
-    "JWTSECRET": "@jwtsecret",
-    "TESTENV": "@testenv"
+    "JWTSECRET": "@jwtsecret"
   },
   "build": {
     "env": {
       "MONGODB": "@mongodb",
-      "JWTSECRET": "@jwtsecret",
-      "TESTENV": "@testenv"
+      "JWTSECRET": "@jwtsecret"
     }
   }
 }
