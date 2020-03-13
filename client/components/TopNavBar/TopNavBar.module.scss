@@ -1,4 +1,4 @@
-.top-navbar {
+.topNavbar {
   height: 48px;
   width: 100%;
   position: fixed !important;
@@ -17,12 +17,12 @@
   }
 
   .nav-item {
-    .navbar-logo {
+    .navbarLogo {
       width: 124px;
       align-self: center !important;
     }
 
-    .navbar-avatar {
+    .navbarAvatar {
       width: 24px;
       border-radius: 50%;
       align-self: flex-start;

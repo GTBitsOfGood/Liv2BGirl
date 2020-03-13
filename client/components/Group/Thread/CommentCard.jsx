@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Button } from "reactstrap";
 
 // Stylings
-import "./ThreadPage.scss";
+import "./ThreadPage.module.scss";
 
 const CommentPage = props => {
   const { author, date, text } = props;

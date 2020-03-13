@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Link } from "next/link";
 
 // Stylings
-import "../../../../client/components/Group/GroupPage.scss";
+import "../../../../client/components/Group/GroupPage.module.scss";
 
 // Icons
 import { Icon } from "@iconify/react";

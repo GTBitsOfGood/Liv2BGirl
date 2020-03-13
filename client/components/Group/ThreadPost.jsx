@@ -6,7 +6,7 @@ import { Link } from "next/link";
 import { Button } from "reactstrap";
 
 // Styling
-import "./GroupPage.scss";
+import "./GroupPage.module.scss";
 
 // Icons
 import { Icon } from "@iconify/react";

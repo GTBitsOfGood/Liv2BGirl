@@ -1,15 +1,15 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink } from "reactstrap";
-import "./TopNavBar.scss";
 import logo from "../../../public/img/logo.png";
+import classes from "./TopNavBar.module.scss";
 
 const TopNavBar = () => (
-  <Navbar className="top-navbar" light expand="md">
+  <Navbar className={classes.topNavbar} light expand="md">
     <Nav navbar>
       <NavItem>
         <NavLink href="/app/profile">
           <img
-            className="navbar-avatar"
+            className={classes.navbarAvatar}
             src="https://picsum.photos/200/200"
             alt="Avatar"
           />
@@ -17,7 +17,7 @@ const TopNavBar = () => (
       </NavItem>
       <NavItem>
         <NavLink href="/app/">
-          <img className="navbar-logo" src={logo} alt="Liv2BGirl Logo" />
+          <img className={classes.navbarLogo} src={logo} alt="Liv2BGirl Logo" />
         </NavLink>
       </NavItem>
       <div />

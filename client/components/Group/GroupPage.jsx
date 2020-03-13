@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "next/link";
-
-// Stylings
-import "./GroupPage.scss";
-
-// Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
-
-// Components
 import { Button, Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import ThreadPost from "./ThreadPost";
-
 import logo from "../../../public/img/logo.png";
+import classes from "./GroupPage.module.scss";
 
 const fakeThreads = [
   {
@@ -71,29 +64,32 @@ const GroupPage = props => {
 
   return (
     <div>
-      <div className="group-pg-header">
-        <Button tag={Link} className="group-back" href="/app/groups/">
+      <div className={classes.groupPgHeader}>
+        <Button tag={Link} className={classes.groupBack} href="/app/groups/">
           <Icon className="back-group" icon={bxArrowBack} width="18px" />
         </Button>
-        <img className="navbar-logo" src={logo} alt="Liv2BGirl Logo" />
+        <img className={classes.navbarLogo} src={logo} alt="Liv2BGirl Logo" />
         <div />
       </div>
-      <div className="group-header">
+      <div className={classes.groupHeader}>
         <img
-          className="group-avatar"
+          className={classes.groupAvatar}
           src="https://picsum.photos/100/100"
           alt="Group Avatar"
         />
-        <div className="group-title">
-          <h2 className="group-name">{groupid}</h2>
-          <h3 className="group-description">Description</h3>
+        <div className={classes.groupTitle}>
+          <h2 className={classes.groupName}>{groupid}</h2>
+          <h3 className={classes.groupDescription}>Description</h3>
         </div>
-        <Button className="group-join" onClick={() => setJoined(!joined)}>
+        <Button
+          className={classes.groupJoin}
+          onClick={() => setJoined(!joined)}
+        >
           {joined ? "Leave" : "Join"}
         </Button>
       </div>
       <div className="page">
-        <div className="group-row-1">
+        <div className={classes.groupRow1}>
           <p>Sort by </p>
           <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle
@@ -126,12 +122,12 @@ const GroupPage = props => {
 
           <Button
             tag={Link}
-            className="create-thread-btn"
+            className={classes.createThreadBtn}
             href={`/app/groups/${groupid}/create-thread`}
             disabled={!joined}
           >
             <Icon
-              className="add-post"
+              className={classes.addPost}
               width="1.5rem"
               icon={commentPlusOutline}
             />
