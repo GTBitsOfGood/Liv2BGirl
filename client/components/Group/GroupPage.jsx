@@ -91,16 +91,21 @@ const GroupPage = props => {
       <div className="page">
         <div className={classes.groupRow1}>
           <p>Sort by </p>
-          <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+          <Dropdown
+            isOpen={dropdownOpen}
+            toggle={toggle}
+            className={classes.dropdown}
+          >
             <DropdownToggle
               tag="span"
               data-toggle="dropdown"
               aria-expanded={dropdownOpen}
               caret
+              className={classes.dropdownToggle}
             >
               {sortedBy}
             </DropdownToggle>
-            <DropdownMenu>
+            <DropdownMenu className={classes.dropdownMenu}>
               <div
                 onClick={() => setSortedBy("latest comment")}
                 onKeyDown={() => setSortedBy("latest comment")}

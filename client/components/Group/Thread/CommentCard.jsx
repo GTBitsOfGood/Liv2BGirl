@@ -1,29 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import { Button } from "reactstrap";
-
-// Stylings
-import "./ThreadPage.module.scss";
+import clsx from "clsx";
+import classes from "./ThreadPage.module.scss";
 
 const CommentPage = props => {
   const { author, date, text } = props;
 
   return (
-    <div className="page comment-pg">
-      <div className="comment-details">
+    <div className={clsx("page", classes.commentPg)}>
+      <div className={classes.commentDetails}>
         <img
-          className="author-avatar"
+          className={classes.authorAvatar}
           src="https://picsum.photos/50/50"
           alt="Group Avatar"
         />
-        <div comment-details-sub>
-          <p className="comment-author">{author}</p>
-          <p className="comment-date">{date}</p>
+        <div>
+          <p className={classes.commentAuthor}>{author}</p>
+          <p className={classes.commentDate}>{date}</p>
         </div>
       </div>
-      <p className="comment-text">{text}</p>
-      <Button className="comment-reply">Reply</Button>
+      <p className={classes.commentText}>{text}</p>
+      <Button className={classes.commentReply}>Reply</Button>
     </div>
   );
 };

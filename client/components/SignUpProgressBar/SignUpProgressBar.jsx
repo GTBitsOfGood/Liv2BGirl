@@ -1,6 +1,6 @@
 import React from "react";
 import ProgressCircle from "./ProgressCircle";
-import classes from "./SignUpProgressBar.module.css";
+import classes from "./SignUpProgressBar.module.scss";
 
 const SignUpProgressBar = ({ stage, setStage }) => {
   if (stage < 1 || stage > 3) {

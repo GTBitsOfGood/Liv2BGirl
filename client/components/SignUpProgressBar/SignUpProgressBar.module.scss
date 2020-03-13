@@ -4,17 +4,17 @@
     justify-content: space-between;
     position: relative;
     padding: 16px;
-}
 
-.progressContainer::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    border-top: 1px solid #BDBDBD;
-    background: #BDBDBD;
-    width: calc(100% - 32px);
-    transform: translateY(-50%);
-    z-index: 1;
+    &:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        border-top: 1px solid #BDBDBD;
+        background: #BDBDBD;
+        width: calc(100% - 32px);
+        transform: translateY(-50%);
+        z-index: 1;
+    }
 }
 
 .progressCircle {
