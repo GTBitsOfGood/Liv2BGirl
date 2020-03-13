@@ -1,25 +1,25 @@
-.bottom-navbar {
+.bottomNavbar {
   height: 100px;
   width: 100%;
   position: fixed !important;
   bottom: 0;
   background: #f2f2f2;
 
-  .navbar-nav {
+  .navbarNav {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
 
-  .nav-item {
+  .navItem {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 25%;
 
-    .navbar-button {
+    .navbarButton {
       width: 20px;
       height: 20px;
       padding: 0;

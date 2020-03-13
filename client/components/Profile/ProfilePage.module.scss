@@ -1,37 +1,37 @@
-.profile-header {
+.profileHeader {
   height: 155px;
   background-color: #f2f2f2;
   display: flex;
   align-items: center;
   padding: 35px 10%;
 
-  .profile-avatar {
+  .profileAvatar {
     width: 86px;
     height: 86px;
     border-radius: 100px;
     margin-right: 45px;
   }
 
-  .profile-name,
-  .profile-stats,
-  .profile-description {
+  .profileName,
+  .profileStats,
+  .profileDescription {
     font-size: 16px;
     line-height: 22px;
     color: #4f4f4f;
     margin-bottom: 4px;
   }
 
-  .profile-description {
+  .profileDescription {
     font-size: 12px;
     line-height: 16px;
   }
 
-  .profile-name {
+  .profileName {
     font-weight: bold;
   }
 }
 
-.profile-page {
+.profilePage {
   margin-bottom: 50px;
   h4 {
     font-size: 18px;
@@ -39,28 +39,28 @@
     margin-bottom: 0;
   }
 
-  .profile-right-arrow {
+  .profileRightArrow {
     background-color: transparent;
     border: none;
     color: #4f4f4f;
     margin-left: auto;
   }
 
-  .interest-pill {
+  .interestPill {
     border: 2px solid #4f4f4f;
     border-radius: 43px;
     padding: 6px 8px;
     margin-right: 10px;
   }
 
-  .interests-row,
-  .subscription-row {
+  .interestsRow,
+  .subscriptionRow {
     display: flex;
     height: 100%;
     overflow-x: auto;
   }
 
-  .subscription-card {
+  .subscriptionCard {
     min-width: 120px;
     max-width: 120px;
     height: 120px;
@@ -69,41 +69,40 @@
     margin-right: 15px;
   }
 
-  .subscription-card-img {
+  .subscriptionCardImg {
     width: 120px;
     height: 120px;
     border-radius: 10px;
   }
 }
 
-.group-thread-card {
+.groupThreadCard {
   display: flex;
   margin-bottom: 30px;
   background: transparent;
-  border: none;
   text-align: left;
   border: 2px solid transparent;
 
-  .group-avatar {
+  .groupAvatar {
     width: 72px;
     height: 72px;
     border-radius: 10px;
     margin-right: 8px;
   }
-  .thread-info {
+  .threadInfo {
     display: flex;
     margin: auto 0;
     flex-direction: column;
   }
 
-  .thread-card-title {
+  .threadCardTitle {
     font-weight: bold;
     font-size: 16px;
     line-height: 22px;
     color: #4f4f4f;
   }
 
-  .thread-card-summary {
+  .threadCardSummary {
     font-size: 16px;
     line-height: 22px;
     color: #4f4f4f;
@@ -116,7 +115,7 @@
   }
 }
 
-.profile-pg-nav {
+.profilePgNav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -125,12 +124,12 @@
   background: #f2f2f2;
   padding: 0 16px;
 
-  .navbar-logo {
+  .navbarLogo {
     width: 124px;
     align-self: center !important;
   }
 
-  .profile-back {
+  .profileBack {
     background: transparent;
     border: none;
     outline: none;

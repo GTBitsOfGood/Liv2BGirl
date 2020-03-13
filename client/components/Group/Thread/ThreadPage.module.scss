@@ -1,10 +1,10 @@
-.thread-page {
+.threadPage {
   background: #f2f2f2;
   display: flex;
   flex-direction: column;
   height: 100%;
 
-  .thread-header {
+  .threadHeader {
     position: absolute;
     top: 0;
     display: flex;
@@ -14,7 +14,7 @@
     padding: 16px;
     background: #f2f2f2;
 
-    .thread-btn {
+    .threadBtn {
       background: transparent;
       border: none;
       outline: none;
@@ -23,39 +23,39 @@
       height: 18px;
     }
 
-    .thread-back,
-    .thread-save {
+    .threadBack,
+    .threadSave {
       color: #333333;
     }
 
-    .thread-label {
+    .threadLabel {
       font-weight: bold;
       font-size: 16px;
       line-height: 22px;
     }
   }
 
-  .thread-main {
+  .threadMain {
     margin-bottom: 0;
     padding-bottom: 0;
     background-color: #fff;
   }
 
-  .thread-info {
+  .threadInfo {
     margin-top: 48px;
     display: flex;
     height: 40px;
     align-items: center;
     margin-bottom: 16px;
 
-    .thread-group-avatar {
+    .threadGroupAvatar {
       width: 16px;
       height: 16px;
       background: #e0e0e0;
       border-radius: 3px;
     }
 
-    .thread-group-name {
+    .threadGroupName {
       font-size: 12px;
       line-height: 17px;
       margin: 0;
@@ -63,11 +63,11 @@
     }
   }
 
-  .thread-details,
-  .comment-details {
+  .threadDetails,
+  .commentDetails {
     display: flex;
 
-    .author-avatar {
+    .authorAvatar {
       width: 32px;
       height: 32px;
       margin: auto 0;
@@ -75,16 +75,16 @@
       border-radius: 100%;
     }
 
-    .thread-author,
-    .comment-author {
+    .threadAuthor,
+    .commentAuthor {
       font-weight: bold;
       font-size: 13px;
       line-height: 16px;
       margin: auto 0;
     }
 
-    .thread-date,
-    .comment-date {
+    .threadDate,
+    .commentDate {
       font-size: 12px;
       line-height: 14px;
       margin: auto 0;
@@ -92,27 +92,27 @@
     }
   }
 
-  .thread-text,
-  .comment-text {
+  .threadText,
+  .commentText {
     font-size: 14px;
     line-height: 20px;
     margin-top: 16px;
   }
 
-  .thread-name {
+  .threadName {
     font-size: 18px;
     line-height: 24px;
     margin-bottom: 16px;
   }
 
-  .thread-comments {
+  .threadComments {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     padding-bottom: 90px;
   }
 
-  .comment-pg {
+  .commentPg {
     margin-top: 8px;
     background-color: #fff;
     display: flex;
@@ -120,7 +120,7 @@
     margin-bottom: 0;
   }
 
-  .comment-reply {
+  .commentReply {
     background: transparent;
     border: none;
     color: #828282;
@@ -136,7 +136,7 @@
     }
   }
 
-  .comment-footer {
+  .commentFooter {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -145,21 +145,18 @@
     display: flex;
     padding: 10px 0;
 
-    .user-avatar {
+    .userAvatar {
       width: 32px;
       height: 32px;
       margin-top: 4px;
-      margin-right: 10px;
       border-radius: 100%;
       margin-left: 16px;
       margin-right: 10px;
     }
 
-    .comment-input {
+    .commentInput {
       width: 100%;
-      margin: auto 0;
-      margin-right: 16px;
-      margin-bottom: 15px;
+      margin: auto 16px 15px 0;
       padding: 10px;
       height: 40px;
       font-size: 16px;

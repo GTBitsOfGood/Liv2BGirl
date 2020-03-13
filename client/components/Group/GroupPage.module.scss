@@ -1,4 +1,4 @@
-.group-header {
+.groupHeader {
   height: 120px;
   background-color: #f2f2f2;
   display: flex;
@@ -6,29 +6,29 @@
   padding: 20px;
   padding-right: 15px;
 
-  .group-avatar {
+  .groupAvatar {
     max-height: 100%;
     border-radius: 10px;
   }
 
-  .group-title {
+  .groupTitle {
     display: flex;
     flex-direction: column;
     margin-left: 25px;
 
-    .group-name {
+    .groupName {
       font-weight: bold;
       font-size: 16px;
       line-height: 22px;
     }
 
-    .group-description {
+    .groupDescription {
       font-size: 14px;
       line-height: 19px;
     }
   }
 
-  .group-join {
+  .groupJoin {
     margin-left: auto;
     border-radius: 137px;
     font-size: 13px;
@@ -41,7 +41,7 @@
   }
 }
 
-.group-row-1 {
+.groupRow1 {
   display: flex;
   p {
     display: inline-block;
@@ -52,18 +52,18 @@
     display: inline-block;
     cursor: pointer;
 
-    .dropdown-menu {
+    .dropdownMenu {
       text-align: left;
       padding: 8px;
       min-width: 10em;
     }
 
-    .dropdown-toggle {
+    .dropdownToggle {
       font-weight: bold;
     }
   }
 
-  .create-thread-btn {
+  .createThreadBtn {
     margin-left: auto;
     margin-right: 5px;
     padding: 0;
@@ -72,12 +72,12 @@
     outline: none;
   }
 
-  .add-post {
+  .addPost {
     color: #4f4f4f;
   }
 }
 
-.group-thread {
+.groupThread {
   background: rgba(224, 224, 224, 0.54);
   border-radius: 15px;
   height: 120px;
@@ -94,13 +94,13 @@
     border: 2px solid #333333;
   }
 
-  .thread-title {
+  .threadTitle {
     font-weight: bold;
     font-size: 16px;
     line-height: 22px;
   }
 
-  .thread-time {
+  .threadTime {
     font-size: 12px;
     line-height: 14px;
     text-align: right;
@@ -108,7 +108,7 @@
     margin-left: auto;
   }
 
-  .thread-summary {
+  .threadSummary {
     font-size: 14px;
     line-height: 19px;
     text-overflow: ellipsis;
@@ -118,16 +118,16 @@
     -webkit-box-orient: vertical;
   }
 
-  .thread-author {
+  .threadAuthor {
     font-size: 14px;
     line-height: 17px;
     color: #828282;
   }
 
-  .thread-details {
+  .threadDetails {
     display: flex;
 
-    .author-avatar {
+    .authorAvatar {
       width: 16px;
       height: 16px;
       margin-right: 8px;
@@ -135,7 +135,7 @@
     }
   }
 
-  .thread-comments {
+  .threadComments {
     display: flex;
     margin-left: auto;
     color: #828282;
@@ -148,8 +148,8 @@
   }
 }
 
-.create-thread-header,
-.group-pg-header {
+.createThreadHeader,
+.groupPgHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -162,12 +162,12 @@
     margin: 0;
   }
 
-  .navbar-logo {
+  .navbarLogo {
     width: 124px;
     align-self: center !important;
   }
 
-  .create-thread-post {
+  .createThreadPost {
     background: #c4c4c4;
     border-radius: 137px;
     color: #4f4f4f;
@@ -185,8 +185,8 @@
     }
   }
 
-  .create-thread-back,
-  .group-back {
+  .createThreadBack,
+  .groupBack {
     background: transparent;
     border: none;
     outline: none;
@@ -195,19 +195,19 @@
   }
 }
 
-.create-thread-h1 {
+.createThreadH1 {
   font-weight: bold;
   font-size: 22px;
   line-height: 30px;
   margin: 18px 0;
 }
 
-.create-thread-form {
-  .create-thread-title {
+.createThreadForm {
+  .createThreadTitle {
     height: 40px;
   }
 
-  .create-thread-text {
+  .createThreadText {
     margin-top: 16px;
     height: 235px;
     resize: none;

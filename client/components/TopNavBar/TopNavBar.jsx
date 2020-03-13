@@ -5,8 +5,8 @@ import classes from "./TopNavBar.module.scss";
 
 const TopNavBar = () => (
   <Navbar className={classes.topNavbar} light expand="md">
-    <Nav navbar>
-      <NavItem>
+    <Nav navbar className={classes.navbarNav}>
+      <NavItem className={classes.navItem}>
         <NavLink href="/app/profile">
           <img
             className={classes.navbarAvatar}
@@ -15,12 +15,11 @@ const TopNavBar = () => (
           />
         </NavLink>
       </NavItem>
-      <NavItem>
+      <NavItem className={classes.navItem}>
         <NavLink href="/app/">
           <img className={classes.navbarLogo} src={logo} alt="Liv2BGirl Logo" />
         </NavLink>
       </NavItem>
-      <div />
     </Nav>
   </Navbar>
 );
