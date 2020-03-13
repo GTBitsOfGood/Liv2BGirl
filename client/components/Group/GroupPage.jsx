@@ -7,11 +7,14 @@ import "./GroupPage.scss";
 
 // Icons
 import { Icon } from "@iconify/react";
+import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 
 // Components
 import { Button, Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import ThreadPost from "./ThreadPost";
+
+import logo from "../../../public/img/logo.png";
 
 const fakeThreads = [
   {
@@ -68,6 +71,13 @@ const GroupPage = props => {
 
   return (
     <div>
+      <div className="group-pg-header">
+        <Button tag={Link} className="group-back" href="/app/groups/">
+          <Icon className="back-group" icon={bxArrowBack} width="18px" />
+        </Button>
+        <img className="navbar-logo" src={logo} alt="Liv2BGirl Logo" />
+        <div />
+      </div>
       <div className="group-header">
         <img
           className="group-avatar"

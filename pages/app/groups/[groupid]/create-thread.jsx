@@ -11,6 +11,7 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 
 // Components
 import { Button, Input, Form } from "reactstrap";
+import logo from "../../../../public/img/logo.png";
 
 const CreateThread = () => {
   const router = useRouter();
@@ -34,8 +35,13 @@ const CreateThread = () => {
         >
           <Icon className="back-group" icon={bxArrowBack} width="18px" />
         </Button>
-        <p>liv2bgirl</p>
-        <Button className="create-thread-post" onClick={handleCreateThread}>
+        <img className="navbar-logo" src={logo} alt="Liv2BGirl Logo" />
+        <Button
+          tag={Link}
+          href={`/app/groups/${groupid}`}
+          className="create-thread-post"
+          onClick={handleCreateThread}
+        >
           Post
         </Button>
       </div>

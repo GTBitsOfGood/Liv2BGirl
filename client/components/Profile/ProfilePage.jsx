@@ -1,19 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "reactstrap";
+import { Link } from "next/link";
 
 // Icons
 import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
+import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 
 // Stylings
 import "./ProfilePage.scss";
 
 // Components
+import { Button } from "reactstrap";
 import GroupCard from "../Group/GroupCard";
+import logo from "../../../public/img/logo.png";
 
 // Dummy Data
-
 const interestData = ["Music", "College"];
 
 const subscriptionData = [
@@ -46,6 +48,13 @@ const ProfilePage = props => {
 
   return (
     <div>
+      <div className="profile-pg-nav">
+        <Button tag={Link} className="profile-back" href="/app/">
+          <Icon className="back-profile" icon={bxArrowBack} width="18px" />
+        </Button>
+        <img className="navbar-logo" src={logo} alt="Liv2BGirl Logo" />
+        <div />
+      </div>
       <div className="profile-header">
         <img
           className="profile-avatar"

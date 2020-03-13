@@ -3,7 +3,8 @@
   background-color: #f2f2f2;
   display: flex;
   align-items: center;
-  padding: 20px 5%;
+  padding: 20px;
+  padding-right: 15px;
 
   .group-avatar {
     max-height: 100%;
@@ -49,6 +50,8 @@
   .dropdown {
     margin-left: 6px;
     display: inline-block;
+    cursor: pointer;
+
     .dropdown-menu {
       text-align: left;
       padding: 8px;
@@ -145,7 +148,8 @@
   }
 }
 
-.create-thread-header {
+.create-thread-header,
+.group-pg-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -156,6 +160,11 @@
 
   p {
     margin: 0;
+  }
+
+  .navbar-logo {
+    width: 124px;
+    align-self: center !important;
   }
 
   .create-thread-post {
@@ -176,7 +185,8 @@
     }
   }
 
-  .create-thread-back {
+  .create-thread-back,
+  .group-back {
     background: transparent;
     border: none;
     outline: none;

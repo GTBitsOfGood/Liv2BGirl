@@ -1,9 +1,9 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap";
-import "./NavBar.scss";
+import "./BottomNavBar.scss";
 
-const NavBar = () => (
-  <Navbar color="light" light expand="md">
+const BottomNavBar = () => (
+  <Navbar className="bottom-navbar" light expand="md">
     <Nav navbar>
       <NavItem>
         <NavLink href="/app" exact>
@@ -33,4 +33,4 @@ const NavBar = () => (
   </Navbar>
 );
 
-export default NavBar;
+export default BottomNavBar;
