@@ -1,30 +1,29 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap";
-import "./NavBar.scss";
-
-const NavBar = () => (
-  <Navbar color="light" light expand="md">
+import "./BottomNavBar.scss";
+const BottomNavBar = () => (
+  <Navbar className="bottom-navbar" color="light" light expand="md">
     <Nav navbar>
       <NavItem>
-        <NavLink href="/app" exact>
+        <NavLink href="/" exact>
           <Button className="navbar-button" />
         </NavLink>
         <p>Home</p>
       </NavItem>
       <NavItem>
-        <NavLink href="/app/groups">
+        <NavLink href="/groups">
           <Button className="navbar-button" />
         </NavLink>
         <p>Group</p>
       </NavItem>
       <NavItem>
-        <NavLink href="/app/ask-me">
+        <NavLink href="/ask-me">
           <Button className="navbar-button" />
         </NavLink>
         <p>Ask Me</p>
       </NavItem>
       <NavItem>
-        <NavLink href="/app/notifications">
+        <NavLink href="/notifications">
           <Button className="navbar-button" />
         </NavLink>
         <p>Notifications</p>
@@ -33,4 +32,4 @@ const NavBar = () => (
   </Navbar>
 );
 
-export default NavBar;
+export default BottomNavBar;

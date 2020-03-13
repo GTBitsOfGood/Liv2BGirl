@@ -1,0 +1,40 @@
+.top-navbar {
+  height: 48px;
+  width: 100%;
+  position: fixed !important;
+  top: 0;
+  padding: 0 !important;
+
+  
+    .navbar-nav {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: #F2F2F2;
+      padding: 0px;
+    }
+  
+    .nav-item {
+      width: 33%;
+  
+      .navbar-logo {
+        width: 124px;
+        margin-right: 110px;
+        align-self: center !important;
+      }
+
+      .navbar-avatar {
+        width: 24px; 
+        border-radius: 50%;
+        align-self: flex-start;
+        margin-left: 16px;
+      }
+  
+      p {
+        font-size: 12px;
+        line-height: 12px;
+      }
+    }
+  }
+  
