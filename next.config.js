@@ -7,9 +7,4 @@ if (!prod) {
   dotEnv.config();
 }
 
-module.exports = withImages({
-  env: {
-    MONGODB: process.env.MONGODB,
-    JWTSECRET: process.env.JWTSECRET,
-  },
-});
+module.exports = withImages();
