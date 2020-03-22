@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import NewGroup from "../frontend/components/CreateNewGroup/NewGroup";
+import NewGroup from "../client/components/CreateNewGroup/NewGroup";
 
 const newgroup = () => {
   return <NewGroup />;
