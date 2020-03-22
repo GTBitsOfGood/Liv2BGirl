@@ -7,10 +7,13 @@ const UserSchema = new Schema({
     type: String,
     unique: true,
     required: true,
+    index: true,
   },
-  name: {
-    // admin/ambassador only
+  username: {
     type: String,
+    required: true,
+    unique: true,
+    index: true,
   },
   password: {
     type: String,
@@ -20,14 +23,14 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  username: {
+  name: {
+    // admin/ambassador only
     type: String,
-    required: true,
-    unique: true,
   },
-  isAdmin: {
-    type: Boolean,
-    default: false,
+  groups: {
+    type: [String],
+    required: true,
+    index: true,
   },
   followers: {
     type: [String],

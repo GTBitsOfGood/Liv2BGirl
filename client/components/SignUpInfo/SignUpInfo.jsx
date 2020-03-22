@@ -38,7 +38,6 @@ const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
           value={email}
           onChange={event => {
             const { value } = event.target;
-
             setValues({
               email: value,
             });
@@ -51,7 +50,6 @@ const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
           value={password}
           onChange={event => {
             const { value } = event.target;
-
             setValues({
               password: value,
             });
@@ -64,7 +62,6 @@ const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
           value={invCode}
           onChange={event => {
             const { value } = event.target;
-
             setValues({
               invCode: value,
             });

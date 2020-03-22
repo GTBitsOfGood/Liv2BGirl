@@ -17,7 +17,6 @@
   .profile-description {
     font-size: 16px;
     line-height: 22px;
-    letter-spacing: 0.01em;
     color: #4f4f4f;
     margin-bottom: 4px;
   }
@@ -37,7 +36,6 @@
   h4 {
     font-size: 18px;
     line-height: 24px;
-    letter-spacing: 0.01em;
     margin-bottom: 0;
   }
 
@@ -81,6 +79,11 @@
 .group-thread-card {
   display: flex;
   margin-bottom: 30px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  border: 2px solid transparent;
+
   .group-avatar {
     width: 72px;
     height: 72px;
@@ -97,13 +100,41 @@
     font-weight: bold;
     font-size: 16px;
     line-height: 22px;
-    letter-spacing: 0.01em;
     color: #4f4f4f;
   }
 
   .thread-card-summary {
     font-size: 16px;
     line-height: 22px;
-    letter-spacing: 0.01em;
+    color: #4f4f4f;
+  }
+
+  &:hover {
+    background: transparent;
+    box-sizing: border-box;
+    border: 2px solid #333333;
+  }
+}
+
+.profile-pg-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  width: 100%;
+  background: #f2f2f2;
+  padding: 0 16px;
+
+  .navbar-logo {
+    width: 124px;
+    align-self: center !important;
+  }
+
+  .profile-back {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #4f4f4f;
+    padding: 0;
   }
 }

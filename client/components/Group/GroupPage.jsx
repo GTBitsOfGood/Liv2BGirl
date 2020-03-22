@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "next/link";
 
 // Stylings
 import "./GroupPage.scss";
 
 // Icons
 import { Icon } from "@iconify/react";
+import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 
 // Components
 import { Button, Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
-import GroupPost from "./GroupPost";
+import ThreadPost from "./ThreadPost";
+
+import logo from "../../../public/img/logo.png";
 
 const fakeThreads = [
   {
@@ -59,6 +63,7 @@ const fakeThreads = [
 
 const GroupPage = props => {
   const { groupid } = props;
+  const [joined, setJoined] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
 
@@ -66,6 +71,13 @@ const GroupPage = props => {
 
   return (
     <div>
+      <div className="group-pg-header">
+        <Button tag={Link} className="group-back" href="/app/groups/">
+          <Icon className="back-group" icon={bxArrowBack} width="18px" />
+        </Button>
+        <img className="navbar-logo" src={logo} alt="Liv2BGirl Logo" />
+        <div />
+      </div>
       <div className="group-header">
         <img
           className="group-avatar"
@@ -76,7 +88,9 @@ const GroupPage = props => {
           <h2 className="group-name">{groupid}</h2>
           <h3 className="group-description">Description</h3>
         </div>
-        <Button className="group-join">Join</Button>
+        <Button className="group-join" onClick={() => setJoined(!joined)}>
+          {joined ? "Leave" : "Join"}
+        </Button>
       </div>
       <div className="page">
         <div className="group-row-1">
@@ -109,10 +123,22 @@ const GroupPage = props => {
               </div>
             </DropdownMenu>
           </Dropdown>
-          <Icon className="add-post" width="1.5rem" icon={commentPlusOutline} />
+
+          <Button
+            tag={Link}
+            className="create-thread-btn"
+            href={`/app/groups/${groupid}/create-thread`}
+            disabled={!joined}
+          >
+            <Icon
+              className="add-post"
+              width="1.5rem"
+              icon={commentPlusOutline}
+            />
+          </Button>
         </div>
         {fakeThreads.map(thread => (
-          <GroupPost
+          <ThreadPost
             key="Thread"
             title={thread.title}
             summary={thread.summary}

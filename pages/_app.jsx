@@ -1,7 +1,8 @@
 import App from "next/app";
 import React from "react";
 import Head from "next/head";
-import NavBar from "../client/components/NavBar";
+import BottomNavBar from "../client/components/BottomNavBar";
+import TopNavBar from "../client/components/TopNavBar";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
@@ -28,7 +29,20 @@ class MyApp extends App {
             <Component {...pageProps} />
           </div>
         </div>
-        {!["/sign-up", "/sign-in"].includes(router.asPath) && <NavBar />}
+        {!["/sign-up", "/sign-in", "/app/groups/thread"].some(route =>
+          router.asPath.includes(route)
+        ) && (
+          <>
+            {!["/app/groups/", "/app/profile"].some(route =>
+              router.asPath.includes(route)
+            ) && (
+              <>
+                <TopNavBar />
+              </>
+            )}
+            <BottomNavBar />
+          </>
+        )}
       </>
     );
   }

@@ -2,28 +2,23 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const ThreadSchema = new Schema({
+const CommentSchema = new Schema({
   poster: {
     type: String,
-    required: true,
     index: true,
-  },
-  group: {
-    type: String,
     required: true,
+  },
+  parentId: {
+    type: String,
     index: true,
-  },
-  title: {
-    type: String,
     required: true,
-    text: true,
   },
-  tags: {
-    type: [String],
-    text: true,
+  officialAnswer: {
+    type: Boolean,
   },
   content: {
     type: String,
+    text: true,
   },
   postedAt: {
     type: Date,
@@ -31,4 +26,5 @@ const ThreadSchema = new Schema({
   },
 });
 
-export default mongoose.models.Thread || mongoose.model("Thread", ThreadSchema);
+export default mongoose.models.Comment ||
+  mongoose.model("Comment", CommentSchema);

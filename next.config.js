@@ -7,6 +7,9 @@ const prod = process.env.NODE_ENV === "production";
 
 if (!prod) {
   dotEnv.config();
+} else {
+  // eslint-disable-next-line no-console
+  console.log("Using env vars: ", process.env);
 }
 
 module.exports = withSass(
@@ -15,6 +18,12 @@ module.exports = withSass(
       env: {
         MONGODB: process.env.MONGODB,
         JWTSECRET: process.env.JWTSECRET,
+      },
+      build: {
+        env: {
+          MONGODB: process.env.MONGODB,
+          JWTSECRET: process.env.JWTSECRET,
+        },
       },
     })
   )
