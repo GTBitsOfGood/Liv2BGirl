@@ -1,10 +1,10 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import NewGroup from "../client/components/CreateNewGroup/NewGroup";
+import TermsCond from "../client/components/CreateNewGroup/TermsCond";
 
 const newgroup = () => {
-  return <NewGroup />;
+  return <TermsCond />;
 };
 
 export default newgroup;
