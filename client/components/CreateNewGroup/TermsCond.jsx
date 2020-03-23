@@ -1,62 +1,53 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import React, { useState } from "react";
+import { Button, CustomInput } from "reactstrap";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "next/link";
 import urls from "../../../utils/urls";
-import "./NewGroup.scss";
 
-const TermsCond = props => {
-  const [notChecked, setChecked] = React.useState(true);
+// Styling
+import "./CreateNewGroup.scss";
+
+const TermsCond = () => {
+  const [notChecked, setChecked] = useState(true);
 
   return (
-    <div>
-      <div style={{ backgroundColor: "lightgray" }}>
-        <Button className="button" tag={Link} href={urls.pages.signUp}>
+    <div className="terms-pg">
+      <div className="newgroup-header">
+        <Button
+          className="header-back-btn"
+          tag={Link}
+          href={urls.pages.groupList}
+        >
           <FontAwesomeIcon icon={faArrowLeft} />
         </Button>
-        <label style={{ marginLeft: 60, fontWeight: "bold" }}>
-          Create New Group
-        </label>
+        <h1 className="header-text">Create New Group</h1>
+        <div />
       </div>
       <div className="page">
-        <h2 style={{ fontSize: 18, fontWeight: "bold" }}>Terms & Agreement</h2>
-        <br />
-        <p>
+        <h2 className="page-header">Terms & Agreement</h2>
+        <p className="page-content">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-        <p />
-        <br />
-        <div>
-          <input
-            onClick={() => {
-              setChecked(!notChecked);
-            }}
-            type="checkbox"
-            style={{ width: 25, height: 25, marginRight: 20 }}
-          />
-          <label>I have read the terms and conditions</label>
-        </div>
-        <br />
+        <p className="page-content">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <CustomInput
+          onClick={() => {
+            setChecked(!notChecked);
+          }}
+          className="checkTerms"
+          type="checkbox"
+          id="checkTerms"
+          label="I agree to the Terms & Agreement"
+        />
         <Button
+          className="grp-next-btn"
           disabled={notChecked}
           tag={Link}
           href={urls.pages.app.newgroup}
-          style={{
-            backgroundColor: "lightgray",
-            marginLeft: 70,
-            borderColor: "transparent",
-            width: 150,
-            height: 50,
-            fontWeight: "bold",
-            paddingTop: 10,
-            WebkitBorderRadius: 40,
-            color: "rgba(19, 17, 17, 0.616)",
-          }}
         >
           Next Step
         </Button>

@@ -1,10 +1,9 @@
 import React from "react";
-import { useRouter } from "next/router";
 
 import TermsCond from "../../../../client/components/CreateNewGroup/TermsCond";
 
-const termcond = () => {
+const TermCond = () => {
   return <TermsCond />;
 };
 
-export default termcond;
+export default TermCond;

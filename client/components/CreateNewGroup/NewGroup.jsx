@@ -1,12 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import React, { useState } from "react";
+import { Button, FormGroup, Label, Input } from "reactstrap";
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "next/link";
 import urls from "../../../utils/urls";
-import "./NewGroup.scss";
+import "./CreateNewGroup.scss";
 
 const categories = [
   "Music",
@@ -19,81 +18,63 @@ const categories = [
   "Career",
 ];
 
-const NewGroup = props => {
-  const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [category, setCategory] = React.useState("");
+const NewGroup = () => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
   return (
-    <div>
-      <div style={{ backgroundColor: "lightgray" }}>
-        <Button className="button" tag={Link} href={urls.pages.app.termAndCond}>
+    <div className="newgroup-pg">
+      <div className="newgroup-header">
+        <Button
+          className="header-back-btn"
+          tag={Link}
+          href={urls.pages.termAndCond}
+        >
           <FontAwesomeIcon icon={faArrowLeft} />
         </Button>
-        <label style={{ marginLeft: 60, fontWeight: "bold" }}>
-          Create New Group
-        </label>
+        <h1 className="header-text">Create New Group</h1>
+        <div />
       </div>
-      <div>
-        <Button
-          style={{ height: 60, width: 60, marginLeft: 130, marginTop: 20 }}
-          className="button"
-        >
-          <FontAwesomeIcon
-            style={{ color: "darkgray", height: 45, width: 30 }}
-            icon={faPlus}
-          />
-        </Button>
-        <br />
-        <label style={{ marginLeft: 135, fontWeight: "bold", fontSize: 8 }}>
-          Add an icon
-        </label>
-      </div>
-
-      <div
-        style={{ marginTop: 20, marginLeft: 10, marginRight: 10, height: 720 }}
-      >
+      <div className="page">
+        <div className="add-icon">
+          <Button className="add-btn">
+            <FontAwesomeIcon icon={faPlus} />
+          </Button>
+          <h1 className="add-text">Add an icon</h1>
+        </div>
         <FormGroup>
-          <Label>Group Name *</Label>
+          <Label className="create-grp-header">Group Name *</Label>
           <Input
-            onChange={event => {
-              setName(event.target.value), console.log(name);
-            }}
+            className="grp-name-text"
+            onChange={event => setName(event.target.value)}
             name="groupname"
           />
         </FormGroup>
         <FormGroup>
-          <Label>Description *</Label>
+          <Label className="create-grp-header">Description *</Label>
           <Input
-            onChange={event => {
-              setDescription(event.target.value), console.log(description);
-            }}
+            className="grp-dsc-text"
+            onChange={event => setDescription(event.target.value)}
             type="textarea"
             name="description"
-            style={{ height: 100 }}
           />
         </FormGroup>
-        <h6>Category</h6>
-        {categories.map(cat => (
-          <Button
-            onClick={() => {
-              setCategory(cat), console.log(category);
-            }}
-            className="username-btn"
-          >
-            {cat}
-          </Button>
-        ))}
-        <br />
+        <h1 className="create-grp-header">Category</h1>
+        <div className="grp-category-deck">
+          {categories.map(cat => (
+            <Button
+              active={category === cat}
+              onClick={() => {
+                setCategory(cat);
+              }}
+              className="category-btn"
+            >
+              {cat}
+            </Button>
+          ))}
+        </div>
         <Button
-          className="create"
-          style={{
-            WebkitBorderRadius: 40,
-            width: 150,
-            height: 50,
-            marginLeft: 85,
-            marginTop: 20,
-            paddingTop: 13,
-          }}
+          className="grp-next-btn"
           tag={Link}
           href={urls.pages.app.newgroupconf}
         >
