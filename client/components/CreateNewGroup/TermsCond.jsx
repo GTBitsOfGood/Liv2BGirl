@@ -12,7 +12,7 @@ const TermsCond = props => {
 
   return (
     <div>
-      <div style={{ backgroundColor: "lightgray", marginTop: 50 }}>
+      <div style={{ backgroundColor: "lightgray" }}>
         <Button className="button" tag={Link} href={urls.pages.signUp}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </Button>
@@ -44,16 +44,18 @@ const TermsCond = props => {
         <br />
         <Button
           disabled={notChecked}
-          onClick={() => console.log("clicked!")}
+          tag={Link}
+          href={urls.pages.app.newgroup}
           style={{
-            borderColor: "transparent",
             backgroundColor: "lightgray",
             marginLeft: 70,
+            borderColor: "transparent",
             width: 150,
             height: 50,
             fontWeight: "bold",
+            paddingTop: 10,
             WebkitBorderRadius: 40,
-            color: "black",
+            color: "rgba(19, 17, 17, 0.616)",
           }}
         >
           Next Step
