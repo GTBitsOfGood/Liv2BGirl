@@ -13,28 +13,23 @@ const NewGroup = props => {
 
   return (
     <div>
-      <div style={{ backgroundColor: "lightgray" }}>
+      <div style={{ backgroundColor: "lightgray", marginTop: 50 }}>
         <Button className="button" tag={Link} href={urls.pages.signUp}>
           <FontAwesomeIcon icon={faArrowLeft} />
         </Button>
-        <label style={{ marginLeft: 80 }}>Create New Group</label>
+        <label style={{ marginLeft: 60 }}>Create New Group</label>
       </div>
-      <div>
+      <div className="page">
         <h2 style={{ fontSize: 18, fontWeight: "bold" }}>Terms & Agreement</h2>
         <br />
         <p>
-          Some terms and agreements idk what to write blah blah blah follow
-          these rules you must make sure blah blah blah failure to comply blah
-          blah blah
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
-
-        <p>
-          Some more terms and agreements woot woot yeet yeet uhhhhhhh go bits of
-          good yayay im gonna keep writing stuff uhhhhh random words octopus dog
-          notebook blanket bed sleep eyes
-        </p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+        <p />
         <br />
-
         <div>
           <input
             onClick={() => {
@@ -52,7 +47,7 @@ const NewGroup = props => {
           style={{
             outlineColor: "lightgray",
             backgroundColor: "lightgray",
-            marginLeft: 100,
+            marginLeft: 75,
             width: 150,
             height: 50,
             WebkitBorderRadius: 40,
