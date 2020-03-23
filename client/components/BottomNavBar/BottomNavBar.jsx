@@ -1,5 +1,7 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink, Button } from "reactstrap";
+
+// Styling
 import "./BottomNavBar.scss";
 
 const BottomNavBar = () => (

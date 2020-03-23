@@ -1,7 +1,9 @@
 import React from "react";
 import { Navbar, Nav, NavItem, NavLink } from "reactstrap";
-import "./TopNavBar.scss";
 import logo from "../../../public/img/logo.png";
+
+// Styling
+import "./TopNavBar.scss";
 
 const TopNavBar = () => (
   <Navbar className="top-navbar" light expand="md">

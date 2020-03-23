@@ -15,6 +15,7 @@ if (!prod) {
 module.exports = withSass(
   withCss(
     withImages({
+      cssModules: true,
       env: {
         MONGODB: process.env.MONGODB,
         JWTSECRET: process.env.JWTSECRET,

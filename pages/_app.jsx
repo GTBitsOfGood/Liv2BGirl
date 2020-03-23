@@ -3,12 +3,9 @@ import React from "react";
 import Head from "next/head";
 import BottomNavBar from "../client/components/BottomNavBar";
 import TopNavBar from "../client/components/TopNavBar";
-import "bootstrap-css-only/css/bootstrap.min.css";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 import "../public/static/App.scss";
-import "../public/static/Account.scss";
-import "../public/static/Avatar.scss";
 
 class MyApp extends App {
   render() {
