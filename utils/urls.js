@@ -20,6 +20,9 @@ export default {
       myProfile: "/app/profile",
       thread: threadId => `/app/groups/thread/${threadId}`,
       createThread: groupId => `/app/groups/${groupId}/create-thread`,
+      termAndCond: "/app/groups/newgroup/termcond",
+      newgroup: "/app/groups/newgroup/createnewgroup",
+      newgroupconf: "/app/groups/newgroup/newgroupconf",
     },
   },
   api: {

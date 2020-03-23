@@ -29,9 +29,12 @@ class MyApp extends App {
             <Component {...pageProps} />
           </div>
         </div>
-        {!["/sign-up", "/sign-in", "/app/groups/thread"].some(route =>
-          router.asPath.includes(route)
-        ) && (
+        {![
+          "/sign-up",
+          "/sign-in",
+          "/app/groups/thread",
+          "/app/groups/newgroup",
+        ].some(route => router.asPath.includes(route)) && (
           <>
             {!["/app/groups/", "/app/profile"].some(route =>
               router.asPath.includes(route)
