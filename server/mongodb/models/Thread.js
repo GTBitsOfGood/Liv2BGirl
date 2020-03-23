@@ -9,11 +9,11 @@ const ThreadSchema = new Schema({
   },
   group: {
     type: String,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   tags: {
     type: [String],
@@ -32,8 +32,7 @@ const ThreadSchema = new Schema({
   },
   postedAt: {
     type: Date,
-  }
+  },
 });
 
 export default mongoose.models.Thread || mongoose.model("Thread", ThreadSchema);
-
