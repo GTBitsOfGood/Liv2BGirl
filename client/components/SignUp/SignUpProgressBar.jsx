@@ -1,5 +1,5 @@
 import React from "react";
-import "./SignUpProgressBar.css";
+// import "./SignUpProgressBar.css";
 
 const ProgressCircle = ({ active, ...rest }) => (
   <div
