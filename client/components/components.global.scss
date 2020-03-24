@@ -12,4 +12,12 @@
   width: 100%;
   z-index: 999;
   background: $background;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    display: flex;
+  }
 }
