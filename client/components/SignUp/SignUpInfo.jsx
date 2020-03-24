@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, ButtonGroup, Input, Form } from "reactstrap";
 import { Link } from "next/link";
 import urls from "../../../utils/urls";
 
+// Styling
+import global from "../components.global.scss";
+
 const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
   const { email, password, invCode } = values;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (email.length > 0 && password.length > 0 && invCode.length > 0) {
       setStageCompleted(true);
     }
   }, [email, password, invCode]);
 
   return (
-    <div className="page account" style={{ marginBottom: 0 }}>
+    <div className={global.Page} style={{ marginBottom: 0 }}>
       <div className="logo" />
       <ButtonGroup className="login-buttons">
         <Button tag={Link} href={urls.pages.signUp} className="signUp">
