@@ -1,0 +1,15 @@
+@import "../../public/static/colors.scss";
+
+.Page {
+  padding: 20px;
+  margin-bottom: 80px;
+}
+
+.TopNav {
+  position: fixed;
+  top: 0;
+  height: 48px;
+  width: 100%;
+  z-index: 999;
+  background: $background;
+}

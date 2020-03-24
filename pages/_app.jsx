@@ -1,10 +1,12 @@
 import App from "next/app";
 import React from "react";
 import Head from "next/head";
-import BottomNavBar from "../client/components/BottomNavBar";
-import TopNavBar from "../client/components/TopNavBar";
+import BottomNavBar from "../client/components/NavBar/BottomNavBar";
+import TopNavBar from "../client/components/NavBar/TopNavBar";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
+
+// Global Styles
 import "../public/static/App.scss";
 
 class MyApp extends App {

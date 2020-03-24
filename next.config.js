@@ -1,6 +1,5 @@
 const withImages = require("next-images");
 const withSass = require("@zeit/next-sass");
-const withCss = require("@zeit/next-css");
 const dotEnv = require("dotenv");
 
 const prod = process.env.NODE_ENV === "production";
@@ -13,19 +12,17 @@ if (!prod) {
 }
 
 module.exports = withSass(
-  withCss(
-    withImages({
-      cssModules: true,
+  withImages({
+    cssModules: true,
+    env: {
+      MONGODB: process.env.MONGODB,
+      JWTSECRET: process.env.JWTSECRET,
+    },
+    build: {
       env: {
         MONGODB: process.env.MONGODB,
         JWTSECRET: process.env.JWTSECRET,
       },
-      build: {
-        env: {
-          MONGODB: process.env.MONGODB,
-          JWTSECRET: process.env.JWTSECRET,
-        },
-      },
-    })
-  )
+    },
+  })
 );

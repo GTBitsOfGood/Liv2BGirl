@@ -1,3 +1,5 @@
+@import "./colors.scss";
+
 body {
   font-family: "Poppins";
 }
@@ -24,11 +26,52 @@ body,
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  color: #4f4f4f;
+  color: $text;
   letter-spacing: 0.01em;
 }
 
-.page {
-  padding: 20px;
-  margin-bottom: 80px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 22px;
+  line-height: 30px;
+}
+
+h2 {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+h3 {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+h4 {
+  font-size: 14px;
+  line-height: 19px;
+}
+
+h5 {
+  font-size: 13px;
+  line-height: 16px;
+}
+
+h6 {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+p {
+  font-size: 22px;
+  line-height: 30px;
 }
