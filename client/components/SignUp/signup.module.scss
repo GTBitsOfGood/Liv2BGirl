@@ -1,0 +1,192 @@
+@import "../../../public/styles/colors.scss";
+
+.Logo {
+  margin: 0 auto;
+  margin-top: 40px;
+  border-radius: 100px;
+  width: 115px;
+  height: 115px;
+  border: none;
+  background-color: $light-gray;
+}
+
+.LoginButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px;
+}
+
+.SignUp,
+.SignIn {
+  padding: 8px 25px;
+  border: none;
+}
+
+.SignUp {
+  border-radius: 137px 0px 0px 137px;
+  font-weight: normal;
+  background: $gray;
+  color: white;
+}
+
+.SignIn {
+  border-radius: 0px 137px 137px 0px;
+  font-weight: bold;
+  background: $light-gray;
+  color: $gray;
+}
+
+.Input {
+  border: none;
+  border-bottom: 1px solid $gray;
+  margin-bottom: 40px;
+  padding-bottom: 10px;
+  color: $text;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.Checkbox {
+  margin-bottom: 50px;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-button {
+  margin: 0 auto;
+  margin-bottom: 30px;
+  background-color: #c4c4c4;
+  border-radius: 137px;
+  border: none;
+  width: 255px;
+  padding: 15px;
+
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 33px;
+  letter-spacing: 0.05em;
+  color: #4f4f4f;
+}
+
+
+
+.gen-username {
+  margin-bottom: 20px;
+
+  .gen-header {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+    margin-bottom: 18px;
+  }
+
+  .gen-label {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .form-control {
+    height: 42px;
+  }
+
+  .gen-btn {
+    background: #c4c4c4;
+    border-radius: 137px;
+    border: none;
+    width: 150px;
+    padding: 8px 12px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #4f4f4f;
+    margin: 8px 0 24px 0;
+  }
+
+  .gen-pick {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: #4f4f4f;
+    margin-bottom: 24px;
+  }
+}
+
+.about-head {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 30px;
+  margin-bottom: 30px;
+}
+
+.about-avatar {
+  width: 132px;
+  height: 132px;
+  margin: 10px auto;
+}
+
+.about-username {
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 24px;
+  color: #828282;
+  margin-bottom: 40px;
+}
+
+.about-label {
+  margin-right: 10px;
+}
+
+.dropdown-menu.show {
+  min-width: 4rem;
+  text-align: center;
+  float: none;
+}
+
+.username-btn,
+.about-topic-btn {
+  background-color: transparent;
+  border: 1px solid #bdbdbd;
+  box-sizing: border-box;
+  border-radius: 43px;
+  min-width: 120px;
+  height: 40px;
+  font-size: 18px;
+  line-height: 24px;
+  color: #828282;
+  margin: 8px 15px;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active {
+  background-color: transparent;
+  border: 2px solid #333333;
+  color: #333333;
+}
+
+.about-pg {
+  margin-bottom: 20px;
+}
+
+.complete-pg {
+  display: flex;
+  flex-direction: column;
+
+  .complete-check {
+    width: 148px;
+    height: 148px;
+    margin: 0 auto;
+    margin-top: 130px;
+    margin-bottom: 55px;
+  }
+
+  .complete-text {
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+  }
+}

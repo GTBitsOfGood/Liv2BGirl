@@ -104,7 +104,7 @@ const SignUp = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div>
       <SignUpProgressBar stage={stage} setStage={setStage} />
       <CurrentStep
         stage={stage}

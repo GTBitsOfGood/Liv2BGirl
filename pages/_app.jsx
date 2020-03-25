@@ -7,7 +7,7 @@ import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 
 // Global Styles
-import "../public/static/App.scss";
+import "../public/styles/App.scss";
 
 class MyApp extends App {
   render() {

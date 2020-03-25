@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { Button, ButtonGroup, Input, Form } from "reactstrap";
-import { Link } from "next/link";
+import Link from "next/link";
 import urls from "../../../utils/urls";
 
 // Styling
 import global from "../components.global.scss";
+import styles from "./signup.module.scss";
 
 const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
   const { email, password, invCode } = values;
@@ -16,28 +16,23 @@ const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
   }, [email, password, invCode]);
 
   return (
-    <div className={global.Page} style={{ marginBottom: 0 }}>
-      <div className="logo" />
-      <ButtonGroup className="login-buttons">
-        <Button tag={Link} href={urls.pages.signUp} className="signUp">
-          SIGN UP
-        </Button>
-        <Button
-          tag={Link}
-          href={urls.pages.signIn}
-          className="signIn"
-          style={{
-            background: "#E0E0E0",
-            color: "#828282",
-            fontWeight: "normal",
-          }}
-        >
-          SIGN IN
-        </Button>
-      </ButtonGroup>
+    <div className={global.Page}>
+      <div className={styles.Logo} />
+      <div className={styles.LoginButtons}>
+        <Link href={urls.pages.signUp}>
+          <button className={styles.SignUp} type="button">
+            <h4>SIGN UP</h4>
+          </button>
+        </Link>
+        <Link href={urls.pages.signIn}>
+          <button className={styles.SignIn} type="button">
+            <h4>SIGN IN</h4>
+          </button>
+        </Link>
+      </div>
 
-      <Form>
-        <Input
+      <form className={styles.Form}>
+        <input
           value={email}
           onChange={event => {
             const { value } = event.target;
@@ -45,11 +40,11 @@ const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
               email: value,
             });
           }}
-          className="form-control transparent-input custom-input"
+          className={styles.Input}
           type="text"
           placeholder="Email"
         />
-        <Input
+        <input
           value={password}
           onChange={event => {
             const { value } = event.target;
@@ -57,11 +52,11 @@ const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
               password: value,
             });
           }}
-          className="form-control transparent-input custom-input"
+          className={styles.Input}
           type="password"
           placeholder="Password"
         />
-        <Input
+        <input
           value={invCode}
           onChange={event => {
             const { value } = event.target;
@@ -69,11 +64,11 @@ const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
               invCode: value,
             });
           }}
-          className="form-control transparent-input custom-input"
+          className={styles.Input}
           type="text"
           placeholder="Invitation Code"
         />
-      </Form>
+      </form>
     </div>
   );
 };
