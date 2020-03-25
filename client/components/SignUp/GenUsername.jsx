@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 const descriptions = [
@@ -32,19 +32,19 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const GenUsername = ({ values, setValues, setStageCompleted }) => {
   const { username } = values;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (username.length > 0) {
       setStageCompleted(true);
     }
   }, [username]);
 
-  const [describe, setDescribe] = React.useState(
+  const [describe, setDescribe] = useState(
     descriptions[Math.floor(Math.random() * descriptions.length)]
   );
-  const [like, setLike] = React.useState(
+  const [like, setLike] = useState(
     favThings[Math.floor(Math.random() * favThings.length)]
   );
-  const [lucky, setLucky] = React.useState(
+  const [lucky, setLucky] = useState(
     numbers[Math.floor(Math.random() * numbers.length)]
   );
 
@@ -62,7 +62,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
     );
   }
 
-  const [usernames, setUsernames] = React.useState(
+  const [usernames, setUsernames] = useState(
     Array.from({ length: 9 }, () => genUser())
   );
 
@@ -76,11 +76,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
             }}
-            onChange={event => {
-              const { value } = event.target;
-
-              setDescribe(value);
-            }}
+            onChange={event => setDescribe(event.target)}
             type="select"
             style={{ height: 35 }}
           >
@@ -95,11 +91,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
             }}
-            onChange={event => {
-              const { value } = event.target;
-
-              setLike(value);
-            }}
+            onChange={event => setLike(event.target)}
             type="select"
           >
             {favThings.map(word => (
@@ -113,11 +105,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
             }}
-            onChange={event => {
-              const { value } = event.target;
-
-              setLucky(value);
-            }}
+            onChange={event => setLucky(event.target)}
             type="select"
           >
             {numbers.map(word => (
@@ -127,9 +115,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
         </FormGroup>
       </Form>
       <Button
-        onClick={() => {
-          setUsernames(Array.from({ length: 9 }, () => genUser()));
-        }}
+        onClick={() => setUsernames(Array.from({ length: 9 }, () => genUser()))}
         className="gen-btn"
       >
         Generate!
@@ -144,11 +130,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
         {usernames.map(name => (
           <Button
             active={username === name}
-            onClick={() => {
-              setValues({
-                username: name,
-              });
-            }}
+            onClick={() => setValues({ username: name })}
             className="username-btn"
           >
             {name}

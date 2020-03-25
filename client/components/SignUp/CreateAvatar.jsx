@@ -1,50 +1,61 @@
-import React from "react";
-import { Button } from "reactstrap";
+import React, { useEffect } from "react";
+import { Link } from "next/link";
+
+// FontAwesome Icons
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "next/link";
+
+// Utils
 import urls from "../../../utils/urls";
-import { avatarImg, colorArr } from "../../utils/avatars";
+import { avatarImg, colorArr } from "../../../utils/avatars";
+
+// Styling
+import global from "../components.global.scss";
+import styles from "./signup.module.scss";
 
 const CreateAvatar = ({ values, setValues, setStageCompleted }) => {
   const { avatar, avatarColor } = values;
 
-  React.useEffect(() => {
+  useEffect(() => {
     setStageCompleted(true);
   }, []);
 
   return (
-    <div className="page" style={{ marginBottom: 0 }}>
-      <div className="avatar-header">
-        <Button tag={Link} href={urls.pages.signUp} className="back-btn">
+    <div className={global.Page} style={{ marginBottom: 0 }}>
+      <div className={styles.AvatarHeader}>
+        <div tag={Link} href={urls.pages.signUp} className={styles.BackBtn}>
           <FontAwesomeIcon icon={faArrowLeft} />
-        </Button>
-        <div className="avatar-header-text">Make your own avatar.</div>
+        </div>
+        <h1 className={styles.AvatarHeading}>Make your own avatar.</h1>
         <div />
       </div>
       <div
         style={{
           backgroundColor: colorArr[avatarColor],
         }}
-        className="avatar-logo"
+        className={styles.AvatarLogo}
       >
         <img
           src={avatarImg[avatar]}
           alt="CreateAvatar"
-          className="avatar-img"
+          className={styles.AvatarImg}
         />
       </div>
       <br />
 
-      <div className="avatar-object">
-        <h4>Object</h4>
-        <div className="object-deck">
+      <div className={styles.AvatarObject}>
+        <h2>Object</h2>
+        <div className={styles.ObjectDeck}>
           {avatarImg.map((curAvatar, index) => (
             <div
-              className={
-                index === avatar ? "object-card active" : "object-card"
-              }
+              role="button"
               key={curAvatar}
+              tabIndex={index}
+              className={
+                index === avatar
+                  ? `${styles.ObjectCard} ${styles.Active}`
+                  : `${styles.ObjectCard}`
+              }
               onClick={() => {
                 setValues({
                   avatar: index,
@@ -55,11 +66,9 @@ const CreateAvatar = ({ values, setValues, setStageCompleted }) => {
                   avatar: index,
                 });
               }}
-              role="button"
-              tabIndex={index}
             >
               <img
-                className="object-img"
+                className={styles.ObjectImg}
                 src={curAvatar}
                 alt={`Avatar ${index}`}
               />
@@ -68,12 +77,20 @@ const CreateAvatar = ({ values, setValues, setStageCompleted }) => {
         </div>
       </div>
 
-      <div className="avatar-color">
-        <h4>Background Color</h4>
-        <div className="color-deck">
+      <div className={styles.AvatarColor}>
+        <h2>Background Color</h2>
+        <div className={styles.ColorDeck}>
           {colorArr.map((curColor, index) => (
-            <Button
+            <div
+              role="button"
               key={curColor}
+              tabIndex={index}
+              className={
+                index === avatarColor
+                  ? `${styles.ColorCard} ${styles.Active}`
+                  : `${styles.ColorCard}`
+              }
+              style={{ backgroundColor: curColor }}
               onClick={() => {
                 setValues({
                   avatarColor: index,
@@ -84,12 +101,7 @@ const CreateAvatar = ({ values, setValues, setStageCompleted }) => {
                   avatarColor: index,
                 });
               }}
-              className={
-                index === avatarColor ? "color-card active" : "color-card"
-              }
-              style={{ backgroundColor: curColor }}
               aria-label="Background Color"
-              tabIndex={index}
             />
           ))}
         </div>

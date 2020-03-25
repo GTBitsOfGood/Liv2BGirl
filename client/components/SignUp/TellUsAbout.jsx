@@ -8,7 +8,7 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
-import { avatarImg, colorArr } from "../../utils/avatars";
+import { avatarImg, colorArr } from "../../../utils/avatars";
 
 const topics = [
   "Music",
