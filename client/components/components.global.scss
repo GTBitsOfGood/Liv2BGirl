@@ -1,7 +1,10 @@
 @import "../../public/styles/colors.scss";
 
 .Page {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
+  padding-bottom: 0;
   margin-bottom: 80px;
 }
 
@@ -20,4 +23,18 @@
   a {
     display: flex;
   }
+}
+
+.nextButton {
+  margin: 0 auto;
+  margin-bottom: 30px;
+  background-color: #c4c4c4;
+  border-radius: 137px;
+  border: none;
+  width: 255px;
+  padding: 15px;
+
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  color: $text;
 }

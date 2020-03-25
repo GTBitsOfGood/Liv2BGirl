@@ -15,6 +15,9 @@ import TellUsAbout from "../client/components/SignUp/TellUsAbout";
 import SignUpProgressBar from "../client/components/SignUp/SignUpProgressBar";
 import RegistrationCompleted from "../client/components/SignUp/RegistrationCompleted";
 
+// Styling
+import global from "../client/components/components.global.scss";
+
 const CurrentStep = ({ stage, ...rest }) => {
   switch (stage) {
     case 0: {
@@ -112,9 +115,11 @@ const SignUp = () => {
         setValues={setValues}
         setStageCompleted={setStageCompleted}
       />
-      <button className="account-button" onClick={goToNext}>
-        {getStepText(stage)}
-      </button>
+      <div style={{ display: "flex" }}>
+        <button type="button" className={global.nextButton} onClick={goToNext}>
+          <h1>{getStepText(stage)}</h1>
+        </button>
+      </div>
     </div>
   );
 };

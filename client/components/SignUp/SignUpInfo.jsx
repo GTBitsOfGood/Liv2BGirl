@@ -67,6 +67,7 @@ const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
           className={styles.Input}
           type="text"
           placeholder="Invitation Code"
+          style={{ marginBottom: 0 }}
         />
       </form>
     </div>

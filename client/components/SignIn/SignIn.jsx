@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { login } from "../../actions/api";
@@ -10,8 +10,9 @@ import styles from "./signin.module.scss";
 
 const SignInComponent = () => {
   const router = useRouter();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRemember] = useState(false);
 
   const handleLogin = async () =>
     login(email, password)
@@ -59,17 +60,18 @@ const SignInComponent = () => {
         <h4 className={styles.ForgotPass}>Forgot?</h4>
         <div className={styles.RememberMe}>
           <label className={styles.CheckboxLabel} htmlFor="rememberMe">
-            <input
-              id="rememberMe"
-              className={styles.CustomCheckbox}
-              type="checkbox"
-            />
             <h4>Remember Me</h4>
           </label>
+          <input
+            id="rememberMe"
+            className={styles.CustomCheckbox}
+            type="checkbox"
+            onClick={() => setRemember(!rememberMe)}
+          />
         </div>
       </form>
-      <button className="account-button" onClick={handleLogin}>
-        SIGN IN
+      <button type="submit" className={global.nextButton} onClick={handleLogin}>
+        <h1>SIGN IN</h1>
       </button>
     </div>
   );

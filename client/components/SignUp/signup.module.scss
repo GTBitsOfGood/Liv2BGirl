@@ -25,21 +25,23 @@
 
 .SignUp {
   border-radius: 137px 0px 0px 137px;
-  font-weight: normal;
   background: $gray;
   color: white;
 }
 
 .SignIn {
   border-radius: 0px 137px 137px 0px;
-  font-weight: bold;
-  background: $light-gray;
+  background: $background;
   color: $gray;
+
+  h4 {
+    font-weight: normal;
+  }
 }
 
 .Input {
   border: none;
-  border-bottom: 1px solid $gray;
+  border-bottom: 2px solid $gray;
   margin-bottom: 40px;
   padding-bottom: 10px;
   color: $text;
@@ -54,6 +56,7 @@
 .Form {
   display: flex;
   flex-direction: column;
+  padding: 0 28px;
 }
 
 .account-button {
@@ -71,8 +74,6 @@
   letter-spacing: 0.05em;
   color: #4f4f4f;
 }
-
-
 
 .gen-username {
   margin-bottom: 20px;

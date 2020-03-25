@@ -25,21 +25,23 @@
 
 .SignUp {
   border-radius: 137px 0px 0px 137px;
-  font-weight: bold;
-  background: $light-gray;
+  background: $background;
   color: $gray;
+
+  h4 {
+    font-weight: normal;
+  }
 }
 
 .SignIn {
   border-radius: 0px 137px 137px 0px;
-  font-weight: normal;
   background: $gray;
   color: white;
 }
 
 .Input {
   border: none;
-  border-bottom: 1px solid $gray;
+  border-bottom: 2px solid $gray;
   margin-bottom: 40px;
   padding-bottom: 10px;
   color: $text;
@@ -50,6 +52,7 @@
 .Form {
   display: flex;
   flex-direction: column;
+  padding: 0 28px;
 }
 
 .ForgotPass {
@@ -62,33 +65,73 @@
 }
 
 .RememberMe {
+  margin-bottom: 36px;
+  position: relative;
   display: flex;
-  margin-bottom: 50px;
+  min-height: 1.5rem;
+  padding-left: 1.5rem;
+  color: $text;
 
   .CheckboxLabel {
-    color: $text;
-    font-weight: normal;
-  }
+    display: flex;
+    align-items: center;
 
-  input {
-    overflow: visible;
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-  }
+    h4 {
+      margin-left: 10px;
+      font-weight: normal;
+    }
 
-  input[type="checkbox"] {
-    box-sizing: border-box;
-    padding: 0;
+    &::before {
+      position: absolute;
+      left: 0;
+      display: block;
+      width: 24px;
+      height: 24px;
+      pointer-events: none;
+      content: "";
+      box-sizing: border-box;
+      background-color: transparent;
+      border: $gray solid 1px;
+      border-radius: 0.25rem;
+      transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 24px;
+      height: 24px;
+      content: "";
+      background: no-repeat 50%/50% 50%;
+      box-sizing: border-box;
+    }
   }
 
   .CustomCheckbox {
     position: absolute;
     left: 0;
     z-index: -1;
-    width: 1rem;
-    height: 1.25rem;
+    width: 24px;
+    height: 24px;
     opacity: 0;
+    overflow: visible;
+    font-size: inherit;
+    line-height: inherit;
+    box-sizing: border-box;
+    padding: 0;
+  }
+
+  .CustomCheckbox:checked + .CheckboxLabel::before {
+    color: white;
+    border-color: $gray;
+    background-color: $gray;
+    border-radius: 0.25rem;
+  }
+
+  .CustomCheckbox:checked + .CheckboxLabel::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/%3e%3c/svg%3e");
   }
 }
