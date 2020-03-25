@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
+// Styling
+import global from "../components.global.scss";
+import styles from "./signup.module.scss";
+
 const descriptions = [
   "Kind",
   "Cool",
@@ -67,11 +71,13 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
   );
 
   return (
-    <div className="gen-username page">
-      <h1 className="gen-header">Generate a username</h1>
+    <div className={`${global.Page} ${styles.GenUsername}`}>
+      <h1 className={styles.GenHeader}>Generate a username</h1>
       <Form>
         <FormGroup>
-          <Label className="gen-label">Describe yourself in one word: </Label>
+          <Label className={styles.GenLabel}>
+            Describe yourself in one word:
+          </Label>
           <Input
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
@@ -86,7 +92,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
           </Input>
         </FormGroup>
         <FormGroup>
-          <Label className="gen-label"> One thing you like:</Label>
+          <Label className={styles.GenLabel}> One thing you like:</Label>
           <Input
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
@@ -100,7 +106,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
           </Input>
         </FormGroup>
         <FormGroup>
-          <Label className="gen-label">Your lucky number: </Label>
+          <Label className={styles.GenLabel}>Your lucky number: </Label>
           <Input
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
@@ -116,11 +122,11 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
       </Form>
       <Button
         onClick={() => setUsernames(Array.from({ length: 9 }, () => genUser()))}
-        className="gen-btn"
+        className={styles.GenBtn}
       >
         Generate!
       </Button>
-      <p className="gen-pick">Pick your username: </p>
+      <p className={styles.GenPick}>Pick your username: </p>
       <div
         style={{
           display: "flex",
@@ -131,7 +137,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
           <Button
             active={username === name}
             onClick={() => setValues({ username: name })}
-            className="username-btn"
+            className={styles.UsernameBtn}
           >
             {name}
           </Button>

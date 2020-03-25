@@ -153,26 +153,22 @@
   margin-bottom: 50px;
 }
 
-.gen-username {
+.GenUsername {
   margin-bottom: 20px;
 
-  .gen-header {
+  .GenHeader {
     font-weight: bold;
     font-size: 22px;
     line-height: 30px;
     margin-bottom: 18px;
   }
 
-  .gen-label {
+  .GenLabel {
     font-size: 16px;
     line-height: 24px;
   }
 
-  .form-control {
-    height: 42px;
-  }
-
-  .gen-btn {
+  .GenBtn {
     background: #c4c4c4;
     border-radius: 137px;
     border: none;
@@ -187,7 +183,7 @@
     margin: 8px 0 24px 0;
   }
 
-  .gen-pick {
+  .GenPick {
     font-weight: 600;
     font-size: 18px;
     line-height: 24px;
@@ -227,7 +223,7 @@
   float: none;
 }
 
-.username-btn,
+.UsernameBtn,
 .about-topic-btn {
   background-color: transparent;
   border: 1px solid #bdbdbd;
