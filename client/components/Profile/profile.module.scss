@@ -32,7 +32,7 @@
 }
 
 .ProfilePage {
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 
   .ProfileHeading {
     font-weight: normal;
@@ -46,6 +46,13 @@
     margin-left: auto;
   }
 
+  .InterestsDeck,
+  .SubscriptionDeck {
+    display: flex;
+    height: 100%;
+    overflow-x: auto;
+  }
+
   .InterestPill {
     border: 2px solid $text;
     border-radius: 43px;
@@ -55,33 +62,26 @@
     font-weight: normal;
     font-size: 14px;
     line-height: 19px;
-  }
-
-  .InterestsDeck,
-  .SubscriptionDeck {
-    display: flex;
-    height: 100%;
-    overflow-x: auto;
+    cursor: pointer;
   }
 
   .SubscriptionCard {
-    min-width: 120px;
-    max-width: 120px;
-    height: 120px;
-    background: $background;
     border-radius: 10px;
     margin-right: 15px;
-  }
+    cursor: pointer;
 
-  .SubscriptionImg {
-    width: 120px;
-    height: 120px;
-    border-radius: 10px;
+    .SubscriptionImg {
+      width: 120px;
+      height: 120px;
+      border-radius: 10px;
+    }
   }
 }
 
 .GroupCard {
   display: flex;
+  width: 100%;
+  padding: 0;
   margin-bottom: 30px;
   background: transparent;
   text-align: left;
@@ -92,45 +92,15 @@
     width: 72px;
     height: 72px;
     border-radius: 10px;
-    margin-right: 8px;
+    margin-right: 20px;
   }
   .GroupInfo {
     display: flex;
-    margin: auto 0;
     flex-direction: column;
     color: $text;
 
     .GroupDescription {
       font-weight: normal;
     }
-  }
-
-  &:hover {
-    background: transparent;
-    box-sizing: border-box;
-    border: 2px solid #333333;
-  }
-}
-
-.profile-pg-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 48px;
-  width: 100%;
-  background: #f2f2f2;
-  padding: 0 16px;
-
-  .navbar-logo {
-    width: 124px;
-    align-self: center !important;
-  }
-
-  .profile-back {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #4f4f4f;
-    padding: 0;
   }
 }

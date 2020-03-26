@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "next/link";
+import Link from "next/link";
 
 // icons
 import { Icon } from "@iconify/react";
@@ -8,12 +8,12 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 
-// Stylings
-import "./ThreadPage.scss";
-
 // Components
-import { Button, Input } from "reactstrap";
 import CommentCard from "./CommentCard";
+
+// Stylings
+import global from "../../components.global.scss";
+import styles from "./thread.module.scss";
 
 const fakeComments = [
   {
@@ -43,50 +43,50 @@ const ThreadPage = props => {
 
   return (
     <div className="thread-page">
-      <div className="thread-header">
-        <Button
-          tag={Link}
-          className="thread-btn"
-          href={`/app/groups/${groupid}`}
+      <div className={global.TopNav}>
+        <Link className={global.Back} href={`/app/groups/${groupid}`}>
+          <Icon icon={bxArrowBack} width="18px" />
+        </Link>
+        <h3 className={styles.ThreadNavTitle}>Thread</h3>
+        <button
+          type="button"
+          onClick={() => setSaved(!saved)}
+          className={global.IconButton}
         >
-          <Icon className="thread-back" icon={bxArrowBack} width="18px" />
-        </Button>
-        <h1 className="thread-label">Thread</h1>
-        <Button onClick={() => setSaved(!saved)} className="thread-btn">
           {saved ? (
-            <Icon className="thread-save" icon={bxsBookmark} width="18px" />
+            <Icon icon={bxsBookmark} height="18px" />
           ) : (
-            <Icon className="thread-save" icon={bxBookmark} width="18px" />
+            <Icon icon={bxBookmark} height="18px" />
           )}
-        </Button>
+        </button>
       </div>
-      <div className="thread-main page">
-        <div className="thread-info">
+      <div className={`${global.Page} ${styles.ThreadPage}`}>
+        <div className={styles.ThreadInfo}>
           <img
-            className="thread-group-avatar"
+            className={styles.ThreadGroupAvatar}
             src="https://picsum.photos/100/100"
             alt="Group Avatar"
           />
-          <h1 className="thread-group-name">{groupid}</h1>
+          <h1 className={styles.ThreadGroupName}>{groupid}</h1>
         </div>
-        <h1 className="thread-name">{threadid}</h1>
-        <div className="thread-details">
+        <h1 className={styles.ThreadName}>{threadid}</h1>
+        <div className={styles.ThreadDetails}>
           <img
-            className="author-avatar"
+            className={styles.ThreadAuthorAvatar}
             src="https://picsum.photos/50/50"
             alt="Group Avatar"
           />
-          <p className="thread-author">{author}</p>
-          <p className="thread-date">{date}</p>
+          <p className={styles.ThreadAuthor}>{author}</p>
+          <p className={styles.ThreadDate}>{date}</p>
         </div>
-        <p className="thread-text">
+        <p className={styles.ThreadText}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
         </p>
       </div>
-      <div className="thread-comments">
+      <div className={styles.ThreadComments}>
         {fakeComments.map(thread => (
           <CommentCard
             key="Thread"
@@ -96,9 +96,9 @@ const ThreadPage = props => {
           />
         ))}
       </div>
-      <div className="comment-footer">
+      <div className={styles.CommentFooter}>
         <img
-          className="user-avatar"
+          className={styles.UserAvatar}
           src="https://picsum.photos/100/100"
           alt="User Avatar"
         />
@@ -107,7 +107,7 @@ const ThreadPage = props => {
           name="comment"
           id="comment"
           placeholder="Comment"
-          className="comment-input"
+          className={styles.CommentInput}
           onChange={event => {
             const { value } = event.target;
 

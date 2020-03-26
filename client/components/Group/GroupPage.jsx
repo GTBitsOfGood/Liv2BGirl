@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "next/link";
-
-// Stylings
-import "./GroupPage.scss";
+import Link from "next/link";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -11,10 +8,13 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 
 // Components
-import { Button, Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import ThreadPost from "./ThreadPost";
 
 import logo from "../../../public/img/logo.png";
+
+// Stylings
+import global from "../components.global.scss";
+import styles from "./group.module.scss";
 
 const fakeThreads = [
   {
@@ -64,78 +64,55 @@ const fakeThreads = [
 const GroupPage = props => {
   const { groupid } = props;
   const [joined, setJoined] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
-
-  const toggle = () => setDropdownOpen(prevState => !prevState);
 
   return (
     <div>
-      <div className="group-pg-header">
-        <Button tag={Link} className="group-back" href="/app/groups/">
+      <div className={global.TopNav}>
+        <Link className={global.Back} href="/app/groups/">
           <Icon className="back-group" icon={bxArrowBack} width="18px" />
-        </Button>
-        <img className="navbar-logo" src={logo} alt="Liv2BGirl Logo" />
+        </Link>
+        <img className={global.Logo} src={logo} alt="Liv2BGirl Logo" />
         <div />
       </div>
-      <div className="group-header">
+      <div className={styles.GroupHeader}>
         <img
-          className="group-avatar"
+          className={styles.GroupAvatar}
           src="https://picsum.photos/100/100"
           alt="Group Avatar"
         />
-        <div className="group-title">
-          <h2 className="group-name">{groupid}</h2>
-          <h3 className="group-description">Description</h3>
+        <div className={styles.GroupInfo}>
+          <h3 className={styles.GroupName}>{groupid}</h3>
+          <h4 className={styles.GroupDescription}>Description</h4>
         </div>
-        <Button className="group-join" onClick={() => setJoined(!joined)}>
+        <button
+          type="button"
+          className={styles.GroupJoin}
+          onClick={() => setJoined(!joined)}
+        >
           {joined ? "Leave" : "Join"}
-        </Button>
+        </button>
       </div>
-      <div className="page">
-        <div className="group-row-1">
-          <p>Sort by </p>
-          <Dropdown isOpen={dropdownOpen} toggle={toggle}>
-            <DropdownToggle
-              tag="span"
-              data-toggle="dropdown"
-              aria-expanded={dropdownOpen}
-              caret
-            >
-              {sortedBy}
-            </DropdownToggle>
-            <DropdownMenu>
-              <div
-                onClick={() => setSortedBy("latest comment")}
-                onKeyDown={() => setSortedBy("latest comment")}
-                role="button"
-                tabIndex="0"
-              >
-                latest comment
-              </div>
-              <div
-                onClick={() => setSortedBy("latest post")}
-                onKeyDown={() => setSortedBy("latest post")}
-                role="button"
-                tabIndex="0"
-              >
-                latest post
-              </div>
-            </DropdownMenu>
-          </Dropdown>
-
-          <Button
-            tag={Link}
-            className="create-thread-btn"
-            href={`/app/groups/${groupid}/create-thread`}
-            disabled={!joined}
+      <div className={global.Page}>
+        <div className={styles.GroupTopBar}>
+          <h6>Sort by </h6>
+          <select
+            className={styles.GroupSelect}
+            onClick={event => setSortedBy(event.target.value)}
           >
-            <Icon
-              className="add-post"
-              width="1.5rem"
-              icon={commentPlusOutline}
-            />
-          </Button>
+            <option>latest comment</option>
+            <option>latest post</option>
+          </select>
+
+          <button type="button" className={styles.CreateBtn} disabled={!joined}>
+            <Link href={`/app/groups/${groupid}/create-thread`}>
+              <Icon
+                className={styles.AddPost}
+                width="15px"
+                icon={commentPlusOutline}
+              />
+            </Link>
+          </button>
         </div>
         {fakeThreads.map(thread => (
           <ThreadPost

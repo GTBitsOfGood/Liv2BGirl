@@ -25,7 +25,10 @@
     display: flex;
   }
 
-  .Back {
+  .Back,
+  .IconButton {
+    display: flex;
+    align-items: center;
     border: 0;
     padding: 0;
     color: $text;
@@ -38,6 +41,18 @@
   .Avatar {
     width: 24px;
     border-radius: 50%;
+  }
+
+  .Button {
+    border-radius: 137px;
+    font-size: 14px;
+    line-height: 21px;
+    border: none;
+    background-color: $light-gray;
+    color: $text;
+    font-weight: bold;
+    height: 24px;
+    width: 60px;
   }
 }
 

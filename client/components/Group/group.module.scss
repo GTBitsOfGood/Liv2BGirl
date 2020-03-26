@@ -1,133 +1,131 @@
-.group-header {
-  height: 120px;
-  background-color: #f2f2f2;
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  padding-right: 15px;
+@import "../../../public/styles/colors.scss";
 
-  .group-avatar {
+.GroupHeader {
+  height: 120px;
+  background-color: $background;
+  display: flex;
+  margin-top: 48px;
+  box-sizing: border-box;
+  padding: 20px;
+
+  .GroupAvatar {
     max-height: 100%;
     border-radius: 10px;
   }
 
-  .group-title {
+  .GroupInfo {
     display: flex;
     flex-direction: column;
     margin-left: 25px;
+    color: $text;
 
-    .group-name {
-      font-weight: bold;
-      font-size: 16px;
-      line-height: 22px;
-    }
-
-    .group-description {
-      font-size: 14px;
-      line-height: 19px;
+    .GroupDescription {
+      font-weight: normal;
     }
   }
 
-  .group-join {
+  .GroupJoin {
     margin-left: auto;
     border-radius: 137px;
     font-size: 13px;
     line-height: 19px;
     border: none;
-    background-color: #c4c4c4;
-    color: #4f4f4f;
+    background-color: $light-gray;
+    color: $text;
     font-weight: bold;
+    height: 24px;
     width: 64px;
   }
 }
 
-.group-row-1 {
+.GroupTopBar {
   display: flex;
-  p {
-    display: inline-block;
+  color: $text;
+  margin-bottom: 16px;
+
+  h6 {
+    margin-top: 3px;
+    font-weight: normal;
   }
 
-  .dropdown {
-    margin-left: 6px;
-    display: inline-block;
-    cursor: pointer;
+  .GroupSelect {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='$text' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    border: none;
+    padding-right: 20px;
+    font-weight: bold;
+    font-size: 12;
+    line-height: 14px;
+    color: $text;
 
-    .dropdown-menu {
-      text-align: left;
-      padding: 8px;
-      min-width: 10em;
-    }
-
-    .dropdown-toggle {
-      font-weight: bold;
+    option {
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 14px;
+      color: $text;
     }
   }
 
-  .create-thread-btn {
+  .CreateBtn {
     margin-left: auto;
-    margin-right: 5px;
     padding: 0;
     background: transparent;
     border: none;
     outline: none;
-  }
 
-  .add-post {
-    color: #4f4f4f;
+    .AddPost {
+      color: $text;
+    }
+
+    &:disabled {
+      .AddPost {
+        color: $light-gray;
+      }
+    }
   }
 }
 
-.group-thread {
-  background: rgba(224, 224, 224, 0.54);
+.GroupThread {
+  background: $background;
   border-radius: 15px;
   height: 120px;
   padding: 16px;
   margin-bottom: 16px;
-  color: #4f4f4f;
+  color: $text;
   text-align: left;
   border: 2px solid transparent;
   outline: none;
+  cursor: pointer;
 
-  &:hover {
-    background: rgba(224, 224, 224, 0.54);
-    color: #4f4f4f;
-    border: 2px solid #333333;
+  .ThreadTime,
+  .ThreadSummary,
+  .ThreadAuthor {
+    font-weight: normal;
   }
 
-  .thread-title {
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 22px;
-  }
-
-  .thread-time {
-    font-size: 12px;
-    line-height: 14px;
+  .ThreadTime {
     text-align: right;
-    color: #828282;
     margin-left: auto;
   }
 
-  .thread-summary {
-    font-size: 14px;
-    line-height: 19px;
+  .ThreadSummary {
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2; /* number of lines to show */
     -webkit-box-orient: vertical;
+    margin-bottom: 8px;
   }
 
-  .thread-author {
-    font-size: 14px;
-    line-height: 17px;
-    color: #828282;
-  }
-
-  .thread-details {
+  .ThreadDetails {
     display: flex;
 
-    .author-avatar {
+    .AuthorAvatar {
       width: 16px;
       height: 16px;
       margin-right: 8px;
@@ -135,15 +133,14 @@
     }
   }
 
-  .thread-comments {
+  .ThreadComments {
     display: flex;
+    align-items: center;
     margin-left: auto;
-    color: #828282;
 
-    p {
-      margin-left: 5px;
-      font-size: 12px;
-      line-height: 16px;
+    h6 {
+      margin-left: 6px;
+      font-weight: normal;
     }
   }
 }
@@ -193,13 +190,6 @@
     color: #4f4f4f;
     padding: 0;
   }
-}
-
-.create-thread-h1 {
-  font-weight: bold;
-  font-size: 22px;
-  line-height: 30px;
-  margin: 18px 0;
 }
 
 .create-thread-form {
