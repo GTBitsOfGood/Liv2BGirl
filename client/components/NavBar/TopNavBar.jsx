@@ -1,20 +1,17 @@
 import React from "react";
 import logo from "../../../public/img/logo.png";
 
-// Styling
-import global from "../components.global.scss";
-
 const TopNavBar = () => (
-  <div className={global.TopNav}>
+  <div className="TopNav">
     <a href="/app/profile">
       <img
-        className={global.Avatar}
+        className="Avatar"
         src="https://picsum.photos/200/200"
         alt="Avatar"
       />
     </a>
     <a href="/app/">
-      <img className={global.Logo} src={logo} alt="Liv2BGirl Logo" />
+      <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
     </a>
     <div />
   </div>

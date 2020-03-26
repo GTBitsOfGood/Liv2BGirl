@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 // Styling
-import global from "../components.global.scss";
 import styles from "./signup.module.scss";
 
 const descriptions = [
@@ -70,7 +69,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
   );
 
   return (
-    <div className={`${global.Page} ${styles.GenUsername}`}>
+    <div className={`Page ${styles.GenUsername}`}>
       <h1 className={styles.GenHeader}>Generate a username.</h1>
       <form>
         <div>
@@ -143,11 +142,7 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
           <button
             type="button"
             onClick={() => setValues({ username: name })}
-            className={
-              username === name
-                ? `${global.SmallPill} ${global.ActivePill}`
-                : `${global.SmallPill}`
-            }
+            className={username === name ? "SmallPill ActivePill" : "SmallPill"}
           >
             <h2>{name}</h2>
           </button>

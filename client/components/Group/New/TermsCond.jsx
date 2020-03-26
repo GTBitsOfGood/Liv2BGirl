@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 // Styling
-import global from "../../components.global.scss";
 import styles from "./newgroup.module.scss";
 
 const TermsCond = ({ values, setValues, setStageCompleted }) => {
@@ -15,7 +14,7 @@ const TermsCond = ({ values, setValues, setStageCompleted }) => {
 
   return (
     <div className={styles.TermPage}>
-      <div className={global.Page} style={{ marginBottom: "30px" }}>
+      <div className="Page" style={{ marginBottom: "30px" }}>
         <h1 className={styles.TermHeader}>Terms & Agreement</h1>
         <h3 className={styles.TermContent}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

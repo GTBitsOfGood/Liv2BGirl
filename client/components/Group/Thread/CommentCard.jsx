@@ -2,14 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Stylings
-import global from "../../components.global.scss";
 import styles from "./thread.module.scss";
 
 const CommentPage = props => {
   const { author, date, text } = props;
 
   return (
-    <div className={`${global.Page} ${styles.CommentPg}`}>
+    <div className={`Page ${styles.CommentPg}`}>
       <div className={styles.CommentDetails}>
         <img
           className={styles.CommentAuthorAvatar}

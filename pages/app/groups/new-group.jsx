@@ -17,9 +17,6 @@ import NewGroupConfirmation from "../../../client/components/Group/New/NewGroupC
 // Navigation
 import urls from "../../../utils/urls";
 
-// Styling
-import global from "../../../client/components/components.global.scss";
-
 const CurrentStep = ({ stage, ...rest }) => {
   switch (stage) {
     case 0: {
@@ -99,11 +96,11 @@ const NewGroupPage = () => {
 
   return (
     <>
-      <div className={global.TopNav}>
+      <div className="TopNav">
         <Link href={urls.pages.groupList}>
-          <FontAwesomeIcon className={global.Back} icon={faArrowLeft} />
+          <FontAwesomeIcon className="Back" icon={faArrowLeft} />
         </Link>
-        <h3 className={global.Text}>Create New Group</h3>
+        <h3 className="Text">Create New Group</h3>
         <div />
       </div>
       <CurrentStep
@@ -113,7 +110,7 @@ const NewGroupPage = () => {
         setStageCompleted={setStageCompleted}
       />
       <div style={{ display: "flex" }}>
-        <button type="button" className={global.NextButton} onClick={goToNext}>
+        <button type="button" className="NextButton" onClick={goToNext}>
           <h1>{getStepText(stage)}</h1>
         </button>
       </div>

@@ -8,6 +8,7 @@ import "@fortawesome/free-solid-svg-icons";
 
 // Global Styles
 import "../public/styles/App.scss";
+import "../public/styles/components.scss";
 
 class MyApp extends App {
   render() {

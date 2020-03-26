@@ -13,7 +13,6 @@ import ThreadPost from "./Thread/ThreadPost";
 import logo from "../../../public/img/logo.png";
 
 // Stylings
-import global from "../components.global.scss";
 import styles from "./group.module.scss";
 
 const fakeThreads = [
@@ -68,11 +67,11 @@ const GroupPage = props => {
 
   return (
     <div>
-      <div className={global.TopNav}>
+      <div className="TopNav">
         <Link href="/app/groups/">
-          <Icon className={global.Back} icon={bxArrowBack} width="18px" />
+          <Icon className="Back" icon={bxArrowBack} width="18px" />
         </Link>
-        <img className={global.Logo} src={logo} alt="Liv2BGirl Logo" />
+        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
         <div />
       </div>
       <div className={styles.GroupHeader}>
@@ -93,7 +92,7 @@ const GroupPage = props => {
           {joined ? "Leave" : "Join"}
         </button>
       </div>
-      <div className={global.Page}>
+      <div className="Page">
         <div className={styles.GroupTopBar}>
           <h6>Sort by </h6>
           <select

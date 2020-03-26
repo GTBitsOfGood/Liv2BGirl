@@ -12,7 +12,6 @@ import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 import CommentCard from "./CommentCard";
 
 // Stylings
-import global from "../../components.global.scss";
 import styles from "./thread.module.scss";
 
 const fakeComments = [
@@ -43,15 +42,15 @@ const ThreadPage = props => {
 
   return (
     <div className={styles.ThreadPage}>
-      <div className={global.TopNav}>
+      <div className="TopNav">
         <Link href={`/app/groups/${groupid}`}>
-          <Icon className={global.Back} icon={bxArrowBack} width="18px" />
+          <Icon className="Back" icon={bxArrowBack} width="18px" />
         </Link>
         <h3 className={styles.ThreadNavTitle}>Thread</h3>
         <button
           type="button"
           onClick={() => setSaved(!saved)}
-          className={global.IconButton}
+          className="IconButton"
         >
           {saved ? (
             <Icon icon={bxsBookmark} height="18px" />
@@ -60,7 +59,7 @@ const ThreadPage = props => {
           )}
         </button>
       </div>
-      <div className={`${global.Page} ${styles.ThreadMain}`}>
+      <div className={`Page ${styles.ThreadMain}`}>
         <div className={styles.ThreadInfo}>
           <img
             className={styles.ThreadGroupAvatar}

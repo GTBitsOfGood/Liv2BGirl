@@ -8,7 +8,6 @@ import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 
 // Stylings
-import global from "../components.global.scss";
 import styles from "./profile.module.scss";
 
 // Components
@@ -48,11 +47,11 @@ const ProfilePage = props => {
 
   return (
     <div>
-      <div className={global.TopNav}>
+      <div className="TopNav">
         <Link href="/app">
-          <Icon className={global.Back} icon={bxArrowBack} width="18px" />
+          <Icon className="Back" icon={bxArrowBack} width="18px" />
         </Link>
-        <img className={global.Logo} src={logo} alt="Liv2BGirl Logo" />
+        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
         <div />
       </div>
       <div className={styles.ProfileHeader}>
@@ -69,7 +68,7 @@ const ProfilePage = props => {
           </h6>
         </div>
       </div>
-      <div className={`${styles.ProfilePage} ${global.Page}`}>
+      <div className={`${styles.ProfilePage} Page`}>
         <div
           style={{
             display: "flex",

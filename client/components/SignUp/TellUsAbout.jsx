@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 // Styling
-import global from "../components.global.scss";
 import styles from "./signup.module.scss";
 
 // Avatar Utils
@@ -18,16 +17,7 @@ const topics = [
 ];
 
 const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
-  const {
-    username,
-    age,
-    grade,
-    selectedTopics,
-    ageOpen,
-    gradeOpen,
-    avatar,
-    avatarColor,
-  } = values;
+  const { username, age, grade, selectedTopics, avatar, avatarColor } = values;
 
   useEffect(() => {
     if (age > 0 && grade.length > 0 && selectedTopics.length > 0) {
@@ -58,8 +48,8 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
           type="button"
           className={
             selectedTopics.includes(topic)
-              ? `${global.SmallPill} ${global.ActivePill}`
-              : `${global.SmallPill}`
+              ? "SmallPill ActivePill"
+              : "SmallPill"
           }
           onClick={() => {
             const newTopics = [...selectedTopics];
@@ -83,7 +73,7 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
   };
 
   return (
-    <div className={`${global.Page} ${styles.AboutPg}`}>
+    <div className={`Page ${styles.AboutPg}`}>
       <h1 className={styles.AboutHead}>Tell us more about you.</h1>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div

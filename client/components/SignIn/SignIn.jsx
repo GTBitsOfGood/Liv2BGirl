@@ -5,7 +5,6 @@ import { login } from "../../actions/api";
 import urls from "../../../utils/urls";
 
 // Styling
-import global from "../components.global.scss";
 import styles from "./signin.module.scss";
 
 const SignInComponent = () => {
@@ -27,50 +26,52 @@ const SignInComponent = () => {
       });
 
   return (
-    <div className={global.Page}>
-      <div className={styles.Logo} />
-      <div className={styles.LoginButtons}>
-        <Link href={urls.pages.signUp}>
-          <button className={styles.SignUp} type="button">
-            <h4>SIGN UP</h4>
-          </button>
-        </Link>
-        <Link href={urls.pages.signIn}>
-          <button className={styles.SignIn} type="button">
-            <h4>SIGN IN</h4>
-          </button>
-        </Link>
-      </div>
-
-      <form className={styles.Form}>
-        <input
-          value={email}
-          onChange={event => setEmail(event.target)}
-          className={styles.Input}
-          type="text"
-          placeholder="Email"
-        />
-        <input
-          value={password}
-          onChange={event => setPassword(event.target)}
-          className={styles.Input}
-          type="password"
-          placeholder="Password"
-        />
-        <h4 className={styles.ForgotPass}>Forgot?</h4>
-        <div className={styles.RememberMe}>
-          <label className={styles.CheckboxLabel} htmlFor="rememberMe">
-            <h4>Remember Me</h4>
-          </label>
-          <input
-            id="rememberMe"
-            className={styles.CustomCheckbox}
-            type="checkbox"
-            onClick={() => setRemember(!rememberMe)}
-          />
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="Page" style={{ marginBottom: "20px" }}>
+        <div className={styles.Logo} />
+        <div className={styles.LoginButtons}>
+          <Link href={urls.pages.signUp}>
+            <button className={styles.SignUp} type="button">
+              <h4>SIGN UP</h4>
+            </button>
+          </Link>
+          <Link href={urls.pages.signIn}>
+            <button className={styles.SignIn} type="button">
+              <h4>SIGN IN</h4>
+            </button>
+          </Link>
         </div>
-      </form>
-      <button type="submit" className={global.NextButton} onClick={handleLogin}>
+
+        <form className={styles.Form}>
+          <input
+            value={email}
+            onChange={event => setEmail(event.target)}
+            className={styles.Input}
+            type="text"
+            placeholder="Email"
+          />
+          <input
+            value={password}
+            onChange={event => setPassword(event.target)}
+            className={styles.Input}
+            type="password"
+            placeholder="Password"
+          />
+          <h4 className={styles.ForgotPass}>Forgot?</h4>
+          <div className={styles.RememberMe}>
+            <label className={styles.CheckboxLabel} htmlFor="rememberMe">
+              <h4>Remember Me</h4>
+            </label>
+            <input
+              id="rememberMe"
+              className={styles.CustomCheckbox}
+              type="checkbox"
+              onClick={() => setRemember(!rememberMe)}
+            />
+          </div>
+        </form>
+      </div>
+      <button type="submit" className="NextButton" onClick={handleLogin}>
         <h1>SIGN IN</h1>
       </button>
     </div>

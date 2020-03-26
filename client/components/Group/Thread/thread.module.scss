@@ -95,7 +95,6 @@
   background: $background;
   display: flex;
   flex-direction: column;
-  height: 100%;
 
   .ThreadMain {
     margin-bottom: 0;
@@ -207,6 +206,7 @@
   background-color: white;
   margin: 0;
   margin-top: 8px;
+  margin-bottom: 0 !important;
   color: $text;
 
   .CommentDetails {

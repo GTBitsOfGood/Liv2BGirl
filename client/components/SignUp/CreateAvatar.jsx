@@ -10,7 +10,6 @@ import urls from "../../../utils/urls";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 
 // Styling
-import global from "../components.global.scss";
 import styles from "./signup.module.scss";
 
 const CreateAvatar = ({ values, setValues, setStageCompleted }) => {
@@ -21,7 +20,7 @@ const CreateAvatar = ({ values, setValues, setStageCompleted }) => {
   }, []);
 
   return (
-    <div className={global.Page} style={{ marginBottom: 0 }}>
+    <div className="Page" style={{ marginBottom: 0 }}>
       <div className={styles.AvatarHeader}>
         <div tag={Link} href={urls.pages.signUp} className={styles.BackBtn}>
           <FontAwesomeIcon icon={faArrowLeft} />

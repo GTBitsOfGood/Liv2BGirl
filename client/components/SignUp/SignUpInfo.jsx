@@ -3,7 +3,6 @@ import Link from "next/link";
 import urls from "../../../utils/urls";
 
 // Styling
-import global from "../components.global.scss";
 import styles from "./signup.module.scss";
 
 const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
@@ -16,7 +15,7 @@ const SignUpInfo = ({ values, setValues, setStageCompleted }) => {
   }, [email, password, invCode]);
 
   return (
-    <div className={global.Page}>
+    <div className="Page" style={{ marginBottom: "60px" }}>
       <div className={styles.Logo} />
       <div className={styles.LoginButtons}>
         <Link href={urls.pages.signUp}>

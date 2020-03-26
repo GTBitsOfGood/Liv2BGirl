@@ -10,7 +10,6 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import logo from "../../../../public/img/logo.png";
 
 // Stylings
-import global from "../../components.global.scss";
 import styles from "./thread.module.scss";
 
 const CreateThreadComponent = () => {
@@ -27,22 +26,18 @@ const CreateThreadComponent = () => {
 
   return (
     <div style={{ marginTop: "48px" }}>
-      <div className={global.TopNav}>
+      <div className="TopNav">
         <Link href={`/app/groups/${groupid}`}>
-          <Icon className={global.Back} icon={bxArrowBack} width="18px" />
+          <Icon className="Back" icon={bxArrowBack} width="18px" />
         </Link>
-        <img className={global.Logo} src={logo} alt="Liv2BGirl Logo" />
-        <Link href={`/app/groups/${groupid}`}>
-          <button
-            type="button"
-            className={global.Button}
-            onClick={handleCreateThread}
-          >
+        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
+        <Link href={`/app/groups/thread/${title}`}>
+          <button type="button" className="Button" onClick={handleCreateThread}>
             Post
           </button>
         </Link>
       </div>
-      <div className={global.Page}>
+      <div className="Page">
         <h1 className={styles.CreateThreadHeading}>Start a New Thread.</h1>
         <form className={styles.CreateThreadForm}>
           <input

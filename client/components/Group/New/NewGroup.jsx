@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 // Styling
-import global from "../../components.global.scss";
 import styles from "./newgroup.module.scss";
 
 const categories = [
@@ -30,7 +29,7 @@ const NewGroup = ({ values, setValues, setStageCompleted }) => {
 
   return (
     <div className={styles.NewGroupPage}>
-      <div className={global.Page} style={{ marginBottom: "32px" }}>
+      <div className="Page" style={{ marginBottom: "32px" }}>
         <div className={styles.AddIcon}>
           <button type="button" className={styles.AddBtn}>
             <FontAwesomeIcon icon={faPlus} />
@@ -62,9 +61,7 @@ const NewGroup = ({ values, setValues, setStageCompleted }) => {
                 setValues({ category: cat });
               }}
               className={
-                category === cat
-                  ? `${global.SmallPill} ${global.ActivePill}`
-                  : `${global.SmallPill}`
+                category === cat ? "SmallPill ActivePill" : "SmallPill"
               }
             >
               {cat}
