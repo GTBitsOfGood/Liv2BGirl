@@ -1,7 +1,7 @@
 import { createComment } from "../../../server/mongodb/actions/Comment";
 
 // @route   POST api/comments/createComment
-// @desc    Create Group Request
+// @desc    Create Comment
 // @access  Public
 const handler = (req, res) =>
   createComment(req.body.poster, req.body.parentId, req.body.content)

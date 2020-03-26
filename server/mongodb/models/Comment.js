@@ -13,6 +13,7 @@ const CommentSchema = new Schema({
   },
   content: {
     type: String,
+    required: true,
   },
   officialAnswer: {
     type: Boolean,
