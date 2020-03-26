@@ -6,7 +6,7 @@ export async function deleteThread(threadId) {
 
   return Thread.findOneAndDelete({ _id: threadId }).then(deletedThread => {
     if (deletedThread) {
-      console.log("Successfully deleted group");
+      console.log("Successfully deleted thread");
     } else {
       return Promise.reject(new Error("No comment matches the provided id"));
     }
