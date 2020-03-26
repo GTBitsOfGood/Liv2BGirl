@@ -1,6 +1,6 @@
 import { deleteThread } from "../../../server/mongodb/actions/Thread";
 
-// @route   DELETE api/comments/deleteThread
+// @route   DELETE api/threads/deleteThread
 // @desc    Delete Thread Request
 // @access  Public
 const handler = (req, res) =>
