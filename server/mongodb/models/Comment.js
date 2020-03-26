@@ -5,21 +5,24 @@ const { Schema } = mongoose;
 const CommentSchema = new Schema({
   poster: {
     type: String,
+    index: true,
     required: true,
   },
   parentId: {
-    type: String, // parent can be a post id or a comment id (for future use, sub-comments are disabled during MVP)
-    required: true,
-  },
-  content: {
     type: String,
+    index: true,
     required: true,
   },
   officialAnswer: {
     type: Boolean,
   },
+  content: {
+    type: String,
+    text: true,
+  },
   postedAt: {
     type: Date,
+    required: true,
     default: Date.now,
   },
 });
