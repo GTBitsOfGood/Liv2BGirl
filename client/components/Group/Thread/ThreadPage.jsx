@@ -42,10 +42,10 @@ const ThreadPage = props => {
   const [saved, setSaved] = useState(false);
 
   return (
-    <div className="thread-page">
+    <div className={styles.ThreadPage}>
       <div className={global.TopNav}>
-        <Link className={global.Back} href={`/app/groups/${groupid}`}>
-          <Icon icon={bxArrowBack} width="18px" />
+        <Link href={`/app/groups/${groupid}`}>
+          <Icon className={global.Back} icon={bxArrowBack} width="18px" />
         </Link>
         <h3 className={styles.ThreadNavTitle}>Thread</h3>
         <button
@@ -60,31 +60,33 @@ const ThreadPage = props => {
           )}
         </button>
       </div>
-      <div className={`${global.Page} ${styles.ThreadPage}`}>
+      <div className={`${global.Page} ${styles.ThreadMain}`}>
         <div className={styles.ThreadInfo}>
           <img
             className={styles.ThreadGroupAvatar}
             src="https://picsum.photos/100/100"
             alt="Group Avatar"
           />
-          <h1 className={styles.ThreadGroupName}>{groupid}</h1>
+          <h6 className={styles.ThreadGroupName}>{groupid}</h6>
         </div>
-        <h1 className={styles.ThreadName}>{threadid}</h1>
+        <h2 className={styles.ThreadName}>{threadid}</h2>
         <div className={styles.ThreadDetails}>
           <img
             className={styles.ThreadAuthorAvatar}
             src="https://picsum.photos/50/50"
             alt="Group Avatar"
           />
-          <p className={styles.ThreadAuthor}>{author}</p>
-          <p className={styles.ThreadDate}>{date}</p>
+          <div>
+            <h5 className={styles.ThreadAuthor}>{author}</h5>
+            <h6 className={styles.ThreadDate}>{date}</h6>
+          </div>
         </div>
-        <p className={styles.ThreadText}>
+        <h4 className={styles.ThreadText}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.
-        </p>
+        </h4>
       </div>
       <div className={styles.ThreadComments}>
         {fakeComments.map(thread => (

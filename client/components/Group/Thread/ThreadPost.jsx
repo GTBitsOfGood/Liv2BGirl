@@ -7,7 +7,7 @@ import { Icon } from "@iconify/react";
 import bxCommentDetail from "@iconify/icons-bx/bx-comment-detail";
 
 // Styling
-import styles from "./group.module.scss";
+import styles from "./thread.module.scss";
 
 const ThreadPost = props => {
   const { title, summary, author, comments } = props;

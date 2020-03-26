@@ -8,7 +8,7 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 
 // Components
-import ThreadPost from "./ThreadPost";
+import ThreadPost from "./Thread/ThreadPost";
 
 import logo from "../../../public/img/logo.png";
 
@@ -69,8 +69,8 @@ const GroupPage = props => {
   return (
     <div>
       <div className={global.TopNav}>
-        <Link className={global.Back} href="/app/groups/">
-          <Icon className="back-group" icon={bxArrowBack} width="18px" />
+        <Link href="/app/groups/">
+          <Icon className={global.Back} icon={bxArrowBack} width="18px" />
         </Link>
         <img className={global.Logo} src={logo} alt="Liv2BGirl Logo" />
         <div />
