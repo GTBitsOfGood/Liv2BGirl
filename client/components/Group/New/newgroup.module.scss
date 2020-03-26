@@ -2,7 +2,6 @@
 
 .TermPage {
   margin-top: 48px;
-  color: $text;
 
   .TermHeader {
     margin-bottom: 20px;
@@ -97,14 +96,14 @@
 
     .AddBtn {
       margin: 0 auto;
-      background: #e0e0e0;
+      background: $light-gray;
       border-radius: 10px;
       border: none;
       width: 88px;
       height: 88px;
 
       svg {
-        color: #828282;
+        color: $gray;
         width: 33px;
         height: 33px;
       }
@@ -123,7 +122,8 @@
     margin-bottom: 8px;
   }
 
-  .GroupNameText {
+  .GroupNameText,
+  .GroupDescText {
     height: 40px;
     width: 100%;
     border: 1px solid $light-gray;
@@ -132,18 +132,12 @@
     padding: 10px;
     font-size: 16px;
     line-height: 22px;
+    color: $text;
   }
 
   .GroupDescText {
     height: 115px;
-    width: 100%;
-    border: 1px solid $light-gray;
-    border-radius: 4px;
-    box-sizing: border-box;
     resize: none;
-    padding: 10px;
-    font-size: 16px;
-    line-height: 22px;
   }
 }
 
@@ -169,6 +163,5 @@
   .ConfirmationHeader {
     margin-bottom: 130px;
     font-weight: normal;
-    color: $text;
   }
 }

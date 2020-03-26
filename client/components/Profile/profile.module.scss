@@ -20,7 +20,6 @@
     .ProfileName,
     .ProfileStats,
     .ProfileDescription {
-      color: $text;
       margin-bottom: 4px;
       font-weight: normal;
     }
@@ -36,13 +35,12 @@
 
   .ProfileHeading {
     font-weight: normal;
-    color: $text;
   }
 
   .ProfileNext {
     background-color: transparent;
     border: none;
-    color: $text;
+
     margin-left: auto;
   }
 
@@ -58,7 +56,7 @@
     border-radius: 43px;
     padding: 6px 8px;
     margin-right: 10px;
-    color: $text;
+
     font-weight: normal;
     font-size: 14px;
     line-height: 19px;
@@ -87,6 +85,7 @@
   text-align: left;
   border: 2px solid transparent;
   cursor: pointer;
+  color: $text;
 
   .GroupAvatar {
     width: 72px;
@@ -97,7 +96,6 @@
   .GroupInfo {
     display: flex;
     flex-direction: column;
-    color: $text;
 
     .GroupDescription {
       font-weight: normal;
