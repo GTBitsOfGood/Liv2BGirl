@@ -1,32 +1,19 @@
 import React from "react";
-import { Button } from "reactstrap";
-import { faArrowLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 
+// FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "next/link";
-import urls from "../../../utils/urls";
-import "./CreateNewGroup.scss";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+
+// Styling
+import styles from "./newgroup.module.scss";
 
 const NewGroupConfirmation = () => {
   return (
-    <div className="newgroup-conf-pg">
-      <div className="newgroup-header">
-        <Button
-          className="header-back-btn"
-          tag={Link}
-          href={urls.pages.newgroup}
-        >
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </Button>
-        <h1 className="header-text">Create New Group</h1>
-        <div />
+    <div className={styles.ConfirmationPage}>
+      <div className={styles.ConfirmationBtn}>
+        <FontAwesomeIcon className={styles.CheckIcon} icon={faCheck} />
       </div>
-      <div className="conf-btn">
-        <FontAwesomeIcon className="check-icon" icon={faCheck} />
-      </div>
-      <h1 className="conf-header">Group created successfully</h1>
-
-      <Button className="grp-next-btn">GO TO THE GROUP</Button>
+      <h2 className={styles.ConfirmationHeader}>Group created successfully</h2>
     </div>
   );
 };

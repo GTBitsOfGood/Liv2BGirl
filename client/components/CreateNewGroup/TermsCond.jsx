@@ -1,56 +1,41 @@
-import React, { useState } from "react";
-import { Button, CustomInput } from "reactstrap";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "next/link";
-import urls from "../../../utils/urls";
+import React, { useEffect } from "react";
 
 // Styling
-import "./CreateNewGroup.scss";
+import global from "../components.global.scss";
+import styles from "./newgroup.module.scss";
 
-const TermsCond = () => {
-  const [notChecked, setChecked] = useState(true);
+const TermsCond = ({ values, setValues, setStageCompleted }) => {
+  const { checked } = values;
+
+  useEffect(() => {
+    if (checked === true) {
+      setStageCompleted(true);
+    }
+  }, [checked]);
 
   return (
-    <div className="terms-pg">
-      <div className="newgroup-header">
-        <Button
-          className="header-back-btn"
-          tag={Link}
-          href={urls.pages.groupList}
-        >
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </Button>
-        <h1 className="header-text">Create New Group</h1>
-        <div />
-      </div>
-      <div className="page">
-        <h2 className="page-header">Terms & Agreement</h2>
-        <p className="page-content">
+    <div className={styles.TermPage}>
+      <div className={global.Page} style={{ marginBottom: "30px" }}>
+        <h1 className={styles.TermHeader}>Terms & Agreement</h1>
+        <h3 className={styles.TermContent}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-        <p className="page-content">
+        </h3>
+        <h3 className={styles.TermContent}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-        <CustomInput
-          onClick={() => {
-            setChecked(!notChecked);
-          }}
-          className="checkTerms"
-          type="checkbox"
-          id="checkTerms"
-          label="I agree to the Terms & Agreement"
-        />
-        <Button
-          className="grp-next-btn"
-          disabled={notChecked}
-          tag={Link}
-          href={urls.pages.app.newgroup}
-        >
-          Next Step
-        </Button>
+        </h3>
+        <div className={styles.CheckTerms}>
+          <label className={styles.CheckboxLabel} htmlFor="checkTerms">
+            <h3>I agree to the Terms & Agreement</h3>
+          </label>
+          <input
+            id="checkTerms"
+            className={styles.CustomCheckbox}
+            type="checkbox"
+            onClick={() => setValues({ checked: !checked })}
+          />
+        </div>
       </div>
     </div>
   );

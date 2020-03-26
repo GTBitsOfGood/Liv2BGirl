@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Button, FormGroup, Label, Input } from "reactstrap";
-import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect } from "react";
 
+// Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "next/link";
-import urls from "../../../utils/urls";
-import "./CreateNewGroup.scss";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
+// Styling
+import global from "../components.global.scss";
+import styles from "./newgroup.module.scss";
 
 const categories = [
   "Music",
@@ -18,68 +19,58 @@ const categories = [
   "Career",
 ];
 
-const NewGroup = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+const NewGroup = ({ values, setValues, setStageCompleted }) => {
+  const { name, description, category } = values;
+
+  useEffect(() => {
+    if (name.length > 0 && description.length > 0 && category.length > 0) {
+      setStageCompleted(true);
+    }
+  }, [name, description, category]);
+
   return (
-    <div className="newgroup-pg">
-      <div className="newgroup-header">
-        <Button
-          className="header-back-btn"
-          tag={Link}
-          href={urls.pages.termAndCond}
-        >
-          <FontAwesomeIcon icon={faArrowLeft} />
-        </Button>
-        <h1 className="header-text">Create New Group</h1>
-        <div />
-      </div>
-      <div className="page">
-        <div className="add-icon">
-          <Button className="add-btn">
+    <div className={styles.NewGroupPage}>
+      <div className={global.Page}>
+        <div className={styles.AddIcon}>
+          <button type="button" className={styles.AddBtn}>
             <FontAwesomeIcon icon={faPlus} />
-          </Button>
-          <h1 className="add-text">Add an icon</h1>
+          </button>
+          <p className={styles.AddText}>Add an icon</p>
         </div>
-        <FormGroup>
-          <Label className="create-grp-header">Group Name *</Label>
-          <Input
-            className="grp-name-text"
-            onChange={event => setName(event.target.value)}
-            name="groupname"
+        <div>
+          <h3 className={styles.CreateGroupHeader}>Group Name *</h3>
+          <input
+            id="groupname"
+            className={styles.GroupNameText}
+            onChange={event => setValues({ name: event.target.value })}
           />
-        </FormGroup>
-        <FormGroup>
-          <Label className="create-grp-header">Description *</Label>
-          <Input
-            className="grp-dsc-text"
-            onChange={event => setDescription(event.target.value)}
-            type="textarea"
-            name="description"
+        </div>
+        <div>
+          <h3 className={styles.CreateGroupHeader}> Description *</h3>
+          <textarea
+            id="description"
+            className={styles.GroupDescText}
+            onChange={event => setValues({ description: event.target.value })}
           />
-        </FormGroup>
-        <h1 className="create-grp-header">Category</h1>
-        <div className="grp-category-deck">
+        </div>
+        <h3 className={styles.CreateGroupHeader}>Category</h3>
+        <div>
           {categories.map(cat => (
-            <Button
-              active={category === cat}
+            <button
+              type="button"
               onClick={() => {
-                setCategory(cat);
+                setValues({ category: cat });
               }}
-              className="category-btn"
+              className={
+                category === cat
+                  ? `${global.SmallPill} ${global.ActivePill}`
+                  : `${global.SmallPill}`
+              }
             >
               {cat}
-            </Button>
+            </button>
           ))}
         </div>
-        <Button
-          className="grp-next-btn"
-          tag={Link}
-          href={urls.pages.app.newgroupconf}
-        >
-          CREATE
-        </Button>
       </div>
     </div>
   );
