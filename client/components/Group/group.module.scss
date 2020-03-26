@@ -35,6 +35,11 @@
     font-weight: bold;
     height: 24px;
     width: 64px;
+
+    &:hover {
+      background-color: $text;
+      color: white;
+    }
   }
 }
 

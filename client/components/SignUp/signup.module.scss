@@ -227,6 +227,11 @@
     letter-spacing: 0.05em;
     margin: 8px 0 24px 0;
     color: $text;
+
+    &:hover {
+      background-color: $text;
+      color: white;
+    }
   }
 
   .GenPick {

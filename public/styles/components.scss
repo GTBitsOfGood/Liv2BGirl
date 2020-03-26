@@ -53,6 +53,11 @@
     font-weight: bold;
     height: 24px;
     width: 60px;
+
+    &:hover {
+      background-color: $text;
+      color: white;
+    }
   }
 
   .Text {
@@ -72,6 +77,11 @@
   font-weight: bold;
   letter-spacing: 0.05em;
   color: $text;
+
+  &:hover {
+    background-color: $text;
+    color: white;
+  }
 }
 
 .SmallPill {
@@ -86,6 +96,12 @@
 
   h2 {
     font-weight: normal;
+  }
+
+  &:hover {
+    border: 2px solid $text;
+    background-color: $text;
+    color: white;
   }
 }
 

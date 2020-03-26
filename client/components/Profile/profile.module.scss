@@ -61,6 +61,11 @@
     font-size: 14px;
     line-height: 19px;
     cursor: pointer;
+
+    &:hover {
+      background-color: $text;
+      color: white;
+    }
   }
 
   .SubscriptionCard {
