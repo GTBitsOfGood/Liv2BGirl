@@ -59,15 +59,15 @@ const SignInComponent = () => {
           />
           <h4 className={styles.ForgotPass}>Forgot?</h4>
           <div className={styles.RememberMe}>
-            <label className={styles.CheckboxLabel} htmlFor="rememberMe">
-              <h4>Remember Me</h4>
-            </label>
             <input
               id="rememberMe"
               className={styles.CustomCheckbox}
               type="checkbox"
               onClick={() => setRemember(!rememberMe)}
             />
+            <label className={styles.CheckboxLabel} htmlFor="rememberMe">
+              <h4>Remember Me</h4>
+            </label>
           </div>
         </form>
       </div>

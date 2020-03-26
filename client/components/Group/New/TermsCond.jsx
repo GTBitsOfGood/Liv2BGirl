@@ -25,15 +25,15 @@ const TermsCond = ({ values, setValues, setStageCompleted }) => {
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </h3>
         <div className={styles.CheckTerms}>
-          <label className={styles.CheckboxLabel} htmlFor="checkTerms">
-            <h3>I agree to the Terms & Agreement</h3>
-          </label>
           <input
             id="checkTerms"
             className={styles.CustomCheckbox}
             type="checkbox"
             onClick={() => setValues({ checked: !checked })}
           />
+          <label className={styles.CheckboxLabel} htmlFor="checkTerms">
+            <h3>I agree to the Terms & Agreement</h3>
+          </label>
         </div>
       </div>
     </div>
