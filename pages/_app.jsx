@@ -18,7 +18,7 @@ class MyApp extends App {
         <Head>
           <title>Liv2BGirl</title>
           <link
-            href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+            href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap"
             rel="stylesheet"
           />
         </Head>

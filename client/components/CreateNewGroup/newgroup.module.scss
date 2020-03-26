@@ -86,6 +86,7 @@
 }
 
 .NewGroupPage {
+  margin-top: 20px;
   color: $text;
 
   .AddIcon {
@@ -167,6 +168,7 @@
 
   .ConfirmationHeader {
     margin-bottom: 130px;
+    font-weight: normal;
     color: $text;
   }
 }

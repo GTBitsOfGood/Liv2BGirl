@@ -30,7 +30,7 @@ const NewGroup = ({ values, setValues, setStageCompleted }) => {
 
   return (
     <div className={styles.NewGroupPage}>
-      <div className={global.Page}>
+      <div className={global.Page} style={{ marginBottom: "32px" }}>
         <div className={styles.AddIcon}>
           <button type="button" className={styles.AddBtn}>
             <FontAwesomeIcon icon={faPlus} />
