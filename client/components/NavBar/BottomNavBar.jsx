@@ -6,7 +6,7 @@ import style from "./navbar.module.scss";
 const BottomNavBar = () => (
   <div className={style.BottomNav}>
     <div className={style.NavItem}>
-      <a href="/app" exact>
+      <a href="/app">
         <div className={style.NavButton} />
       </a>
       <p>Home</p>

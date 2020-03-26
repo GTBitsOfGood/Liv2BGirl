@@ -70,7 +70,7 @@ const SignInComponent = () => {
           />
         </div>
       </form>
-      <button type="submit" className={global.nextButton} onClick={handleLogin}>
+      <button type="submit" className={global.NextButton} onClick={handleLogin}>
         <h1>SIGN IN</h1>
       </button>
     </div>

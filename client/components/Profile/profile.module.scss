@@ -1,112 +1,108 @@
-.profile-header {
+@import "../../../public/styles/colors.scss";
+
+.ProfileHeader {
+  margin-top: 48px;
   height: 155px;
-  background-color: #f2f2f2;
+  background-color: $background;
   display: flex;
   align-items: center;
-  padding: 35px 10%;
+  box-sizing: border-box;
+  padding: 35px;
 
-  .profile-avatar {
-    width: 86px;
+  .ProfileAvatar {
+    min-width: 86px;
     height: 86px;
     border-radius: 100px;
-    margin-right: 45px;
+    margin-right: 35px;
   }
 
-  .profile-name,
-  .profile-stats,
-  .profile-description {
-    font-size: 16px;
-    line-height: 22px;
-    color: #4f4f4f;
-    margin-bottom: 4px;
-  }
+  .ProfileTitle {
+    .ProfileName,
+    .ProfileStats,
+    .ProfileDescription {
+      color: $text;
+      margin-bottom: 4px;
+      font-weight: normal;
+    }
 
-  .profile-description {
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  .profile-name {
-    font-weight: bold;
+    .ProfileName {
+      font-weight: bold;
+    }
   }
 }
 
-.profile-page {
+.ProfilePage {
   margin-bottom: 50px;
-  h4 {
-    font-size: 18px;
-    line-height: 24px;
-    margin-bottom: 0;
+
+  .ProfileHeading {
+    font-weight: normal;
+    color: $text;
   }
 
-  .profile-right-arrow {
+  .ProfileNext {
     background-color: transparent;
     border: none;
-    color: #4f4f4f;
+    color: $text;
     margin-left: auto;
   }
 
-  .interest-pill {
-    border: 2px solid #4f4f4f;
+  .InterestPill {
+    border: 2px solid $text;
     border-radius: 43px;
     padding: 6px 8px;
     margin-right: 10px;
+    color: $text;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
   }
 
-  .interests-row,
-  .subscription-row {
+  .InterestsDeck,
+  .SubscriptionDeck {
     display: flex;
     height: 100%;
     overflow-x: auto;
   }
 
-  .subscription-card {
+  .SubscriptionCard {
     min-width: 120px;
     max-width: 120px;
     height: 120px;
-    background: #e0e0e0;
+    background: $background;
     border-radius: 10px;
     margin-right: 15px;
   }
 
-  .subscription-card-img {
+  .SubscriptionImg {
     width: 120px;
     height: 120px;
     border-radius: 10px;
   }
 }
 
-.group-thread-card {
+.GroupCard {
   display: flex;
   margin-bottom: 30px;
   background: transparent;
-  border: none;
   text-align: left;
   border: 2px solid transparent;
+  cursor: pointer;
 
-  .group-avatar {
+  .GroupAvatar {
     width: 72px;
     height: 72px;
     border-radius: 10px;
     margin-right: 8px;
   }
-  .thread-info {
+  .GroupInfo {
     display: flex;
     margin: auto 0;
     flex-direction: column;
-  }
+    color: $text;
 
-  .thread-card-title {
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 22px;
-    color: #4f4f4f;
-  }
-
-  .thread-card-summary {
-    font-size: 16px;
-    line-height: 22px;
-    color: #4f4f4f;
+    .GroupDescription {
+      font-weight: normal;
+    }
   }
 
   &:hover {

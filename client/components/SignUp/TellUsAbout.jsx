@@ -1,13 +1,10 @@
-import React from "react";
-import {
-  Button,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  Form,
-  FormGroup,
-  Label,
-} from "reactstrap";
+import React, { useEffect } from "react";
+
+// Styling
+import global from "../components.global.scss";
+import styles from "./signup.module.scss";
+
+// Avatar Utils
 import { avatarImg, colorArr } from "../../../utils/avatars";
 
 const topics = [
@@ -32,27 +29,17 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
     avatarColor,
   } = values;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (age > 0 && grade.length > 0 && selectedTopics.length > 0) {
       setStageCompleted(true);
     }
   }, [age, grade, selectedTopics]);
 
-  const toggleAge = () => setValues({ ageOpen: !ageOpen });
-  const toggleGrade = () => setValues({ gradeOpen: !gradeOpen });
-
   const renderAgeOptions = () => {
     const ages = [13, 14, 15, 16, 17, 18]; // TODO: hardcoded
 
     return ages.map(item => (
-      <div
-        onClick={() => setValues({ age: item, ageOpen: !ageOpen })}
-        onKeyDown={() => setValues({ age: item, ageOpen: !ageOpen })}
-        role="button"
-        tabIndex="0"
-      >
-        {item}
-      </div>
+      <option onChange={() => setValues({ age: item })}>{item}</option>
     ));
   };
 
@@ -60,23 +47,20 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
     const grades = ["7th", "8th", "9th", "10th", "11th", "12th"]; // TODO: hardcoded
 
     return grades.map(item => (
-      <div
-        onClick={() => setValues({ grade: item, gradeOpen: !gradeOpen })}
-        onKeyDown={() => setValues({ grade: item, gradeOpen: !gradeOpen })}
-        role="button"
-        tabIndex="0"
-      >
-        {item}
-      </div>
+      <option onChange={() => setValues({ grade: item })}>{item}</option>
     ));
   };
 
   const renderTopics = () => {
     return topics.map(topic => {
       return (
-        <Button
-          className="about-topic-btn"
-          active={selectedTopics.includes(topic)}
+        <button
+          type="button"
+          className={
+            selectedTopics.includes(topic)
+              ? `${global.SmallPill} ${global.ActivePill}`
+              : `${global.SmallPill}`
+          }
           onClick={() => {
             const newTopics = [...selectedTopics];
             const index = newTopics.indexOf(topic);
@@ -92,68 +76,52 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
             });
           }}
         >
-          {topic}
-        </Button>
+          <h2>{topic}</h2>
+        </button>
       );
     });
   };
 
   return (
-    <div className="about-pg page">
-      <h1 className="about-head">Tell us more about you.</h1>
+    <div className={`${global.Page} ${styles.AboutPg}`}>
+      <h1 className={styles.AboutHead}>Tell us more about you.</h1>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div
           style={{
             backgroundColor: colorArr[avatarColor],
           }}
-          className="about-avatar avatar-logo"
+          className={`${styles.AboutAvatar} ${styles.AvatarLogo}`}
         >
           <img
             src={avatarImg[avatar]}
             alt="CreateAvatar"
-            className="avatar-img"
+            className={styles.AvatarImg}
           />
         </div>
-        <p className="about-username">{username}</p>
+        <h2 className={styles.AboutUsername}>{username}</h2>
       </div>
-      <Form>
-        <FormGroup style={{ display: "flex" }}>
-          <Label className="about-label" for="age">
-            Age:
-          </Label>
-          <Dropdown isOpen={ageOpen} toggle={toggleAge}>
-            <DropdownToggle
-              tag="span"
-              data-toggle="dropdown"
-              aria-expanded={ageOpen}
-              caret
-            >
-              {age}
-            </DropdownToggle>
-            <DropdownMenu>{renderAgeOptions()}</DropdownMenu>
-          </Dropdown>
-        </FormGroup>
+      <form>
+        <div style={{ display: "flex" }}>
+          <label className={styles.AboutLabel} htmlFor="age">
+            <h2>Age:</h2>
+          </label>
+          <select id="age" className={styles.AboutSelect}>
+            {renderAgeOptions()}
+          </select>
+        </div>
 
-        <FormGroup style={{ display: "flex" }}>
-          <Label className="about-label" for="grade">
-            School Year:
-          </Label>
-          <Dropdown isOpen={gradeOpen} toggle={toggleGrade}>
-            <DropdownToggle
-              tag="span"
-              data-toggle="dropdown"
-              aria-expanded={gradeOpen}
-              caret
-            >
-              {grade}
-            </DropdownToggle>
-            <DropdownMenu>{renderGradeOptions()}</DropdownMenu>
-          </Dropdown>
-        </FormGroup>
+        <div style={{ display: "flex" }}>
+          <label className={styles.AboutLabel} htmlFor="grade">
+            <h2>School Year:</h2>
+          </label>
+          <select id="grade" className={styles.AboutSelect}>
+            {renderGradeOptions()}
+          </select>
+        </div>
 
-        <Label className="about-label">Topics you are interested in:</Label>
-        <div className="about-topics">{renderTopics()}</div>
-      </Form>
+        <h2 className={styles.AboutLabel}>Topics you are interested in:</h2>
+        <div className={styles.AboutTopics}>{renderTopics()}</div>
+      </form>
     </div>
   );
 };

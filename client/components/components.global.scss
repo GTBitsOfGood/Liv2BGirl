@@ -15,6 +15,7 @@
   width: 100%;
   z-index: 999;
   background: $background;
+  box-sizing: border-box;
   padding: 0 16px;
   display: flex;
   align-items: center;
@@ -23,12 +24,27 @@
   a {
     display: flex;
   }
+
+  .Back {
+    border: 0;
+    padding: 0;
+    color: $text;
+  }
+
+  .Logo {
+    width: 124px;
+  }
+
+  .Avatar {
+    width: 24px;
+    border-radius: 50%;
+  }
 }
 
-.nextButton {
+.NextButton {
   margin: 0 auto;
   margin-bottom: 30px;
-  background-color: #c4c4c4;
+  background-color: $light-gray;
   border-radius: 137px;
   border: none;
   width: 255px;
@@ -37,4 +53,23 @@
   font-weight: bold;
   letter-spacing: 0.05em;
   color: $text;
+}
+
+.SmallPill {
+  height: 40px;
+  margin: 8px;
+  padding: 0 12px;
+  border: 2px solid $light-gray;
+  border-radius: 43px;
+  color: $gray;
+  background-color: transparent;
+  box-sizing: border-box;
+
+  h2 {
+    font-weight: normal;
+  }
+}
+
+.ActivePill {
+  border: 2px solid $gray;
 }

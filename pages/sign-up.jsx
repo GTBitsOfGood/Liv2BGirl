@@ -116,7 +116,7 @@ const SignUp = () => {
         setStageCompleted={setStageCompleted}
       />
       <div style={{ display: "flex" }}>
-        <button type="button" className={global.nextButton} onClick={goToNext}>
+        <button type="button" className={global.NextButton} onClick={goToNext}>
           <h1>{getStepText(stage)}</h1>
         </button>
       </div>

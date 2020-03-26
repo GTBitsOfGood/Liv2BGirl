@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 // Styling
 import global from "../components.global.scss";
@@ -72,61 +71,68 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
 
   return (
     <div className={`${global.Page} ${styles.GenUsername}`}>
-      <h1 className={styles.GenHeader}>Generate a username</h1>
-      <Form>
-        <FormGroup>
-          <Label className={styles.GenLabel}>
-            Describe yourself in one word:
-          </Label>
-          <Input
+      <h1 className={styles.GenHeader}>Generate a username.</h1>
+      <form>
+        <div>
+          <label className={styles.GenLabel} htmlFor="describe-user">
+            <h3>Describe yourself in one word:</h3>
+          </label>
+          <select
+            id="describe-user"
+            className={styles.GenSelect}
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
             }}
-            onChange={event => setDescribe(event.target)}
-            type="select"
-            style={{ height: 35 }}
+            onChange={event => setDescribe(event.target.value)}
           >
             {descriptions.map(word => (
               <option>{word}</option>
             ))}
-          </Input>
-        </FormGroup>
-        <FormGroup>
-          <Label className={styles.GenLabel}> One thing you like:</Label>
-          <Input
+          </select>
+        </div>
+        <div>
+          <label className={styles.GenLabel} htmlFor="user-likes">
+            <h3>One thing you like:</h3>
+          </label>
+          <select
+            id="user-likes"
+            className={styles.GenSelect}
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
             }}
-            onChange={event => setLike(event.target)}
-            type="select"
+            onChange={event => setLike(event.target.value)}
           >
             {favThings.map(word => (
               <option>{word}</option>
             ))}
-          </Input>
-        </FormGroup>
-        <FormGroup>
-          <Label className={styles.GenLabel}>Your lucky number: </Label>
-          <Input
+          </select>
+        </div>
+        <div>
+          <label className={styles.GenLabel} htmlFor="lucky-number">
+            <h3>Your lucky number:</h3>
+          </label>
+          <select
+            id="lucky-number"
+            className={styles.GenSelect}
             onClick={() => {
               setUsernames(Array.from({ length: 9 }, () => genUser()));
             }}
-            onChange={event => setLucky(event.target)}
-            type="select"
+            onChange={event => setLucky(event.target.value)}
           >
             {numbers.map(word => (
               <option>{word}</option>
             ))}
-          </Input>
-        </FormGroup>
-      </Form>
-      <Button
+          </select>
+        </div>
+      </form>
+      <button
+        type="button"
         onClick={() => setUsernames(Array.from({ length: 9 }, () => genUser()))}
         className={styles.GenBtn}
       >
         Generate!
-      </Button>
-      <p className={styles.GenPick}>Pick your username: </p>
+      </button>
+      <h2 className={styles.GenPick}>Pick your username:</h2>
       <div
         style={{
           display: "flex",
@@ -134,13 +140,17 @@ const GenUsername = ({ values, setValues, setStageCompleted }) => {
         }}
       >
         {usernames.map(name => (
-          <Button
-            active={username === name}
+          <button
+            type="button"
             onClick={() => setValues({ username: name })}
-            className={styles.UsernameBtn}
+            className={
+              username === name
+                ? `${global.SmallPill} ${global.ActivePill}`
+                : `${global.SmallPill}`
+            }
           >
-            {name}
-          </Button>
+            <h2>{name}</h2>
+          </button>
         ))}
       </div>
     </div>

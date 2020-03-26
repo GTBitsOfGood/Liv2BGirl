@@ -1,5 +1,32 @@
 @import "../../../public/styles/colors.scss";
 
+.ProgressContainer {
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 16px;
+}
+
+.ProgressContainer::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  border-top: 2px solid $light-gray;
+  background: $light-gray;
+  width: calc(100% - 32px);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.ProgressCircle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid $light-gray;
+  z-index: 2;
+}
+
 .Logo {
   margin: 0 auto;
   margin-top: 40px;
@@ -123,10 +150,6 @@
   border: 4px solid $background;
   padding: 0;
   outline: none;
-
-  &::-moz-focus-inner {
-    border: 0;
-  }
 }
 
 .Active {
@@ -139,7 +162,7 @@
 }
 
 .AvatarButton {
-  background: #c4c4c4;
+  background: $background;
   border-radius: 137px;
   color: $text;
   font-weight: bold;
@@ -157,19 +180,48 @@
   margin-bottom: 20px;
 
   .GenHeader {
+    color: $text;
     font-weight: bold;
-    font-size: 22px;
-    line-height: 30px;
     margin-bottom: 18px;
   }
 
   .GenLabel {
-    font-size: 16px;
-    line-height: 24px;
+    color: $text;
+    h3 {
+      font-weight: normal;
+    }
+  }
+
+  .GenSelect {
+    border: 1px solid $light-gray;
+    border-radius: 4px;
+    width: 100%;
+    height: 40px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    padding: 0 10px;
+    color: $text;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    option {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 22px;
+      color: $text;
+    }
+
+    &::-ms-expand {
+      display: none;
+    }
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
   }
 
   .GenBtn {
-    background: #c4c4c4;
+    background: $light-gray;
     border-radius: 137px;
     border: none;
     width: 150px;
@@ -179,72 +231,72 @@
     line-height: 27px;
     text-align: center;
     letter-spacing: 0.05em;
-    color: #4f4f4f;
+    color: $text;
     margin: 8px 0 24px 0;
   }
 
   .GenPick {
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 24px;
-    color: #4f4f4f;
-    margin-bottom: 24px;
+    color: $text;
+    margin-bottom: 16px;
   }
 }
 
-.about-head {
-  font-weight: bold;
-  font-size: 22px;
-  line-height: 30px;
-  margin-bottom: 30px;
-}
-
-.about-avatar {
-  width: 132px;
-  height: 132px;
-  margin: 10px auto;
-}
-
-.about-username {
-  margin: 0 auto;
-  font-size: 18px;
-  line-height: 24px;
-  color: #828282;
-  margin-bottom: 40px;
-}
-
-.about-label {
-  margin-right: 10px;
-}
-
-.dropdown-menu.show {
-  min-width: 4rem;
-  text-align: center;
-  float: none;
-}
-
-.UsernameBtn,
-.about-topic-btn {
-  background-color: transparent;
-  border: 1px solid #bdbdbd;
-  box-sizing: border-box;
-  border-radius: 43px;
-  min-width: 120px;
-  height: 40px;
-  font-size: 18px;
-  line-height: 24px;
-  color: #828282;
-  margin: 8px 15px;
-}
-
-.btn-secondary:not(:disabled):not(.disabled).active {
-  background-color: transparent;
-  border: 2px solid #333333;
-  color: #333333;
-}
-
-.about-pg {
+.AboutPg {
   margin-bottom: 20px;
+
+  .AboutHead {
+    color: $text;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
+
+  .AboutAvatar {
+    width: 132px;
+    height: 132px;
+    margin: 10px auto;
+  }
+
+  .AboutUsername {
+    font-weight: normal;
+    color: $text;
+    margin: 0 auto;
+    margin-bottom: 40px;
+  }
+
+  .AboutLabel {
+    color: $text;
+    margin-bottom: 24px;
+  }
+
+  .AboutSelect {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='$text' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    margin-left: 12px;
+    margin-bottom: 24px;
+    border: none;
+    padding-right: 20px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: $text;
+
+    option {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 22px;
+      color: $text;
+    }
+  }
+
+  .AboutTopics {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 .complete-pg {
