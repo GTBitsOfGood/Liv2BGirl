@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 // Styling
-import global from "../components.global.scss";
+import global from "../../components.global.scss";
 import styles from "./newgroup.module.scss";
 
 const TermsCond = ({ values, setValues, setStageCompleted }) => {

@@ -10,9 +10,9 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Pages
-import TermsCond from "../../../client/components/CreateNewGroup/TermsCond";
-import NewGroup from "../../../client/components/CreateNewGroup/NewGroup";
-import NewGroupConfirmation from "../../../client/components/CreateNewGroup/NewGroupConfirmation";
+import TermsCond from "../../../client/components/Group/New/TermsCond";
+import NewGroup from "../../../client/components/Group/New/NewGroup";
+import NewGroupConfirmation from "../../../client/components/Group/New/NewGroupConfirmation";
 
 // Navigation
 import urls from "../../../utils/urls";
