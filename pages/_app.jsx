@@ -1,14 +1,14 @@
 import App from "next/app";
 import React from "react";
 import Head from "next/head";
-import BottomNavBar from "../client/components/BottomNavBar";
-import TopNavBar from "../client/components/TopNavBar";
-import "bootstrap-css-only/css/bootstrap.min.css";
+import BottomNavBar from "../client/components/NavBar/BottomNavBar";
+import TopNavBar from "../client/components/NavBar/TopNavBar";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
-import "../public/static/App.scss";
-import "../public/static/Account.scss";
-import "../public/static/Avatar.scss";
+
+// Global Styles
+import "../public/styles/App.scss";
+import "../public/styles/components.scss";
 
 class MyApp extends App {
   render() {
@@ -19,7 +19,7 @@ class MyApp extends App {
         <Head>
           <title>Liv2BGirl</title>
           <link
-            href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+            href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap"
             rel="stylesheet"
           />
         </Head>
@@ -33,7 +33,7 @@ class MyApp extends App {
           "/sign-up",
           "/sign-in",
           "/app/groups/thread",
-          "/app/groups/newgroup",
+          "/app/groups/new-group",
         ].some(route => router.asPath.includes(route)) && (
           <>
             {!["/app/groups/", "/app/profile"].some(route =>
