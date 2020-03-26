@@ -45,14 +45,14 @@ const SignInComponent = () => {
         <form className={styles.Form}>
           <input
             value={email}
-            onChange={event => setEmail(event.target)}
+            onChange={event => setEmail(event.target.value)}
             className={styles.Input}
             type="text"
             placeholder="Email"
           />
           <input
             value={password}
-            onChange={event => setPassword(event.target)}
+            onChange={event => setPassword(event.target.value)}
             className={styles.Input}
             type="password"
             placeholder="Password"
