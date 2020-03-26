@@ -1,14 +1,14 @@
-import { deleteGroup } from "../../../server/mongodb/actions/Group";
+import { deleteComment } from "../../../server/mongodb/actions/Comment";
 
-// @route   DELETE api/groups/deleteGroup
-// @desc    Delete Group Request
+// @route   DELETE api/comments/deleteComment
+// @desc    Delete Comment Request
 // @access  Public
 const handler = (req, res) =>
-  deleteGroup(req.body.groupId)
-    .then(group =>
+  deleteComment(req.body.commentId)
+    .then(comment =>
       res.status(200).json({
         success: true,
-        payload: group,
+        payload: comment,
       })
     )
     .catch(error =>
