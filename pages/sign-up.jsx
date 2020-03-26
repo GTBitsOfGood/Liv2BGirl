@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Button } from "reactstrap";
+
+// API Call
 import { signUp } from "../client/actions/api";
-import SignUpInfo from "../client/components/SignUpInfo";
-import CreateAvatar from "../client/components/CreateAvatar";
-import GenUsername from "../client/components/GenUsername";
-import TellUsAbout from "../client/components/TellUsAbout";
-import SignUpProgressBar from "../client/components/SignUpProgressBar";
-import RegistrationCompleted from "../client/components/RegistrationCompleted";
 import urls from "../utils/urls";
+
+// Pages
+import SignUpInfo from "../client/components/SignUp/SignUpInfo";
+import CreateAvatar from "../client/components/SignUp/CreateAvatar";
+import GenUsername from "../client/components/SignUp/GenUsername";
+import TellUsAbout from "../client/components/SignUp/TellUsAbout";
+
+// Other Components
+import SignUpProgressBar from "../client/components/SignUp/SignUpProgressBar";
+import RegistrationCompleted from "../client/components/SignUp/RegistrationCompleted";
 
 const CurrentStep = ({ stage, ...rest }) => {
   switch (stage) {
@@ -36,10 +41,10 @@ const CurrentStep = ({ stage, ...rest }) => {
 const getStepText = stage => {
   switch (stage) {
     case 0: {
-      return "Sign Up";
+      return "SIGN UP";
     }
     case 3: {
-      return "Create Profile";
+      return "CREATE PROFILE";
     }
     case 4: {
       return "GET STARTED";
@@ -52,9 +57,9 @@ const getStepText = stage => {
 
 const SignUp = () => {
   const router = useRouter();
-  const [stage, setStage] = React.useState(0);
-  const [stageCompleted, setStageCompleted] = React.useState(false);
-  const [values, setPureValues] = React.useState({
+  const [stage, setStage] = useState(0);
+  const [stageCompleted, setStageCompleted] = useState(false);
+  const [values, setPureValues] = useState({
     username: "",
     email: "",
     password: "",
@@ -99,7 +104,7 @@ const SignUp = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div>
       <SignUpProgressBar stage={stage} setStage={setStage} />
       <CurrentStep
         stage={stage}
@@ -107,9 +112,11 @@ const SignUp = () => {
         setValues={setValues}
         setStageCompleted={setStageCompleted}
       />
-      <Button className="account-button" onClick={goToNext}>
-        {getStepText(stage)}
-      </Button>
+      <div style={{ display: "flex" }}>
+        <button type="button" className="NextButton" onClick={goToNext}>
+          <h1>{getStepText(stage)}</h1>
+        </button>
+      </div>
     </div>
   );
 };

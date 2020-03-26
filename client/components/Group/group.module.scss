@@ -1,0 +1,95 @@
+@import "../../../public/styles/colors.scss";
+
+.GroupHeader {
+  height: 120px;
+  background-color: $background;
+  display: flex;
+  margin-top: 48px;
+  box-sizing: border-box;
+  padding: 20px;
+
+  .GroupAvatar {
+    max-height: 100%;
+    border-radius: 10px;
+  }
+
+  .GroupInfo {
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+
+    .GroupDescription {
+      font-weight: normal;
+    }
+  }
+
+  .GroupJoin {
+    margin-left: auto;
+    border-radius: 137px;
+    font-size: 13px;
+    line-height: 19px;
+    border: none;
+    background-color: $light-gray;
+    color: $text;
+
+    font-weight: bold;
+    height: 24px;
+    width: 64px;
+
+    &:hover {
+      background-color: $text;
+      color: white;
+    }
+  }
+}
+
+.GroupTopBar {
+  display: flex;
+
+  margin-bottom: 16px;
+
+  h6 {
+    margin-top: 3px;
+    font-weight: normal;
+  }
+
+  .GroupSelect {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='$text' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 50%;
+    border: none;
+    padding-right: 20px;
+    font-weight: bold;
+    line-height: 14px;
+    color: $text;
+    min-width: 140px;
+
+    option {
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 14px;
+    }
+  }
+
+  .CreateBtn {
+    margin-left: auto;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+
+    .AddPost {
+      color: $text;
+    }
+
+    &:disabled {
+      .AddPost {
+        color: $light-gray;
+      }
+    }
+  }
+}
