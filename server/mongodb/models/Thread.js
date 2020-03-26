@@ -32,6 +32,7 @@ const ThreadSchema = new Schema({
   },
   postedAt: {
     type: Date,
+    default: Date.now,
   },
 });
 
