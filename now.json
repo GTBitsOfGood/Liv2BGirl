@@ -2,12 +2,14 @@
   "version": 2,
   "env": {
     "MONGODB": "@mongodb",
-    "JWTSECRET": "@jwtsecret"
+    "JWTSECRET": "@jwtsecret",
+    "TINY_API_KEY": "@tinykey"
   },
   "build": {
     "env": {
       "MONGODB": "@mongodb",
-      "JWTSECRET": "@jwtsecret"
+      "JWTSECRET": "@jwtsecret",
+      "TINY_API_KEY": "@tinykey"
     }
   }
 }

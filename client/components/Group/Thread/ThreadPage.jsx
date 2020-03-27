@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import { Editor } from "@tinymce/tinymce-react";
 
-// icons
+// Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
@@ -103,7 +104,7 @@ const ThreadPage = props => {
           src="https://picsum.photos/100/100"
           alt="User Avatar"
         />
-        <textarea
+        {/* <textarea
           type="text"
           name="comment"
           id="comment"
@@ -114,6 +115,21 @@ const ThreadPage = props => {
 
             setComment(value);
           }}
+        /> */}
+        <Editor
+          textareaName={styles.CommentInput}
+          apiKey={process.env.TINY_API_KEY}
+          initialValue=""
+          init={{
+            placeholder: "Comment",
+            height: 40,
+            menubar: false,
+            statusbar: false,
+            toolbar_location: "bottom",
+            plugins: ["lists wordcount emoticons image"],
+            toolbar: "emoticons bold italic underline image align bullist",
+          }}
+          onEditorChange={content => setComment(content)}
         />
       </div>
     </div>
