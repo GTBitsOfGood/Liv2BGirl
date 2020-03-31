@@ -117,18 +117,25 @@ const ThreadPage = props => {
           }}
         /> */}
         <Editor
-          textareaName={styles.CommentInput}
           apiKey={process.env.TINY_API_KEY}
           initialValue=""
           init={{
             placeholder: "Comment",
-            height: 40,
+            height: 140,
+            width: "100%",
             menubar: false,
             statusbar: false,
             toolbar_location: "bottom",
-            plugins: ["lists wordcount emoticons image"],
-            toolbar: "emoticons bold italic underline image align bullist",
+            plugins: ["lists wordcount emoticons"],
+            setup: editor => {
+              editor.ui.registry.addGroupToolbarButton("alignment", {
+                icon: "align-left",
+                tooltip: "Alignment",
+                items: "alignleft aligncenter alignright alignjustify",
+              });
+            },
           }}
+          toolbar="emoticons bold italic underline alignment bullist"
           onEditorChange={content => setComment(content)}
         />
       </div>
