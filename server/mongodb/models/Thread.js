@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const ThreadSchema = new Schema({
-  poster: {
+  posterId: {
     type: String,
     required: true,
     index: true,
   },
-  group: {
+  groupId: {
     type: String,
     required: true,
     index: true,
