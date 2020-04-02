@@ -4,7 +4,14 @@ import { createThread } from "../../server/mongodb/actions/Thread";
 // @desc    Create Thread Request
 // @access  Public
 const handler = (req, res) =>
-  createThread(req.body.id, req.body.posterId, req.body.groupId, req.body.title, req.body.tags, req.body.content, req.body.postAt)
+  createThread(
+    req.body.posterId,
+    req.body.groupId,
+    req.body.title,
+    req.body.tags,
+    req.body.content,
+    req.body.postedAt
+  )
     .then(thread =>
       res.status(200).json({
         success: true,

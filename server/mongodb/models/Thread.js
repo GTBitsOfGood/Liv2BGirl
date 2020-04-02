@@ -3,11 +3,6 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const ThreadSchema = new Schema({
-  id: {
-    type: String,
-    required: true,
-    index: true,
-  },
   posterId: {
     type: String,
     required: true,
