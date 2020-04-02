@@ -17,9 +17,9 @@ export async function deleteGroup(groupId) {
 
   return Group.findOneAndDelete({ _id: groupId }).then(deletedGroup => {
     if (deletedGroup) {
-      console.log(`Successfully deleted group`);
+      console.log("Successfully deleted group");
     } else {
-      console.log("No group matches the provided id.");
+      return Promise.reject(new Error("No group matches the provided id"));
     }
     return deletedGroup;
   });
