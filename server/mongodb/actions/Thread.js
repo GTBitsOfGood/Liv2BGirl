@@ -13,3 +13,19 @@ export async function deleteThread(threadId) {
     return deletedThread;
   });
 }
+
+export async function filterThreads(groupId, option, lowerBound, upperBound) {
+  await mongoDB();
+
+  return Thread.find({
+    _id: groupId,
+    postedAt: { $gt: lowerBound, $lt: upperBound },
+  }).then(threads => {
+    if (threads) {
+      console.log("Successfully filtered threads");
+    } else {
+      return Promise.reject(new Error("No threads match filtering criteria"));
+    }
+    return threads;
+  });
+}
