@@ -18,7 +18,7 @@ export async function filterThreads(groupId, option, lowerBound, upperBound) {
   await mongoDB();
 
   return Thread.find({
-    _id: groupId,
+    group: groupId,
     postedAt: { $gt: lowerBound, $lt: upperBound },
   }).then(threads => {
     if (threads) {
