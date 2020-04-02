@@ -1,4 +1,4 @@
-import { createThread } from "../../server/mongodb/actions/Thread";
+import { createThread } from "../../../server/mongodb/actions/Thread";
 
 // @route   POST api/threads/createThread
 // @desc    Create Thread Request
