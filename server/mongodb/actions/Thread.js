@@ -1,6 +1,24 @@
 import mongoDB from "../index";
 import Thread from "../models/Thread";
 
+export async function createThread(
+  posterId,
+  groupId,
+  title,
+  tags,
+  content,
+) {
+  await mongoDB();
+
+  return Thread.create({
+    posterId,
+    groupId,
+    title,
+    tags,
+    content,
+  });
+}
+
 export async function deleteThread(threadId) {
   await mongoDB();
 
