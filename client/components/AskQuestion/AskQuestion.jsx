@@ -1,12 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
   Button,
-  Form,
   FormGroup,
   Label,
   Input,
-  FormText,
   Dropdown,
   DropdownToggle,
   DropdownMenu,
@@ -40,7 +37,7 @@ const AskQuestion = props => {
       </div>
 
       <FormGroup>
-        <Label>Question</Label> <br />
+        <Label>Question</Label>
         <Input type="textarea" name="question" style={{ height: 100 }} />
       </FormGroup>
     </div>
