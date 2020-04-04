@@ -19,7 +19,7 @@ export async function filterThreads(groupId, option, lowerBound, upperBound) {
   await mongoDB();
 
   if (lowerBound == null) {
-    lowerBound = '0001-01-01';
+    lowerBound = new Date("0001-01-01");
   }
   if (upperBound == null) {
     upperBound = new Date();
@@ -27,7 +27,7 @@ export async function filterThreads(groupId, option, lowerBound, upperBound) {
 
   return Thread.find({
     _id: groupId,
-    postedAt: { $gt: new Date(lowerBound), $lt: new Date(upperBound) },
+    postedAt: { $gt: lowerBound, $lt: upperBound },
   }).then(threads => {
     if (threads) {
       console.log("Successfully filtered threads");
