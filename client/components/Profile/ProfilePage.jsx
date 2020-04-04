@@ -1,19 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "reactstrap";
+import Link from "next/link";
 
 // Icons
 import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
+import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 
 // Stylings
-import "./ProfilePage.scss";
+import styles from "./profile.module.scss";
 
 // Components
-import GroupCard from "../Group/GroupCard";
+import GroupCard from "./GroupCard";
+import logo from "../../../public/img/logo.png";
 
 // Dummy Data
-
 const interestData = ["Music", "College"];
 
 const subscriptionData = [
@@ -46,21 +47,28 @@ const ProfilePage = props => {
 
   return (
     <div>
-      <div className="profile-header">
+      <div className="TopNav">
+        <Link href="/app">
+          <Icon className="Back" icon={bxArrowBack} width="18px" />
+        </Link>
+        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
+        <div />
+      </div>
+      <div className={styles.ProfileHeader}>
         <img
-          className="profile-avatar"
+          className={styles.ProfileAvatar}
           src="https://picsum.photos/100/100"
           alt="profile Avatar"
         />
-        <div className="profile-title">
-          <h2 className="profile-name">{userid}</h2>
-          <h3 className="profile-stats">15 yo • 10th grade</h3>
-          <h4 className="profile-description">
+        <div className={styles.ProfileTitle}>
+          <h3 className={styles.ProfileName}>{userid}</h3>
+          <h3 className={styles.ProfileStats}>15 yo • 10th grade</h3>
+          <h6 className={styles.ProfileDescription}>
             Discription Lorem ipsum dolor sit amet, elit
-          </h4>
+          </h6>
         </div>
       </div>
-      <div className="profile-page page">
+      <div className={`${styles.ProfilePage} Page`}>
         <div
           style={{
             display: "flex",
@@ -68,14 +76,14 @@ const ProfilePage = props => {
             marginBottom: "25px",
           }}
         >
-          <h4>Interests</h4>
-          <Button className="profile-right-arrow">
+          <h4 className={styles.ProfileHeading}>Interests</h4>
+          <button type="button" className={styles.ProfileNext}>
             <Icon icon={arrowRightAlt2} />
-          </Button>
+          </button>
         </div>
-        <div className="interests-row">
+        <div className={styles.InterestDeck}>
           {interestData.map(interest => (
-            <span className="interest-pill">{interest}</span>
+            <span className={styles.InterestPill}>{interest}</span>
           ))}
         </div>
         <div
@@ -86,16 +94,16 @@ const ProfilePage = props => {
             marginBottom: "25px",
           }}
         >
-          <h4>Subscriptions</h4>
-          <Button className="profile-right-arrow">
+          <h4 className={styles.ProfileHeading}>Subscriptions</h4>
+          <button type="button" className={styles.ProfileNext}>
             <Icon icon={arrowRightAlt2} />
-          </Button>
+          </button>
         </div>
-        <div className="subscription-row">
+        <div className={styles.SubscriptionDeck}>
           {subscriptionData.map(subscription => (
-            <div className="subscription-card">
+            <div className={styles.SubscriptionCard}>
               <img
-                className="subscription-card-img"
+                className={styles.SubscriptionImg}
                 src={subscription}
                 alt="Subscription Pic"
               />
@@ -110,13 +118,13 @@ const ProfilePage = props => {
             marginBottom: "25px",
           }}
         >
-          <h4>Joined Groups</h4>
-          <Button className="profile-right-arrow">
+          <h4 className={styles.ProfileHeading}>Joined Groups</h4>
+          <button type="button" className={styles.ProfileNext}>
             <Icon icon={arrowRightAlt2} />
-          </Button>
+          </button>
         </div>
 
-        <div className="profile-group-cards">
+        <div className={styles.ProfileGroupDeck}>
           {groupData.map(group => (
             <GroupCard
               title={group.title}

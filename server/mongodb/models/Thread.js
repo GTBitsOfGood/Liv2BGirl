@@ -3,35 +3,32 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const ThreadSchema = new Schema({
-  poster: {
+  posterId: {
     type: String,
     required: true,
+    index: true,
   },
-  group: {
+  groupId: {
     type: String,
     required: true,
+    index: true,
   },
   title: {
     type: String,
     required: true,
+    text: true,
   },
   tags: {
     type: [String],
+    text: true,
   },
   content: {
     type: String,
   },
-  comments: {
-    type: [String],
-  },
-  pictures: {
-    type: [String],
-  },
-  reports: {
-    type: [String],
-  },
   postedAt: {
     type: Date,
+    required: true,
+    default: Date.now,
   },
 });
 

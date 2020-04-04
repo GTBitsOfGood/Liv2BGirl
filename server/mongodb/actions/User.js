@@ -27,8 +27,9 @@ export async function login(email, password) {
         {
           id: user._id,
           email: user.email,
+          role: user.role,
         },
-        process.env.JWT_SECRET,
+        process.env.JWTSECRET,
         {
           expiresIn: "7d",
         }
@@ -77,9 +78,9 @@ export async function signUp({
         {
           id: user._id,
           email: user.email,
-          isAdmin: user.isAdmin,
+          role: user.role,
         },
-        process.env.JWT_SECRET,
+        process.env.JWTSECRET,
         {
           expiresIn: "7d",
         }
@@ -96,7 +97,7 @@ export const signOut = () => {
 };
 
 export async function verifyToken(token) {
-  return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  return jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
     if (decoded) return Promise.resolve(decoded);
 
     return Promise.reject(new Error("Invalid token!"));
@@ -118,5 +119,5 @@ export async function unfollow(userId, toUnfollowId) {
   // "userId" deleted from username's follower reduces
 
   await User.findByIdAndUpdate(userId, { $pull: { following: toUnfollowId } });
-  await User.findByIdAndUpdate(toUnfollowId, { $push: { followers: userId } });
+  await User.findByIdAndUpdate(toUnfollowId, { $pull: { followers: userId } });
 }

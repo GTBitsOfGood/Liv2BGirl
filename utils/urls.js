@@ -1,11 +1,9 @@
 const prod = process.env.NODE_ENV === "production";
 
 export default {
-  baseUrl: prod
-    ? "https://liv2bgirl.now.sh"
-    : "http://localhost:3000",
+  baseUrl: prod ? "https://liv2bgirl.now.sh" : "http://localhost:3000",
   dbUrl: prod
-    ? process.env.MONGO_DB
+    ? process.env.MONGODB
     : process.env.MONGO_DEV_DB || "mongodb://localhost:27017",
   dbName: "liv2bgirl",
   pages: {
@@ -20,6 +18,9 @@ export default {
       notifications: "/app/notifications",
       profile: profileId => `/app/profile/${profileId}`,
       myProfile: "/app/profile",
+      thread: threadId => `/app/groups/thread/${threadId}`,
+      createThread: groupId => `/app/groups/${groupId}/create-thread`,
+      newgroup: "/app/groups/new-group",
     },
   },
   api: {

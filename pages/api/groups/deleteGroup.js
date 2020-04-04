@@ -1,7 +1,7 @@
 import { deleteGroup } from "../../../server/mongodb/actions/Group";
 
 // @route   DELETE api/groups/deleteGroup
-// @desc    Delte Group Request
+// @desc    Delete Group Request
 // @access  Public
 const handler = (req, res) =>
   deleteGroup(req.body.groupId)

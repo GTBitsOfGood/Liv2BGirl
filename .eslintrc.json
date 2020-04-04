@@ -20,6 +20,16 @@
     "prettier/prettier": ["error"],
     "linebreak-style": 0,
     "no-underscore-dangle": "off",
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "labelComponents": [],
+        "labelAttributes": [],
+        "controlComponents": [],
+        "assert": "htmlFor",
+        "depth": 25
+      }
+    ]
   }
 }
