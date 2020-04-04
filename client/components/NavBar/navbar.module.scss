@@ -4,10 +4,63 @@
 $btn: #e0e0e0;
 $active-btn: #bdbdbd;
 
+.TopNav {
+  height: 48px;
+  width: 100%;
+  z-index: 999;
+  background: $background;
+  box-sizing: border-box;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    display: flex;
+  }
+
+  .Back,
+  .IconButton {
+    display: flex;
+    align-items: center;
+    border: 0;
+    padding: 0;
+    color: $text;
+  }
+
+  .Logo {
+    width: 124px;
+  }
+
+  .Avatar {
+    width: 24px;
+    border-radius: 50%;
+  }
+
+  .Button {
+    border-radius: 137px;
+    font-size: 14px;
+    line-height: 21px;
+    border: none;
+    background-color: $light-gray;
+    color: $text;
+    font-weight: bold;
+    height: 24px;
+    width: 60px;
+
+    &:hover {
+      background-color: $text;
+      color: white;
+    }
+  }
+
+  .Text {
+    color: $text;
+  }
+}
+
 // Bottom Nav
 .BottomNav {
-  position: fixed;
-  bottom: 0;
   height: 100px;
   width: 100%;
   background: $background;

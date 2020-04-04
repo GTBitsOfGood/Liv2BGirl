@@ -19,7 +19,7 @@ body,
 
 .App > .Content {
   width: 100%;
-  height: 100%;
+  flex: 1;
   overflow-x: hidden;
   overflow-y: auto;
   letter-spacing: 0.01em;

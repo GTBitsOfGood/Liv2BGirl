@@ -25,27 +25,23 @@ class MyApp extends App {
         </Head>
 
         <div className="App">
-          <div className="Content">
-            <Component {...pageProps} />
-          </div>
+          {![
+            "/sign-up",
+            "/sign-in",
+            "/app/groups/thread",
+            "/app/groups/new-group",
+          ].some(route => router.asPath.includes(route)) && (
+            <>
+              {!["/app/groups/", "/app/profile"].some(route =>
+                router.asPath.includes(route)
+              ) && <TopNavBar />}
+              <div className="Content">
+                <Component {...pageProps} />
+              </div>
+              <BottomNavBar />
+            </>
+          )}
         </div>
-        {![
-          "/sign-up",
-          "/sign-in",
-          "/app/groups/thread",
-          "/app/groups/new-group",
-        ].some(route => router.asPath.includes(route)) && (
-          <>
-            {!["/app/groups/", "/app/profile"].some(route =>
-              router.asPath.includes(route)
-            ) && (
-              <>
-                <TopNavBar />
-              </>
-            )}
-            <BottomNavBar />
-          </>
-        )}
       </>
     );
   }
