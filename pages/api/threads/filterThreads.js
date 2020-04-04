@@ -1,21 +1,22 @@
 import { filterThreads } from "../../../server/mongodb/actions/Thread";
 
-// @route   FILTER api/threads/filterThreads
-// @desc    Filter Threads Request
+// @route   GET api/threads/filterThreads
+// @desc    GET Filtered threads Request
 // @access  Public
+
 const handler = (req, res) =>
   filterThreads(
-    req.body.groupId,
-    req.body.option,
-    req.body.lowerBound,
-    req.body.upperBound
+    req.query.groupId,
+    req.query.option,
+    req.query.lowerBound,
+    req.query.upperBound
   )
-    .then(threads =>
+    .then(token => {
       res.status(200).json({
         success: true,
-        payload: threads,
-      })
-    )
+        payload: token,
+      });
+    })
     .catch(error =>
       res.status(400).json({
         success: false,
