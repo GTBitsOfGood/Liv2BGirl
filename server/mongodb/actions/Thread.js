@@ -14,12 +14,20 @@ export async function deleteThread(threadId) {
   });
 }
 
+// Currently just filtering by date, expects dates in format 'YYYY-MM-DD' or null
 export async function filterThreads(groupId, option, lowerBound, upperBound) {
   await mongoDB();
 
+  if (lowerBound == null) {
+    lowerBound = '0001-01-01';
+  }
+  if (upperBound == null) {
+    upperBound = new Date();
+  }
+
   return Thread.find({
     _id: groupId,
-    postedAt: { $gt: lowerBound, $lt: upperBound },
+    postedAt: { $gt: new Date(lowerBound), $lt: new Date(upperBound) },
   }).then(threads => {
     if (threads) {
       console.log("Successfully filtered threads");
