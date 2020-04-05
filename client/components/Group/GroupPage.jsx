@@ -14,6 +14,7 @@ import logo from "../../../public/img/logo.png";
 
 // Stylings
 import styles from "./group.module.scss";
+import urls from "../../../utils/urls";
 
 const fakeThreads = [
   {
@@ -66,12 +67,12 @@ const GroupPage = props => {
   const [sortedBy, setSortedBy] = useState("latest comment");
 
   return (
-    <div>
-      <div className="TopNav">
-        <Link href="/app/groups/">
-          <Icon className="Back" icon={bxArrowBack} width="18px" />
+    <>
+      <div className={styles.TopNav}>
+        <Link href={urls.pages.app.groupList}>
+          <Icon className={styles.Back} icon={bxArrowBack} width="18px" />
         </Link>
-        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
+        <img className={styles.Logo} src={logo} alt="Liv2BGirl Logo" />
         <div />
       </div>
       <div className={styles.GroupHeader}>
@@ -104,7 +105,7 @@ const GroupPage = props => {
           </select>
 
           <button type="button" className={styles.CreateBtn} disabled={!joined}>
-            <Link href={`/app/groups/${groupid}/create-thread`}>
+            <Link href={urls.pages.app.createThread(groupid)}>
               <Icon
                 className={styles.AddPost}
                 width="15px"
@@ -123,7 +124,7 @@ const GroupPage = props => {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
