@@ -7,9 +7,13 @@ import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 
+// API Call
+import { followGroup, unfollowGroup } from "../../actions/api";
+
 // Components
 import ThreadPost from "./Thread/ThreadPost";
 
+// Logo for Header
 import logo from "../../../public/img/logo.png";
 
 // Stylings
@@ -66,6 +70,18 @@ const GroupPage = props => {
   const [joined, setJoined] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
 
+  const groupAction = () => {
+    const userid = "123456789";
+
+    if (joined) {
+      followGroup(groupid, userid);
+      setJoined(false);
+    } else {
+      unfollowGroup(groupid, userid);
+      setJoined(true);
+    }
+  };
+
   return (
     <>
       <div className={styles.TopNav}>
@@ -88,7 +104,7 @@ const GroupPage = props => {
         <button
           type="button"
           className={styles.GroupJoin}
-          onClick={() => setJoined(!joined)}
+          onClick={groupAction}
         >
           {joined ? "Leave" : "Join"}
         </button>
