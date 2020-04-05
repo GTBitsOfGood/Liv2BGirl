@@ -4,10 +4,27 @@ import ExploreGroups from "./ExploreGroups";
 import SearchGroups from "./SearchGroups";
 import MyGroups from "./MyGroups";
 import classes from "./GroupsPage.module.scss";
+import loadingData from "./loadingData";
 
 const GroupsPage = () => {
   const [search, setSearch] = React.useState("");
-  const [ownGroups, setOwnGroups] = React.useState(false);
+  const [searchActive, setSearchActive] = React.useState(false);
+  const [showOwnGroups, setShowOwnGroups] = React.useState(false);
+  const [categories, setCategories] = React.useState(loadingData.categories);
+  const [ownGroups, setOwnGroups] = React.useState(loadingData.groups);
+  const [likeGroups, setLikeGroups] = React.useState(
+    loadingData.groups.slice(0, 4)
+  );
+
+  React.useEffect(() => {
+    // Get categories
+    // Get own groups
+    // Get likeable groups
+  }, []);
+
+  const handleRefresh = () => {
+    // Get more likeable groups
+  };
 
   return (
     <div className={classes.root}>
@@ -23,6 +40,7 @@ const GroupsPage = () => {
 
                 setSearch(value);
               }}
+              onFocus={() => setSearchActive(true)}
               value={search}
             />
           </div>
@@ -36,13 +54,18 @@ const GroupsPage = () => {
             </button>
           )}
         </div>
+      </div>
+      {search.length === 0 && (
         <div className={classes.typeBar}>
           <button
             className={clsx(
               classes.typeButton,
-              !ownGroups && classes.typeButtonSelected
+              !showOwnGroups && classes.typeButtonSelected
             )}
-            onClick={() => setOwnGroups(false)}
+            onClick={() => {
+              setShowOwnGroups(false);
+              setSearchActive(false);
+            }}
             type="button"
           >
             Explore Groups
@@ -50,21 +73,28 @@ const GroupsPage = () => {
           <button
             className={clsx(
               classes.typeButton,
-              ownGroups && classes.typeButtonSelected
+              showOwnGroups && classes.typeButtonSelected
             )}
-            onClick={() => setOwnGroups(true)}
+            onClick={() => {
+              setShowOwnGroups(true);
+              setSearchActive(false);
+            }}
             type="button"
           >
             My Groups
           </button>
         </div>
-      </div>
-      {search.length > 0 ? (
-        <SearchGroups searchTerm={search} ownGroups={ownGroups} />
-      ) : ownGroups ? (
-        <MyGroups />
+      )}
+      {search.length > 0 || searchActive ? (
+        <SearchGroups searchTerm={search} likeableGroups={likeGroups} />
+      ) : showOwnGroups ? (
+        <MyGroups groups={ownGroups} />
       ) : (
-        <ExploreGroups />
+        <ExploreGroups
+          categories={categories}
+          likeableGroups={likeGroups}
+          handleRefresh={handleRefresh}
+        />
       )}
     </div>
   );

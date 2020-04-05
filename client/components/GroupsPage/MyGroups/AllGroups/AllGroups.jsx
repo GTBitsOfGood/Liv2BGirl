@@ -54,7 +54,7 @@ const AllGroups = ({ groups, handleBack }) => {
               selectedCategory === "All" || group.category === selectedCategory
           )
           .map(group => (
-            <Group info={group} />
+            <Group key={group.name} info={group} />
           ))}
       </div>
     </div>

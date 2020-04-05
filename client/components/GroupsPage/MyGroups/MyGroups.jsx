@@ -2,12 +2,10 @@ import React from "react";
 import Link from "next/link";
 import classes from "./MyGroups.module.scss";
 import AllGroups from "./AllGroups";
-import loadingData from "./loadingData";
 import urls from "../../../../utils/urls";
 
-const MyGroups = () => {
+const MyGroups = ({ groups }) => {
   const [showAll, setShowAll] = React.useState(false);
-  const [groups, setGroups] = React.useState(loadingData.groups);
 
   if (showAll) {
     return <AllGroups groups={groups} handleBack={() => setShowAll(false)} />;
@@ -30,7 +28,7 @@ const MyGroups = () => {
         <div className={classes.myGroupsGroups}>
           {groups.slice(0, 4).map(group => (
             <Link
-              key={group.title}
+              key={group.id}
               href={urls.pages.app.group(group.id)}
               prefetch={false}
             >
