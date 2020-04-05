@@ -46,7 +46,7 @@ const ExploreGroups = ({ categories, likeableGroups, handleRefresh }) => (
     </div>
     <p className={classes.notFoundText}>
       {"Couldn't find what you want? "}
-      <a className={classes.createText} href={urls.pages.app.newgroup}>
+      <a className={classes.createText} href={urls.pages.app.newGroup}>
         Create a Group
       </a>
     </p>
