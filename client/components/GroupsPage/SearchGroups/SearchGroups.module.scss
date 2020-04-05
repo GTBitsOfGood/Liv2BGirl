@@ -14,3 +14,32 @@
   color: #4F4F4F;
   margin-bottom: 32px;
 }
+
+.noGroupsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.noGroupsText {
+  font-size: 18px;
+  line-height: 140%;
+  text-align: center;
+  color: #4F4F4F;
+  margin-bottom: 24px;
+}
+
+.noGroupsButton {
+  width: 225px;
+  max-width: 80%;
+  height: 40px;
+  background: #C4C4C4;
+  border-radius: 40px;
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  color: #4F4F4F;
+  text-align: center;
+  line-height: 40px;
+}
