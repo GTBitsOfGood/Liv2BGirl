@@ -27,16 +27,32 @@ const loadingData = {
   ],
   groups: [
     {
-      title: "Group 1",
+      id: 1,
+      name: "Group 1",
+      category: "Category",
+      people: "25",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing",
     },
     {
-      title: "Group 2",
+      id: 2,
+      name: "Group 2",
+      category: "Category",
+      people: "25",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing",
     },
     {
-      title: "Group 3",
+      id: 3,
+      name: "Group 3",
+      category: "Category",
+      people: "25",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing",
     },
     {
-      title: "Group 4",
+      id: 4,
+      name: "Group 4",
+      category: "Category",
+      people: "25",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing",
     },
   ],
 };

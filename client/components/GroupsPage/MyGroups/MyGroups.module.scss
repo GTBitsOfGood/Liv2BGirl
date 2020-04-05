@@ -1,0 +1,64 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.myGroupsContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+
+  .myGroupsHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    .myGroupsHeaderText {
+      font-size: 18px;
+      font-weight: normal;
+      color: #4F4F4F;
+    }
+
+    .myGroupsButton {
+      font-size: 18px;
+      font-weight: normal;
+      color: #4F4F4F;
+      background: none;
+      border: none;
+    }
+
+    .myGroupsHeaderRefresh {
+      color: #333333;
+    }
+  }
+
+  .myGroupsGroups {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .myGroupType {
+    flex: 1 0 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .myGroupImage {
+      width: 72px;
+      height: 72px;
+      background-color: #E0E0E0;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    .myGroupTitle {
+      color: #4F4F4F;
+      font-size: 12px;
+    }
+  }
+}

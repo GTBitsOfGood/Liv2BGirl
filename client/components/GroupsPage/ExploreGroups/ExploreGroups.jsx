@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import classes from "./ExploreGroups.module.scss";
 import loadingData from "./loadingData";
 import urls from "../../../../utils/urls";
@@ -29,10 +30,16 @@ const ExploreGroups = () => {
 
         <div className={classes.mayLikeGroups}>
           {groups.map(group => (
-            <div className={classes.mayLikeType}>
-              <div className={classes.mayLikeImage} />
-              <p className={classes.mayLikeTitle}>{group.title}</p>
-            </div>
+            <Link
+              key={group.id}
+              href={urls.pages.app.group(group.id)}
+              prefetch={false}
+            >
+              <div className={classes.mayLikeType}>
+                <div className={classes.mayLikeImage} />
+                <p className={classes.mayLikeTitle}>{group.name}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

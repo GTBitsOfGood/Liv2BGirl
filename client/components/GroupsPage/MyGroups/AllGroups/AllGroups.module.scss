@@ -1,0 +1,83 @@
+.root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  background: #ffffff;
+}
+
+.navBar {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F2F2F2;
+
+  .navBarArrow {
+    position: absolute;
+    height: 100%;
+    left: 16px;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+  }
+
+  .navBarText {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+.categoryBar {
+  width: 100%;
+  padding: 24px 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  background: #ffffff;
+  box-sizing: border-box;
+
+  .categoryPill {
+    height: 32px;
+    background: none;
+    border: none;
+    border-radius: 32px;
+    box-sizing: border-box;
+    margin-right: 16px;
+  }
+
+  .categoryPillSelected {
+    border: 2px solid #4F4F4F;
+  }
+
+  .categoryName {
+    font-weight: 300;
+    font-size: 12px;
+    text-align: center;
+    padding: 8px;
+    color: #333333;
+  }
+
+  .categoryNameSelected {
+    font-weight: 500;
+  }
+}
+
+.groupsList {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
