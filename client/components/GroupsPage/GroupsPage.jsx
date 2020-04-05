@@ -94,6 +94,7 @@ const GroupsPage = () => {
           categories={categories}
           likeableGroups={likeGroups}
           handleRefresh={handleRefresh}
+          setSearch={setSearch}
         />
       )}
     </div>

@@ -3,14 +3,23 @@ import Link from "next/link";
 import classes from "./ExploreGroups.module.scss";
 import urls from "../../../../utils/urls";
 
-const ExploreGroups = ({ categories, likeableGroups, handleRefresh }) => (
+const ExploreGroups = ({
+  categories,
+  likeableGroups,
+  handleRefresh,
+  setSearch,
+}) => (
   <div className={classes.root}>
     <div className={classes.categoryContainer}>
       <h1 className={classes.categoryHeader}>Category</h1>
 
       <div className={classes.categoryGroups}>
         {categories.map(category => (
-          <div key={category.title} className={classes.categoryType}>
+          <div
+            key={category.title}
+            className={classes.categoryType}
+            onClick={() => setSearch(category.title)}
+          >
             <div className={classes.categoryImage} />
             <p className={classes.categoryTitle}>{category.title}</p>
           </div>
