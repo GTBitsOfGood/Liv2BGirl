@@ -77,16 +77,9 @@ export const signOut = () => {
   });
 };
 
-export const createThread = ({
-    groupId,
-    title,
-    tags,
-    content,
-  }) =>
+export const createThread = (groupId, title, content, tags = []) => {
   fetch(urls.baseUrl + urls.api.createThread(), {
     method: "POST",
-    mode: "same-origin",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -97,7 +90,10 @@ export const createThread = ({
       content,
     }),
   })
-    .then(response => response.json())
+    .then(response => {
+      response.json()
+      console.log(response)
+    })
     .then(json => {
       if (json == null) {
         throw new Error("Could not connect to API!");
@@ -106,3 +102,4 @@ export const createThread = ({
       }
       return json.payload;
     });
+};

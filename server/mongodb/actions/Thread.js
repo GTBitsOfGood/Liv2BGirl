@@ -1,14 +1,13 @@
 import mongoDB from "../index";
+import jwt from "jsonwebtoken";
+
 import Thread from "../models/Thread";
 
-export async function createThread(
-  posterId,
-  groupId,
-  title,
-  tags,
-  content,
-) {
+export async function createThread(groupId, title, tags, content) {
   await mongoDB();
+
+  // Hardcoded initially but will user id will need to be taken from jwt stored in localstorage or from req.user using passport
+  var posterId = "12345"
 
   return Thread.create({
     posterId,
