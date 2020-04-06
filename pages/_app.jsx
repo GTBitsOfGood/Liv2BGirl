@@ -5,6 +5,7 @@ import BottomNavBar from "../client/components/NavBar/BottomNavBar";
 import TopNavBar from "../client/components/NavBar/TopNavBar";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
+import "bootstrap-css-only/css/bootstrap.min.css";
 
 // Global Styles
 import "../public/styles/App.scss";
@@ -34,12 +35,13 @@ class MyApp extends App {
           "/sign-in",
           "/app/groups/thread",
           "/app/groups/new-group",
-          "/app/ask-question",
         ].some(route => router.asPath.includes(route)) && (
           <>
-            {!["/app/groups/", "/app/profile"].some(route =>
-              router.asPath.includes(route)
-            ) && (
+            {![
+              "/app/groups/",
+              "/app/profile",
+              "/app/ask-question",
+            ].some(route => router.asPath.includes(route)) && (
               <>
                 <TopNavBar />
               </>

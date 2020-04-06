@@ -2,9 +2,8 @@
   margin-left: 10;
 }
 .button {
-  background-color: lightgray;
-  color: black;
-  border-color: lightgray;
+  margin-left: 100;
+  background-color: transparent;
 }
 
 .create {
