@@ -21,7 +21,7 @@ export default {
       thread: threadId => `/app/groups/thread/${threadId}`,
       createThread: groupId => `/app/groups/${groupId}/create-thread`,
       newgroup: "/app/groups/new-group",
-      askquestion: "/app/ask-question",
+      askquestion: "/app/questions/ask-question",
     },
   },
   api: {

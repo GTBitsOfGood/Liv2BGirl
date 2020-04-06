@@ -40,7 +40,7 @@ class MyApp extends App {
             {![
               "/app/groups/",
               "/app/profile",
-              "/app/ask-question",
+              "/app/questions/ask-question",
             ].some(route => router.asPath.includes(route)) && (
               <>
                 <TopNavBar />
