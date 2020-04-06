@@ -7,7 +7,7 @@ export async function createThread(groupId, title, tags, content) {
   await mongoDB();
 
   // Hardcoded initially but will user id will need to be taken from jwt stored in localstorage or from req.user using passport
-  var posterId = "12345"
+  var posterId = "12345";
 
   return Thread.create({
     posterId,

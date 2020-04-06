@@ -137,8 +137,8 @@ export const createThread = (groupId, title, content, tags = []) => {
     }),
   })
     .then(response => {
-      response.json()
-      console.log(response)
+      response.json();
+      console.log(response);
     })
     .then(json => {
       if (json == null) {

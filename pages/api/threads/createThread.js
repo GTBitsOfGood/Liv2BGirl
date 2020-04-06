@@ -8,7 +8,7 @@ const handler = (req, res) => {
     req.body.groupId,
     req.body.title,
     req.body.tags,
-    req.body.content,
+    req.body.content
   )
     .then(thread =>
       res.status(200).json({
@@ -16,12 +16,12 @@ const handler = (req, res) => {
         payload: thread,
       })
     )
-    .catch(error => 
+    .catch(error =>
       res.status(400).json({
         success: false,
         message: error.message,
       })
     );
-}
+};
 
 export default handler;
