@@ -1,7 +1,7 @@
 import fetch from "isomorphic-unfetch";
 import urls from "../../utils/urls";
 
-export const createGroup = (name, description, tags) => {
+export const createGroup = (name, description, tags) =>
   fetch(urls.baseUrl + urls.api.createGroup(), {
     method: "post",
     mode: "same-origin",
@@ -24,4 +24,3 @@ export const createGroup = (name, description, tags) => {
       }
       return json.payload;
     });
-};
