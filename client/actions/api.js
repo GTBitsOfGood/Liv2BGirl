@@ -122,3 +122,30 @@ export const signOut = () => {
     pathname: "/",
   });
 };
+
+export const createThread = (groupId, title, content, tags = []) => {
+  fetch(urls.baseUrl + urls.api.createThread(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      groupId,
+      title,
+      tags,
+      content,
+    }),
+  })
+    .then(response => {
+      response.json();
+      console.log(response);
+    })
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+      return json.payload;
+    });
+};

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
+import { createThread } from "../../../actions/api";
+
 // Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
@@ -18,11 +20,14 @@ const CreateThreadComponent = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
-  const handleCreateThread = async () =>
+  const handleCreateThread = async () => {
+    createThread(groupid, title, text);
+
     // eslint-disable-next-line no-alert
     window.alert(
       `Created in group ${groupid} with title "${title}" and text "${text}"`
     );
+  };
 
   return (
     <div style={{ marginTop: "48px" }}>
