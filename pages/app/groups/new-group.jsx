@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 
 // API Calls
 // To be added....
+import { createGroup } from "../../../client/actions/groups";
 
 // Font Awesome
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -73,19 +74,17 @@ const NewGroupPage = () => {
         setStage(prevState => prevState + 1);
         setStageCompleted(false);
       } else if (stage + 1 === 2) {
-        // await createGroup(values)
-        //   .then(() => {
-        //     setStage(prevState => prevState + 1);
-        //     setStageCompleted(true);
-        //   })
-        //   .catch(() => {
-        //     setStage(0);
-        //     setStageCompleted(false);
-        //     // eslint-disable-next-line no-alert
-        //     window.alert("Failed to create group!");
-        //   });
-        setStage(prevState => prevState + 1);
-        setStageCompleted(true);
+        await createGroup(values.name, values.description, [values.category])
+          .then(() => {
+            setStage(prevState => prevState + 1);
+            setStageCompleted(true);
+          })
+          .catch(() => {
+            setStage(0);
+            setStageCompleted(false);
+            // eslint-disable-next-line no-alert
+            window.alert("Failed to create group!");
+          });
       } else if (stage + 1 === 3) {
         await router.replace(`/app/groups/${values.name}`);
       }
