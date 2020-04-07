@@ -37,11 +37,9 @@ class MyApp extends App {
           "/app/groups/new-group",
         ].some(route => router.asPath.includes(route)) && (
           <>
-            {![
-              "/app/groups/",
-              "/app/profile",
-              "/app/questions/ask-question",
-            ].some(route => router.asPath.includes(route)) && (
+            {!["/app/groups/", "/app/profile", "/app/ask-me/"].some(route =>
+              router.asPath.includes(route)
+            ) && (
               <>
                 <TopNavBar />
               </>
