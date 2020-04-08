@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
-import { createThread } from "../../../actions/api";
-
-// Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
-
-// Components
+import { createThread } from "../../../actions/User";
 import logo from "../../../../public/img/logo.png";
-
-// Stylings
 import styles from "./thread.module.scss";
 
 const CreateThreadComponent = () => {

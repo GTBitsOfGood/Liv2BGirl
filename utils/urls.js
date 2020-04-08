@@ -31,5 +31,6 @@ export default {
     unfollowGroup: () => "/api/groups/unfollowGroup",
     getCurrentUser: () => "/api/user/getCurrentUser",
     getUser: () => "/api/user/getUser",
+    getGroup: () => "/api/groups/getGroup",
   },
 };

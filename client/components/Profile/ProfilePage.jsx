@@ -10,34 +10,6 @@ import logo from "../../../public/img/logo.png";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import styles from "./profile.module.scss";
 
-// Dummy Data
-const interestData = ["Music", "College"];
-
-const subscriptionData = [
-  "https://picsum.photos/100/100",
-  "https://picsum.photos/100/100",
-  "https://picsum.photos/100/100",
-  "https://picsum.photos/100/100",
-];
-
-const groupData = [
-  {
-    title: "Group 1",
-    description: "Description 1",
-    image: "https://picsum.photos/50/50",
-  },
-  {
-    title: "Group 2",
-    description: "Description 2",
-    image: "https://picsum.photos/50/50",
-  },
-  {
-    title: "Group 3",
-    description: "Description 3",
-    image: "https://picsum.photos/50/50",
-  },
-];
-
 const ProfilePage = ({ user }) => (
   <div>
     <div className="TopNav">
@@ -84,9 +56,10 @@ const ProfilePage = ({ user }) => (
         </button>
       </div>
       <div className={styles.InterestDeck}>
-        {interestData.map(interest => (
-          <span className={styles.InterestPill}>{interest}</span>
-        ))}
+        {user.interests &&
+          user.interests.map(interest => (
+            <span className={styles.InterestPill}>{interest}</span>
+          ))}
       </div>
       <div
         style={{
@@ -102,15 +75,16 @@ const ProfilePage = ({ user }) => (
         </button>
       </div>
       <div className={styles.SubscriptionDeck}>
-        {subscriptionData.map(subscription => (
-          <div className={styles.SubscriptionCard}>
-            <img
-              className={styles.SubscriptionImg}
-              src={subscription}
-              alt="Subscription Pic"
-            />
-          </div>
-        ))}
+        {user.subscriptions &&
+          user.subscriptions.map(subscription => (
+            <div className={styles.SubscriptionCard}>
+              <img
+                className={styles.SubscriptionImg}
+                src={subscription}
+                alt="Subscription Pic"
+              />
+            </div>
+          ))}
       </div>
       <div
         style={{
@@ -127,13 +101,15 @@ const ProfilePage = ({ user }) => (
       </div>
 
       <div className={styles.ProfileGroupDeck}>
-        {groupData.map(group => (
-          <GroupCard
-            title={group.title}
-            description={group.description}
-            image={group.image}
-          />
-        ))}
+        {user.groups &&
+          user.groups.map(group => (
+            <GroupCard
+              id={group.id}
+              title={group.name}
+              description={group.description}
+              image={group.image || "https://picsum.photos/100/100"}
+            />
+          ))}
       </div>
     </div>
   </div>
@@ -152,6 +128,8 @@ ProfilePage.propTypes = {
     age: PropTypes.number.isRequired,
     grade: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
+    interests: PropTypes.arrayOf(PropTypes.string).isRequired,
+    subscriptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
 };
 

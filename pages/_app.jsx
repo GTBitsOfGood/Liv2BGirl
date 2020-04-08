@@ -3,7 +3,7 @@ import React from "react";
 import Head from "next/head";
 import BottomNavBar from "../client/components/NavBar/BottomNavBar";
 import TopNavBar from "../client/components/NavBar/TopNavBar";
-import { getCurrentUser } from "../client/actions/api";
+import { getCurrentUser } from "../client/actions/User";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 
