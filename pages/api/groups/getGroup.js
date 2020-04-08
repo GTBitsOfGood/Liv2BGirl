@@ -1,14 +1,11 @@
-import { unfollow } from "../../server/mongodb/actions/User";
+import { getGroup } from "../../../server/mongodb/actions/Group";
 
-// @route   POST api/unfollow
-// @desc    Unfollow Request
-// @access  Public
 const handler = (req, res) =>
-  unfollow(req.body.userId, req.body.toUnfollowId)
-    .then(user =>
+  getGroup(req.body.groupId)
+    .then(group =>
       res.status(200).json({
         success: true,
-        payload: user,
+        payload: group,
       })
     )
     .catch(error =>

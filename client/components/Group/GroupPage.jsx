@@ -8,7 +8,7 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 
 // API Call
-import { followGroup, unfollowGroup } from "../../actions/api";
+import { followGroup, unfollowGroup } from "../../actions/User";
 
 // Components
 import ThreadPost from "./Thread/ThreadPost";

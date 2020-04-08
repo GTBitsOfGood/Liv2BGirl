@@ -35,3 +35,17 @@ export async function unfollowGroup(groupId, userId) {
 
   await Group.findByIdAndUpdate(groupId, { $pull: { subscribers: userId } });
 }
+
+export const getGroup = groupId =>
+  Group.findById(groupId).then(group => {
+    if (group == null) {
+      throw new Error("Group does not exist!");
+    }
+
+    return {
+      id: group._id,
+      name: group.name,
+      description: group.description,
+      image: group.image,
+    };
+  });

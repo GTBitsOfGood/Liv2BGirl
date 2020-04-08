@@ -1,16 +1,30 @@
 import React from "react";
+import Link from "next/link";
 import logo from "../../../public/img/logo.png";
+import { avatarImg, colorArr } from "../../../utils/avatars";
+import urls from "../../../utils/urls";
 
-const TopNavBar = () => (
+const TopNavBar = ({ userId, avatarColor, avatar }) => (
   <div className="TopNav">
-    <a href="/app/profile">
-      <img
-        className="Avatar"
-        src="https://picsum.photos/200/200"
-        alt="Avatar"
-      />
-    </a>
-    <a href="/app/">
+    {userId != null ? (
+      <Link href={urls.pages.app.profile(userId)}>
+        <div
+          style={{
+            backgroundColor: colorArr[avatarColor],
+          }}
+          className="Avatar"
+        >
+          <img
+            src={avatarImg[avatar]}
+            alt="CreateAvatar"
+            className="AvatarImg"
+          />
+        </div>
+      </Link>
+    ) : (
+      <div />
+    )}
+    <a href={urls.pages.app.home}>
       <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
     </a>
     <div />

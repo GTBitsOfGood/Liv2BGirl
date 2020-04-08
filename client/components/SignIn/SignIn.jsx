@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { login } from "../../actions/api";
+import { login } from "../../actions/User";
 import urls from "../../../utils/urls";
 
 // Styling

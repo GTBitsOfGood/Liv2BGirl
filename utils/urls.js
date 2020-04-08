@@ -30,5 +30,8 @@ export default {
     followGroup: () => "/api/groups/followGroup",
     unfollowGroup: () => "/api/groups/unfollowGroup",
     createGroup: () => "/api/groups/createGroup",
+    getCurrentUser: () => "/api/user/getCurrentUser",
+    getUser: () => "/api/user/getUser",
+    getGroup: () => "/api/groups/getGroup",
   },
 };
