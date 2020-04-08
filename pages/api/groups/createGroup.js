@@ -4,7 +4,7 @@ import { createGroup } from "../../../server/mongodb/actions/Group";
 // @desc    Create Group Request
 // @access  Public
 const handler = (req, res) =>
-  createGroup(req.body.name, req.body.subscribers, req.body.description)
+  createGroup(req.body.name, req.body.description, req.body.tags)
     .then(group =>
       res.status(200).json({
         success: true,
