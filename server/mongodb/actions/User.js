@@ -181,7 +181,7 @@ export async function unfollow(userId, toUnfollowId) {
 }
 
 export const getUser = userId =>
-  User.findOne({ _id: userId }).then(user => {
+  User.findById(userId).then(user => {
     if (user == null) {
       throw new Error("User does not exist!");
     }

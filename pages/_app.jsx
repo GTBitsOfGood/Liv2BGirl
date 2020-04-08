@@ -22,13 +22,13 @@ class MyApp extends App {
     return getCurrentUser(cookies)
       .then(user => ({
         ...appProps,
-        user,
+        currentUser: user,
       }))
       .catch(() => appProps);
   }
 
   render() {
-    const { Component, pageProps, router, user } = this.props;
+    const { Component, pageProps, router, currentUser } = this.props;
 
     return (
       <>
@@ -42,7 +42,7 @@ class MyApp extends App {
 
         <div className="App">
           <div className="Content">
-            <Component {...pageProps} user={user} />
+            <Component {...pageProps} currentUser={currentUser} />
           </div>
         </div>
         {![
@@ -57,9 +57,9 @@ class MyApp extends App {
             ) && (
               <>
                 <TopNavBar
-                  userId={user.id}
-                  avatar={user.avatar}
-                  avatarColor={user.avatarColor}
+                  userId={currentUser.id}
+                  avatar={currentUser.avatar}
+                  avatarColor={currentUser.avatarColor}
                 />
               </>
             )}
