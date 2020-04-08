@@ -1,14 +1,14 @@
-import { createGroup } from "../../../server/mongodb/actions/Group";
+import { follow } from "../../../server/mongodb/actions/User";
 
-// @route   POST api/groups/creteGroup
-// @desc    Create Group Request
+// @route   POST api/follow
+// @desc    Follow Request
 // @access  Public
 const handler = (req, res) =>
-  createGroup(req.body.name, req.body.description, req.body.tags)
-    .then(group =>
+  follow(req.body.userId, req.body.toFollowId)
+    .then(user =>
       res.status(200).json({
         success: true,
-        payload: group,
+        payload: user,
       })
     )
     .catch(error =>

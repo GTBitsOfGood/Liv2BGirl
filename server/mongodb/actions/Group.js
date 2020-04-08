@@ -1,14 +1,13 @@
-import Router from "next/router";
 import mongoDB from "../index";
 import Group from "../models/Group";
 
-export async function createGroup(name, subscribers = [], description = "") {
+export async function createGroup(name, description = "", tags = []) {
   await mongoDB();
 
   return Group.create({
     name,
     description,
-    subscribers,
+    tags,
   });
 }
 
@@ -36,3 +35,17 @@ export async function unfollowGroup(groupId, userId) {
 
   await Group.findByIdAndUpdate(groupId, { $pull: { subscribers: userId } });
 }
+
+export const getGroup = groupId =>
+  Group.findById(groupId).then(group => {
+    if (group == null) {
+      throw new Error("Group does not exist!");
+    }
+
+    return {
+      id: group._id,
+      name: group.name,
+      description: group.description,
+      image: group.image,
+    };
+  });

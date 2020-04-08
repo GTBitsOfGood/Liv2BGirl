@@ -96,11 +96,69 @@ export const signOut = () => {
   });
 };
 
-export async function verifyToken(token) {
-  return jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
-    if (decoded) return Promise.resolve(decoded);
+export async function verifyToken(req, res) {
+  // eslint-disable-next-line global-require
+  const cookies = require("cookie-universal")(req, res);
 
-    return Promise.reject(new Error("Invalid token!"));
+  const token = cookies.get("token");
+  if (token == null) {
+    throw new Error("User is not signed in!");
+  }
+
+  return jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
+    if (decoded) {
+      return decoded;
+    }
+
+    cookies.remove("token");
+
+    throw new Error("Invalid token!");
+  });
+}
+
+export async function verifyTokenSecure(req, res) {
+  // eslint-disable-next-line global-require
+  const cookies = require("cookie-universal")(req, res);
+
+  const token = cookies.get("token");
+  if (token == null) {
+    throw new Error("User is not signed in!");
+  }
+
+  await mongoDB();
+
+  return jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
+    if (err || decoded == null) {
+      throw new Error("Invalid token!");
+    }
+
+    const { id } = decoded;
+
+    return User.findOne({ _id: id })
+      .then(user => {
+        if (user == null) {
+          throw new Error("User does not exist!");
+        }
+
+        return {
+          id: user._id,
+          groups: user.groups,
+          followers: user.followers,
+          following: user.following,
+          email: user.email,
+          username: user.username,
+          avatar: user.avatar,
+          avatarColor: user.avatarColor,
+          age: user.age,
+          grade: user.grade,
+          role: user.role,
+        };
+      })
+      .catch(findError => {
+        cookies.remove("token");
+
+        throw findError;
+      });
   });
 }
 
@@ -121,3 +179,24 @@ export async function unfollow(userId, toUnfollowId) {
   await User.findByIdAndUpdate(userId, { $pull: { following: toUnfollowId } });
   await User.findByIdAndUpdate(toUnfollowId, { $pull: { followers: userId } });
 }
+
+export const getUser = userId =>
+  User.findById(userId).then(user => {
+    if (user == null) {
+      throw new Error("User does not exist!");
+    }
+
+    return {
+      id: user._id,
+      groups: user.groups,
+      followers: user.followers,
+      following: user.following,
+      email: user.email,
+      username: user.username,
+      avatar: user.avatar,
+      avatarColor: user.avatarColor,
+      age: user.age,
+      grade: user.grade,
+      role: user.role,
+    };
+  });

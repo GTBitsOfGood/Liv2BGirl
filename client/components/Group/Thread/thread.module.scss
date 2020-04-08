@@ -155,7 +155,8 @@
     background: #f2f2f2;
     border: 1px solid #bdbdbd;
     display: flex;
-    padding: 10px 0;
+    box-sizing: border-box;
+    padding: 10px 16px;
 
     .UserAvatar {
       width: 32px;
@@ -163,8 +164,6 @@
       margin-top: 4px;
       margin-right: 10px;
       border-radius: 100%;
-      margin-left: 16px;
-      margin-right: 10px;
     }
 
     .CommentInput {

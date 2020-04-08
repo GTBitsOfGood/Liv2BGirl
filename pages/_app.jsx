@@ -3,6 +3,7 @@ import React from "react";
 import Head from "next/head";
 import BottomNavBar from "../client/components/NavBar/BottomNavBar";
 import TopNavBar from "../client/components/NavBar/TopNavBar";
+import { getCurrentUser } from "../client/actions/User";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 import "bootstrap-css-only/css/bootstrap.min.css";
@@ -12,8 +13,23 @@ import "../public/styles/App.scss";
 import "../public/styles/components.scss";
 
 class MyApp extends App {
+  static async getInitialProps(appContext) {
+    const appProps = await App.getInitialProps(appContext);
+
+    const cookies = appContext.ctx.req
+      ? appContext.ctx.req.headers.cookie
+      : null;
+
+    return getCurrentUser(cookies)
+      .then(user => ({
+        ...appProps,
+        currentUser: user,
+      }))
+      .catch(() => appProps);
+  }
+
   render() {
-    const { Component, pageProps, router } = this.props;
+    const { Component, pageProps, router, currentUser } = this.props;
 
     return (
       <>
@@ -27,7 +43,7 @@ class MyApp extends App {
 
         <div className="App">
           <div className="Content">
-            <Component {...pageProps} />
+            <Component {...pageProps} currentUser={currentUser} />
           </div>
         </div>
         {![
@@ -41,7 +57,11 @@ class MyApp extends App {
               router.asPath.includes(route)
             ) && (
               <>
-                <TopNavBar />
+                <TopNavBar
+                  userId={currentUser.id}
+                  avatar={currentUser.avatar}
+                  avatarColor={currentUser.avatarColor}
+                />
               </>
             )}
             <BottomNavBar />

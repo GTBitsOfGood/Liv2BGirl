@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 // API Call
-import { signUp } from "../client/actions/api";
+import { signUp } from "../client/actions/User";
 import urls from "../utils/urls";
 
 // Pages
