@@ -29,5 +29,7 @@ export default {
     createThread: () => "/api/threads/createThread",
     followGroup: () => "/api/groups/followGroup",
     unfollowGroup: () => "/api/groups/unfollowGroup",
+    getCurrentUser: () => "/api/user/getCurrentUser",
+    getUser: () => "/api/user/getUser",
   },
 };

@@ -3,6 +3,7 @@ import React from "react";
 import Head from "next/head";
 import BottomNavBar from "../client/components/NavBar/BottomNavBar";
 import TopNavBar from "../client/components/NavBar/TopNavBar";
+import { getCurrentUser } from "../client/actions/api";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 
@@ -11,8 +12,23 @@ import "../public/styles/App.scss";
 import "../public/styles/components.scss";
 
 class MyApp extends App {
+  static async getInitialProps(appContext) {
+    const appProps = await App.getInitialProps(appContext);
+
+    const cookies = appContext.ctx.req
+      ? appContext.ctx.req.headers.cookie
+      : null;
+
+    return getCurrentUser(cookies)
+      .then(user => ({
+        ...appProps,
+        user,
+      }))
+      .catch(() => appProps);
+  }
+
   render() {
-    const { Component, pageProps, router } = this.props;
+    const { Component, pageProps, router, user } = this.props;
 
     return (
       <>
@@ -26,7 +42,7 @@ class MyApp extends App {
 
         <div className="App">
           <div className="Content">
-            <Component {...pageProps} />
+            <Component {...pageProps} user={user} />
           </div>
         </div>
         {![

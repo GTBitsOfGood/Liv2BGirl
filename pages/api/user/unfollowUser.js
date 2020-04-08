@@ -1,4 +1,4 @@
-import { unfollow } from "../../server/mongodb/actions/User";
+import { unfollow } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/unfollow
 // @desc    Unfollow Request
