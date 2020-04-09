@@ -6,7 +6,6 @@ import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 
 import {
-  faArrowLeft,
   faAngleRight,
   faGlobe,
   faGlasses,
@@ -14,26 +13,29 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// import Keyboard from "./Keyboard";
-// import urls from "../../../utils/urls";
+import Keyboard from "./Keyboard";
 
 // Styling
 import classes from "./question.module.scss";
 
 const AskQuestion = () => {
   const [visibility, setVisibility] = useState("Public");
-  // const [question, setQuestion] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [clickedVis, setClickedVis] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [description, setDescription] = useState("");
+  const [changeAudience, audienceToggle] = useState(true);
 
   const getIcon = () => {
     if (visibility === "Public") {
-      return <FontAwesomeIcon icon={faGlobe} />;
+      return <FontAwesomeIcon icon={faGlobe} className={classes.Icon} />;
     }
     if (visibility === "Anonymous") {
-      return <FontAwesomeIcon icon={faGlasses} />;
+      return <FontAwesomeIcon icon={faGlasses} className={classes.Icon} />;
     }
-    return <FontAwesomeIcon icon={faUserCircle} />;
+    return <FontAwesomeIcon icon={faUserCircle} className={classes.Icon} />;
+  };
+
+  const toggle = () => {
+    audienceToggle(!changeAudience);
   };
 
   return (
@@ -53,9 +55,16 @@ const AskQuestion = () => {
       <div className={classes.AskPage}>
         <div className={classes.Audience}>
           <h3>Audience:</h3>
-          <div role="button" className={classes.SetVis}>
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={() => toggle()}
+            onKeyDown={() => toggle()}
+            className={classes.SetVis}
+          >
             {getIcon()}
             <h3>{visibility}</h3>
+            <FontAwesomeIcon icon={faAngleRight} className={classes.Toggle} />
           </div>
         </div>
 
@@ -64,6 +73,7 @@ const AskQuestion = () => {
           <textarea
             className={classes.QuestionBox}
             placeholder="Start your question with “ What”, “How”, “Why”. etc."
+            onChange={event => setQuestion(event.target.value)}
           />
         </div>
 
@@ -72,50 +82,18 @@ const AskQuestion = () => {
           <textarea
             className={classes.DescriptionBox}
             placeholder="Add more context to your question."
+            onChange={event => setDescription(event.target.value)}
           />
         </div>
       </div>
 
-      {/* < style={{ marginLeft: 10, marginTop: 10 }}>
-       <div style={{ display: "flex" }}>
-         <h3 style={{ marginTop: 6 }}>Audience:</h3>
-
-       <Button
-          onClick={() => setClickedVis(true)}
-          style={{
-            backgroundColor: "transparent",
-            borderColor: "transparent",
-            WebkitTextFillColor: "black",
-          }}
-        >
-          {getIcon()}
-          {visibility}
-          <FontAwesomeIcon
-            style={{ color: "black", marginLeft: 10 }}
-            icon={faAngleRight}
-          />
-        </Button>
-      </div> */}
-      {/* <FormGroup>
-        <Label>Question</Label>
-        <Input
-          type="textarea"
-          placeholder='Start your question with "What" "How", "Why", etc.'
-          style={{ height: 100, width: 325 }}
-          onChange={e => setQuestion(e.target.value)}
-          value={question}
+      {changeAudience && (
+        <Keyboard
+          toggle={toggle}
+          visibility={visibility}
+          setVisibility={setVisibility}
         />
-      </FormGroup> */}
-      {/* <FormGroup>
-        <Label>Description (Optional)</Label>
-        <Input
-          type="textarea"
-          placeholder="Add more context to your question"
-          style={{ height: 230, width: 325 }}
-          onChange={e => setDescription(e.target.value)}
-          value={description}
-        />
-      </FormGroup>  */}
+      )}
     </>
   );
 };

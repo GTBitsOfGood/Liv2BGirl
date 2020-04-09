@@ -1,78 +1,100 @@
 import React from "react";
 
+// Icons
+import { Icon } from "@iconify/react";
+import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
+
 import {
-  faArrowLeft,
   faGlobe,
   faGlasses,
   faCheck,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "next/link";
+
 import classes from "./question.module.scss";
 
-const Keyboard = props => {
-  function getCheck() {
-    return <FontAwesomeIcon style={{ marginLeft: 5 }} icon={faCheck} />;
-  }
+const Audience = props => {
+  const { toggle, visibility, setVisibility } = props;
 
-  return <div />;
+  return (
+    <>
+      <div className="TopNav">
+        <Icon
+          className="Back"
+          icon={bxArrowBack}
+          width="18px"
+          onClick={toggle}
+        />
+        <h3>Audience</h3>
+        <div />
+      </div>
+      <div className={classes.AudiencePage}>
+        <div
+          role="button"
+          tabIndex={0}
+          className={classes.VisibilityCard}
+          onClick={() => setVisibility("Public")}
+          onKeyDown={() => setVisibility("Public")}
+        >
+          <div className={classes.VisibilityCardHead}>
+            <FontAwesomeIcon icon={faGlobe} className={classes.Icon} />
+            <h3 className={classes.Type}>Public</h3>
+            {visibility === "Public" ? (
+              <FontAwesomeIcon icon={faCheck} className={classes.Icon} />
+            ) : (
+              <div />
+            )}
+          </div>
+          <h6 className={classes.VisDesc}>
+            Others will see this question with your identify shown.
+          </h6>
+        </div>
+
+        <div
+          role="button"
+          tabIndex={-1}
+          className={classes.VisibilityCard}
+          onClick={() => setVisibility("Anonymous")}
+          onKeyDown={() => setVisibility("Anonymous")}
+        >
+          <div className={classes.VisibilityCardHead}>
+            <FontAwesomeIcon icon={faGlasses} className={classes.Icon} />
+            <h3 className={classes.Type}>Anonymous</h3>
+            {visibility === "Anonymous" ? (
+              <FontAwesomeIcon icon={faCheck} className={classes.Icon} />
+            ) : (
+              <div />
+            )}
+          </div>
+          <h6 className={classes.VisDesc}>
+            Others will see this question with your identity hidden.
+          </h6>
+        </div>
+
+        <div
+          role="button"
+          tabIndex={-2}
+          className={classes.VisibilityCard}
+          onClick={() => setVisibility("Ambassador")}
+          onKeyDown={() => setVisibility("Ambassador")}
+        >
+          <div className={classes.VisibilityCardHead}>
+            <FontAwesomeIcon icon={faUserCircle} className={classes.Icon} />
+            <h3 className={classes.Type}>Ambassador </h3>
+            {visibility === "Ambassador" ? (
+              <FontAwesomeIcon icon={faCheck} className={classes.Icon} />
+            ) : (
+              <div />
+            )}
+          </div>
+          <h6 className={classes.VisDesc}>
+            Only Ambassadors will see this question and your identity.
+          </h6>
+        </div>
+      </div>
+    </>
+  );
 };
-export default Keyboard;
 
-{
-  /* <div style={{ backgroundColor: "lightgray" }}>
-<Button
-  className="Back"
-  style={{
-    backgroundColor: "transparent",
-    borderColor: "transparent",
-    color: "black",
-  }}
-  tag={Link}
-  onClick={() => props.setClicked(false)}
->
-  <FontAwesomeIcon icon={faArrowLeft} />
-</Button>
-<label style={{ marginLeft: 90, fontWeight: "bold" }}>Audience</label>
-</div>
-<div>
-<ListGroup>
-  <ListGroupItem
-    onClick={() => props.setVis("Public")}
-    tag="button"
-    action
-  >
-    <FontAwesomeIcon style={{ marginRight: 5 }} icon={faGlobe} /> Public
-    {props.audience === "Public" && getCheck()}
-    <br />
-    <Label style={{ fontSize: 11 }}>
-      Others will see this question with your identity shown.
-    </Label>
-  </ListGroupItem>
-  <ListGroupItem
-    onClick={() => props.setVis("Anonymous")}
-    tag="button"
-    action
-  >
-    <FontAwesomeIcon style={{ marginRight: 5 }} icon={faGlasses} />{" "}
-    Anonymous
-    {props.audience === "Anonymous" && getCheck()}
-    <Label style={{ fontSize: 11 }}>
-      Others will see this question with your identity hidden.
-    </Label>
-  </ListGroupItem>
-  <ListGroupItem
-    onClick={() => props.setVis("Ambassador")}
-    tag="button"
-    action
-  >
-    <FontAwesomeIcon style={{ marginRight: 5 }} icon={faUserCircle} />{" "}
-    Ambassador
-    {props.audience === "Ambassador" && getCheck()}
-    <Label style={{ fontSize: 11 }}>
-      Only Ambassador will see this question and your identity.
-    </Label>
-  </ListGroupItem>
-</ListGroup> */
-}
+export default Audience;

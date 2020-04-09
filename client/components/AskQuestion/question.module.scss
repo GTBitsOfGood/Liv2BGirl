@@ -17,13 +17,20 @@
 
   .SetVis {
     display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 150px;
     cursor: pointer;
     margin-left: 20px;
 
-    svg {
+    .Icon {
       margin-right: 6px;
       height: 19px;
       width: 19px;
+    }
+
+    .Toggle {
+      margin-left: auto;
     }
   }
 
@@ -61,6 +68,38 @@
       border-radius: 4px;
       resize: none;
       color: $text;
+    }
+  }
+}
+
+.AudiencePage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  padding: 48px 16px 100px 16px;
+
+  .VisibilityCard {
+    cursor: pointer;
+
+    .VisibilityCardHead {
+      margin-top: 27px;
+      display: flex;
+      align-items: center;
+
+      .Type,
+      .Icon {
+        margin-right: 10px;
+      }
+    }
+
+    .VisDesc {
+      padding: 10px 0;
+      font-weight: normal;
+      border-bottom: 1px solid $light-gray;
     }
   }
 }
