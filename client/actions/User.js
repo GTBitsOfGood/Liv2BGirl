@@ -126,13 +126,14 @@ export const signOut = () => {
   });
 };
 
-export const createThread = (groupId, title, content, tags = []) =>
+export const createThread = (userId, groupId, title, content, tags = []) =>
   fetch(urls.baseUrl + urls.api.createThread(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      userId,
       groupId,
       title,
       tags,
