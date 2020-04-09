@@ -1,35 +1,25 @@
 import React from "react";
-import {
-  Button,
-  FormGroup,
-  Label,
-  Input,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
-
+import { Button, FormGroup, Label, Input } from "reactstrap";
 import {
   faArrowLeft,
   faAngleRight,
   faGlobe,
   faGlasses,
-  faUser,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "next/link";
 import Keyboard from "./Keyboard";
 import urls from "../../../utils/urls";
-import "./question.module.css";
+import classes from "./question.module.css";
 
-const AskQuestion = props => {
+const AskQuestion = () => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [visibility, setVisibility] = React.useState("Public");
   const [question, setQuestion] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [clickedVis, setClickedVis] = React.useState(false);
+
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
   function getIcon() {
@@ -125,43 +115,6 @@ const AskQuestion = props => {
                   icon={faAngleRight}
                 />
               </Button>
-
-              {/* <Dropdown
-            style={{
-              marginLeft: 20,
-              WebkitTextFillColor: "black",
-              color: "white",
-            }}
-            group
-            isOpen={dropdownOpen}
-            size="sm"
-            toggle={toggle}
-          >
-            <DropdownToggle
-              tag="span"
-              data-toggle="dropdown"
-              aria-expanded={dropdownOpen}
-              style={{ color: "transparent" }}
-            >
-              {getIcon()}
-              {visibility}
-              <FontAwesomeIcon
-                style={{ color: "black", marginLeft: 10 }}
-                icon={faAngleRight}
-              />
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem onClick={() => setVisibility("Public")}>
-                Public
-              </DropdownItem>
-              <DropdownItem onClick={() => setVisibility("Anonymous")}>
-                Anonymous
-              </DropdownItem>
-              <DropdownItem onClick={() => setVisibility("Ambassador")}>
-                Ambassador
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown> */}
             </div>
             <br />
             <FormGroup>

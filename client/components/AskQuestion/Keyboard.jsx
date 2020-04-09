@@ -1,9 +1,7 @@
 import React from "react";
 import { Button, ListGroup, ListGroupItem, Label } from "reactstrap";
-
 import {
   faArrowLeft,
-  faAngleRight,
   faGlobe,
   faGlasses,
   faCheck,
@@ -11,8 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "next/link";
-import urls from "../../../utils/urls";
-import "./question.module.css";
+import classes from "./question.module.css";
 
 const Keyboard = props => {
   function getCheck() {

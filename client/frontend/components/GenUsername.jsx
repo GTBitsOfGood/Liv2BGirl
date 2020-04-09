@@ -1,9 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-const GenUsername = props => {
-  const { userid } = props;
+const GenUsername = () => {
   const [describe, setDescribe] = React.useState("");
   const [like, setLike] = React.useState("");
   const [lucky, setLucky] = React.useState("");
@@ -15,12 +13,13 @@ const GenUsername = props => {
     const randLikeBeg = Math.floor(Math.random() * 2);
     const randDesc = Math.floor(Math.random() * (describe.length - 2)) + 2;
     const randLike = Math.floor(Math.random() * (like.length - 2)) + 2;
-    const username =
+
+    return (
       describe.substring(randDescBeg, randDesc) +
       like.substring(randLikeBeg, randLike) +
       lucky +
-      Math.floor(Math.random() * lucky);
-    return username;
+      Math.floor(Math.random() * lucky)
+    );
   }
 
   const descriptions = [
@@ -72,9 +71,9 @@ const GenUsername = props => {
             type="select"
             style={{ height: 35 }}
           >
-            {descriptions.map((word, i) => {
-              return <option> {word} </option>;
-            })}
+            {descriptions.map(word => (
+              <option key={`desc-${word}`}>{` ${word} `}</option>
+            ))}
           </Input>
         </FormGroup>
         <FormGroup>
@@ -89,9 +88,9 @@ const GenUsername = props => {
             type="select"
             style={{ height: 35 }}
           >
-            {favThings.map((word, i) => {
-              return <option> {word} </option>;
-            })}
+            {favThings.map(word => (
+              <option key={`fav-${word}`}>{` ${word} `}</option>
+            ))}
           </Input>
         </FormGroup>
         <FormGroup>
@@ -106,9 +105,9 @@ const GenUsername = props => {
             style={{ height: 35 }}
             type="select"
           >
-            {numbers.map((word, i) => {
-              return <option> {word} </option>;
-            })}
+            {numbers.map(word => (
+              <option key={`numbers-${word}`}>{` ${word} `}</option>
+            ))}
           </Input>
         </FormGroup>
       </Form>
@@ -131,68 +130,66 @@ const GenUsername = props => {
       <Label style={{ marginTop: 10 }}>Pick your username: </Label>
       <br />
       {generate &&
-        describe != "" &&
-        like != "" &&
-        lucky != "" &&
-        usernames.map((name, i) => {
-          return (
-            <div style={{ alignItems: "center" }}>
-              <Button
-                onClick={e => {
-                  setUsername(name[0]);
-                }}
-                style={{
-                  marginRight: 25,
-                  marginBottom: 20,
-                  height: 40,
-                  width: 100,
-                  fontSize: 11,
-                  WebkitBorderRadius: 30,
-                  color: "gray",
-                  backgroundColor: "white",
-                }}
-              >
-                {name[0]}
-              </Button>
+        describe !== "" &&
+        like !== "" &&
+        lucky !== "" &&
+        usernames.map(name => (
+          <div style={{ alignItems: "center" }} key={`usr-${name}`}>
+            <Button
+              onClick={() => {
+                setUsername(name[0]);
+              }}
+              style={{
+                marginRight: 25,
+                marginBottom: 20,
+                height: 40,
+                width: 100,
+                fontSize: 11,
+                WebkitBorderRadius: 30,
+                color: "gray",
+                backgroundColor: "white",
+              }}
+            >
+              {name[0]}
+            </Button>
 
-              <Button
-                onClick={e => {
-                  setUsername(name[1]);
-                }}
-                style={{
-                  marginRight: 25,
-                  marginBottom: 20,
-                  height: 40,
-                  width: 100,
-                  fontSize: 11,
-                  WebkitBorderRadius: 30,
-                  color: "gray",
-                  backgroundColor: "white",
-                }}
-              >
-                {name[1]}
-              </Button>
+            <Button
+              onClick={() => {
+                setUsername(name[1]);
+              }}
+              style={{
+                marginRight: 25,
+                marginBottom: 20,
+                height: 40,
+                width: 100,
+                fontSize: 11,
+                WebkitBorderRadius: 30,
+                color: "gray",
+                backgroundColor: "white",
+              }}
+            >
+              {name[1]}
+            </Button>
 
-              <Button
-                onClick={e => {
-                  setUsername(name[2]);
-                }}
-                style={{
-                  marginBottom: 20,
-                  height: 40,
-                  width: 100,
-                  fontSize: 11,
-                  WebkitBorderRadius: 30,
-                  color: "gray",
-                  backgroundColor: "white",
-                }}
-              >
-                {name[2]}
-              </Button>
-              <br />
-            </div>
-          );
-        })}
+            <Button
+              onClick={() => {
+                setUsername(name[2]);
+              }}
+              style={{
+                marginBottom: 20,
+                height: 40,
+                width: 100,
+                fontSize: 11,
+                WebkitBorderRadius: 30,
+                color: "gray",
+                backgroundColor: "white",
+              }}
+            >
+              {name[2]}
+            </Button>
+            <br />
+          </div>
+        ))}
       <br />
       <Button
         style={{

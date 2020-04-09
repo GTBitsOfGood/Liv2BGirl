@@ -1,8 +1,9 @@
 .page {
-  margin-left: 10;
+  margin-left: 10px;
 }
+
 .button {
-  margin-left: 100;
+  margin-left: 100px;
   background-color: transparent;
 }
 
