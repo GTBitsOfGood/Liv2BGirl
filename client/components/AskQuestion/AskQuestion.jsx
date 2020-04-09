@@ -41,6 +41,7 @@ const AskQuestion = props => {
         />
       );
     }
+
     if (visibility === "Anonymous") {
       return (
         <FontAwesomeIcon
@@ -49,6 +50,7 @@ const AskQuestion = props => {
         />
       );
     }
+
     if (visibility === "Ambassador") {
       return (
         <FontAwesomeIcon
