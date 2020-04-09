@@ -1,10 +1,10 @@
 import React from "react";
-import { useRouter } from "next/router";
 
+// Page Component
 import AskQuestion from "../../../client/components/AskQuestion/AskQuestion";
 
-const askquestion = () => {
+const NewQuestion = () => {
   return <AskQuestion />;
 };
 
-export default askquestion;
+export default NewQuestion;

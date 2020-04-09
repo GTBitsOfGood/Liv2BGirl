@@ -6,7 +6,6 @@ import TopNavBar from "../client/components/NavBar/TopNavBar";
 import { getCurrentUser } from "../client/actions/User";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
-import "bootstrap-css-only/css/bootstrap.min.css";
 
 // Global Styles
 import "../public/styles/App.scss";
