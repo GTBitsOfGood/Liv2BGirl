@@ -75,7 +75,7 @@ const GroupPage = props => {
     
     // eslint-disable-next-line no-alert
     window.alert(
-      `Successfully deleted thread."`
+      `Successfully deleted group."`
     );
   };
 
