@@ -57,11 +57,7 @@ class MyApp extends App {
               router.asPath.includes(route)
             ) && (
               <>
-                <TopNavBar
-                  userId={currentUser.id}
-                  avatar={currentUser.avatar}
-                  avatarColor={currentUser.avatarColor}
-                />
+                <TopNavBar currentUser={currentUser} />
               </>
             )}
             <BottomNavBar />
