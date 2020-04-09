@@ -1,21 +1,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
-// API Calls
-// To be added....
-import { createGroup } from "../../../client/actions/groups";
-
-// Font Awesome
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-// Pages
+import { createGroup } from "../../../client/actions/groups";
 import TermsCond from "../../../client/components/Group/New/TermsCond";
 import NewGroup from "../../../client/components/Group/New/NewGroup";
 import NewGroupConfirmation from "../../../client/components/Group/New/NewGroupConfirmation";
-
-// Navigation
 import urls from "../../../utils/urls";
 
 const CurrentStep = ({ stage, ...rest }) => {

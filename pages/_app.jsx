@@ -6,6 +6,7 @@ import TopNavBar from "../client/components/NavBar/TopNavBar";
 import { getCurrentUser } from "../client/actions/User";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
+import "bootstrap-css-only/css/bootstrap.min.css";
 
 // Global Styles
 import "../public/styles/App.scss";
@@ -52,15 +53,11 @@ class MyApp extends App {
           "/app/groups/new-group",
         ].some(route => router.asPath.includes(route)) && (
           <>
-            {!["/app/groups/", "/app/profile"].some(route =>
+            {!["/app/groups/", "/app/profile", "/app/ask-me/"].some(route =>
               router.asPath.includes(route)
             ) && (
               <>
-                <TopNavBar
-                  userId={currentUser.id}
-                  avatar={currentUser.avatar}
-                  avatarColor={currentUser.avatarColor}
-                />
+                <TopNavBar currentUser={currentUser} />
               </>
             )}
             <BottomNavBar />

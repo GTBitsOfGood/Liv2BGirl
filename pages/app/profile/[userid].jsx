@@ -19,7 +19,9 @@ Profile.getInitialProps = async ({ query }) => {
   const userId = query.userid;
 
   return getUser(userId).then(async user => {
-    user.groups = await Promise.all(user.groups.map((groupId) => getGroup(groupId)));
+    user.groups = await Promise.all(
+      user.groups.map(groupId => getGroup(groupId))
+    );
 
     return {
       user,
