@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import Router from "next/router";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -13,16 +14,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Keyboard from "./Keyboard";
+import Audience from "./Audience";
 
 // Styling
-import classes from "./question.module.scss";
+import classes from "./newquestion.module.scss";
 
-const AskQuestion = () => {
+const NewQuestion = () => {
   const [visibility, setVisibility] = useState("Public");
   const [question, setQuestion] = useState("");
   const [description, setDescription] = useState("");
-  const [changeAudience, audienceToggle] = useState(true);
+  const [changeAudience, audienceToggle] = useState(false);
 
   const getIcon = () => {
     if (visibility === "Public") {
@@ -38,6 +39,17 @@ const AskQuestion = () => {
     audienceToggle(!changeAudience);
   };
 
+  const postQuestion = () => {
+    if (question !== "") {
+      // eslint-disable-next-line no-alert
+      alert(`Question: ${question} Description: ${description}`);
+      Router.push("/app/ask-me");
+      return;
+    }
+    // eslint-disable-next-line no-alert
+    alert(`Question Required!`);
+  };
+
   return (
     <>
       <div className="TopNav">
@@ -45,11 +57,9 @@ const AskQuestion = () => {
           <Icon className="Back" icon={bxArrowBack} width="18px" />
         </Link>
         <h3>Ask Question</h3>
-        <Link href="/app/ask-me">
-          <button type="button" className="Button">
-            Post
-          </button>
-        </Link>
+        <button type="button" className="Button" onClick={() => postQuestion()}>
+          Post
+        </button>
       </div>
 
       <div className={classes.AskPage}>
@@ -88,7 +98,7 @@ const AskQuestion = () => {
       </div>
 
       {changeAudience && (
-        <Keyboard
+        <Audience
           toggle={toggle}
           visibility={visibility}
           setVisibility={setVisibility}
@@ -98,50 +108,4 @@ const AskQuestion = () => {
   );
 };
 
-export default AskQuestion;
-
-// {clickedVis && (
-//   <Keyboard
-//     setVis={setVisibility}
-//     audience={visibility}
-//     setClicked={setClickedVis}
-//   />
-// )}
-// {!clickedVis && (
-//   <div>
-//     <div style={{ backgroundColor: "lightgray" }}>
-//       <Button
-//         className="Back"
-//         style={{
-//           backgroundColor: "transparent",
-//           borderColor: "transparent",
-//           color: "black",
-//         }}
-//         tag={Link}
-//         href={urls.pages.app.termAndCond}
-//       >
-//         <FontAwesomeIcon icon={faArrowLeft} />
-//       </Button>
-//       <label style={{ marginLeft: 70, fontWeight: "bold" }}>
-//         Ask Question
-//       </label>
-
-//       <Button
-//         className="SmallPill"
-//         style={{
-//           backgroundColor: "darkGray",
-//           color: "black",
-//           marginLeft: 55,
-//           fontSize: 11.5,
-//           fontWeight: "bold",
-//           height: 25,
-//           WebkitTextFillColor: "$text",
-//         }}
-//         tag={Link}
-//       >
-//         Post
-//       </Button>
-//     </div>
-
-//   </div>
-// )}
+export default NewQuestion;

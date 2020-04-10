@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import classes from "./question.module.scss";
+import classes from "../newquestion.module.scss";
 
 const Audience = props => {
   const { toggle, visibility, setVisibility } = props;

@@ -1,10 +1,10 @@
 import React from "react";
 
 // Page Component
-import AskQuestion from "../../../client/components/AskQuestion/AskQuestion";
+import NewQuestion from "../../../client/components/AskQuestion/NewQuestion";
 
-const NewQuestion = () => {
-  return <AskQuestion />;
+const NewQuestionPage = () => {
+  return <NewQuestion />;
 };
 
-export default NewQuestion;
+export default NewQuestionPage;
