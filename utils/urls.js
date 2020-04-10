@@ -34,5 +34,6 @@ export default {
     getCurrentUser: () => "/api/user/getCurrentUser",
     getUser: () => "/api/user/getUser",
     getGroup: () => "/api/groups/getGroup",
+    getCommentsByThread: () => "/api/comments/getCommentsByThread",
   },
 };
