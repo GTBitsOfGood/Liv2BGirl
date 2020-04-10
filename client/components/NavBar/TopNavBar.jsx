@@ -27,7 +27,7 @@ const TopNavBar = ({ currentUser }) => {
           </div>
         </Link>
       ) : (
-        <div />
+        <div className="Avatar" />
       )}
       <a href={urls.pages.app.home}>
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />

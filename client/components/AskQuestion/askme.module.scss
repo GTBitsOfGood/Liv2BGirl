@@ -1,3 +1,70 @@
+@import "../../../public/styles/colors";
+
 .AskPage {
   margin-top: 48px;
+  box-sizing: border-box;
+  padding: 20px;
+
+  button {
+    cursor: pointer;
+  }
+
+  .TopHead {
+    display: flex;
+
+    .AskBtn {
+      border-radius: 137px;
+      font-size: 13px;
+      line-height: 19px;
+      border: none;
+      background-color: $light-gray;
+      color: $text;
+      font-weight: bold;
+      height: 32px;
+      min-width: 116px;
+      max-width: 116px;
+      margin-right: 8px;
+
+      &:hover {
+        background-color: $text;
+        color: white;
+      }
+    }
+
+    .SearchBar {
+      position: relative;
+      height: 32px;
+      width: 100%;
+
+      input {
+        box-sizing: border-box;
+        padding-left: 36px;
+        padding-right: 12px;
+        width: 100%;
+        height: 100%;
+        border: 1px solid $light-gray;
+        box-sizing: border-box;
+        border-radius: 67px;
+      }
+
+      svg {
+        position: absolute;
+        left: 10px;
+        top: 25%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .SecondHead {
+    margin-top: 25px;
+    box-sizing: border-box;
+    padding: 0 8px;
+    display: flex;
+    justify-content: space-between;
+
+    .NavBtn {
+      font-weight: normal;
+    }
+  }
 }
