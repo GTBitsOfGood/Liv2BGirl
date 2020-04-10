@@ -49,7 +49,7 @@ class MyApp extends App {
           "/sign-up",
           "/sign-in",
           "/app/groups/thread",
-          "/app/groups/new-group",
+          "/app/groups/new",
         ].some(route => router.asPath.includes(route)) && (
           <>
             {!["/app/groups/", "/app/profile", "/app/ask-me"].some(route =>

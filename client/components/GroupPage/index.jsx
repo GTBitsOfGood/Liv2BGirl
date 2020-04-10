@@ -11,7 +11,7 @@ import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 import { followGroup, unfollowGroup } from "../../actions/User";
 
 // Components
-import ThreadPost from "./Thread/ThreadPost";
+import ThreadPost from "./Thread/Post";
 
 // Logo for Header
 import logo from "../../../public/img/logo.png";
@@ -120,7 +120,7 @@ const GroupPage = props => {
           </select>
 
           <button type="button" className={styles.CreateBtn} disabled={!joined}>
-            <Link href={`/app/groups/${groupid}/create-thread`}>
+            <Link href={`/app/groups/${groupid}/new-thread`}>
               <Icon
                 className={styles.AddPost}
                 width="15px"

@@ -104,18 +104,6 @@ const ThreadPage = props => {
           src="https://picsum.photos/100/100"
           alt="User Avatar"
         />
-        {/* <textarea
-          type="text"
-          name="comment"
-          id="comment"
-          placeholder="Comment"
-          className={styles.CommentInput}
-          onChange={event => {
-            const { value } = event.target;
-
-            setComment(value);
-          }}
-        /> */}
         <Editor
           apiKey={process.env.TINY_API_KEY}
           initialValue=""
