@@ -7,18 +7,58 @@ import bxSearch from "@iconify/icons-bx/bx-search";
 
 // Styling
 import classes from "./askme.module.scss";
+import QuestionCard from "./Question";
+
+const fakeQuestion = {
+  asked: "Lorem ipsum dolor sit amet, consectetur?",
+  comments: 3,
+  postDate: 1,
+  answeredDate: null,
+  ambassador: {},
+  answer: "",
+};
+
+const fakeQuestion2 = {
+  asked: "Lorem ipsum dolor sit amet, consectetur?",
+  comments: 100,
+  postDate: 1,
+  answeredDate: 4,
+  ambassador: {
+    name: "ambassador",
+  },
+  answer:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...",
+};
 
 const AskMe = () => {
   const [curTab, setTab] = useState(0);
 
+  const featured = [
+    fakeQuestion2,
+    fakeQuestion2,
+    fakeQuestion2,
+    fakeQuestion2,
+    fakeQuestion2,
+  ];
+
+  const myQuestions = [
+    fakeQuestion,
+    fakeQuestion2,
+    fakeQuestion,
+    fakeQuestion2,
+    fakeQuestion2,
+  ];
+
+  const bookmarks = [fakeQuestion2, fakeQuestion2];
+
   const askTab = () => {
     if (curTab === 0) {
-      return <p>Ok</p>;
+      return featured.map(question => <QuestionCard question={question} />);
     }
     if (curTab === 1) {
-      return <p>Ok 2</p>;
+      return myQuestions.map(question => <QuestionCard question={question} />);
     }
-    return <p>Ok 3</p>;
+    return bookmarks.map(question => <QuestionCard question={question} />);
   };
 
   return (
@@ -77,7 +117,7 @@ const AskMe = () => {
             </h6>
           </button>
         </div>
-        <div className="Page">{askTab()}</div>
+        <div className={classes.SelectedPage}>{askTab()}</div>
       </div>
     </>
   );
