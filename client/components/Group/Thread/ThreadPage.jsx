@@ -18,19 +18,19 @@ import styles from "./thread.module.scss";
 
 const fakeComments = [
   {
-    poster: "CrazyPurpleFox",
+    posterId: "CrazyPurpleFox",
     postedAt: "00-00-0000 00:00",
     content:
       "1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
   {
-    poster: "SadBlueElephant",
+    posterId: "SadBlueElephant",
     postedAt: "00-00-0000 00:00",
     content:
       "2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
   {
-    poster: "HappyGreenBear",
+    posterId: "HappyGreenBear",
     postedAt: "00-00-0000 00:00",
     content:
       "3 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -45,12 +45,12 @@ const ThreadPage = props => {
   useEffect(() => {
     async function loadComments() {
       await getCommentsByThread(threadid)
-        .then(comments => {
-          setComments(comments); //TODO: handle design for when there are no comments?
+        .then(res => {
+          setComments(res); // TODO: handle design for when there are no comments?
         })
         .catch(error => {
           console.log(error);
-          setComments(fakeComments); //TODO: do actual error handling
+          setComments(fakeComments); // TODO: do actual error handling
         });
     }
 
@@ -108,7 +108,7 @@ const ThreadPage = props => {
         {comments.map(thread => (
           <CommentCard
             key="Thread"
-            author={thread.poster}
+            author={thread.posterId}
             date={thread.postedAt}
             text={thread.content}
           />
@@ -152,7 +152,7 @@ const ThreadPage = props => {
             },
           }}
           toolbar="emoticons bold italic underline alignment bullist"
-          onEditorChange={content => setComment(content)}
+          onEditorChange={content => setComments(content)}
         />
       </div>
     </div>

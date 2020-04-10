@@ -4,7 +4,7 @@ import { getCommentsByThread } from "../../../server/mongodb/actions/Comment";
 // @desc    Get Comments for a Thread
 // @access  Public
 const handler = (req, res) =>
-  getCommentsByThread(req.query.threadId)
+  getCommentsByThread(req.body.threadId)
     .then(comments =>
       res.status(200).json({
         success: true,

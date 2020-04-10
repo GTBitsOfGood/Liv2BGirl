@@ -2,17 +2,17 @@ import fetch from "isomorphic-unfetch";
 import urls from "../../utils/urls";
 
 export const getCommentsByThread = threadId =>
-  fetch(
-    urls.baseUrl + urls.api.getCommentsByThread() + "?threadId=" + threadId,
-    {
-      method: "get",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
+  fetch(urls.baseUrl + urls.api.getCommentsByThread(), {
+    method: "get",
+    mode: "same-origin",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: {
+      threadId,
+    },
+  })
     .then(response => response.json())
     .then(json => {
       if (json == null) {
