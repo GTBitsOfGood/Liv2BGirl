@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createGroup } from "../../../client/actions/Group";
-import TermsCond from "../../../client/components/GroupPage/New/TermsCond";
-import NewGroup from "../../../client/components/GroupPage/New/NewGroup";
-import NewGroupConfirmation from "../../../client/components/GroupPage/New/NewGroupConfirmation";
+import TermsCond from "../../../client/components/Group/New/TermsCond";
+import NewGroup from "../../../client/components/Group/New/NewGroup";
+import NewGroupConfirmation from "../../../client/components/Group/New/NewGroupConfirmation";
 import urls from "../../../utils/urls";
 
 const CurrentStep = ({ stage, ...rest }) => {

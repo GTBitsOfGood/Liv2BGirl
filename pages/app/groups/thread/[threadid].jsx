@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import Thread from "../../../../client/components/GroupPage/Thread";
+import Thread from "../../../../client/components/Group/Thread";
 
 const ThreadPage = () => {
   const router = useRouter();

@@ -1,7 +1,7 @@
 import React from "react";
 
 // Page Component
-import NewQuestion from "../../../client/components/AskQuestion/NewQuestion";
+import NewQuestion from "../../../client/components/AskMe/New";
 
 const NewQuestionPage = () => {
   return <NewQuestion />;

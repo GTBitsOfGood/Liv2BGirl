@@ -58,13 +58,15 @@ export async function filterThreads(groupId, option, lowerBound, upperBound) {
 
 export async function searchThreads(groupId, terms) {
   await mongoDB();
-  return Thread.find({
-    groupId: groupId,
-    $text: { $search: terms },
-  },
-  {
-    score: { $meta: "textScore" }
-  })
+  return Thread.find(
+    {
+      groupId: groupId,
+      $text: { $search: terms },
+    },
+    {
+      score: { $meta: "textScore" },
+    }
+  )
     .sort({
       score: { $meta: "textScore" },
     })

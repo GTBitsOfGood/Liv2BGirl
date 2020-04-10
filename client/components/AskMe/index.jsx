@@ -7,9 +7,10 @@ import bxSearch from "@iconify/icons-bx/bx-search";
 
 // Styling
 import classes from "./askme.module.scss";
-import QuestionCard from "./Question";
+import QuestionCard from "./QuestionCard";
 
 const fakeQuestion = {
+  id: 1,
   asked: "Lorem ipsum dolor sit amet, consectetur?",
   comments: 3,
   postDate: 1,
@@ -19,6 +20,7 @@ const fakeQuestion = {
 };
 
 const fakeQuestion2 = {
+  id: 2,
   asked: "Lorem ipsum dolor sit amet, consectetur?",
   comments: 100,
   postDate: 1,

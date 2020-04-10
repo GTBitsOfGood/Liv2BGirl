@@ -9,11 +9,8 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 
-// Components
-import CommentCard from "./CommentCard";
-
 // Stylings
-import styles from "./thread.module.scss";
+import styles from "../askme.module.scss";
 
 const fakeComments = [
   {
@@ -36,18 +33,30 @@ const fakeComments = [
   },
 ];
 
-const ThreadPage = props => {
-  const { threadid, author, date, groupid } = props;
+const QuestionPage = props => {
+  const { questionid, question } = props;
   const [comment, setComment] = useState("");
   const [saved, setSaved] = useState(false);
 
+  const {
+    id,
+    author,
+    asked,
+    description,
+    comments,
+    postDate,
+    answeredDate,
+    ambassador,
+    answer,
+  } = question;
+
   return (
-    <div className={styles.ThreadPage}>
+    <div className={styles.QuestionPage}>
       <div className="TopNav">
-        <Link href={`/app/groups/${groupid}`}>
+        <Link href="/app/ask-me">
           <Icon className="Back" icon={bxArrowBack} width="18px" />
         </Link>
-        <h3 className={styles.ThreadNavTitle}>Thread</h3>
+        <h3 className={styles.QuestionNavTitle}>Question</h3>
         <button
           type="button"
           onClick={() => setSaved(!saved)}
@@ -60,82 +69,73 @@ const ThreadPage = props => {
           )}
         </button>
       </div>
-      <div className={`Page ${styles.ThreadMain}`}>
-        <div className={styles.ThreadInfo}>
+
+      <div className={`Page ${styles.QuestionMain}`}>
+        <h3>{`Question: ${asked}`}</h3>
+        <div className={styles.QuestionDetails}>
           <img
-            className={styles.ThreadGroupAvatar}
-            src="https://picsum.photos/100/100"
-            alt="Group Avatar"
-          />
-          <h6 className={styles.ThreadGroupName}>{groupid}</h6>
-        </div>
-        <h2 className={styles.ThreadName}>{threadid}</h2>
-        <div className={styles.ThreadDetails}>
-          <img
-            className={styles.ThreadAuthorAvatar}
+            className={styles.QuestionAuthorAvatar}
             src="https://picsum.photos/50/50"
             alt="Group Avatar"
           />
-          <div>
-            <h5 className={styles.ThreadAuthor}>{author}</h5>
-            <h6 className={styles.ThreadDate}>{date}</h6>
-          </div>
+          <h5 className={styles.QuestionAuthor}>{author}</h5>
+          <h6 className={styles.QuestionDate}>{postDate}</h6>
         </div>
-        <h4 className={styles.ThreadText}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </h4>
+        <h4 className={styles.QuestionText}>{description}</h4>
       </div>
-      <div className={styles.ThreadComments}>
-        {fakeComments.map(thread => (
-          <CommentCard
-            key="Thread"
-            author={thread.author}
-            date={thread.date}
-            text={thread.text}
-          />
-        ))}
+
+      <div className={styles.QuestionContent}>
+        {ambassador && (
+          <>
+            <h6 className={styles.SubHeader}>Ambassador’s Answer</h6>
+            <div className={`Page ${styles.QuestionComments}`}>
+              <div className={styles.QuestionDetails}>
+                <img
+                  className={styles.QuestionAuthorAvatar}
+                  src="https://picsum.photos/50/50"
+                  alt="Group Avatar"
+                />
+                <h5 className={styles.QuestionAuthor}>{ambassador.name}</h5>
+                <h6 className={styles.QuestionDate}>{answeredDate}</h6>
+              </div>
+              <h4 className={styles.QuestionText}>{answer}</h4>
+            </div>
+          </>
+        )}
+
+        <h6 className={styles.SubHeader}>{`Comments (${comments})`}</h6>
+        <div>
+          {fakeComments.map(item => (
+            <div className={`Page ${styles.QuestionComments}`}>
+              <div className={styles.QuestionDetails}>
+                <img
+                  className={styles.QuestionAuthorAvatar}
+                  src="https://picsum.photos/50/50"
+                  alt="Group Avatar"
+                />
+                <h5 className={styles.QuestionAuthor}>{item.author}</h5>
+                <h6 className={styles.QuestionDate}>{item.date}</h6>
+              </div>
+              <h4 className={styles.QuestionText}>{item.text}</h4>
+            </div>
+          ))}
+        </div>
       </div>
+
       <div className={styles.CommentFooter}>
         <img
           className={styles.UserAvatar}
           src="https://picsum.photos/100/100"
           alt="User Avatar"
         />
-        <Editor
-          apiKey={process.env.TINY_API_KEY}
-          initialValue=""
-          init={{
-            placeholder: "Comment",
-            height: 140,
-            width: "100%",
-            menubar: false,
-            statusbar: false,
-            toolbar_location: "bottom",
-            plugins: ["lists wordcount emoticons"],
-            setup: editor => {
-              editor.ui.registry.addGroupToolbarButton("alignment", {
-                icon: "align-left",
-                tooltip: "Alignment",
-                items: "alignleft aligncenter alignright alignjustify",
-              });
-            },
-          }}
-          toolbar="emoticons bold italic underline alignment bullist"
-          onEditorChange={content => setComment(content)}
-        />
+        <textarea className={styles.CommentInput} />
       </div>
     </div>
   );
 };
 
-ThreadPage.propTypes = {
-  threadid: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  groupid: PropTypes.string.isRequired,
+QuestionPage.propTypes = {
+  questionid: PropTypes.string.isRequired,
 };
 
-export default ThreadPage;
+export default QuestionPage;

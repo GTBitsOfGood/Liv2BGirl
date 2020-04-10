@@ -103,6 +103,7 @@
   box-sizing: border-box;
   padding: 10px;
   margin-bottom: 16px;
+  cursor: pointer;
 
   .QuestionHeader {
     display: flex;
@@ -154,6 +155,122 @@
 
     .AskedDate {
       color: $gray;
+    }
+  }
+}
+
+.QuestionPage {
+  margin-top: 48px;
+  margin-bottom: 77px;
+  background: $background;
+  display: flex;
+  flex-direction: column;
+
+  .QuestionMain {
+    margin-bottom: 13px;
+    background-color: white;
+
+    .QuestionDetails {
+      margin: 13px 0;
+      display: flex;
+      align-items: center;
+
+      .QuestionAuthorAvatar {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        border-radius: 100%;
+      }
+
+      .QuestionAuthor,
+      .QuestionDate {
+        font-weight: normal;
+      }
+
+      .QuestionDate {
+        margin-left: auto;
+      }
+    }
+
+    .QuestionText {
+      margin-bottom: 12px;
+      font-weight: normal;
+    }
+  }
+
+  .QuestionContent {
+    margin-bottom: 20px;
+
+    .SubHeader {
+      margin-left: 16px;
+      margin-bottom: 13px;
+    }
+
+    .QuestionComments {
+      margin-bottom: 13px;
+      background-color: white;
+
+      .QuestionDetails {
+        margin-bottom: 13px;
+        display: flex;
+        align-items: center;
+
+        .QuestionAuthorAvatar {
+          width: 16px;
+          height: 16px;
+          margin-right: 8px;
+          border-radius: 100%;
+        }
+
+        .QuestionAuthor,
+        .QuestionDate {
+          font-weight: normal;
+        }
+
+        .QuestionDate {
+          margin-left: auto;
+        }
+      }
+
+      .QuestionText {
+        margin-bottom: 12px;
+        font-weight: normal;
+      }
+    }
+  }
+
+  .CommentFooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: $background;
+    border: 1px solid $light-gray;
+    display: flex;
+    box-sizing: border-box;
+    padding: 10px 16px;
+
+    .UserAvatar {
+      width: 32px;
+      height: 32px;
+      margin-top: 4px;
+      margin-right: 10px;
+      border-radius: 100%;
+    }
+
+    .CommentInput {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      height: 40px;
+      font-size: 16px;
+      line-height: 22px;
+      resize: none;
+      color: $text;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 1px solid $light-gray;
+      box-sizing: border-box;
+      border-radius: 4px;
     }
   }
 }

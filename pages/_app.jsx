@@ -50,6 +50,7 @@ class MyApp extends App {
           "/sign-in",
           "/app/groups/thread",
           "/app/groups/new",
+          "/app/ask-me/view",
         ].some(route => router.asPath.includes(route)) && (
           <>
             {!["/app/groups/", "/app/profile", "/app/ask-me"].some(route =>
