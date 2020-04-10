@@ -40,7 +40,7 @@ export async function filterThreads(groupId, option, lowerBound, upperBound) {
     upperBound = new Date();
   }
   return Thread.find({
-    group: groupId,
+    groupId: groupId,
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
   }).then(threads => {
     if (threads) {
@@ -54,4 +54,30 @@ export async function filterThreads(groupId, option, lowerBound, upperBound) {
     }
     return threads;
   });
+}
+
+export async function searchThreads(groupId, terms) {
+  await mongoDB();
+  return Thread.find({
+    groupId: groupId,
+    $text: { $search: terms },
+  },
+  {
+    score: { $meta: "textScore" }
+  })
+    .sort({
+      score: { $meta: "textScore" },
+    })
+    .then(threads => {
+      if (threads) {
+        if (threads.length) {
+          console.log("Successfully searched for threads");
+        } else {
+          console.log("No threads match search criteria");
+        }
+      } else {
+        return Promise.reject(new Error("Request failed"));
+      }
+      return threads;
+    });
 }
