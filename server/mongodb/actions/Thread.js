@@ -1,13 +1,9 @@
 import mongoDB from "../index";
-import jwt from "jsonwebtoken";
 
 import Thread from "../models/Thread";
 
-export async function createThread(groupId, title, tags, content) {
+export async function createThread(posterId, groupId, title, tags, content) {
   await mongoDB();
-
-  // Hardcoded initially but will user id will need to be taken from jwt stored in localstorage or from req.user using passport
-  var posterId = "12345";
 
   return Thread.create({
     posterId,
@@ -41,7 +37,7 @@ export async function filterThreads(groupId, option, lowerBound, upperBound) {
     upperBound = new Date();
   }
   return Thread.find({
-    groupId: groupId,
+    groupId,
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
   }).then(threads => {
     if (threads) {
@@ -59,13 +55,15 @@ export async function filterThreads(groupId, option, lowerBound, upperBound) {
 
 export async function searchThreads(groupId, terms) {
   await mongoDB();
-  return Thread.find({
-    groupId: groupId,
-    $text: { $search: terms },
-  },
-  {
-    score: { $meta: "textScore" }
-  })
+  return Thread.find(
+    {
+      groupId,
+      $text: { $search: terms },
+    },
+    {
+      score: { $meta: "textScore" },
+    }
+  )
     .sort({
       score: { $meta: "textScore" },
     })

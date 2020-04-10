@@ -9,6 +9,7 @@ import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 
 // API Call
 import { followGroup, unfollowGroup } from "../../actions/User";
+import { deleteGroup } from "../../actions/Group";
 
 // Components
 import ThreadPost from "./Thread/ThreadPost";
@@ -68,6 +69,13 @@ const GroupPage = props => {
   const { groupid } = props;
   const [joined, setJoined] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
+
+  const handleDeleteThread = () => {
+    deleteThread(groupid).then(res =>
+      // eslint-disable-next-line no-alert
+      window.alert("Successfully deleted group.")
+    );
+  };
 
   const groupAction = () => {
     const userid = "123456789";

@@ -7,14 +7,16 @@ import { createThread } from "../../../actions/User";
 import logo from "../../../../public/img/logo.png";
 import styles from "./thread.module.scss";
 
-const CreateThreadComponent = () => {
+const CreateThreadComponent = props => {
   const router = useRouter();
   const { groupid } = router.query;
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
+  const { currentUser } = props;
+
   const handleCreateThread = async () => {
-    createThread(groupid, title, text);
+    createThread(currentUser.id, groupid, title, text);
 
     // eslint-disable-next-line no-alert
     window.alert(

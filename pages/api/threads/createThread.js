@@ -5,6 +5,7 @@ import { createThread } from "../../../server/mongodb/actions/Thread";
 // @access  Public
 const handler = (req, res) => {
   createThread(
+    req.body.posterId,
     req.body.groupId,
     req.body.title,
     req.body.tags,
