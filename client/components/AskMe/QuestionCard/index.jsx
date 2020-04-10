@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 import bxCommentDetail from "@iconify/icons-bx/bx-comment-detail";
 
 // Styling
-import classes from "../askme.module.scss";
+import styles from "../askme.module.scss";
 
 const QuestionCard = ({ question }) => {
   const {
@@ -22,32 +22,32 @@ const QuestionCard = ({ question }) => {
   return (
     <>
       <Link href={`/app/ask-me/view/${id}`}>
-        <div className={classes.QuestionCard}>
-          <div className={classes.QuestionHeader}>
-            <h3 className={classes.Question}>{`Question: ${asked}`}</h3>
-            <Icon className={classes.CommentIcon} icon={bxCommentDetail} />
-            <h6 className={classes.Comments}>{comments}</h6>
+        <div className={styles.QuestionCard}>
+          <div className={styles.QuestionHeader}>
+            <h3 className={styles.Question}>{`Question: ${asked}`}</h3>
+            <Icon className={styles.CommentIcon} icon={bxCommentDetail} />
+            <h6 className={styles.Comments}>{comments}</h6>
           </div>
           {answeredDate ? (
-            <div className={classes.Answered}>
-              <div className={classes.AmbassadorInfo}>
+            <div className={styles.Answered}>
+              <div className={styles.AmbassadorInfo}>
                 {ambassador.avatar ? (
                   <div />
                 ) : (
-                  <div className={classes.AvatarPic} />
+                  <div className={styles.AvatarPic} />
                 )}
                 <div>
                   <h4>{ambassador.name}</h4>
-                  <p className={classes.AnsweredDate}>
+                  <p className={styles.AnsweredDate}>
                     {`Answered ${answeredDate}h ago`}
                   </p>
                 </div>
               </div>
-              <h4 className={classes.Answer}>{`Answer: ${answer}`}</h4>
+              <h4 className={styles.Answer}>{`Answer: ${answer}`}</h4>
             </div>
           ) : (
-            <div className={classes.Unanswered}>
-              <p className={classes.AskedDate}>
+            <div className={styles.Unanswered}>
+              <p className={styles.AskedDate}>
                 {postDate > 1
                   ? `Asked ${postDate} days ago`
                   : `Asked ${postDate} day ago`}

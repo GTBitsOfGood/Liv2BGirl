@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Audience from "./Audience";
 
 // Styling
-import classes from "./newquestion.module.scss";
+import styles from "./newquestion.module.scss";
 
 const NewQuestion = () => {
   const [visibility, setVisibility] = useState("Public");
@@ -27,12 +27,12 @@ const NewQuestion = () => {
 
   const getIcon = () => {
     if (visibility === "Public") {
-      return <FontAwesomeIcon icon={faGlobe} className={classes.Icon} />;
+      return <FontAwesomeIcon icon={faGlobe} className={styles.Icon} />;
     }
     if (visibility === "Anonymous") {
-      return <FontAwesomeIcon icon={faGlasses} className={classes.Icon} />;
+      return <FontAwesomeIcon icon={faGlasses} className={styles.Icon} />;
     }
-    return <FontAwesomeIcon icon={faUserCircle} className={classes.Icon} />;
+    return <FontAwesomeIcon icon={faUserCircle} className={styles.Icon} />;
   };
 
   const toggle = () => {
@@ -62,35 +62,35 @@ const NewQuestion = () => {
         </button>
       </div>
 
-      <div className={classes.AskPage}>
-        <div className={classes.Audience}>
+      <div className={styles.AskPage}>
+        <div className={styles.Audience}>
           <h3>Audience:</h3>
           <div
             role="button"
             tabIndex={0}
             onClick={() => toggle()}
             onKeyDown={() => toggle()}
-            className={classes.SetVis}
+            className={styles.SetVis}
           >
             {getIcon()}
             <h3>{visibility}</h3>
-            <FontAwesomeIcon icon={faAngleRight} className={classes.Toggle} />
+            <FontAwesomeIcon icon={faAngleRight} className={styles.Toggle} />
           </div>
         </div>
 
-        <div className={classes.Question}>
+        <div className={styles.Question}>
           <h3>Question</h3>
           <textarea
-            className={classes.QuestionBox}
+            className={styles.QuestionBox}
             placeholder="Start your question with “ What”, “How”, “Why”. etc."
             onChange={event => setQuestion(event.target.value)}
           />
         </div>
 
-        <div className={classes.Description}>
+        <div className={styles.Description}>
           <h3>Description (Optional)</h3>
           <textarea
-            className={classes.DescriptionBox}
+            className={styles.DescriptionBox}
             placeholder="Add more context to your question."
             onChange={event => setDescription(event.target.value)}
           />

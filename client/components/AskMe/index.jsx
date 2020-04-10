@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 import bxSearch from "@iconify/icons-bx/bx-search";
 
 // Styling
-import classes from "./askme.module.scss";
+import styles from "./askme.module.scss";
 import QuestionCard from "./QuestionCard";
 
 const fakeQuestion = {
@@ -70,56 +70,50 @@ const AskMe = () => {
         <h3>Ask Me</h3>
         <div />
       </div>
-      <div className={classes.AskPage}>
-        <div className={classes.TopHead}>
+      <div className={styles.AskPage}>
+        <div className={styles.TopHead}>
           <Link href="/app/ask-me/new">
-            <button type="button" className={classes.AskBtn}>
+            <button type="button" className={styles.AskBtn}>
               Ask Question
             </button>
           </Link>
-          <div className={classes.SearchBar}>
+          <div className={styles.SearchBar}>
             <input type="text" placeholder="Search for questions" />
             <Icon icon={bxSearch} />
           </div>
         </div>
-        <div className={classes.SecondHead}>
+        <div className={styles.SecondHead}>
           <button
             type="button"
-            className={classes.NavBtn}
+            className={styles.NavBtn}
             onClick={() => setTab(0)}
           >
-            <h6
-              className={curTab === 0 ? classes.SelectedNav : classes.NavItem}
-            >
+            <h6 className={curTab === 0 ? styles.SelectedNav : styles.NavItem}>
               Featured
             </h6>
           </button>
 
           <button
             type="button"
-            className={classes.NavBtn}
+            className={styles.NavBtn}
             onClick={() => setTab(1)}
           >
-            <h6
-              className={curTab === 1 ? classes.SelectedNav : classes.NavItem}
-            >
+            <h6 className={curTab === 1 ? styles.SelectedNav : styles.NavItem}>
               My Questions
             </h6>
           </button>
 
           <button
             type="button"
-            className={classes.NavBtn}
+            className={styles.NavBtn}
             onClick={() => setTab(2)}
           >
-            <h6
-              className={curTab === 2 ? classes.SelectedNav : classes.NavItem}
-            >
+            <h6 className={curTab === 2 ? styles.SelectedNav : styles.NavItem}>
               Bookmark
             </h6>
           </button>
         </div>
-        <div className={classes.SelectedPage}>{askTab()}</div>
+        <div className={styles.SelectedPage}>{askTab()}</div>
       </div>
     </>
   );

@@ -53,9 +53,12 @@ class MyApp extends App {
           "/app/ask-me/view",
         ].some(route => router.asPath.includes(route)) && (
           <>
-            {!["/app/groups/", "/app/profile", "/app/ask-me"].some(route =>
-              router.asPath.includes(route)
-            ) && (
+            {![
+              "/app/groups/",
+              "/app/profile",
+              "/app/ask-me",
+              "/app/notifications",
+            ].some(route => router.asPath.includes(route)) && (
               <>
                 <TopNavBar currentUser={currentUser} />
               </>
