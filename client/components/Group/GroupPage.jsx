@@ -70,12 +70,10 @@ const GroupPage = props => {
   const [joined, setJoined] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
 
-  const handleDeleteThread = async () => {
-    deleteThread(groupid);
-    
-    // eslint-disable-next-line no-alert
-    window.alert(
-      `Successfully deleted group."`
+  const handleDeleteThread = () => {
+    deleteThread(groupid).then(res =>
+      // eslint-disable-next-line no-alert
+      window.alert("Successfully deleted group.")
     );
   };
 

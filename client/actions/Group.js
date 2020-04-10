@@ -47,7 +47,7 @@ export const createGroup = (name, description, tags) =>
     });
 
 export const deleteGroup = groupId =>
-  fetch(urls.baseUrl + urls.api.createGroup(), {
+  fetch(urls.baseUrl + urls.api.deleteGroup(), {
     method: "post",
     mode: "same-origin",
     credentials: "include",

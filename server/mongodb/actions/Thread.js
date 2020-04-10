@@ -1,5 +1,4 @@
 import mongoDB from "../index";
-import jwt from "jsonwebtoken";
 
 import Thread from "../models/Thread";
 
@@ -38,7 +37,7 @@ export async function filterThreads(groupId, option, lowerBound, upperBound) {
     upperBound = new Date();
   }
   return Thread.find({
-    groupId: groupId,
+    groupId,
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
   }).then(threads => {
     if (threads) {
@@ -56,13 +55,15 @@ export async function filterThreads(groupId, option, lowerBound, upperBound) {
 
 export async function searchThreads(groupId, terms) {
   await mongoDB();
-  return Thread.find({
-    groupId: groupId,
-    $text: { $search: terms },
-  },
-  {
-    score: { $meta: "textScore" }
-  })
+  return Thread.find(
+    {
+      groupId,
+      $text: { $search: terms },
+    },
+    {
+      score: { $meta: "textScore" },
+    }
+  )
     .sort({
       score: { $meta: "textScore" },
     })
