@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 // Icons
@@ -9,6 +9,18 @@ import bxSearch from "@iconify/icons-bx/bx-search";
 import classes from "./askme.module.scss";
 
 const AskMe = () => {
+  const [curTab, setTab] = useState(0);
+
+  const askTab = () => {
+    if (curTab === 0) {
+      return <p>Ok</p>;
+    }
+    if (curTab === 1) {
+      return <p>Ok 2</p>;
+    }
+    return <p>Ok 3</p>;
+  };
+
   return (
     <>
       <div className="TopNav">
@@ -29,11 +41,43 @@ const AskMe = () => {
           </div>
         </div>
         <div className={classes.SecondHead}>
-          <h6 className={classes.NavBtn}>Featured</h6>
-          <h6 className={classes.NavBtn}>My Questions</h6>
-          <h6 className={classes.NavBtn}>Bookmark</h6>
+          <button
+            type="button"
+            className={classes.NavBtn}
+            onClick={() => setTab(0)}
+          >
+            <h6
+              className={curTab === 0 ? classes.SelectedNav : classes.NavItem}
+            >
+              Featured
+            </h6>
+          </button>
+
+          <button
+            type="button"
+            className={classes.NavBtn}
+            onClick={() => setTab(1)}
+          >
+            <h6
+              className={curTab === 1 ? classes.SelectedNav : classes.NavItem}
+            >
+              My Questions
+            </h6>
+          </button>
+
+          <button
+            type="button"
+            className={classes.NavBtn}
+            onClick={() => setTab(2)}
+          >
+            <h6
+              className={curTab === 2 ? classes.SelectedNav : classes.NavItem}
+            >
+              Bookmark
+            </h6>
+          </button>
         </div>
-        <div className="Page">Test</div>
+        <div className="Page">{askTab()}</div>
       </div>
     </>
   );

@@ -59,12 +59,29 @@
   .SecondHead {
     margin-top: 25px;
     box-sizing: border-box;
-    padding: 0 8px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     .NavBtn {
-      font-weight: normal;
+      border: none;
+      padding: 0;
+      background: transparent;
+      color: $text;
+      width: 33%;
+
+      .SelectedNav {
+        border: 2px solid $text;
+        box-sizing: border-box;
+        padding: 8px;
+        border-radius: 43px;
+      }
+
+      .NavItem {
+        font-weight: normal;
+        box-sizing: border-box;
+        padding: 8px 12px;
+      }
     }
   }
 }
