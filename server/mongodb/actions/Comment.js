@@ -1,7 +1,7 @@
 import mongoDB from "../index";
 import Comment from "../models/Comment";
-import User from "../models/User";
 import Thread from "../models/Thread";
+import User from "../models/User";
 
 export async function createComment(
   poster,
@@ -44,4 +44,22 @@ export async function deleteComment(commentId) {
     }
     return deletedComment;
   });
+}
+
+export async function getCommentsByThread(threadId) {
+  await mongoDB();
+
+  return Thread.findById(threadId)
+    .then(thread => {
+      if (!thread) {
+        return Promise.reject(new Error("Invalid Thread ID"));
+      }
+      return Comment.find({ parentId: threadId }).then(comments => {
+        if (!comments) {
+          return Promise.reject(new Error("Error retrieving comments"));
+        }
+        return comments;
+      });
+    })
+    .catch(() => Promise.reject(new Error("Invalid Thread ID")));
 }

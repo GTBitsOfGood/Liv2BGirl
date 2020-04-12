@@ -2,11 +2,8 @@ import mongoDB from "../index";
 
 import Thread from "../models/Thread";
 
-export async function createThread(groupId, title, tags, content) {
+export async function createThread(posterId, groupId, title, tags, content) {
   await mongoDB();
-
-  // Hardcoded initially but will user id will need to be taken from jwt stored in localstorage or from req.user using passport
-  const posterId = "12345";
 
   return Thread.create({
     posterId,
@@ -31,16 +28,16 @@ export async function deleteThread(threadId) {
 }
 
 // Currently just filtering by date, expects dates in format 'YYYY-MM-DD' or null
-export async function filterThreads(groupId, option, lowerBound, upperBound) {
+export async function filterThreads(
+  groupId,
+  option,
+  lowerBound = new Date("0001-01-01"),
+  upperBound = new Date()
+) {
   await mongoDB();
-  if (lowerBound == null || lowerBound == "undefined") {
-    lowerBound = new Date("0001-01-01");
-  }
-  if (upperBound == null || upperBound == "undefined") {
-    upperBound = new Date();
-  }
+
   return Thread.find({
-    groupId: groupId,
+    groupId,
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
   }).then(threads => {
     if (threads) {
@@ -60,7 +57,7 @@ export async function searchThreads(groupId, terms) {
   await mongoDB();
   return Thread.find(
     {
-      groupId: groupId,
+      groupId,
       $text: { $search: terms },
     },
     {

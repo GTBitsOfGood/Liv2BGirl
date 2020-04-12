@@ -1,13 +1,13 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import Group from "../../../client/components/Group";
+import ViewGroup from "../../../client/components/Group/View";
 
 const GroupPage = () => {
   const router = useRouter();
   const { groupid } = router.query;
 
-  return <Group groupid={groupid} />;
+  return <ViewGroup groupid={groupid} />;
 };
 
 export default GroupPage;
