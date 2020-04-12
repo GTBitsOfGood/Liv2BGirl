@@ -97,7 +97,7 @@ const ViewGroup = props => {
 
   return (
     <>
-      {adminTab && <AdminTab onClick={toggle} />}
+      {adminTab && <AdminTab onClick={toggle} groupid={groupid} />}
       <div className="TopNav">
         <Link href={urls.pages.app.groupList}>
           <Icon className="Back" icon={bxArrowBack} width="18px" />
@@ -105,10 +105,16 @@ const ViewGroup = props => {
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
         {// user.id == groupid.author ||
         user.role === "Ambassador" || user.role === "Moderator" ? (
-          <Icon className="Icon" icon={dotsHorizontal} width="18px" />
+          <Icon
+            onClick={() => toggle()}
+            className="IconButton"
+            icon={dotsHorizontal}
+            width="18px"
+          />
         ) : (
           <div />
-        )}
+        )
+}
       </div>
       <div className={styles.GroupHeader}>
         <img
@@ -125,18 +131,15 @@ const ViewGroup = props => {
           />
         ) : (
           <div />
-        )}
+        )
+}
 
         <div className={styles.GroupInfo}>
           <h3 className={styles.GroupName}>{groupid}</h3>
           <h4 className={styles.GroupDescription}>Description</h4>
         </div>
         {user.role === "Ambassador" || user.role === "Moderator" ? (
-          <button
-            type="button"
-            className={styles.GroupEdit}
-            onClick={() => toggle()}
-          >
+          <button type="button" className={styles.GroupEdit}>
             Edit
           </button>
         ) : (
