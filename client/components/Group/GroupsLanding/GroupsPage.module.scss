@@ -256,6 +256,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
 
       .MyGroupImage {
         width: 72px;
@@ -295,6 +296,7 @@
       border-radius: 32px;
       box-sizing: border-box;
       margin-right: 16px;
+      cursor: pointer;
     }
 
     .CategoryPillSelected {
