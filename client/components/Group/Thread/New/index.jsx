@@ -1,41 +1,56 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import PropTypes from "prop-types";
+
+// Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
-import { createThread } from "../../../../actions/User";
 import logo from "../../../../../public/img/logo.png";
+
+// API Call
+import { createThread } from "../../../../actions/User";
+
+// Styling
 import styles from "../thread.module.scss";
 
+// Navigation
+import urls from "../../../../../utils/urls";
+
 const CreateThreadComponent = props => {
+  const { currentUser } = props;
   const router = useRouter();
   const { groupid } = router.query;
+
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
-  const { currentUser } = props;
-
   const handleCreateThread = async () => {
-    createThread(currentUser.id, groupid, title, text);
+    if (title.length > 0 && text.length > 0) {
+      createThread(currentUser.id, groupid, title, text);
 
-    // eslint-disable-next-line no-alert
-    window.alert(
-      `Created in group ${groupid} with title "${title}" and text "${text}"`
-    );
+      // eslint-disable-next-line no-alert
+      window.alert(
+        `Created in group ${groupid} with title "${title}" and text "${text}"`
+      );
+    } else {
+      // eslint-disable-next-line no-alert
+      window.alert("Post must have a title and description!");
+    }
   };
 
   return (
     <div style={{ marginTop: "48px" }}>
       <div className="TopNav">
-        <Link href={`/app/groups/${groupid}`}>
-          <Icon className="Back" icon={bxArrowBack} width="18px" />
+        <Link href={urls.pages.app.group(groupid)}>
+          <div>
+            <Icon className="Back" icon={bxArrowBack} width="18px" />
+          </div>
         </Link>
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
-        <Link href={`/app/groups/thread/${title}`}>
-          <button type="button" className="Button" onClick={handleCreateThread}>
-            Post
-          </button>
-        </Link>
+        <button type="button" className="Button" onClick={handleCreateThread}>
+          Post
+        </button>
       </div>
       <div className="Page">
         <h1 className={styles.CreateThreadHeading}>Start a New Thread.</h1>
@@ -53,12 +68,18 @@ const CreateThreadComponent = props => {
               setText(event.target.value);
             }}
             className={styles.CreateThreadText}
-            placeholder="Text"
+            placeholder="Description"
           />
         </form>
       </div>
     </div>
   );
+};
+
+CreateThreadComponent.propTypes = {
+  currentUser: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default CreateThreadComponent;

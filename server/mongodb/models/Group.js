@@ -16,7 +16,7 @@ const GroupSchema = new Schema({
     text: true,
   },
   admin: {
-    type: [String],
+    type: String,
     required: true,
   },
   subscribers: {

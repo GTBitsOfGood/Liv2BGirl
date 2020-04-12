@@ -14,7 +14,7 @@ import { followGroup, unfollowGroup } from "../../../actions/User";
 import { getGroup } from "../../../actions/Group";
 
 // Components
-import ThreadPost from "../Thread/Post";
+// import ThreadPost from "../Thread/Post";
 import AdminTab from "./AdminTab";
 
 // Logo for Header
@@ -26,13 +26,8 @@ import styles from "./viewgroup.module.scss";
 // Navigation
 import urls from "../../../../utils/urls";
 
-const user = {
-  id: "1234567",
-  role: "Ambassador",
-};
-
 const ViewGroup = props => {
-  const { groupid } = props;
+  const { groupid, currentUser } = props;
   const [joined, setJoined] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
   const [groupData, setGroupData] = useState(null);
@@ -40,17 +35,27 @@ const ViewGroup = props => {
 
   const groupAction = () => {
     if (joined) {
-      unfollowGroup(groupid, user.id);
+      unfollowGroup(groupid, currentUser.id);
       setJoined(false);
     } else {
-      followGroup(groupid, user.id);
+      followGroup(groupid, currentUser.id);
       setJoined(true);
     }
   };
 
   useEffect(() => {
     getGroup(groupid).then(res => {
-      if (res) setGroupData(res);
+      if (res) {
+        setGroupData(res);
+
+        if (
+          currentUser.role === "Ambassador" ||
+          currentUser.role === "Moderator" ||
+          currentUser.id === res.admin
+        ) {
+          setJoined(true);
+        }
+      }
     });
   }, []);
 
@@ -71,15 +76,15 @@ const ViewGroup = props => {
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
 
         {groupData &&
-        (user.id === groupData.admin ||
-          user.role === "Ambassador" ||
-          user.role === "Moderator") ? (
-          <Icon
-              onClick={() => toggle()}
-              className="IconButton"
-              icon={dotsHorizontal}
-              width="18px"
-            />
+        (currentUser.id === groupData.admin ||
+          currentUser.role === "Ambassador" ||
+          currentUser.role === "Moderator") ? (
+            <Icon
+            onClick={() => toggle()}
+            className="IconButton"
+            icon={dotsHorizontal}
+            width="18px"
+          />
         ) : (
           <div />
         )}
@@ -93,9 +98,9 @@ const ViewGroup = props => {
               src="https://picsum.photos/100/100"
               alt="Group Avatar"
             />
-            {user.id === groupData.admin ||
-            user.role === "Ambassador" ||
-            user.role === "Moderator" ? (
+            {currentUser.id === groupData.admin ||
+            currentUser.role === "Ambassador" ||
+            currentUser.role === "Moderator" ? (
               <Icon
                 className={styles.AdminIcon}
                 icon={accountCircleOutline}
@@ -111,7 +116,9 @@ const ViewGroup = props => {
                 {groupData.description}
               </h4>
             </div>
-            {user.role === "Ambassador" || user.role === "Moderator" ? (
+            {currentUser.id === groupData.admin ||
+            currentUser.role === "Ambassador" ||
+            currentUser.role === "Moderator" ? (
               <button type="button" className={styles.GroupJoin}>
                 Edit
               </button>
@@ -172,6 +179,10 @@ const ViewGroup = props => {
 
 ViewGroup.propTypes = {
   groupid: PropTypes.string.isRequired,
+  currentUser: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ViewGroup;
