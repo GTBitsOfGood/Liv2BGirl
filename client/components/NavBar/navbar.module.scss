@@ -1,4 +1,4 @@
-@import "../../../public/styles/colors.scss";
+@import "../../../public/styles/colors";
 
 // Colors
 $btn: #e0e0e0;
@@ -66,6 +66,7 @@ $active-btn: #bdbdbd;
   background: $background;
   display: flex;
   justify-content: space-between;
+  color: $text;
 
   .NavItem {
     display: flex;
@@ -73,6 +74,7 @@ $active-btn: #bdbdbd;
     justify-content: center;
     align-items: center;
     width: 25%;
+    cursor: pointer;
 
     .NavButton {
       width: 20px;
@@ -80,6 +82,10 @@ $active-btn: #bdbdbd;
       border-radius: 5px;
       background-color: $btn;
       margin-bottom: 6px;
+    }
+
+    .ActiveItem {
+      background-color: $active-btn;
     }
   }
 }

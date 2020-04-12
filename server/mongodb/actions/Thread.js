@@ -1,14 +1,8 @@
 import mongoDB from "../index";
+
 import Thread from "../models/Thread";
 
-export async function createThread(
-  posterId,
-  groupId,
-  title,
-  tags,
-  content,
-  postedAt
-) {
+export async function createThread(posterId, groupId, title, tags, content) {
   await mongoDB();
 
   return Thread.create({
@@ -17,7 +11,6 @@ export async function createThread(
     title,
     tags,
     content,
-    postedAt,
   });
 }
 
@@ -32,4 +25,58 @@ export async function deleteThread(threadId) {
     }
     return deletedThread;
   });
+}
+
+// Currently just filtering by date, expects dates in format 'YYYY-MM-DD' or null
+export async function filterThreads(
+  groupId,
+  option,
+  lowerBound = new Date("0001-01-01"),
+  upperBound = new Date()
+) {
+  await mongoDB();
+
+  return Thread.find({
+    groupId,
+    postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
+  }).then(threads => {
+    if (threads) {
+      if (threads.length) {
+        console.log("Successfully filtered threads");
+      } else {
+        console.log("No threads match filtering criteria");
+      }
+    } else {
+      return Promise.reject(new Error("Request failed"));
+    }
+    return threads;
+  });
+}
+
+export async function searchThreads(groupId, terms) {
+  await mongoDB();
+  return Thread.find(
+    {
+      groupId,
+      $text: { $search: terms },
+    },
+    {
+      score: { $meta: "textScore" },
+    }
+  )
+    .sort({
+      score: { $meta: "textScore" },
+    })
+    .then(threads => {
+      if (threads) {
+        if (threads.length) {
+          console.log("Successfully searched for threads");
+        } else {
+          console.log("No threads match search criteria");
+        }
+      } else {
+        return Promise.reject(new Error("Request failed"));
+      }
+      return threads;
+    });
 }

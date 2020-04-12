@@ -24,10 +24,10 @@ const ThreadSchema = new Schema({
   },
   content: {
     type: String,
+    text: true,
   },
   postedAt: {
     type: Date,
-    required: true,
     default: Date.now,
   },
 });

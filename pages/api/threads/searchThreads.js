@@ -1,16 +1,12 @@
-import { login } from "../../server/mongodb/actions/User";
+import { searchThreads } from "../../../server/mongodb/actions/Thread";
 
-// @route   POST api/login
-// @desc    Login Request
+// @route   GET api/threads/searchThreads
+// @desc    GET Search threads Request
 // @access  Public
-const handler = (req, res) =>
-  login(req.body.email, req.body.password)
-    .then(token => {
-      res.setHeader(
-        "Set-Cookie",
-        `token=${token}; Max-Age=604800; SameSite=Lax; Path=/`
-      );
 
+const handler = (req, res) =>
+  searchThreads(req.query.groupId, req.query.terms)
+    .then(token => {
       res.status(200).json({
         success: true,
         payload: token,

@@ -8,17 +8,17 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 
 // API Call
-import { followGroup, unfollowGroup } from "../../actions/api";
+import { followGroup, unfollowGroup } from "../../actions/User";
+import { deleteGroup } from "../../actions/Group";
 
 // Components
-import ThreadPost from "./Thread/ThreadPost";
+import ThreadPost from "./Thread/Post";
 
 // Logo for Header
 import logo from "../../../public/img/logo.png";
 
 // Stylings
 import styles from "./group.module.scss";
-import urls from "../../../utils/urls";
 
 const fakeThreads = [
   {
@@ -70,6 +70,13 @@ const GroupPage = props => {
   const [joined, setJoined] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
 
+  const handleDeleteThread = () => {
+    deleteThread(groupid).then(res =>
+      // eslint-disable-next-line no-alert
+      window.alert("Successfully deleted group.")
+    );
+  };
+
   const groupAction = () => {
     const userid = "123456789";
 
@@ -83,12 +90,12 @@ const GroupPage = props => {
   };
 
   return (
-    <>
-      <div className={styles.TopNav}>
-        <Link href={urls.pages.app.groupList}>
-          <Icon className={styles.Back} icon={bxArrowBack} width="18px" />
+    <div>
+      <div className="TopNav">
+        <Link href="/app/groups/">
+          <Icon className="Back" icon={bxArrowBack} width="18px" />
         </Link>
-        <img className={styles.Logo} src={logo} alt="Liv2BGirl Logo" />
+        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
         <div />
       </div>
       <div className={styles.GroupHeader}>
@@ -121,7 +128,7 @@ const GroupPage = props => {
           </select>
 
           <button type="button" className={styles.CreateBtn} disabled={!joined}>
-            <Link href={urls.pages.app.createThread(groupid)}>
+            <Link href={`/app/groups/${groupid}/new-thread`}>
               <Icon
                 className={styles.AddPost}
                 width="15px"
@@ -140,7 +147,7 @@ const GroupPage = props => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

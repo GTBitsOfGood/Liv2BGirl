@@ -1,4 +1,4 @@
-@import "../../../public/styles/colors.scss";
+@import "../../../public/styles/colors";
 
 .ProfileHeader {
   margin-top: 48px;
@@ -14,6 +14,14 @@
     height: 86px;
     border-radius: 100px;
     margin-right: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ProfileAvatarImg {
+    height: 80%;
+    object-fit: contain;
   }
 
   .ProfileTitle {

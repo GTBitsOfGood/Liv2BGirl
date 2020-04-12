@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-// API Calls
-// To be added....
-
-// Font Awesome
+// Icons
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// Pages
-import TermsCond from "../../client/components/Group/New/TermsCond";
-import NewGroup from "../../client/components/Group/New/NewGroup";
-import NewGroupConfirmation from "../../client/components/Group/New/NewGroupConfirmation";
+// API Call
+import { createGroup } from "../../../client/actions/Group";
+
+// Components
+import TermsCond from "../../../client/components/Group/New/TermsCond";
+import NewGroup from "../../../client/components/Group/New/NewGroup";
+import NewGroupConfirmation from "../../../client/components/Group/New/NewGroupConfirmation";
 
 // Navigation
-import urls from "../../utils/urls";
+import urls from "../../../utils/urls";
 
 const CurrentStep = ({ stage, ...rest }) => {
   switch (stage) {
@@ -73,19 +73,17 @@ const NewGroupPage = () => {
         setStage(prevState => prevState + 1);
         setStageCompleted(false);
       } else if (stage + 1 === 2) {
-        // await createGroup(values)
-        //   .then(() => {
-        //     setStage(prevState => prevState + 1);
-        //     setStageCompleted(true);
-        //   })
-        //   .catch(() => {
-        //     setStage(0);
-        //     setStageCompleted(false);
-        //     // eslint-disable-next-line no-alert
-        //     window.alert("Failed to create group!");
-        //   });
-        setStage(prevState => prevState + 1);
-        setStageCompleted(true);
+        await createGroup(values.name, values.description, [values.category])
+          .then(() => {
+            setStage(prevState => prevState + 1);
+            setStageCompleted(true);
+          })
+          .catch(() => {
+            setStage(0);
+            setStageCompleted(false);
+            // eslint-disable-next-line no-alert
+            window.alert("Failed to create group!");
+          });
       } else if (stage + 1 === 3) {
         await router.replace(`/app/groups/${values.name}`);
       }

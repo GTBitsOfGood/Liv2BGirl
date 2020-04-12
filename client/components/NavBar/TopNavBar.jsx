@@ -1,21 +1,44 @@
 import React from "react";
-import logo from "../../../public/img/logo.png";
-import style from "./navbar.module.scss";
+import Link from "next/link";
 
-const TopNavBar = () => (
-  <div className={style.TopNav}>
-    <a href="/app/profile">
-      <img
-        className={style.Avatar}
-        src="https://picsum.photos/200/200"
-        alt="Avatar"
-      />
-    </a>
-    <a href="/app/">
-      <img className={style.Logo} src={logo} alt="Liv2BGirl Logo" />
-    </a>
-    <div />
-  </div>
-);
+// Logo/Avatar Assets
+import logo from "../../../public/img/logo.png";
+import { avatarImg, colorArr } from "../../../utils/avatars";
+
+// Navigation
+import urls from "../../../utils/urls";
+
+const TopNavBar = ({ currentUser }) => {
+  const userId = currentUser != null ? currentUser.id : null;
+  const avatar = currentUser != null ? currentUser.avatar : null;
+  const avatarColor = currentUser != null ? currentUser.avatarColor : null;
+
+  return (
+    <div className="TopNav">
+      {userId != null ? (
+        <Link href={urls.pages.app.profile(userId)}>
+          <div
+            style={{
+              backgroundColor: colorArr[avatarColor],
+            }}
+            className="Avatar"
+          >
+            <img
+              src={avatarImg[avatar]}
+              alt="CreateAvatar"
+              className="AvatarImg"
+            />
+          </div>
+        </Link>
+      ) : (
+        <div className="Avatar" />
+      )}
+      <a href={urls.pages.app.home}>
+        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
+      </a>
+      <div />
+    </div>
+  );
+};
 
 export default TopNavBar;

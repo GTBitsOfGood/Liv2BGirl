@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
-// Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
+import { createThread } from "../../../../actions/User";
+import logo from "../../../../../public/img/logo.png";
+import styles from "../thread.module.scss";
 
-// Components
-import logo from "../../../../public/img/logo.png";
-
-// Stylings
-import styles from "./thread.module.scss";
-
-const CreateThreadComponent = () => {
+const CreateThreadComponent = props => {
   const router = useRouter();
   const { groupid } = router.query;
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
-  const handleCreateThread = async () =>
+  const { currentUser } = props;
+
+  const handleCreateThread = async () => {
+    createThread(currentUser.id, groupid, title, text);
+
     // eslint-disable-next-line no-alert
     window.alert(
       `Created in group ${groupid} with title "${title}" and text "${text}"`
     );
+  };
 
   return (
     <div style={{ marginTop: "48px" }}>

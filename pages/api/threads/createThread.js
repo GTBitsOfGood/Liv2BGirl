@@ -3,14 +3,13 @@ import { createThread } from "../../../server/mongodb/actions/Thread";
 // @route   POST api/threads/createThread
 // @desc    Create Thread Request
 // @access  Public
-const handler = (req, res) =>
+const handler = (req, res) => {
   createThread(
     req.body.posterId,
     req.body.groupId,
     req.body.title,
     req.body.tags,
-    req.body.content,
-    req.body.postedAt
+    req.body.content
   )
     .then(thread =>
       res.status(200).json({
@@ -24,5 +23,6 @@ const handler = (req, res) =>
         message: error.message,
       })
     );
+};
 
 export default handler;
