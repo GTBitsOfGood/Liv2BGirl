@@ -9,7 +9,7 @@ import updateIcon from "@iconify/icons-dashicons/update";
 import styles from "../GroupsPage.module.scss";
 
 // Navigation
-import urls from "../../../../utils/urls";
+import urls from "../../../../../utils/urls";
 
 const ExploreGroups = ({
   categories,
@@ -66,7 +66,7 @@ const ExploreGroups = ({
     </div>
     <div className={styles.NotFoundText}>
       <h6>Couldn’t find what you want?</h6>
-      <Link href={urls.pages.app.newGroup}>
+      <Link href={urls.pages.app.newgroup}>
         <>
           <h6 className={styles.CreateText}>Create a Group</h6>
         </>

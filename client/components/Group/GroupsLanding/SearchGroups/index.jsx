@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useDebounce } from "../../../utils/hooks";
+import { useDebounce } from "../../../../utils/hooks";
 
 // Component
 import Group from "../GroupCard";
@@ -9,7 +9,7 @@ import Group from "../GroupCard";
 import styles from "../GroupsPage.module.scss";
 
 // Navigation
-import urls from "../../../../utils/urls";
+import urls from "../../../../../utils/urls";
 
 const SearchGroups = ({ searchTerm, likeableGroups }) => {
   const [groups, setGroups] = useState(likeableGroups);
