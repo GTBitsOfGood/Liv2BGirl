@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import Router from "next/router";
 
 // Icons
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -34,6 +34,8 @@ const CurrentStep = ({ stage, ...rest }) => {
   }
 };
 
+const userId = "5e93869d57bbd30798b3aaa2";
+
 const getStepText = stage => {
   switch (stage) {
     case 0: {
@@ -49,7 +51,7 @@ const getStepText = stage => {
 };
 
 const NewGroupPage = () => {
-  const router = useRouter();
+  const [newGroupId, setGroupId] = useState("");
   const [stage, setStage] = useState(0);
   const [stageCompleted, setStageCompleted] = useState(false);
   const [values, setPureValues] = useState({
@@ -73,10 +75,16 @@ const NewGroupPage = () => {
         setStage(prevState => prevState + 1);
         setStageCompleted(false);
       } else if (stage + 1 === 2) {
-        await createGroup(values.name, values.description, [values.category])
-          .then(() => {
+        await createGroup(
+          values.name,
+          values.description,
+          [values.category],
+          userId
+        )
+          .then(res => {
             setStage(prevState => prevState + 1);
             setStageCompleted(true);
+            setGroupId(res._id);
           })
           .catch(() => {
             setStage(0);
@@ -85,7 +93,7 @@ const NewGroupPage = () => {
             window.alert("Failed to create group!");
           });
       } else if (stage + 1 === 3) {
-        await router.replace(`/app/groups/${values.name}`);
+        await Router.push(`/app/groups/${newGroupId}`);
       }
 
       window.scrollTo(0, 0);
@@ -95,8 +103,10 @@ const NewGroupPage = () => {
   return (
     <>
       <div className="TopNav">
-        <Link href={urls.pages.groupList}>
-          <FontAwesomeIcon className="Back" icon={faArrowLeft} />
+        <Link href={urls.pages.app.groupList}>
+          <div>
+            <FontAwesomeIcon className="Back" icon={faArrowLeft} />
+          </div>
         </Link>
         <h3 className="Text">Create New Group</h3>
         <div />

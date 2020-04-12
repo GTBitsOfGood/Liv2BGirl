@@ -67,9 +67,9 @@ const ExploreGroups = ({
     <div className={styles.NotFoundText}>
       <h6>Couldn’t find what you want?</h6>
       <Link href={urls.pages.app.newgroup}>
-        <>
+        <div>
           <h6 className={styles.CreateText}>Create a Group</h6>
-        </>
+        </div>
       </Link>
     </div>
   </div>

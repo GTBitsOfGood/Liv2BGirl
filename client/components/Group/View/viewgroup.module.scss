@@ -1,33 +1,5 @@
 @import "../../../../public/styles/colors";
 
-.TopNav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 48px;
-  width: 100%;
-  z-index: 999;
-  background: $background;
-  box-sizing: border-box;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .Back,
-  .IconButton {
-    display: flex;
-    align-items: center;
-    border: 0;
-    padding: 0;
-    color: $text;
-  }
-
-  .Logo {
-    width: 124px;
-  }
-}
-
 .GroupHeader {
   height: 120px;
   background-color: $background;

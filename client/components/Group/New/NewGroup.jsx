@@ -12,6 +12,7 @@ const categories = [
   "Movie",
   "Art",
   "Books",
+  "Sports",
   "Mental Health",
   "Dating",
   "College",

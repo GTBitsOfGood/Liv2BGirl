@@ -1,13 +1,15 @@
 import mongoDB from "../index";
 import Group from "../models/Group";
 
-export async function createGroup(name, description = "", tags = []) {
+export async function createGroup(name, description, tags, admin, subscribers) {
   await mongoDB();
 
   return Group.create({
     name,
     description,
     tags,
+    admin,
+    subscribers,
   });
 }
 
@@ -27,13 +29,13 @@ export async function deleteGroup(groupId) {
 export async function followGroup(groupId, userId) {
   await mongoDB();
 
-  await Group.findByIdAndUpdate(groupId, { $push: { subscribers: userId } });
+  return Group.findByIdAndUpdate(groupId, { $push: { subscribers: userId } });
 }
 
 export async function unfollowGroup(groupId, userId) {
   await mongoDB();
 
-  await Group.findByIdAndUpdate(groupId, { $pull: { subscribers: userId } });
+  return Group.findByIdAndUpdate(groupId, { $pull: { subscribers: userId } });
 }
 
 export const getGroup = groupId =>
@@ -46,6 +48,8 @@ export const getGroup = groupId =>
       id: group._id,
       name: group.name,
       description: group.description,
+      admin: group.admin,
+      subscribers: group.subscribers,
       image: group.image,
     };
   });
