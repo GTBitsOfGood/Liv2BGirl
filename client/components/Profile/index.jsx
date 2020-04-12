@@ -11,6 +11,7 @@ import { avatarImg, colorArr } from "../../../utils/avatars";
 
 // Components
 import GroupCard from "./GroupCard";
+
 // Urls
 import urls from "../../../utils/urls";
 

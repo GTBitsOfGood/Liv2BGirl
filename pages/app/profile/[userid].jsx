@@ -1,9 +1,9 @@
 import React from "react";
-import ProfilePage from "../../../client/components/Profile/ProfilePage";
+import Profile from "../../../client/components/Profile";
 import { getUser } from "../../../client/actions/User";
 import { getGroup } from "../../../client/actions/Group";
 
-const Profile = ({ user }) => {
+const ProfilePage = ({ user }) => {
   if (user == null) {
     return (
       <div>
@@ -12,10 +12,10 @@ const Profile = ({ user }) => {
     );
   }
 
-  return <ProfilePage user={user} />;
+  return <Profile user={user} />;
 };
 
-Profile.getInitialProps = async ({ query }) => {
+ProfilePage.getInitialProps = async ({ query }) => {
   const userId = query.userid;
 
   return getUser(userId).then(async user => {
@@ -29,4 +29,4 @@ Profile.getInitialProps = async ({ query }) => {
   });
 };
 
-export default Profile;
+export default ProfilePage;

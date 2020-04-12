@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
+import Router from "next/router";
 
 // API Call
 import { signUp } from "../client/actions/User";
 import urls from "../utils/urls";
 
 // Pages
-import SignUpInfo from "../client/components/SignUp/SignUpInfo";
+import SignUpInfo from "../client/components/SignUp";
 import CreateAvatar from "../client/components/SignUp/CreateAvatar";
 import GenUsername from "../client/components/SignUp/GenUsername";
 import TellUsAbout from "../client/components/SignUp/TellUsAbout";
@@ -56,7 +56,6 @@ const getStepText = stage => {
 };
 
 const SignUp = () => {
-  const router = useRouter();
   const [stage, setStage] = useState(0);
   const [stageCompleted, setStageCompleted] = useState(false);
   const [values, setPureValues] = useState({
@@ -96,7 +95,7 @@ const SignUp = () => {
             window.alert("Failed to create account!");
           });
       } else if (stage + 1 === 5) {
-        await router.replace(urls.pages.app.home);
+        Router.push(urls.pages.app.home);
       }
 
       window.scrollTo(0, 0);

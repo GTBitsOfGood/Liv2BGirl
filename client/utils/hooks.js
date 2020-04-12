@@ -1,10 +1,10 @@
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useDebounce = (value, delay) => {
-  const [debouncedValue, setDebouncedValue] = React.useState(value);
-  const firstDebounce = React.useRef(true);
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  const firstDebounce = useRef(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (value && firstDebounce.current) {
       setDebouncedValue(value);
       firstDebounce.current = false;
