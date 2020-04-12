@@ -1,33 +1,5 @@
 @import "../../../../public/styles/colors";
 
-.TopNav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 48px;
-  width: 100%;
-  z-index: 999;
-  background: $background;
-  box-sizing: border-box;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .Back,
-  .IconButton {
-    display: flex;
-    align-items: center;
-    border: 0;
-    padding: 0;
-    color: $text;
-  }
-
-  .Logo {
-    width: 124px;
-  }
-}
-
 .GroupHeader {
   height: 120px;
   background-color: $background;
@@ -41,6 +13,14 @@
     border-radius: 10px;
   }
 
+  .AdminIcon {
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 100%;
+    margin-top: auto;
+    margin-left: -16px;
+  }
+
   .GroupInfo {
     display: flex;
     flex-direction: column;
@@ -51,7 +31,8 @@
     }
   }
 
-  .GroupJoin {
+  .GroupJoin,
+  .GroupEdit {
     margin-left: auto;
     border-radius: 137px;
     font-size: 13px;
@@ -59,7 +40,7 @@
     border: none;
     background-color: $light-gray;
     color: $text;
-
+    cursor: pointer;
     font-weight: bold;
     height: 24px;
     width: 64px;
@@ -119,5 +100,52 @@
         color: $light-gray;
       }
     }
+  }
+}
+
+.AdminTab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba($text, 0.8);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 8px;
+
+  .AdminButton,
+  .CancelButton {
+    height: 56px;
+    border-radius: 14px;
+    border: none;
+    color: #007aff;
+  }
+
+  .AdminButton {
+    background: #d5d5d6;
+
+    h1 {
+      font-weight: normal;
+    }
+
+    &:nth-of-type(1) {
+      margin-top: auto;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: 1px solid $light-gray;
+    }
+
+    &:nth-of-type(2) {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  .CancelButton {
+    background: white;
+    margin-top: 8px;
   }
 }

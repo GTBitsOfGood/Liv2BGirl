@@ -6,12 +6,15 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
+import dotsHorizontal from "@iconify/icons-mdi/dots-horizontal";
+import accountCircleOutline from "@iconify/icons-mdi/account-circle-outline";
 
 // API Call
 import { followGroup, unfollowGroup } from "../../../actions/User";
 
 // Components
 import ThreadPost from "../Thread/Post";
+import AdminTab from "./AdminTab";
 
 // Logo for Header
 import logo from "../../../../public/img/logo.png";
@@ -67,31 +70,45 @@ const fakeThreads = [
   },
 ];
 
+const user = {
+  id: "1234567",
+  role: "Ambassador",
+};
+
 const ViewGroup = props => {
   const { groupid } = props;
   const [joined, setJoined] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
+  const [adminTab, setAdminTab] = useState(false);
 
   const groupAction = () => {
-    const userid = "123456789";
-
     if (joined) {
-      followGroup(groupid, userid);
+      followGroup(groupid, user.id);
       setJoined(false);
     } else {
-      unfollowGroup(groupid, userid);
+      unfollowGroup(groupid, user.id);
       setJoined(true);
     }
   };
 
+  const toggle = () => {
+    setAdminTab(!adminTab);
+  };
+
   return (
     <>
-      <div className={styles.TopNav}>
+      {adminTab && <AdminTab onClick={toggle} />}
+      <div className="TopNav">
         <Link href={urls.pages.app.groupList}>
-          <Icon className={styles.Back} icon={bxArrowBack} width="18px" />
+          <Icon className="Back" icon={bxArrowBack} width="18px" />
         </Link>
-        <img className={styles.Logo} src={logo} alt="Liv2BGirl Logo" />
-        <div />
+        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
+        {// user.id == groupid.author ||
+        user.role === "Ambassador" || user.role === "Moderator" ? (
+          <Icon className="Icon" icon={dotsHorizontal} width="18px" />
+        ) : (
+          <div />
+        )}
       </div>
       <div className={styles.GroupHeader}>
         <img
@@ -99,17 +116,38 @@ const ViewGroup = props => {
           src="https://picsum.photos/100/100"
           alt="Group Avatar"
         />
+        {// user.id == groupid.author ||
+        user.role === "Ambassador" || user.role === "Moderator" ? (
+          <Icon
+            className={styles.AdminIcon}
+            icon={accountCircleOutline}
+            width="15px"
+          />
+        ) : (
+          <div />
+        )}
+
         <div className={styles.GroupInfo}>
           <h3 className={styles.GroupName}>{groupid}</h3>
           <h4 className={styles.GroupDescription}>Description</h4>
         </div>
-        <button
-          type="button"
-          className={styles.GroupJoin}
-          onClick={groupAction}
-        >
-          {joined ? "Leave" : "Join"}
-        </button>
+        {user.role === "Ambassador" || user.role === "Moderator" ? (
+          <button
+            type="button"
+            className={styles.GroupEdit}
+            onClick={() => toggle()}
+          >
+            Edit
+          </button>
+        ) : (
+          <button
+            type="button"
+            className={styles.GroupJoin}
+            onClick={groupAction}
+          >
+            {joined ? "Leave" : "Join"}
+          </button>
+        )}
       </div>
       <div className="Page">
         <div className={styles.GroupTopBar}>
