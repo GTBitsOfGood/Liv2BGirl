@@ -10,7 +10,7 @@ const BottomNavBar = () => {
 
   return (
     <div className={style.BottomNav}>
-      <Link href="/app" activeClassName={style.ActiveItem}>
+      <Link href="/app">
         <div className={style.NavItem}>
           <div
             className={
@@ -52,7 +52,6 @@ const BottomNavBar = () => {
       <Link href="/app/notifications">
         <div className={style.NavItem}>
           <div
-            c
             className={
               router.asPath === "/app/notifications"
                 ? `${style.NavButton} ${style.ActiveItem}`

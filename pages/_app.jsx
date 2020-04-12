@@ -1,9 +1,15 @@
 import App from "next/app";
 import React from "react";
 import Head from "next/head";
+
+// Nav Bar
 import BottomNavBar from "../client/components/NavBar/BottomNavBar";
 import TopNavBar from "../client/components/NavBar/TopNavBar";
+
+// API Call
 import { getCurrentUser } from "../client/actions/User";
+
+// Icons
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 
@@ -40,11 +46,6 @@ class MyApp extends App {
           />
         </Head>
 
-        <div className="App">
-          <div className="Content">
-            <Component {...pageProps} currentUser={currentUser} />
-          </div>
-        </div>
         {![
           "/sign-up",
           "/sign-in",
@@ -54,15 +55,14 @@ class MyApp extends App {
         ].some(route => router.asPath.includes(route)) && (
           <>
             {![
-              "/app/groups/",
+              "/app/groups",
               "/app/profile",
               "/app/ask-me",
               "/app/notifications",
-            ].some(route => router.asPath.includes(route)) && (
-              <>
-                <TopNavBar currentUser={currentUser} />
-              </>
-            )}
+            ].some(route => router.asPath.includes(route)) && <TopNavBar />}
+            <div className="Content">
+              <Component {...pageProps} currentUser={currentUser} />
+            </div>
             <BottomNavBar />
           </>
         )}

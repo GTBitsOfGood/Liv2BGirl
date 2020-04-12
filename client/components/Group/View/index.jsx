@@ -20,7 +20,7 @@ import logo from "../../../../public/img/logo.png";
 import styles from "./viewgroup.module.scss";
 
 // Navigation
-import urls from "../../../utils/urls";
+import urls from "../../../../utils/urls";
 
 const fakeThreads = [
   {
