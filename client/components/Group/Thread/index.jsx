@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { Editor } from "@tinymce/tinymce-react";
@@ -11,35 +11,51 @@ import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 
 // Components
 import CommentCard from "./CommentCard";
+import { getCommentsByThread } from "../../../actions/Comment";
 
 // Stylings
 import styles from "./thread.module.scss";
 
 const fakeComments = [
   {
-    author: "CrazyPurpleFox",
-    date: "00-00-0000 00:00",
-    text:
+    posterId: "CrazyPurpleFox",
+    postedAt: "00-00-0000 00:00",
+    content:
       "1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
   {
-    author: "SadBlueElephant",
-    date: "00-00-0000 00:00",
-    text:
+    posterId: "SadBlueElephant",
+    postedAt: "00-00-0000 00:00",
+    content:
       "2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
   {
-    author: "HappyGreenBear",
-    date: "00-00-0000 00:00",
-    text:
+    posterId: "HappyGreenBear",
+    postedAt: "00-00-0000 00:00",
+    content:
       "3 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   },
 ];
 
 const ThreadPage = props => {
   const { threadid, author, date, groupid } = props;
-  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    async function loadComments() {
+      await getCommentsByThread(threadid)
+        .then(res => {
+          setComments(res); // TODO: handle design for when there are no comments?
+        })
+        .catch(error => {
+          console.log(error);
+          setComments(fakeComments); // TODO: do actual error handling
+        });
+    }
+
+    loadComments();
+  });
 
   return (
     <div className={styles.ThreadPage}>
@@ -89,12 +105,12 @@ const ThreadPage = props => {
         </h4>
       </div>
       <div className={styles.ThreadComments}>
-        {fakeComments.map(thread => (
+        {comments.map(thread => (
           <CommentCard
             key="Thread"
-            author={thread.author}
-            date={thread.date}
-            text={thread.text}
+            author={thread.posterId}
+            date={thread.postedAt}
+            text={thread.content}
           />
         ))}
       </div>
@@ -124,7 +140,7 @@ const ThreadPage = props => {
             },
           }}
           toolbar="emoticons bold italic underline alignment bullist"
-          onEditorChange={content => setComment(content)}
+          onEditorChange={content => setComments(content)}
         />
       </div>
     </div>

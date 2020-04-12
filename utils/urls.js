@@ -1,7 +1,9 @@
 const prod = process.env.NODE_ENV === "production";
 
 export default {
-  baseUrl: prod ? "https://liv2bgirl.now.sh" : "http://localhost:3000",
+  baseUrl: prod
+    ? process.env.BASE_URL || "https://liv2bgirl.now.sh"
+    : "http://localhost:3000",
   dbUrl: prod
     ? process.env.MONGODB
     : process.env.MONGO_DEV_DB || "mongodb://localhost:27017",
@@ -35,5 +37,6 @@ export default {
     getCurrentUser: () => "/api/user/getCurrentUser",
     getUser: () => "/api/user/getUser",
     getGroup: () => "/api/groups/getGroup",
+    getCommentsByThread: () => "/api/comments/getCommentsByThread",
   },
 };

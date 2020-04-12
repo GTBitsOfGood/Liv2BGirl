@@ -15,7 +15,8 @@
   "scripts": {
     "dev": "npm run format && next",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "npm run build",
     "lint": "eslint --fix --ext .jsx --ext .js .",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
@@ -55,5 +56,9 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "prettier": "1.19.1",
     "prettier-eslint": "^9.0.1"
+  },
+  "engines" : {
+    "node" : ">=10.0.0 <12.0.0",
+    "npm": ">=6.0.0"
   }
 }

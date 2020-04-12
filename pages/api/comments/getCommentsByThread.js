@@ -1,14 +1,14 @@
-import { createGroup } from "../../../server/mongodb/actions/Group";
+import { getCommentsByThread } from "../../../server/mongodb/actions/Comment";
 
-// @route   POST api/groups/createGroup
-// @desc    Create Group Request
+// @route   GET api/comments/getCommentsByThread
+// @desc    Get Comments for a Thread
 // @access  Public
 const handler = (req, res) =>
-  createGroup(req.body.name, req.body.description, req.body.tags)
-    .then(group =>
+  getCommentsByThread(req.body.threadId)
+    .then(comments =>
       res.status(200).json({
         success: true,
-        payload: group,
+        payload: comments,
       })
     )
     .catch(error =>

@@ -8,17 +8,16 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 
 // API Call
-import { followGroup, unfollowGroup } from "../../actions/User";
-import { deleteGroup } from "../../actions/Group";
+import { followGroup, unfollowGroup } from "../../../actions/User";
 
 // Components
-import ThreadPost from "./Thread/Post";
+import ThreadPost from "../Thread/Post";
 
 // Logo for Header
-import logo from "../../../public/img/logo.png";
+import logo from "../../../../public/img/logo.png";
 
 // Stylings
-import styles from "./group.module.scss";
+import styles from "./viewgroup.module.scss";
 
 const fakeThreads = [
   {
@@ -65,17 +64,10 @@ const fakeThreads = [
   },
 ];
 
-const GroupPage = props => {
+const ViewGroup = props => {
   const { groupid } = props;
   const [joined, setJoined] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
-
-  const handleDeleteThread = () => {
-    deleteThread(groupid).then(res =>
-      // eslint-disable-next-line no-alert
-      window.alert("Successfully deleted group.")
-    );
-  };
 
   const groupAction = () => {
     const userid = "123456789";
@@ -151,8 +143,8 @@ const GroupPage = props => {
   );
 };
 
-GroupPage.propTypes = {
+ViewGroup.propTypes = {
   groupid: PropTypes.string.isRequired,
 };
 
-export default GroupPage;
+export default ViewGroup;
