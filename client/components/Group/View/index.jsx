@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
+import dotsHorizontal from "@iconify/icons-mdi/dots-horizontal";
+import accountCircleOutline from "@iconify/icons-mdi/account-circle-outline";
 
 // API Call
 import { followGroup, unfollowGroup } from "../../../actions/User";
@@ -13,6 +15,7 @@ import { getGroup } from "../../../actions/Group";
 
 // Components
 import ThreadPost from "../Thread/Post";
+import AdminTab from "./AdminTab";
 
 // Logo for Header
 import logo from "../../../../public/img/logo.png";
@@ -23,20 +26,24 @@ import styles from "./viewgroup.module.scss";
 // Navigation
 import urls from "../../../../utils/urls";
 
+const user = {
+  id: "1234567",
+  role: "Ambassador",
+};
+
 const ViewGroup = props => {
   const { groupid } = props;
   const [joined, setJoined] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
   const [groupData, setGroupData] = useState(null);
+  const [adminTab, setAdminTab] = useState(false);
 
   const groupAction = () => {
-    const userid = "123456789";
-
     if (joined) {
-      unfollowGroup(groupid, userid);
+      unfollowGroup(groupid, user.id);
       setJoined(false);
     } else {
-      followGroup(groupid, userid);
+      followGroup(groupid, user.id);
       setJoined(true);
     }
   };
@@ -47,16 +54,35 @@ const ViewGroup = props => {
     });
   }, []);
 
+  const toggle = () => {
+    setAdminTab(!adminTab);
+  };
+
   return (
     <>
+      {adminTab && <AdminTab onClick={toggle} groupid={groupid} />}
       <div className="TopNav">
         <Link href={urls.pages.app.groupList}>
           <div>
             <Icon className="Back" icon={bxArrowBack} width="18px" />
           </div>
         </Link>
+
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
-        <div />
+
+        {groupData &&
+        (user.id === groupData.admin ||
+          user.role === "Ambassador" ||
+          user.role === "Moderator") ? (
+          <Icon
+              onClick={() => toggle()}
+              className="IconButton"
+              icon={dotsHorizontal}
+              width="18px"
+            />
+        ) : (
+          <div />
+        )}
       </div>
 
       {groupData && (
@@ -67,6 +93,17 @@ const ViewGroup = props => {
               src="https://picsum.photos/100/100"
               alt="Group Avatar"
             />
+            {user.id === groupData.admin ||
+            user.role === "Ambassador" ||
+            user.role === "Moderator" ? (
+              <Icon
+                className={styles.AdminIcon}
+                icon={accountCircleOutline}
+                width="15px"
+              />
+            ) : (
+              <div />
+            )}
 
             <div className={styles.GroupInfo}>
               <h3 className={styles.GroupName}>{groupData.name}</h3>
@@ -74,14 +111,21 @@ const ViewGroup = props => {
                 {groupData.description}
               </h4>
             </div>
-            <button
-              type="button"
-              className={styles.GroupJoin}
-              onClick={groupAction}
-            >
-              {joined ? "Leave" : "Join"}
-            </button>
+            {user.role === "Ambassador" || user.role === "Moderator" ? (
+              <button type="button" className={styles.GroupJoin}>
+                Edit
+              </button>
+            ) : (
+              <button
+                type="button"
+                className={styles.GroupJoin}
+                onClick={groupAction}
+              >
+                {joined ? "Leave" : "Join"}
+              </button>
+            )}
           </div>
+
           <div className="Page">
             <div className={styles.GroupTopBar}>
               <h6>Sort by </h6>
@@ -110,6 +154,7 @@ const ViewGroup = props => {
               </button>
             </div>
             {/* {fakeThreads.map(thread => (
+
           <ThreadPost
             key="Thread"
             title={thread.title}

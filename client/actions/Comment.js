@@ -1,8 +1,8 @@
 import fetch from "isomorphic-unfetch";
 import urls from "../../utils/urls";
 
-export const getCommentsByThread = threadId =>
-  fetch(urls.baseUrl + urls.api.getCommentsByThread(), {
+export const getCommentsByThread = threadId => {
+  return fetch(urls.baseUrl + urls.api.getCommentsByThread(), {
     method: "get",
     mode: "same-origin",
     credentials: "include",
@@ -23,3 +23,4 @@ export const getCommentsByThread = threadId =>
 
       return json.payload;
     });
+};
