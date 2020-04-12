@@ -1,13 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+
+// Icons
 import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
-import urls from "../../../utils/urls";
-import GroupCard from "./GroupCard";
 import logo from "../../../public/img/logo.png";
 import { avatarImg, colorArr } from "../../../utils/avatars";
+
+// Components
+import GroupCard from "./GroupCard";
+// Urls
+import urls from "../../../utils/urls";
+
+// Styling
 import styles from "./profile.module.scss";
 
 const ProfilePage = ({ user }) => (
