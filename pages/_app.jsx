@@ -46,6 +46,10 @@ class MyApp extends App {
           />
         </Head>
 
+        <div className="Content">
+          <Component {...pageProps} currentUser={currentUser} />
+        </div>
+
         {![
           "/sign-up",
           "/sign-in",
@@ -60,9 +64,7 @@ class MyApp extends App {
               "/app/ask-me",
               "/app/notifications",
             ].some(route => router.asPath.includes(route)) && <TopNavBar />}
-            <div className="Content">
-              <Component {...pageProps} currentUser={currentUser} />
-            </div>
+
             <BottomNavBar />
           </>
         )}
