@@ -1,18 +1,11 @@
 import React from "react";
-import Link from "next/link";
 
 // Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 
-// Logo for Header
-import logo from "../../../../public/img/logo.png";
-
 // Styling
 import styles from "./viewgroup.module.scss";
-
-// Navigation
-import urls from "../../../../utils/urls";
 
 const ManageTab = ({ onClick, groupid }) => {
   return (
