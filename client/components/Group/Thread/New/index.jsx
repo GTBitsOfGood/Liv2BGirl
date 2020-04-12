@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
-import { createThread } from "../../../actions/User";
-import logo from "../../../../public/img/logo.png";
-import styles from "./thread.module.scss";
+import { createThread } from "../../../../actions/User";
+import logo from "../../../../../public/img/logo.png";
+import styles from "../thread.module.scss";
 
 const CreateThreadComponent = props => {
   const router = useRouter();

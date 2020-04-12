@@ -1,14 +1,14 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import ThreadPage from "../../../../client/components/Group/Thread/ThreadPage";
+import Thread from "../../../../client/components/Group/Thread";
 
-const Thread = () => {
+const ThreadPage = () => {
   const router = useRouter();
   const { threadid } = router.query;
 
   return (
-    <ThreadPage
+    <Thread
       threadid={threadid}
       author="username"
       date="00-00-0000 00:00"
@@ -17,4 +17,4 @@ const Thread = () => {
   );
 };
 
-export default Thread;
+export default ThreadPage;

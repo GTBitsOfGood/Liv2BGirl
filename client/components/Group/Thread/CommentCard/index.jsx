@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Stylings
-import styles from "./thread.module.scss";
+import styles from "../thread.module.scss";
 
 const CommentPage = props => {
   const { author, date, text } = props;

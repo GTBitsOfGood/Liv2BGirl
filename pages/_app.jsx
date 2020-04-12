@@ -6,7 +6,6 @@ import TopNavBar from "../client/components/NavBar/TopNavBar";
 import { getCurrentUser } from "../client/actions/User";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
-import "bootstrap-css-only/css/bootstrap.min.css";
 
 // Global Styles
 import "../public/styles/App.scss";
@@ -50,12 +49,16 @@ class MyApp extends App {
           "/sign-up",
           "/sign-in",
           "/app/groups/thread",
-          "/app/groups/new-group",
+          "/app/groups/new",
+          "/app/ask-me/view",
         ].some(route => router.asPath.includes(route)) && (
           <>
-            {!["/app/groups/", "/app/profile", "/app/ask-me/"].some(route =>
-              router.asPath.includes(route)
-            ) && (
+            {![
+              "/app/groups/",
+              "/app/profile",
+              "/app/ask-me",
+              "/app/notifications",
+            ].some(route => router.asPath.includes(route)) && (
               <>
                 <TopNavBar currentUser={currentUser} />
               </>
