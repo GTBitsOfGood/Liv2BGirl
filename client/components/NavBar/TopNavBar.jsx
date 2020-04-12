@@ -1,7 +1,11 @@
 import React from "react";
 import Link from "next/link";
+
+// Logo/Avatar Assets
 import logo from "../../../public/img/logo.png";
 import { avatarImg, colorArr } from "../../../utils/avatars";
+
+// Navigation
 import urls from "../../../utils/urls";
 
 const TopNavBar = ({ currentUser }) => {

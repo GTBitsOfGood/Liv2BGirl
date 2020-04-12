@@ -19,6 +19,9 @@ import logo from "../../../../public/img/logo.png";
 // Stylings
 import styles from "./viewgroup.module.scss";
 
+// Navigation
+import urls from "../../../../utils/urls";
+
 const fakeThreads = [
   {
     title: "Test 1",
@@ -82,12 +85,12 @@ const ViewGroup = props => {
   };
 
   return (
-    <div>
-      <div className="TopNav">
-        <Link href="/app/groups/">
-          <Icon className="Back" icon={bxArrowBack} width="18px" />
+    <>
+      <div className={styles.TopNav}>
+        <Link href={urls.pages.app.groupList}>
+          <Icon className={styles.Back} icon={bxArrowBack} width="18px" />
         </Link>
-        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
+        <img className={styles.Logo} src={logo} alt="Liv2BGirl Logo" />
         <div />
       </div>
       <div className={styles.GroupHeader}>
@@ -139,7 +142,7 @@ const ViewGroup = props => {
           />
         ))}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -30,6 +30,8 @@
         "assert": "htmlFor",
         "depth": 25
       }
-    ]
+    ],
+    "no-nested-ternary": "off",
+    "import/prefer-default-export": "off"
   }
 }
