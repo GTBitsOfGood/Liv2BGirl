@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./Group.module.scss";
-import urls from "../../../../utils/urls";
+import urls from "../../../../../utils/urls";
 
 const Group = ({ info }) => {
   const { id, name, people, description } = info;

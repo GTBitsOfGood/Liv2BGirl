@@ -12,7 +12,7 @@ import styles from "../GroupsPage.module.scss";
 import AllGroups from "./AllGroups";
 
 // Navigation
-import urls from "../../../../utils/urls";
+import urls from "../../../../../utils/urls";
 
 const MyGroups = ({ groups }) => {
   const [showAll, setShowAll] = useState(false);
