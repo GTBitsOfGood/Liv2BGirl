@@ -148,7 +148,11 @@ const Thread = ({ currentUser, thread }) => {
 Thread.propTypes = {
   thread: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
+    author: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }).isRequired,
     groupId: PropTypes.string.isRequired,
     groupName: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
