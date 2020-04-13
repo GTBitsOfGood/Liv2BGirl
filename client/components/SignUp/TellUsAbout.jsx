@@ -26,7 +26,7 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
   }, [age, grade, interests]);
 
   const renderAgeOptions = () => {
-    const ages = [13, 14, 15, 16, 17, 18]; // TODO: hardcoded
+    const ages = [13, 14, 15, 16, 17, 18];
 
     return ages.map(item => (
       <option onChange={() => setValues({ age: item })}>{item}</option>
@@ -34,7 +34,7 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
   };
 
   const renderGradeOptions = () => {
-    const grades = ["7th", "8th", "9th", "10th", "11th", "12th"]; // TODO: hardcoded
+    const grades = ["7th", "8th", "9th", "10th", "11th", "12th"];
 
     return grades.map(item => (
       <option onChange={() => setValues({ grade: item })}>{item}</option>

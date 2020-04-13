@@ -34,6 +34,7 @@ const ViewGroup = ({ groupid, currentUser }) => {
   const [groupData, setGroupData] = useState(null);
   const [adminTab, setAdminTab] = useState(false);
   const [threads, setThreads] = useState([]);
+  const [isAdmin, setAdmin] = useState(false);
 
   const groupAction = () => {
     if (joined) {
@@ -54,12 +55,9 @@ const ViewGroup = ({ groupid, currentUser }) => {
       if (res) {
         setGroupData(res);
 
-        if (
-          currentUser?.role === "Ambassador" ||
-          currentUser?.role === "Moderator" ||
-          currentUser?.id === res.admin
-        ) {
+        if (currentUser.role === "Ambassador" || currentUser.id === res.admin) {
           setJoined(true);
+          setAdmin(true);
         }
       }
     });
@@ -90,10 +88,7 @@ const ViewGroup = ({ groupid, currentUser }) => {
 
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
 
-        {groupData &&
-        (currentUser?.id === groupData.admin ||
-          currentUser?.role === "Ambassador" ||
-          currentUser?.role === "Moderator") ? (
+        {groupData && isAdmin ? (
           <Icon
             onClick={() => toggle()}
             className="IconButton"
@@ -114,8 +109,7 @@ const ViewGroup = ({ groupid, currentUser }) => {
               alt="Group Avatar"
             />
             {currentUser?.id === groupData.admin ||
-            currentUser?.role === "Ambassador" ||
-            currentUser?.role === "Moderator" ? (
+            currentUser?.role === "Ambassador" ? (
               <Icon
                 className={styles.AdminIcon}
                 icon={accountCircleOutline}
@@ -131,9 +125,7 @@ const ViewGroup = ({ groupid, currentUser }) => {
                 {groupData.description}
               </h4>
             </div>
-            {currentUser?.id === groupData.admin ||
-            currentUser?.role === "Ambassador" ||
-            currentUser?.role === "Moderator" ? (
+            {isAdmin ? (
               <button type="button" className={styles.GroupJoin}>
                 Edit
               </button>

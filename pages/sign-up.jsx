@@ -65,8 +65,8 @@ const SignUp = () => {
     invCode: "",
     avatar: 0,
     avatarColor: 0,
-    age: 13,
-    grade: "7th",
+    age: 0,
+    grade: 0,
     interests: [],
   });
 

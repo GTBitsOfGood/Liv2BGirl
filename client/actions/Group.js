@@ -22,13 +22,7 @@ export const getGroup = groupId =>
       return json.payload;
     });
 
-export const createGroup = (
-  name,
-  description,
-  category,
-  admin,
-  subscribers = []
-) =>
+export const createGroup = (name, description, category, admin) =>
   fetch(urls.baseUrl + urls.api.createGroup(), {
     method: "post",
     mode: "same-origin",
@@ -41,7 +35,6 @@ export const createGroup = (
       description,
       category,
       admin,
-      subscribers,
     }),
   })
     .then(response => response.json())

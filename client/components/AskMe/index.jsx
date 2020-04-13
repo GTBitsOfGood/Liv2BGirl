@@ -12,49 +12,34 @@ import QuestionCard from "./QuestionCard";
 // Navigation
 import urls from "../../../utils/urls";
 
-const fakeQuestion = {
-  id: 1,
-  asked: "Lorem ipsum dolor sit amet, consectetur?",
-  comments: 3,
-  postDate: 1,
-  answeredDate: null,
-  ambassador: {},
-  answer: "",
-};
+// const fakeQuestion = {
+//   id: 1,
+//   asked: "Lorem ipsum dolor sit amet, consectetur?",
+//   comments: 3,
+//   postDate: 1,
+//   answeredDate: null,
+//   ambassador: {},
+//   answer: "",
+// };
 
-const fakeQuestion2 = {
-  id: 2,
-  asked: "Lorem ipsum dolor sit amet, consectetur?",
-  comments: 100,
-  postDate: 1,
-  answeredDate: 4,
-  ambassador: {
-    name: "ambassador",
-  },
-  answer:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...",
-};
+// const fakeQuestion2 = {
+//   id: 2,
+//   asked: "Lorem ipsum dolor sit amet, consectetur?",
+//   comments: 100,
+//   postDate: 1,
+//   answeredDate: 4,
+//   ambassador: {
+//     name: "ambassador",
+//   },
+//   answer:
+//     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...",
+// };
 
 const AskMe = () => {
   const [curTab, setTab] = useState(0);
-
-  const featured = [
-    fakeQuestion2,
-    fakeQuestion2,
-    fakeQuestion2,
-    fakeQuestion2,
-    fakeQuestion2,
-  ];
-
-  const myQuestions = [
-    fakeQuestion,
-    fakeQuestion2,
-    fakeQuestion,
-    fakeQuestion2,
-    fakeQuestion2,
-  ];
-
-  const bookmarks = [fakeQuestion2, fakeQuestion2];
+  const featured = [];
+  const myQuestions = [];
+  const bookmarks = [];
 
   const askTab = () => {
     if (curTab === 0) {
