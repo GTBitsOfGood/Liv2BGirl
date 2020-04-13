@@ -48,7 +48,7 @@ const ProfilePage = ({ user }) => (
           {`${user.age} yo • ${user.grade}th grade`}
         </h3>
         <h6 className={styles.ProfileDescription}>
-          Discription Lorem ipsum dolor sit amet, elit
+          Description Lorem ipsum dolor sit amet, elit test overflow
         </h6>
       </div>
     </div>

@@ -146,6 +146,10 @@
     .ThreadDetails {
       display: flex;
 
+      .ThreadAuthor {
+        cursor: pointer;
+      }
+
       .ThreadDate {
         font-weight: normal;
       }
@@ -227,6 +231,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .CommentAuthor {
+      cursor: pointer;
     }
 
     .CommentDate {

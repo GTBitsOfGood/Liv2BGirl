@@ -5,13 +5,13 @@ import User from "../models/User";
 export async function followGroup(groupId, userId) {
   await mongoDB();
 
-  return Group.findByIdAndUpdate(groupId, { $push: { subscribers: userId } });
+  return User.findByIdAndUpdate(userId, { $push: { groups: groupId } });
 }
 
 export async function unfollowGroup(groupId, userId) {
   await mongoDB();
 
-  return Group.findByIdAndUpdate(groupId, { $pull: { subscribers: userId } });
+  return User.findByIdAndUpdate(userId, { $pull: { groups: groupId } });
 }
 
 export async function createGroup(

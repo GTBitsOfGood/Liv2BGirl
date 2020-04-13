@@ -20,7 +20,7 @@ ThreadPage.getInitialProps = async ({ query }) => {
   const { threadid } = query;
 
   const data = {
-    id: threadid,
+    threadid,
   };
 
   await getThread(threadid).then(async res => {
@@ -61,7 +61,7 @@ ThreadPage.propTypes = {
   }).isRequired,
 
   data: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    threadid: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     postedAt: PropTypes.string.isRequired,
