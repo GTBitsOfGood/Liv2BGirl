@@ -1,18 +1,14 @@
 import fetch from "isomorphic-unfetch";
 import urls from "../../utils/urls";
 
-export const createComment = (poster, parentId, content) =>
-  fetch(urls.baseUrl + urls.api.createComment(), {
-    method: "post",
-    mode: "same-origin",
-    credentials: "include",
+export const getGroupThreads = groupId =>
+  fetch(urls.baseUrl + urls.api.getThreads(), {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      poster,
-      parentId,
-      content,
+      groupId,
     }),
   })
     .then(response => response.json())
@@ -22,14 +18,13 @@ export const createComment = (poster, parentId, content) =>
       } else if (!json.success) {
         throw new Error(json.message);
       }
+
       return json.payload;
     });
 
-export const getCommentsByThread = threadId => {
-  return fetch(urls.baseUrl + urls.api.getCommentsByThread(), {
-    method: "post",
-    mode: "same-origin",
-    credentials: "include",
+export const getThread = threadId =>
+  fetch(urls.baseUrl + urls.api.getThread(), {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -47,4 +42,3 @@ export const getCommentsByThread = threadId => {
 
       return json.payload;
     });
-};

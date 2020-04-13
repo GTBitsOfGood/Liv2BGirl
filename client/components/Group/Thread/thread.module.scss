@@ -145,47 +145,46 @@
   .ThreadComments {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    padding-bottom: 90px;
+    height: 100%;
+    margin-bottom: 100px;
   }
 
   .CommentFooter {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: #f2f2f2;
-    border: 1px solid #bdbdbd;
-    display: flex;
+    background: $background;
+    border: 1px solid $light-gray;
     box-sizing: border-box;
     padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
 
-    .UserAvatar {
-      width: 32px;
-      height: 32px;
-      margin-top: 4px;
-      margin-right: 10px;
-      border-radius: 100%;
-    }
+    .Footer1 {
+      display: flex;
 
-    .CommentInput {
-      width: 100%;
-      margin: auto 0;
-      margin-right: 16px;
-      margin-bottom: 15px;
-      padding: 10px;
-      height: 40px;
-      font-size: 16px;
-      line-height: 22px;
-      resize: none;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      border: 1px solid #cccccc;
-      box-sizing: border-box;
-      border-radius: 4px;
+      .UserAvatar {
+        width: 32px;
+        height: 32px;
+        margin-top: 4px;
+        margin-right: 10px;
+        border-radius: 100%;
+      }
 
-      &:focus {
-        height: 170px;
-        margin-bottom: 6px;
+      .CommentInput {
+        width: 100%;
+        margin: auto 0;
+        padding: 10px;
+        height: 40px;
+        font-size: 16px;
+        line-height: 22px;
+        resize: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border: 1px solid #cccccc;
+        box-sizing: border-box;
+        border-radius: 4px;
+        color: $text;
       }
     }
   }

@@ -10,7 +10,9 @@ const NewThreadPage = props => {
 };
 
 NewThreadPage.propTypes = {
-  currentUser: PropTypes.string.isRequired,
+  currentUser: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default NewThreadPage;

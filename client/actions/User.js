@@ -139,15 +139,17 @@ export const createThread = (posterId, groupId, title, content, tags = []) =>
       tags,
       content,
     }),
-  }).then(json => {
-    if (json == null) {
-      throw new Error("Could not connect to API!");
-    } else if (!json.success) {
-      throw new Error(json.message);
-    }
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
 
-    return json.payload;
-  });
+      return json.payload;
+    });
 
 export const getCurrentUser = cookies => {
   const conditionals = {};

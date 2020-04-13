@@ -1,7 +1,7 @@
 import mongoDB from "../index";
 import Group from "../models/Group";
 
-export async function createGroup(name, description, tags, admin, subscribers) {
+export async function createGroup(name, description, tags, admin) {
   await mongoDB();
 
   return Group.create({
@@ -9,7 +9,6 @@ export async function createGroup(name, description, tags, admin, subscribers) {
     description,
     tags,
     admin,
-    subscribers,
   });
 }
 

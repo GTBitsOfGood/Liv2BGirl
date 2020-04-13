@@ -30,6 +30,10 @@ const ThreadSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  comments: {
+    type: [Object],
+    default: [],
+  },
 });
 
 export default mongoose.models.Thread || mongoose.model("Thread", ThreadSchema);

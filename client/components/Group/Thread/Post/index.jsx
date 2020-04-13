@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 
@@ -6,15 +6,28 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import bxCommentDetail from "@iconify/icons-bx/bx-comment-detail";
 
+// API Call
+import { getUser } from "../../../../actions/User";
+
 // Styling
 import styles from "../thread.module.scss";
 
+// Navigation
+import urls from "../../../../../utils/urls";
+
 const ThreadPost = props => {
-  const { title, summary, author, comments } = props;
+  const { threadid, title, summary, authorid, comments } = props;
+  const [author, setAuthor] = useState("");
+
+  useEffect(() => {
+    getUser(authorid).then(res => {
+      if (res) setAuthor(res.username);
+    });
+  }, []);
 
   return (
     <button type="button" className={styles.GroupThread}>
-      <Link href={`/app/groups/thread/${title}`}>
+      <Link href={urls.pages.app.thread(threadid)}>
         <div>
           <div style={{ display: "flex", marginBottom: "4px" }}>
             <h3 className={styles.ThreadName}>{title}</h3>
@@ -41,10 +54,11 @@ const ThreadPost = props => {
 };
 
 ThreadPost.propTypes = {
+  threadid: PropTypes.string.isRequired,
+  authorid: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  comments: PropTypes.number.isRequired,
+  comments: PropTypes.string.isRequired,
 };
 
 export default ThreadPost;

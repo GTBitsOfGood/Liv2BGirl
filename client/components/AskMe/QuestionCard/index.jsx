@@ -7,6 +7,7 @@ import bxCommentDetail from "@iconify/icons-bx/bx-comment-detail";
 
 // Styling
 import styles from "../askme.module.scss";
+import urls from "../../../../utils/urls";
 
 const QuestionCard = ({ question }) => {
   const {
@@ -21,7 +22,7 @@ const QuestionCard = ({ question }) => {
 
   return (
     <>
-      <Link href={`/app/ask-me/view/${id}`}>
+      <Link href={urls.pages.app.viewQuestion(id)}>
         <div className={styles.QuestionCard}>
           <div className={styles.QuestionHeader}>
             <h3 className={styles.Question}>{`Question: ${asked}`}</h3>

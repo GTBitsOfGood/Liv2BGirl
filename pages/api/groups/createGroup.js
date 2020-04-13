@@ -8,8 +8,7 @@ const handler = (req, res) =>
     req.body.name,
     req.body.description,
     req.body.tags,
-    req.body.admin,
-    req.body.subscribers
+    req.body.admin
   )
     .then(group =>
       res.status(200).json({

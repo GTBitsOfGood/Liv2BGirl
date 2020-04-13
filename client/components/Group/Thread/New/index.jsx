@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import Link from "next/link";
 import PropTypes from "prop-types";
 
@@ -27,12 +27,11 @@ const CreateThreadComponent = props => {
 
   const handleCreateThread = async () => {
     if (title.length > 0 && text.length > 0) {
-      createThread(currentUser.id, groupid, title, text);
-
-      // eslint-disable-next-line no-alert
-      window.alert(
-        `Created in group ${groupid} with title "${title}" and text "${text}"`
-      );
+      createThread(currentUser.id, groupid, title, text).then(res => {
+        if (res) {
+          Router.push(urls.pages.app.thread(res._id));
+        }
+      });
     } else {
       // eslint-disable-next-line no-alert
       window.alert("Post must have a title and description!");

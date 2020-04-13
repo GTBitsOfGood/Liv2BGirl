@@ -27,10 +27,38 @@ export async function deleteThread(threadId) {
   });
 }
 
+export async function getGroupThreads(groupId) {
+  await mongoDB();
+
+  return Thread.find({ groupId }).then(threads => {
+    if (threads) {
+      if (threads.length) {
+        console.log("Successfully filtered threads");
+      } else {
+        console.log("No threads in this group");
+      }
+    } else {
+      return Promise.reject(new Error("Request failed"));
+    }
+    return threads;
+  });
+}
+
+export async function getThread(threadId) {
+  await mongoDB();
+
+  return Thread.findById(threadId).then(thread => {
+    if (thread == null) {
+      throw new Error("Thread does not exist!");
+    }
+
+    return thread;
+  });
+}
+
 // Currently just filtering by date, expects dates in format 'YYYY-MM-DD' or null
 export async function filterThreads(
   groupId,
-  option,
   lowerBound = new Date("0001-01-01"),
   upperBound = new Date()
 ) {

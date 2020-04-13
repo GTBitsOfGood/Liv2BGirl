@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+
+// API Call
+import { getUser } from "../../../../actions/User";
 
 // Stylings
 import styles from "../thread.module.scss";
 
 const CommentPage = props => {
-  const { author, date, text } = props;
+  const { authorid, date, text } = props;
+  const [author, setAuthor] = useState("");
+
+  useEffect(() => {
+    getUser(authorid).then(user => {
+      if (user) setAuthor(user.username);
+    });
+  }, []);
 
   return (
     <div className={`Page ${styles.CommentPg}`}>

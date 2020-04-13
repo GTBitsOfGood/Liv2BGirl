@@ -12,9 +12,10 @@ import accountCircleOutline from "@iconify/icons-mdi/account-circle-outline";
 // API Call
 import { followGroup, unfollowGroup } from "../../../actions/User";
 import { getGroup } from "../../../actions/Group";
+import { getGroupThreads } from "../../../actions/Thread";
 
 // Components
-// import ThreadPost from "../Thread/Post";
+import ThreadPost from "../Thread/Post";
 import AdminTab from "./AdminTab";
 
 // Logo for Header
@@ -32,6 +33,7 @@ const ViewGroup = props => {
   const [sortedBy, setSortedBy] = useState("latest comment");
   const [groupData, setGroupData] = useState(null);
   const [adminTab, setAdminTab] = useState(false);
+  const [threads, setThreads] = useState([]);
 
   const groupAction = () => {
     if (joined) {
@@ -49,12 +51,18 @@ const ViewGroup = props => {
         setGroupData(res);
 
         if (
-          currentUser.role === "Ambassador" ||
-          currentUser.role === "Moderator" ||
-          currentUser.id === res.admin
+          currentUser?.role === "Ambassador" ||
+          currentUser?.role === "Moderator" ||
+          currentUser?.id === res.admin
         ) {
           setJoined(true);
         }
+      }
+    });
+
+    getGroupThreads(groupid).then(res => {
+      if (res) {
+        setThreads(res);
       }
     });
   }, []);
@@ -76,10 +84,10 @@ const ViewGroup = props => {
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
 
         {groupData &&
-        (currentUser.id === groupData.admin ||
-          currentUser.role === "Ambassador" ||
-          currentUser.role === "Moderator") ? (
-            <Icon
+        (currentUser?.id === groupData.admin ||
+          currentUser?.role === "Ambassador" ||
+          currentUser?.role === "Moderator") ? (
+          <Icon
             onClick={() => toggle()}
             className="IconButton"
             icon={dotsHorizontal}
@@ -98,9 +106,9 @@ const ViewGroup = props => {
               src="https://picsum.photos/100/100"
               alt="Group Avatar"
             />
-            {currentUser.id === groupData.admin ||
-            currentUser.role === "Ambassador" ||
-            currentUser.role === "Moderator" ? (
+            {currentUser?.id === groupData.admin ||
+            currentUser?.role === "Ambassador" ||
+            currentUser?.role === "Moderator" ? (
               <Icon
                 className={styles.AdminIcon}
                 icon={accountCircleOutline}
@@ -116,9 +124,9 @@ const ViewGroup = props => {
                 {groupData.description}
               </h4>
             </div>
-            {currentUser.id === groupData.admin ||
-            currentUser.role === "Ambassador" ||
-            currentUser.role === "Moderator" ? (
+            {currentUser?.id === groupData.admin ||
+            currentUser?.role === "Ambassador" ||
+            currentUser?.role === "Moderator" ? (
               <button type="button" className={styles.GroupJoin}>
                 Edit
               </button>
@@ -149,7 +157,7 @@ const ViewGroup = props => {
                 className={styles.CreateBtn}
                 disabled={!joined}
               >
-                <Link href={`/app/groups/${groupid}/new-thread`}>
+                <Link href={urls.pages.app.createThread(groupid)}>
                   <div>
                     <Icon
                       className={styles.AddPost}
@@ -160,16 +168,16 @@ const ViewGroup = props => {
                 </Link>
               </button>
             </div>
-            {/* {fakeThreads.map(thread => (
-
-          <ThreadPost
-            key="Thread"
-            title={thread.title}
-            summary={thread.summary}
-            author={thread.username}
-            comments={thread.comments}
-          />
-        ))} */}
+            {threads.map(thread => (
+              <ThreadPost
+                key={thread._id}
+                threadid={thread._id}
+                title={thread.title}
+                summary={thread.content}
+                authorid={thread.posterId}
+                comments={thread.comments}
+              />
+            ))}
           </div>
         </>
       )}

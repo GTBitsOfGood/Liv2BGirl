@@ -115,3 +115,20 @@
 .ActivePill {
   border: 2px solid $gray;
 }
+
+.PostButton {
+  border-radius: 137px;
+  font-size: 14px;
+  line-height: 21px;
+  border: none;
+  background-color: $light-gray;
+  color: $text;
+  font-weight: bold;
+  height: 24px;
+  width: 60px;
+
+  &:hover {
+    background-color: $text;
+    color: white;
+  }
+}
