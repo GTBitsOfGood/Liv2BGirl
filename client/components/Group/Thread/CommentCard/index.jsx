@@ -31,7 +31,7 @@ const CommentPage = ({ author, date, text, setReply }) => (
     <button
       type="button"
       className={styles.CommentReply}
-      onClick={() => setReply(`@${author}`)}
+      onClick={() => setReply(`@${author.username} `)}
     >
       <h5>Reply</h5>
     </button>
