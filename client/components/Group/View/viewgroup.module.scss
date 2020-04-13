@@ -2,6 +2,7 @@
 
 .GroupHeader {
   height: 120px;
+  width: 100%;
   background-color: $background;
   display: flex;
   margin-top: 48px;
@@ -22,14 +23,16 @@
   }
 
   .GroupInfo {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     margin-left: 25px;
 
-    h3 {
+    .GroupName {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+      margin-right: 20px;
     }
 
     .GroupDescription {

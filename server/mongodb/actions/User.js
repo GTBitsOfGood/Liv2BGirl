@@ -45,10 +45,11 @@ export async function signUp({
   avatarColor,
   age,
   grade,
-  selectedTopics,
   role = "User",
   name = "",
-  interests = [],
+  followers = [],
+  following = [],
+  interests,
 }) {
   await mongoDB();
 
@@ -69,10 +70,11 @@ export async function signUp({
         avatarColor,
         age,
         grade,
-        selectedTopics,
         role,
         name,
         interests,
+        followers,
+        following,
       })
     )
     .then(user =>
@@ -195,5 +197,8 @@ export const getUser = userId =>
       avatar: user.avatar,
       avatarColor: user.avatarColor,
       groups: user.groups,
+      age: user.age,
+      grade: user.grade,
+      interests: user.interests,
     };
   });

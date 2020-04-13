@@ -12,9 +12,6 @@ import { avatarImg, colorArr } from "../../../utils/avatars";
 // Components
 import GroupCard from "./GroupCard";
 
-// Urls
-import urls from "../../../utils/urls";
-
 // Styling
 import styles from "./profile.module.scss";
 
@@ -48,7 +45,7 @@ const ProfilePage = ({ user }) => (
       <div className={styles.ProfileTitle}>
         <h3 className={styles.ProfileName}>{user.username}</h3>
         <h3 className={styles.ProfileStats}>
-          {`${user.age} yo • ${user.grade} grade`}
+          {`${user.age} yo • ${user.grade}th grade`}
         </h3>
         <h6 className={styles.ProfileDescription}>
           Discription Lorem ipsum dolor sit amet, elit
@@ -131,7 +128,12 @@ const ProfilePage = ({ user }) => (
 ProfilePage.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+    groups: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+      })
+    ).isRequired,
     followers: PropTypes.arrayOf(PropTypes.string).isRequired,
     following: PropTypes.arrayOf(PropTypes.string).isRequired,
     email: PropTypes.string.isRequired,

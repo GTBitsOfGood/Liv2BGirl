@@ -31,7 +31,6 @@ export const signUp = ({
       avatarColor,
       age,
       grade,
-      selectedTopics,
       role,
       name,
       interests,
