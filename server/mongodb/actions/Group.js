@@ -49,7 +49,7 @@ export async function deleteGroup(groupId) {
     } else {
       return Promise.reject(new Error("No group matches the provided id"));
     }
-    
+
     return deletedGroup;
   });
 }

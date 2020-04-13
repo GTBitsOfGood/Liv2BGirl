@@ -27,13 +27,13 @@ ThreadPage.getInitialProps = async ({ query }) => {
 
       await getUser(res.posterId).then(user => {
         if (user) {
-          data.author = user.username;
+          data.author = user;
         }
       });
 
       await getGroup(res.groupId).then(group => {
         if (group) {
-          data.groupId = group.groupId;
+          data.groupId = group.id;
           data.groupName = group.name;
         }
       });

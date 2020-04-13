@@ -22,6 +22,7 @@ const Thread = ({ currentUser, thread }) => {
   const { id, author, groupName, title, postedAt, content, comments } = thread;
   const [comment, setComment] = useState("");
   const [saved, setSaved] = useState(false);
+  const { username, avatar, avatarColor } = author;
 
   const postComment = () => {
     if (comment.length > 0) {
@@ -78,17 +79,17 @@ const Thread = ({ currentUser, thread }) => {
             <div
               className={styles.ThreadAuthorAvatar}
               style={{
-                backgroundColor: colorArr[currentUser.avatarColor],
+                backgroundColor: colorArr[avatarColor],
               }}
             >
               <img
                 className={styles.AuthorAvatarImg}
-                src={avatarImg[currentUser.avatar]}
+                src={avatarImg[avatar]}
                 alt="Author Avatar"
               />
             </div>
             <div>
-              <h5 className={styles.ThreadAuthor}>{author}</h5>
+              <h5 className={styles.ThreadAuthor}>{username}</h5>
               <h6 className={styles.ThreadDate}>
                 {new Date(postedAt).toLocaleString()}
               </h6>
@@ -151,9 +152,9 @@ Thread.propTypes = {
     groupId: PropTypes.string.isRequired,
     groupName: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    postedAt: PropTypes.object.isRequired,
+    postedAt: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    comments: PropTypes.arrayOf(PropTypes.string).isRequired,
+    comments: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   currentUser: PropTypes.shape({
     id: PropTypes.string.isRequired,

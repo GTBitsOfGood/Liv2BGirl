@@ -31,7 +31,7 @@ const ThreadPost = props => {
 
   useEffect(() => {
     getUser(authorid).then(res => {
-      if (res) setAuthor(res.username);
+      if (res) setAuthor(res);
     });
   }, []);
 
@@ -80,16 +80,16 @@ const ThreadPost = props => {
             <div
               className={styles.AuthorAvatar}
               style={{
-                backgroundColor: colorArr[currentUser.avatarColor],
+                backgroundColor: colorArr[author.avatarColor],
               }}
             >
               <img
                 className={styles.AuthorAvatarImg}
-                src={avatarImg[currentUser.avatar]}
+                src={avatarImg[author.avatar]}
                 alt="Author Avatar"
               />
             </div>
-            <h4 className={styles.ThreadAuthor}>{author}</h4>
+            <h4 className={styles.ThreadAuthor}>{author.username}</h4>
             <div className={styles.ThreadComments}>
               <Icon icon={bxCommentDetail} />
               <h6>{numComments}</h6>
