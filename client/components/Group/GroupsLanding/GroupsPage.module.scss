@@ -307,6 +307,7 @@
       box-sizing: border-box;
       margin-right: 16px;
       cursor: pointer;
+      color: $text;
     }
 
     .CategoryPillSelected {
@@ -316,6 +317,11 @@
     .CategoryName {
       text-align: center;
       padding: 8px;
+    }
+
+    .CategoryNameSelected {
+      font-weight: bold;
+      padding: 0;
     }
   }
 
