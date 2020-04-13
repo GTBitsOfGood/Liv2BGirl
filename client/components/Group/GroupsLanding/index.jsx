@@ -99,7 +99,11 @@ const GroupsList = ({ ownGroups }) => {
           </div>
         )}
         {search.length > 0 || searchActive ? (
-          <SearchGroups searchTerm={search} likeableGroups={likeGroups} />
+          <SearchGroups
+            searchTerm={search}
+            likeableGroups={likeGroups}
+            clearedSearch={() => setSearchActive(false)}
+          />
         ) : showOwnGroups ? (
           <MyGroups categories={categories} groups={ownGroups} />
         ) : (

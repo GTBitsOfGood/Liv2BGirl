@@ -11,13 +11,13 @@ import styles from "../GroupsPage.module.scss";
 // Navigation
 import urls from "../../../../../utils/urls";
 
-const SearchGroups = ({ searchTerm, likeableGroups }) => {
+const SearchGroups = ({ searchTerm, likeableGroups, clearedSearch }) => {
   const [groups, setGroups] = useState(likeableGroups);
   const debouncedTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     if (debouncedTerm.length === 0) {
-      setGroups(likeableGroups);
+      clearedSearch();
     }
 
     // Search for groups
@@ -25,9 +25,6 @@ const SearchGroups = ({ searchTerm, likeableGroups }) => {
 
   return (
     <>
-      {searchTerm.length === 0 && (
-        <h3 className={styles.LikeText}>Groups you may like:</h3>
-      )}
       <div className={styles.SearchGroupsPage}>
         {groups.map(group => (
           <Group key={group.id} info={group} />
