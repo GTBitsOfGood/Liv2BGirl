@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Router, { useRouter } from "next/router";
-import Link from "next/link";
 import PropTypes from "prop-types";
 
 // Icons
@@ -41,11 +40,14 @@ const CreateThreadComponent = props => {
   return (
     <div style={{ marginTop: "48px" }}>
       <div className="TopNav">
-        <Link href={urls.pages.app.group(groupid)}>
-          <div>
-            <Icon className="Back" icon={bxArrowBack} width="18px" />
-          </div>
-        </Link>
+        <div
+          role="button"
+          tabIndex={-1}
+          onClick={() => Router.back()}
+          onKeyDown={() => Router.back()}
+        >
+          <Icon className="Back" icon={bxArrowBack} width="18px" />
+        </div>
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
         <button type="button" className="Button" onClick={handleCreateThread}>
           Post

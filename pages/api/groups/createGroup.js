@@ -1,10 +1,14 @@
 import { createGroup } from "../../../server/mongodb/actions/Group";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/groups/createGroup
 // @desc    Create Group Request
 // @access  Public
-const handler = (req, res) =>
+const handler = async (req, res) => {
+  const currUser = await verifyToken(req, res);
+
   createGroup(
+    currUser.id,
     req.body.name,
     req.body.description,
     req.body.tags,
@@ -22,5 +26,5 @@ const handler = (req, res) =>
         message: error.message,
       })
     );
-
+};
 export default handler;

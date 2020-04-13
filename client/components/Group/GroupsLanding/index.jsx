@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -14,23 +14,15 @@ import MyGroups from "./MyGroups";
 // Styling
 import styles from "./GroupsPage.module.scss";
 
-const GroupsList = props => {
-  const { currentUser } = props;
+const GroupsList = ({ ownGroups }) => {
   const [search, setSearch] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [showOwnGroups, setShowOwnGroups] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [ownGroups, setOwnGroups] = useState([]);
   const [likeGroups, setLikeGroups] = useState([]);
 
-  useEffect(() => {
-    if (currentUser) {
-      setOwnGroups(currentUser.groups);
-    }
-    // Get categories
-    // Get own groups
-    // Get likeable groups
-  }, []);
+  const categories = Array.from(
+    new Set(["All", ...(ownGroups.map(group => group.category) || [])])
+  );
 
   const handleRefresh = () => {
     // Get more likeable groups
@@ -109,7 +101,7 @@ const GroupsList = props => {
         {search.length > 0 || searchActive ? (
           <SearchGroups searchTerm={search} likeableGroups={likeGroups} />
         ) : showOwnGroups ? (
-          <MyGroups groups={ownGroups} />
+          <MyGroups categories={categories} groups={ownGroups} />
         ) : (
           <ExploreGroups
             categories={categories}

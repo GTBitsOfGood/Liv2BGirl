@@ -1,11 +1,11 @@
 import { searchThreads } from "../../../server/mongodb/actions/Thread";
 
-// @route   GET api/threads/searchThreads
-// @desc    GET Search threads Request
+// @route   POST api/threads/searchThreads
+// @desc    POST Search threads Request
 // @access  Public
 
 const handler = (req, res) =>
-  searchThreads(req.query.groupId, req.query.terms)
+  searchThreads(req.body.terms, req.body.groupId)
     .then(token => {
       res.status(200).json({
         success: true,

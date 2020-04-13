@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 // Icon
@@ -14,32 +14,39 @@ import styles from "../GroupsPage.module.scss";
 // Navigation
 import urls from "../../../../../utils/urls";
 
-const MyGroups = ({ groups }) => {
+const MyGroups = ({ groups, categories }) => {
   const [showAll, setShowAll] = useState(false);
+  const [myGroups, setMyGroups] = useState(groups);
 
   if (showAll) {
-    return <AllGroups groups={groups} handleBack={() => setShowAll(false)} />;
+    return (
+      <AllGroups
+        categories={categories}
+        groups={groups}
+        handleBack={() => setShowAll(false)}
+      />
+    );
   }
-
-  useEffect(() => {});
 
   return (
     <div className={styles.MyGroupsPage}>
       <div className={styles.MyGroupsContainer}>
         <div className={styles.MyGroupsHeader}>
           <h2 className={styles.MyGroupsHeaderText}>My Groups</h2>
-          <button
-            className={styles.MyGroupsButton}
-            onClick={() => setShowAll(true)}
-            type="button"
-          >
-            <h6>All </h6>
-            <Icon icon={arrowRightAlt2} />
-          </button>
+          {groups && (
+            <button
+              className={styles.MyGroupsButton}
+              onClick={() => setShowAll(true)}
+              type="button"
+            >
+              <h6>All </h6>
+              <Icon icon={arrowRightAlt2} />
+            </button>
+          )}
         </div>
 
         <div className={styles.MyGroupsGroups}>
-          {groups.slice(0, 4).map(group => (
+          {myGroups.slice(0, 4).map(group => (
             <Link
               key={group.id}
               href={urls.pages.app.group(group.id)}

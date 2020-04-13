@@ -35,7 +35,7 @@ const SearchGroups = ({ searchTerm, likeableGroups }) => {
         {groups.length === 0 && (
           <div className={styles.NoGroupsContainer}>
             <h3 className={styles.NoGroupsText}>
-              {`There is no group about ${debouncedTerm.toLowerCase()} for now.`}
+              {`There are no groups about ${debouncedTerm.toLowerCase()} for now.`}
             </h3>
             <Link href={urls.pages.app.newgroup}>
               <h3 className={styles.NoGroupsButton}>Create a new one?</h3>

@@ -9,6 +9,9 @@ import bxSearch from "@iconify/icons-bx/bx-search";
 import styles from "./askme.module.scss";
 import QuestionCard from "./QuestionCard";
 
+// Navigation
+import urls from "../../../utils/urls";
+
 const fakeQuestion = {
   id: 1,
   asked: "Lorem ipsum dolor sit amet, consectetur?",
@@ -72,7 +75,7 @@ const AskMe = () => {
       </div>
       <div className={styles.AskPage}>
         <div className={styles.TopHead}>
-          <Link href="/app/ask-me/new">
+          <Link href={urls.pages.app.askquestion}>
             <button type="button" className={styles.AskBtn}>
               Ask Question
             </button>

@@ -11,9 +11,9 @@ const GroupSchema = new Schema({
   description: {
     type: String,
   },
-  tags: {
-    type: [String],
-    text: true,
+  category: {
+    type: String,
+    index: true,
   },
   admin: {
     type: String,

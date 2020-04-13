@@ -10,13 +10,23 @@ import bxCommentDetail from "@iconify/icons-bx/bx-comment-detail";
 import { getUser } from "../../../../actions/User";
 
 // Styling
+import { avatarImg, colorArr } from "../../../../../utils/avatars";
 import styles from "../thread.module.scss";
 
 // Navigation
 import urls from "../../../../../utils/urls";
 
 const ThreadPost = props => {
-  const { threadid, title, summary, authorid, comments } = props;
+  const {
+    threadid,
+    title,
+    summary,
+    authorid,
+    postedAt,
+    currentUser,
+    numComments,
+  } = props;
+
   const [author, setAuthor] = useState("");
 
   useEffect(() => {
@@ -25,26 +35,64 @@ const ThreadPost = props => {
     });
   }, []);
 
+  const timeSince = date => {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+
+    let interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+      return `${interval}y`;
+    }
+
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+      return `${interval}m`;
+    }
+
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+      return `${interval}d`;
+    }
+
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return `${interval}h`;
+    }
+
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return `${interval}m`;
+    }
+    return `${Math.floor(seconds)}s`;
+  };
+
   return (
     <button type="button" className={styles.GroupThread}>
       <Link href={urls.pages.app.thread(threadid)}>
         <div>
           <div style={{ display: "flex", marginBottom: "4px" }}>
             <h3 className={styles.ThreadName}>{title}</h3>
-            <h6 className={styles.ThreadTime}>5h</h6>
+            <h6 className={styles.ThreadTime}>{timeSince(postedAt)}</h6>
           </div>
 
           <h4 className={styles.ThreadSummary}>{summary}</h4>
           <div className={styles.ThreadDetails}>
-            <img
+            <div
               className={styles.AuthorAvatar}
-              src="https://picsum.photos/50/50"
-              alt="Group Avatar"
-            />
+              style={{
+                backgroundColor: colorArr[currentUser.avatarColor],
+              }}
+            >
+              <img
+                className={styles.AuthorAvatarImg}
+                src={avatarImg[currentUser.avatar]}
+                alt="Author Avatar"
+              />
+            </div>
             <h4 className={styles.ThreadAuthor}>{author}</h4>
             <div className={styles.ThreadComments}>
               <Icon icon={bxCommentDetail} />
-              <h6>{comments}</h6>
+              <h6>{numComments}</h6>
             </div>
           </div>
         </div>
@@ -58,7 +106,11 @@ ThreadPost.propTypes = {
   authorid: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
-  comments: PropTypes.string.isRequired,
+  numComments: PropTypes.number.isRequired,
+  currentUser: PropTypes.shape({
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default ThreadPost;

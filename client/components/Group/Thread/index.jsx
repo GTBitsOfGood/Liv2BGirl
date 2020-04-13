@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
-import { Editor } from "@tinymce/tinymce-react";
+import Router from "next/router";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -16,23 +15,11 @@ import CommentCard from "./CommentCard";
 import { createComment } from "../../../actions/Comment";
 
 // Stylings
+import { avatarImg, colorArr } from "../../../../utils/avatars";
 import styles from "./thread.module.scss";
 
-// Navigation
-import urls from "../../../../utils/urls";
-
-const Thread = props => {
-  const { thread } = props;
-  const {
-    id,
-    author,
-    groupId,
-    groupName,
-    title,
-    postedAt,
-    content,
-    comments,
-  } = thread;
+const Thread = ({ currentUser, thread }) => {
+  const { id, author, groupName, title, postedAt, content, comments } = thread;
   const [comment, setComment] = useState("");
   const [saved, setSaved] = useState(false);
 
@@ -40,19 +27,28 @@ const Thread = props => {
     if (comment.length > 0) {
       createComment(currentUser.id, id, comment).then(res => {
         if (res) {
-          console.log(res);
+          window.location.reload();
         }
       });
     }
+  };
+
+  const setReply = value => {
+    setComment(value);
   };
 
   return (
     <div className={styles.ThreadPage}>
       <div className="TopNav">
         {thread && (
-          <Link href={urls.pages.app.group(groupId)}>
+          <div
+            role="button"
+            tabIndex={-1}
+            onClick={() => Router.back()}
+            onKeyDown={() => Router.back()}
+          >
             <Icon className="Back" icon={bxArrowBack} width="18px" />
-          </Link>
+          </div>
         )}
         <h3 className={styles.ThreadNavTitle}>Thread</h3>
         <button
@@ -79,14 +75,23 @@ const Thread = props => {
           </div>
           <h2 className={styles.ThreadName}>{title}</h2>
           <div className={styles.ThreadDetails}>
-            <img
+            <div
               className={styles.ThreadAuthorAvatar}
-              src="https://picsum.photos/50/50"
-              alt="Group Avatar"
-            />
+              style={{
+                backgroundColor: colorArr[currentUser.avatarColor],
+              }}
+            >
+              <img
+                className={styles.AuthorAvatarImg}
+                src={avatarImg[currentUser.avatar]}
+                alt="Author Avatar"
+              />
+            </div>
             <div>
               <h5 className={styles.ThreadAuthor}>{author}</h5>
-              <h6 className={styles.ThreadDate}>{postedAt}</h6>
+              <h6 className={styles.ThreadDate}>
+                {new Date(postedAt).toLocaleString()}
+              </h6>
             </div>
           </div>
           <h4 className={styles.ThreadText}>{content}</h4>
@@ -96,25 +101,34 @@ const Thread = props => {
       <div className={styles.ThreadComments}>
         {comments.map(item => (
           <CommentCard
-            key="Thread"
-            authorid={item.poster}
+            key={item._id}
+            author={item.author}
             date={item.postedAt}
             text={item.content}
+            setReply={setReply}
           />
         ))}
       </div>
 
       <div className={styles.CommentFooter}>
         <div className={styles.Footer1}>
-          <img
-            className={styles.UserAvatar}
-            src="https://picsum.photos/100/100"
-            alt="User Avatar"
-          />
+          <div
+            className={`${styles.ThreadAuthorAvatar} ${styles.UserAvatar}`}
+            style={{
+              backgroundColor: colorArr[currentUser.avatarColor],
+            }}
+          >
+            <img
+              className={styles.AuthorAvatarImg}
+              src={avatarImg[currentUser.avatar]}
+              alt="Author Avatar"
+            />
+          </div>
           <textarea
             className={styles.CommentInput}
             placeholder="Comment"
             onChange={event => setComment(event.target.value)}
+            value={comment}
           />
         </div>
         <button
@@ -131,10 +145,21 @@ const Thread = props => {
 };
 
 Thread.propTypes = {
-  thread: PropTypes.shape({}).isRequired,
+  thread: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    groupId: PropTypes.string.isRequired,
+    groupName: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    postedAt: PropTypes.object.isRequired,
+    content: PropTypes.string.isRequired,
+    comments: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
   currentUser: PropTypes.shape({
     id: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
   }).isRequired,
 };
 

@@ -20,7 +20,6 @@ ThreadPage.getInitialProps = async ({ query }) => {
   };
 
   await getThread(threadid).then(async res => {
-    console.log('port', process.env.PORT)
     if (res) {
       data.title = res.title;
       data.postedAt = res.postedAt;
@@ -46,7 +45,7 @@ ThreadPage.getInitialProps = async ({ query }) => {
   });
 
   return {
-    data
+    data,
   };
 };
 

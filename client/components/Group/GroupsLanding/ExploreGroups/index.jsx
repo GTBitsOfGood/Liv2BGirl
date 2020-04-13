@@ -26,13 +26,13 @@ const ExploreGroups = ({
           <div
             role="button"
             tabIndex={0 - i}
-            key={category.title}
+            key={category}
             className={styles.CategoryType}
-            onClick={() => setSearch(category.title)}
-            onKeyDown={() => setSearch(category.title)}
+            onClick={() => setSearch(category)}
+            onKeyDown={() => setSearch(category)}
           >
             <div className={styles.CategoryImage} />
-            <p className={styles.CategoryTitle}>{category.title}</p>
+            <p className={styles.CategoryTitle}>{category}</p>
           </div>
         ))}
       </div>

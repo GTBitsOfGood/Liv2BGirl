@@ -47,9 +47,7 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
         <button
           type="button"
           className={
-            interests.includes(topic)
-              ? "SmallPill ActivePill"
-              : "SmallPill"
+            interests.includes(topic) ? "SmallPill ActivePill" : "SmallPill"
           }
           onClick={() => {
             const newTopics = [...interests];

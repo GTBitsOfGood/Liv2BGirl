@@ -1,15 +1,19 @@
 import mongoDB from "../index";
 
 import Thread from "../models/Thread";
+import Comments from "../models/Comment";
 
-export async function createThread(posterId, groupId, title, tags, content) {
+export async function createThread(posterId, groupId, title, content) {
   await mongoDB();
+
+  if (posterId == null) {
+    throw new Error("You must be logged in to create a thread!");
+  }
 
   return Thread.create({
     posterId,
     groupId,
     title,
-    tags,
     content,
   });
 }
@@ -23,6 +27,7 @@ export async function deleteThread(threadId) {
     } else {
       return Promise.reject(new Error("No comment matches the provided id"));
     }
+
     return deletedThread;
   });
 }
@@ -40,7 +45,13 @@ export async function getGroupThreads(groupId) {
     } else {
       return Promise.reject(new Error("Request failed"));
     }
-    return threads;
+
+    return Promise.all(
+      threads.map(async thread => ({
+        ...thread.toObject(),
+        numComments: await Comments.find({ parentId: thread._id }).count(),
+      }))
+    );
   });
 }
 
@@ -77,15 +88,23 @@ export async function filterThreads(
     } else {
       return Promise.reject(new Error("Request failed"));
     }
+
     return threads;
   });
 }
 
-export async function searchThreads(groupId, terms) {
+export async function searchThreads(terms, groupId) {
   await mongoDB();
+
+  const options = {};
+
+  if (groupId != null) {
+    options.groupId = groupId;
+  }
+
   return Thread.find(
     {
-      groupId,
+      ...options,
       $text: { $search: terms },
     },
     {
@@ -105,6 +124,7 @@ export async function searchThreads(groupId, terms) {
       } else {
         return Promise.reject(new Error("Request failed"));
       }
+
       return threads;
     });
 }

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import Router from "next/router";
 
 // Icons
@@ -53,9 +52,14 @@ const NewQuestion = () => {
   return (
     <>
       <div className="TopNav">
-        <Link href="/app/ask-me/">
+        <div
+          role="button"
+          tabIndex={-1}
+          onClick={() => Router.back()}
+          onKeyDown={() => Router.back()}
+        >
           <Icon className="Back" icon={bxArrowBack} width="18px" />
-        </Link>
+        </div>
         <h3>Ask Question</h3>
         <button type="button" className="Button" onClick={() => postQuestion()}>
           Post

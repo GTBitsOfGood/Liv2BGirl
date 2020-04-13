@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import Router from "next/router";
 
 // Icons
@@ -34,8 +33,6 @@ const CurrentStep = ({ stage, ...rest }) => {
   }
 };
 
-const userId = "5e93869d57bbd30798b3aaa2";
-
 const getStepText = stage => {
   switch (stage) {
     case 0: {
@@ -50,7 +47,8 @@ const getStepText = stage => {
   }
 };
 
-const NewGroupPage = () => {
+const NewGroupPage = props => {
+  const { currentUser } = props;
   const [newGroupId, setGroupId] = useState("");
   const [stage, setStage] = useState(0);
   const [stageCompleted, setStageCompleted] = useState(false);
@@ -78,8 +76,8 @@ const NewGroupPage = () => {
         await createGroup(
           values.name,
           values.description,
-          [values.category],
-          userId
+          values.category,
+          currentUser.id
         )
           .then(res => {
             setStage(prevState => prevState + 1);
@@ -93,7 +91,7 @@ const NewGroupPage = () => {
             window.alert("Failed to create group!");
           });
       } else if (stage + 1 === 3) {
-        await Router.push(`/app/groups/${newGroupId}`);
+        await Router.push(urls.pages.app.group(newGroupId));
       }
 
       window.scrollTo(0, 0);
@@ -103,11 +101,14 @@ const NewGroupPage = () => {
   return (
     <>
       <div className="TopNav">
-        <Link href={urls.pages.app.groupList}>
-          <div>
-            <FontAwesomeIcon className="Back" icon={faArrowLeft} />
-          </div>
-        </Link>
+        <div
+          role="button"
+          tabIndex={-1}
+          onClick={() => Router.back()}
+          onKeyDown={() => Router.back()}
+        >
+          <FontAwesomeIcon className="Back" icon={faArrowLeft} />
+        </div>
         <h3 className="Text">Create New Group</h3>
         <div />
       </div>

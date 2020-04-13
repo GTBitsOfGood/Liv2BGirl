@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import Router from "next/router";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -27,8 +28,7 @@ import styles from "./viewgroup.module.scss";
 // Navigation
 import urls from "../../../../utils/urls";
 
-const ViewGroup = props => {
-  const { groupid, currentUser } = props;
+const ViewGroup = ({ groupid, currentUser }) => {
   const [joined, setJoined] = useState(false);
   const [sortedBy, setSortedBy] = useState("latest comment");
   const [groupData, setGroupData] = useState(null);
@@ -46,6 +46,10 @@ const ViewGroup = props => {
   };
 
   useEffect(() => {
+    if (currentUser.groups.includes(groupid)) {
+      setJoined(true);
+    }
+
     getGroup(groupid).then(res => {
       if (res) {
         setGroupData(res);
@@ -75,11 +79,14 @@ const ViewGroup = props => {
     <>
       {adminTab && <AdminTab onClick={toggle} groupid={groupid} />}
       <div className="TopNav">
-        <Link href={urls.pages.app.groupList}>
-          <div>
-            <Icon className="Back" icon={bxArrowBack} width="18px" />
-          </div>
-        </Link>
+        <div
+          role="button"
+          tabIndex={-1}
+          onClick={() => Router.back()}
+          onKeyDown={() => Router.back()}
+        >
+          <Icon className="Back" icon={bxArrowBack} width="18px" />
+        </div>
 
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
 
@@ -175,7 +182,9 @@ const ViewGroup = props => {
                 title={thread.title}
                 summary={thread.content}
                 authorid={thread.posterId}
-                comments={thread.comments}
+                postedAt={thread.postedAt}
+                numComments={thread.numComments}
+                currentUser={currentUser}
               />
             ))}
           </div>

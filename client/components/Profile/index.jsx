@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
+import Router from "next/router";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -21,9 +21,14 @@ import styles from "./profile.module.scss";
 const ProfilePage = ({ user }) => (
   <div>
     <div className="TopNav">
-      <Link href={urls.pages.app.home}>
+      <div
+        role="button"
+        tabIndex={-1}
+        onClick={() => Router.back()}
+        onKeyDown={() => Router.back()}
+      >
         <Icon className="Back" icon={bxArrowBack} width="18px" />
-      </Link>
+      </div>
       <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
       <div />
     </div>

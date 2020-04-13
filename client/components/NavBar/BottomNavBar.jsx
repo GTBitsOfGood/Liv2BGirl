@@ -5,16 +5,19 @@ import Link from "next/link";
 // Styling
 import style from "./navbar.module.scss";
 
+// Navigation
+import urls from "../../../utils/urls";
+
 const BottomNavBar = () => {
   const router = useRouter();
 
   return (
     <div className={style.BottomNav}>
-      <Link href="/app">
+      <Link href={urls.pages.app.home}>
         <div className={style.NavItem}>
           <div
             className={
-              router.asPath === "/app"
+              router.asPath === urls.pages.app.home
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }
@@ -23,11 +26,11 @@ const BottomNavBar = () => {
         </div>
       </Link>
 
-      <Link href="/app/groups">
+      <Link href={urls.pages.app.groupList}>
         <div className={style.NavItem}>
           <div
             className={
-              router.asPath.includes("/app/groups")
+              router.asPath.includes(urls.pages.app.groupList)
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }
@@ -36,11 +39,11 @@ const BottomNavBar = () => {
         </div>
       </Link>
 
-      <Link href="/app/ask-me">
+      <Link href={urls.pages.app.askMe}>
         <div className={style.NavItem}>
           <div
             className={
-              router.asPath.includes("/app/ask-me")
+              router.asPath.includes(urls.pages.app.askMe)
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }
@@ -49,11 +52,11 @@ const BottomNavBar = () => {
         </div>
       </Link>
 
-      <Link href="/app/notifications">
+      <Link href={urls.pages.app.notifications}>
         <div className={style.NavItem}>
           <div
             className={
-              router.asPath === "/app/notifications"
+              router.asPath === urls.pages.app.notifications
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }

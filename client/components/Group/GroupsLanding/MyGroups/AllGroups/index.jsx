@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Icon
 import { Icon } from "@iconify/react";
@@ -10,13 +10,8 @@ import Group from "../../GroupCard";
 // Styling
 import styles from "../../GroupsPage.module.scss";
 
-const AllGroups = ({ groups, handleBack }) => {
-  const [selectedCategory, setSelectedCategory] = React.useState("All");
-
-  const categoryNames = new Set([
-    "All",
-    ...groups.map(group => group.category),
-  ]);
+const AllGroups = ({ groups, categories, handleBack }) => {
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   return (
     <>
@@ -30,7 +25,7 @@ const AllGroups = ({ groups, handleBack }) => {
 
       <div className={styles.AllGroupsPage}>
         <div className={styles.CategoryBar}>
-          {[...categoryNames].map(name => (
+          {categories.map(name => (
             <button
               key={name}
               className={
@@ -59,10 +54,10 @@ const AllGroups = ({ groups, handleBack }) => {
             .filter(
               group =>
                 selectedCategory === "All" ||
-                group.Category === selectedCategory
+                group.category === selectedCategory
             )
             .map(group => (
-              <Group key={group.name} info={group} />
+              <Group key={group.id} info={group} />
             ))}
         </div>
       </div>

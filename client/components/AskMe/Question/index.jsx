@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
-import { Editor } from "@tinymce/tinymce-react";
+import Router from "next/router";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -53,9 +52,14 @@ const QuestionPage = props => {
   return (
     <div className={styles.QuestionPage}>
       <div className="TopNav">
-        <Link href="/app/ask-me">
+        <div
+          role="button"
+          tabIndex={-1}
+          onClick={() => Router.back()}
+          onKeyDown={() => Router.back()}
+        >
           <Icon className="Back" icon={bxArrowBack} width="18px" />
-        </Link>
+        </div>
         <h3 className={styles.QuestionNavTitle}>Question</h3>
         <button
           type="button"

@@ -18,10 +18,6 @@ const ThreadSchema = new Schema({
     required: true,
     text: true,
   },
-  tags: {
-    type: [String],
-    text: true,
-  },
   content: {
     type: String,
     text: true,
@@ -29,10 +25,6 @@ const ThreadSchema = new Schema({
   postedAt: {
     type: Date,
     default: Date.now,
-  },
-  comments: {
-    type: [Object],
-    default: [],
   },
 });
 

@@ -3,7 +3,7 @@ const prod = process.env.NODE_ENV === "production";
 export default {
   baseUrl: prod
     ? process.env.BASE_URL || "https://liv2bgirl.now.sh"
-    : "http://localhost:3000",
+    : `http://localhost:3000`,
   dbUrl: prod
     ? process.env.MONGODB
     : process.env.MONGO_DEV_DB || "mongodb://localhost:27017",
@@ -37,7 +37,7 @@ export default {
     createThread: () => "/api/threads/createThread",
     deleteThread: () => "/api/threads/deleteThread",
     filterThread: () => "/api/threads/filterThread",
-    searchThread: () => "/api/threads/searchThread",
+    searchThreads: () => "/api/threads/searchThreads",
     getThread: () => "/api/threads/getThread",
     getGroupThreads: () => "/api/threads/getGroupThreads",
     createGroup: () => "/api/groups/createGroup",

@@ -154,6 +154,7 @@ export async function verifyTokenSecure(req, res) {
           age: user.age,
           grade: user.grade,
           role: user.role,
+          interests: user.interests,
         };
       })
       .catch(findError => {
