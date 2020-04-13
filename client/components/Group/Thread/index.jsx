@@ -10,6 +10,7 @@ import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 
 // Components
+import TextareaAutosize from "react-textarea-autosize";
 import CommentCard from "./CommentCard";
 
 // API Calls
@@ -142,11 +143,12 @@ const Thread = ({ currentUser, thread }) => {
               alt="Author Avatar"
             />
           </div>
-          <textarea
+          <TextareaAutosize
             className={styles.CommentInput}
             placeholder="Comment"
             onChange={event => setComment(event.target.value)}
             value={comment}
+            maxRows={8}
           />
         </div>
         <button

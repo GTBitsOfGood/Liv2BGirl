@@ -127,7 +127,7 @@ export const signOut = () => {
   });
 };
 
-export const createThread = (posterId, groupId, title, content, tags = []) =>
+export const createThread = (posterId, groupId, title, content) =>
   fetch(urls.baseUrl + urls.api.createThread(), {
     method: "POST",
     headers: {
@@ -137,7 +137,6 @@ export const createThread = (posterId, groupId, title, content, tags = []) =>
       posterId,
       groupId,
       title,
-      tags,
       content,
     }),
   })

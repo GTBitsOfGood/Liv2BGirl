@@ -1,31 +1,59 @@
 import React from "react";
-import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+
+// API Calls
+import { getThread } from "../../../../client/actions/Thread";
+import { getCommentsByThread } from "../../../../client/actions/Comment";
+import { getUser } from "../../../../client/actions/User";
 
 // Page Component
 import Question from "../../../../client/components/AskMe/Question";
 
-const QuestionPage = () => {
-  const router = useRouter();
-  const { questionid } = router.query;
+const QuestionPage = ({ data }) => {
+  return <Question question={data} />;
+};
 
-  const fakeQuestion = {
-    id: 2,
-    author: "username",
-    asked: "Lorem ipsum dolor sit amet, consectetur?",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+QuestionPage.getInitialProps = async ({ query }) => {
+  const { questionid } = query;
 
-    comments: 100,
-    postDate: "00-00-0000",
-    answeredDate: "00-00-0001",
-    ambassador: {
-      name: "ambassador name",
-    },
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  const data = {
+    questionid,
   };
 
-  return <Question questionid={questionid} question={fakeQuestion} />;
+  await getThread(questionid).then(async res => {
+    if (res) {
+      data.title = res.title;
+      data.postedAt = res.postedAt;
+      data.content = res.content;
+
+      await getUser(res.posterId).then(user => {
+        if (user) {
+          data.author = user;
+        }
+      });
+
+      data.visibility = res.groupId;
+
+      await getCommentsByThread(res._id).then(comments => {
+        data.comments = comments || [];
+      });
+    }
+  });
+
+  return {
+    data,
+  };
+};
+
+QuestionPage.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    posterId: PropTypes.string.isRequired,
+    visiblity: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    postedAt: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default QuestionPage;

@@ -11,29 +11,8 @@ import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 // Stylings
 import styles from "../askme.module.scss";
 
-const fakeComments = [
-  {
-    author: "CrazyPurpleFox",
-    date: "00-00-0000 00:00",
-    text:
-      "1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    author: "SadBlueElephant",
-    date: "00-00-0000 00:00",
-    text:
-      "2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    author: "HappyGreenBear",
-    date: "00-00-0000 00:00",
-    text:
-      "3 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-];
-
 const QuestionPage = props => {
-  const { questionid, question } = props;
+  const { question } = props;
   const [comment, setComment] = useState("");
   const [saved, setSaved] = useState(false);
 
@@ -82,7 +61,7 @@ const QuestionPage = props => {
             src="https://picsum.photos/50/50"
             alt="Group Avatar"
           />
-          <h5 className={styles.QuestionAuthor}>{author}</h5>
+          {/* <h5 className={styles.QuestionAuthor}>{author}</h5> */}
           <h6 className={styles.QuestionDate}>{postDate}</h6>
         </div>
         <h4 className={styles.QuestionText}>{description}</h4>
@@ -109,7 +88,7 @@ const QuestionPage = props => {
 
         <h6 className={styles.SubHeader}>{`Comments (${comments})`}</h6>
         <div>
-          {fakeComments.map(item => (
+          {/* {fakeComments.map(item => (
             <div className={`Page ${styles.QuestionComments}`}>
               <div className={styles.QuestionDetails}>
                 <img
@@ -122,7 +101,7 @@ const QuestionPage = props => {
               </div>
               <h4 className={styles.QuestionText}>{item.text}</h4>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
 

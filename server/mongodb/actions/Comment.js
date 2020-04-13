@@ -8,7 +8,6 @@ export async function createComment(
   poster,
   parentId,
   content,
-  officialAnswer = false,
   postedAt = Date.now()
 ) {
   await mongoDB();
@@ -30,7 +29,6 @@ export async function createComment(
         poster,
         parentId,
         content,
-        officialAnswer,
         postedAt,
       });
     });

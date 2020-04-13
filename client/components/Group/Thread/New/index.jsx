@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 // Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
+import TextareaAutosize from "react-textarea-autosize";
 import logo from "../../../../../public/img/logo.png";
 
 // API Call
@@ -64,12 +65,13 @@ const CreateThreadComponent = props => {
             type="text"
             placeholder="Title"
           />
-          <textarea
+          <TextareaAutosize
+            className={styles.CreateThreadText}
+            placeholder="Description"
             onChange={event => {
               setText(event.target.value);
             }}
-            className={styles.CreateThreadText}
-            placeholder="Description"
+            maxRows={8}
           />
         </form>
       </div>
