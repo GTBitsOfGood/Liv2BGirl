@@ -9,8 +9,8 @@ import { getUser } from "../../../../client/actions/User";
 // Page Component
 import Question from "../../../../client/components/AskMe/Question";
 
-const QuestionPage = ({ data }) => {
-  return <Question question={data} />;
+const QuestionPage = ({ data, currentUser }) => {
+  return <Question question={data} currentUser={currentUser} />;
 };
 
 QuestionPage.getInitialProps = async ({ query }) => {
@@ -22,13 +22,18 @@ QuestionPage.getInitialProps = async ({ query }) => {
 
   await getThread(questionid).then(async res => {
     if (res) {
-      data.title = res.title;
+      data.asked = res.title;
       data.postedAt = res.postedAt;
-      data.content = res.content;
+      data.description = res.content;
 
       await getUser(res.posterId).then(user => {
         if (user) {
-          data.author = user;
+          data.author = {
+            userId: res.groupId === "Anonymous" ? null : user.id,
+            username: res.groupId === "Anonymous" ? "Anonymous" : user.username,
+            avatar: res.groupId === "Anonymous" ? 1 : user.avatar,
+            avatarColor: res.groupId === "Anonymous" ? 1 : user.avatarColor,
+          };
         }
       });
 
@@ -47,11 +52,16 @@ QuestionPage.getInitialProps = async ({ query }) => {
 
 QuestionPage.propTypes = {
   data: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    posterId: PropTypes.string.isRequired,
+    questionid: PropTypes.string.isRequired,
+    author: PropTypes.shape({
+      userId: PropTypes.string,
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }).isRequired,
     visiblity: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
+    asked: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     postedAt: PropTypes.string.isRequired,
   }).isRequired,
 };

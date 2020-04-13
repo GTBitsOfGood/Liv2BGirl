@@ -40,6 +40,7 @@ export default {
     searchThreads: () => "/api/threads/searchThreads",
     getThread: () => "/api/threads/getThread",
     getGroupThreads: () => "/api/threads/getGroupThreads",
+    getUserQuestions: () => "/api/threads/getUserQuestions",
     createGroup: () => "/api/groups/createGroup",
     deleteGroup: () => "/api/groups/deleteGroup",
     getGroup: () => "/api/groups/getGroup",

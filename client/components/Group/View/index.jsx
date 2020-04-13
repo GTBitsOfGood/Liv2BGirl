@@ -108,8 +108,7 @@ const ViewGroup = ({ groupid, currentUser }) => {
               src="https://picsum.photos/100/100"
               alt="Group Avatar"
             />
-            {currentUser?.id === groupData.admin ||
-            currentUser?.role === "Ambassador" ? (
+            {isAdmin ? (
               <Icon
                 className={styles.AdminIcon}
                 icon={accountCircleOutline}
@@ -191,6 +190,16 @@ ViewGroup.propTypes = {
   currentUser: PropTypes.shape({
     id: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
+    groups: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        posterId: PropTypes.string.isRequired,
+        groupId: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        postedAt: PropTypes.string.isRequired,
+      }).isRequired
+    ),
   }).isRequired,
 };
 

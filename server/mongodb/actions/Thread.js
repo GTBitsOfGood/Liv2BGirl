@@ -10,6 +10,10 @@ export async function createThread(posterId, groupId, title, content) {
     throw new Error("You must be logged in to create a thread!");
   }
 
+  if (groupId == null || title == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   return Thread.create({
     posterId,
     groupId,
@@ -21,6 +25,10 @@ export async function createThread(posterId, groupId, title, content) {
 export async function deleteThread(threadId) {
   await mongoDB();
 
+  if (threadId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   return Thread.findOneAndDelete({ _id: threadId }).then(deletedThread => {
     if (deletedThread) {
       console.log("Successfully deleted thread");
@@ -29,6 +37,32 @@ export async function deleteThread(threadId) {
     }
 
     return deletedThread;
+  });
+}
+
+export async function getUserQuestions(posterId) {
+  await mongoDB();
+
+  return Thread.find({
+    posterId,
+    groupId: { $in: ["Public", "Anonymous", "Ambassador"] },
+  }).then(threads => {
+    if (threads) {
+      if (threads.length) {
+        console.log("Successfully found user questions");
+      } else {
+        console.log("No questions from user");
+      }
+    } else {
+      return Promise.reject(new Error("Request failed"));
+    }
+
+    return Promise.all(
+      threads.map(async thread => ({
+        ...thread.toObject(),
+        numComments: await Comments.find({ parentId: thread._id }).count(),
+      }))
+    );
   });
 }
 

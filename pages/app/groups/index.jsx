@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 // Components
 import GroupsList from "../../../client/components/Group/GroupsLanding";
@@ -11,7 +12,7 @@ const GroupsPage = ({ ownGroups }) => {
   return <GroupsList ownGroups={ownGroups} />;
 };
 
-GroupsPage.getInitialProps = async ({ req, query }) => {
+GroupsPage.getInitialProps = async ({ req }) => {
   const props = {};
 
   const cookies = req ? req.headers.cookie : null;
@@ -23,6 +24,16 @@ GroupsPage.getInitialProps = async ({ req, query }) => {
   });
 
   return props;
+};
+
+GroupsPage.propTypes = {
+  ownGroups: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    admin: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default GroupsPage;

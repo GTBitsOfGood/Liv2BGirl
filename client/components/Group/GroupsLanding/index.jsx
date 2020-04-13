@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -117,6 +118,18 @@ const GroupsList = ({ ownGroups }) => {
       </div>
     </>
   );
+};
+
+GroupsList.propTypes = {
+  ownGroups: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      category: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      admin: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
 export default GroupsList;

@@ -5,7 +5,11 @@ import Router from "next/router";
 import mongoDB from "../index";
 import User from "../models/User";
 
-export async function login(email, password) {
+export const login = async (email, password) => {
+  if (email == null || password == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   await mongoDB();
 
   return User.findOne({ email })
@@ -37,20 +41,26 @@ export async function login(email, password) {
     );
 }
 
-export async function signUp({
+export const signUp = async ({
   email,
   username,
   password,
-  avatar,
-  avatarColor,
-  age,
-  grade,
+  avatar = 1,
+  avatarColor = 1,
+  age = 13,
+  grade = 7,
   role = "User",
   name = "",
   followers = [],
   following = [],
-  interests,
-}) {
+  interests = [],
+  askBookmarks = [],
+  groupBookmarks = [],
+}) => {
+  if (email == null || username == null || password == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   await mongoDB();
 
   return User.countDocuments({ email })
@@ -75,6 +85,8 @@ export async function signUp({
         interests,
         followers,
         following,
+        askBookmarks,
+        groupBookmarks,
       })
     )
     .then(user =>
@@ -100,7 +112,7 @@ export const signOut = () => {
   });
 };
 
-export async function verifyToken(req, res) {
+export const verifyToken = async (req, res) => {
   // eslint-disable-next-line global-require
   const cookies = require("cookie-universal")(req, res);
 
@@ -120,7 +132,7 @@ export async function verifyToken(req, res) {
   });
 }
 
-export async function verifyTokenSecure(req, res) {
+export const verifyTokenSecure = async (req, res) => {
   // eslint-disable-next-line global-require
   const cookies = require("cookie-universal")(req, res);
 
@@ -167,7 +179,11 @@ export async function verifyTokenSecure(req, res) {
   });
 }
 
-export async function follow(userId, toFollowId) {
+export const follow = async (userId, toFollowId) => {
+  if (userId == null || toFollowId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   await mongoDB();
   // username added to userId's following
   // userId added to username's follower
@@ -176,7 +192,11 @@ export async function follow(userId, toFollowId) {
   await User.findByIdAndUpdate(toFollowId, { $push: { followers: userId } });
 }
 
-export async function unfollow(userId, toUnfollowId) {
+export const unfollow = async (userId, toUnfollowId) => {
+  if (userId == null || toUnfollowId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   await mongoDB();
   // "username" deleted from userId's following
   // "userId" deleted from username's follower reduces
@@ -185,8 +205,14 @@ export async function unfollow(userId, toUnfollowId) {
   await User.findByIdAndUpdate(toUnfollowId, { $pull: { followers: userId } });
 }
 
-export const getUser = userId =>
-  User.findById(userId).then(user => {
+export const getUser = async userId => {
+  if (userId == null) {
+    throw new Error("userId must be provided!");
+  }
+
+  await mongoDB();
+
+  return User.findById(userId).then(user => {
     if (user == null) {
       throw new Error("User does not exist!");
     }
@@ -202,3 +228,84 @@ export const getUser = userId =>
       interests: user.interests,
     };
   });
+}
+
+export const getUserAskBookmarks = async userId => {
+  if (userId == null) {
+    throw new Error("userId must be provided!");
+  }
+
+  await mongoDB();
+
+  return User.findById(userId).then(user => {
+    if (user == null) {
+      throw new Error("User does not exist!");
+    }
+
+    return {
+      id: user._id,
+      username: user.username,
+      askBookmarks: user.askBookmarks,
+    };
+  });
+}
+
+export const addAskBookmark = async (userId, threadId) => {
+  if (userId == null || threadId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return User.findByIdAndUpdate(userId, { $push: { askBookmarks: threadId } });
+}
+
+export const removeAskBookmark = async (userId, threadId) => {
+  if (userId == null || threadId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return User.findByIdAndUpdate(userId, { $pull: { askBookmarks: threadId } });
+}
+
+export const getUserGroupBookmarks = async userId => {
+  if (userId == null) {
+    throw new Error("userId must be provided!");
+  }
+
+  await mongoDB();
+
+  return User.findById(userId).then(user => {
+    if (user == null) {
+      throw new Error("User does not exist!");
+    }
+
+    return {
+      id: user._id,
+      username: user.username,
+      groupBookmarks: user.groupBookmarks,
+    };
+  });
+}
+
+export const addGroupBookmark = async (userId, threadId) => {
+  if (userId == null || threadId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return User.findByIdAndUpdate(userId, { $push: { askBookmarks: threadId } });
+}
+
+export const removeGroupBookmark = async (userId, threadId) => {
+  if (userId == null || threadId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  await User.findByIdAndUpdate(userId, { $pull: { askBookmarks: threadId } });
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import PropTypes from "prop-types";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -10,26 +11,49 @@ import styles from "../askme.module.scss";
 import urls from "../../../../utils/urls";
 
 const QuestionCard = ({ question }) => {
-  const {
-    id,
-    asked,
-    comments,
-    postDate,
-    answeredDate,
-    ambassador,
-    answer,
-  } = question;
+  const { _id, title, postedAt, numComments } = question;
+
+  const timeSince = date => {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+
+    let interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+      return `${interval} years`;
+    }
+
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+      return `${interval} months`;
+    }
+
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+      return `${interval} days`;
+    }
+
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return `${interval} hours`;
+    }
+
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return `${interval} minutes`;
+    }
+    return `${Math.floor(seconds)} seconds`;
+  };
 
   return (
     <>
-      <Link href={urls.pages.app.viewQuestion(id)}>
+      <Link href={urls.pages.app.viewQuestion(_id)}>
         <div className={styles.QuestionCard}>
           <div className={styles.QuestionHeader}>
-            <h3 className={styles.Question}>{`Question: ${asked}`}</h3>
+            <h3 className={styles.Question}>{`Question: ${title}`}</h3>
             <Icon className={styles.CommentIcon} icon={bxCommentDetail} />
-            <h6 className={styles.Comments}>{comments}</h6>
+            <h6 className={styles.Comments}>{numComments}</h6>
           </div>
-          {answeredDate ? (
+          {/* {answeredDate ? (
             <div className={styles.Answered}>
               <div className={styles.AmbassadorInfo}>
                 {ambassador.avatar ? (
@@ -46,19 +70,29 @@ const QuestionCard = ({ question }) => {
               </div>
               <h4 className={styles.Answer}>{`Answer: ${answer}`}</h4>
             </div>
-          ) : (
-            <div className={styles.Unanswered}>
-              <p className={styles.AskedDate}>
-                {postDate > 1
-                  ? `Asked ${postDate} days ago`
-                  : `Asked ${postDate} day ago`}
-              </p>
-            </div>
-          )}
+          ) : ( */}
+          <div className={styles.Unanswered}>
+            <p className={styles.AskedDate}>
+              {`Asked ${timeSince(postedAt)} ago`}
+            </p>
+          </div>
+          {/* )} */}
         </div>
       </Link>
     </>
   );
+};
+
+QuestionCard.propTypes = {
+  question: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    posterId: PropTypes.string.isRequired,
+    groupId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    postedAt: PropTypes.string.isRequired,
+    numComments: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default QuestionCard;

@@ -2,30 +2,42 @@ import mongoDB from "../index";
 import Group from "../models/Group";
 import User from "../models/User";
 
-export async function followGroup(groupId, userId) {
+export const followGroup = async (groupId, userId) => {
+  if (groupId == null || userId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   await mongoDB();
 
   return User.findByIdAndUpdate(userId, { $push: { groups: groupId } });
 }
 
-export async function unfollowGroup(groupId, userId) {
+export const unfollowGroup = async (groupId, userId) => {
+  if (groupId == null || userId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   await mongoDB();
 
   return User.findByIdAndUpdate(userId, { $pull: { groups: groupId } });
 }
 
-export async function createGroup(
+export const createGroup = async (
   currentUser,
   name,
   description,
   category,
   admin
-) {
-  await mongoDB();
+) => {
+  if (name == null || description == null || category == null || admin == null) {
+    throw new Error("All parameters must be provided!");
+  }
 
   if (currentUser == null) {
     throw new Error("You must be logged in to create a group!");
   }
+
+  await mongoDB();
 
   return Group.create({
     name,
@@ -40,7 +52,11 @@ export async function createGroup(
   });
 }
 
-export async function deleteGroup(groupId) {
+export const deleteGroup = async (groupId) => {
+  if (groupId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   await mongoDB();
 
   return Group.findOneAndDelete({ _id: groupId }).then(deletedGroup => {
@@ -54,8 +70,14 @@ export async function deleteGroup(groupId) {
   });
 }
 
-export const getGroup = groupId =>
-  Group.findById(groupId).then(async group => {
+export const getGroup = async (groupId) => {
+  if (groupId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return Group.findById(groupId).then(async group => {
     if (group == null) {
       throw new Error("Group does not exist!");
     }
@@ -73,9 +95,16 @@ export const getGroup = groupId =>
       people,
     };
   });
+}
 
-export const searchGroups = groupId =>
-  Group.findById(groupId).then(async group => {
+export const searchGroups = async (groupId) => {
+  if (groupId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return Group.findById(groupId).then(async group => {
     if (group == null) {
       throw new Error("Group does not exist!");
     }
@@ -93,3 +122,4 @@ export const searchGroups = groupId =>
       people,
     };
   });
+}
