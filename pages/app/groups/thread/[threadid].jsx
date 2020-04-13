@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 
+// Component
 import Thread from "../../../../client/components/Group/Thread";
+
+// API Calls
 import { getThread } from "../../../../client/actions/Thread";
 import { getCommentsByThread } from "../../../../client/actions/Comment";
 import { getUser } from "../../../../client/actions/User";
@@ -47,6 +51,28 @@ ThreadPage.getInitialProps = async ({ query }) => {
   return {
     data,
   };
+};
+
+ThreadPage.propTypes = {
+  currentUser: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+  }).isRequired,
+
+  data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    postedAt: PropTypes.string.isRequired,
+    author: PropTypes.shape({
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }).isRequired,
+    groupId: PropTypes.string.isRequired,
+    groupName: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ThreadPage;

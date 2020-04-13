@@ -17,15 +17,7 @@ import styles from "../thread.module.scss";
 import urls from "../../../../../utils/urls";
 
 const ThreadPost = props => {
-  const {
-    threadid,
-    title,
-    summary,
-    authorid,
-    postedAt,
-    currentUser,
-    numComments,
-  } = props;
+  const { threadid, title, summary, authorid, postedAt, numComments } = props;
 
   const [author, setAuthor] = useState("");
 
@@ -107,10 +99,7 @@ ThreadPost.propTypes = {
   title: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
   numComments: PropTypes.number.isRequired,
-  currentUser: PropTypes.shape({
-    avatar: PropTypes.number.isRequired,
-    avatarColor: PropTypes.number.isRequired,
-  }).isRequired,
+  postedAt: PropTypes.string.isRequired,
 };
 
 export default ThreadPost;

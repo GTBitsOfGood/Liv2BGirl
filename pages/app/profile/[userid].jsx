@@ -1,5 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+// Component
 import Profile from "../../../client/components/Profile";
+
+// API Call
 import { getUser } from "../../../client/actions/User";
 import { getGroup } from "../../../client/actions/Group";
 
@@ -27,6 +32,15 @@ ProfilePage.getInitialProps = async ({ query }) => {
       user,
     };
   });
+};
+
+ProfilePage.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+    groups: PropTypes.arrayOf(PropTypes.string.isRequired),
+  }).isRequired,
 };
 
 export default ProfilePage;

@@ -191,15 +191,9 @@ export const getUser = userId =>
 
     return {
       id: user._id,
-      groups: user.groups,
-      followers: user.followers,
-      following: user.following,
-      email: user.email,
       username: user.username,
       avatar: user.avatar,
       avatarColor: user.avatarColor,
-      age: user.age,
-      grade: user.grade,
-      role: user.role,
+      groups: user.groups,
     };
   });

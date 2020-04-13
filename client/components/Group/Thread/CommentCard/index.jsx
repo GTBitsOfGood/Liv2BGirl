@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-
-// API Call
-import { getUser } from "../../../../actions/User";
 
 // Stylings
 import { avatarImg, colorArr } from "../../../../../utils/avatars";
