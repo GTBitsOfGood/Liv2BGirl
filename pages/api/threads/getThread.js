@@ -3,7 +3,7 @@ import { getThread } from "../../../server/mongodb/actions/Thread";
 // @route   POST api/threads/getThread
 // @desc    Get a thread
 // @access  Public
-const handler = (req, res) => {
+const handler = (req, res) =>
   getThread(req.body.threadId)
     .then(thread =>
       res.status(200).json({
@@ -17,6 +17,5 @@ const handler = (req, res) => {
         message: error.message,
       })
     );
-};
 
 export default handler;

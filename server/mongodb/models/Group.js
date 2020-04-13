@@ -19,11 +19,6 @@ const GroupSchema = new Schema({
     type: String,
     required: true,
   },
-  subscribers: {
-    type: [String],
-    default: [],
-    required: true,
-  },
 });
 
 export default mongoose.models.Group || mongoose.model("Group", GroupSchema);

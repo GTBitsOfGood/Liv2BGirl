@@ -14,6 +14,7 @@ export const signUp = ({
   selectedTopics,
   role,
   name,
+  interests,
 }) =>
   fetch(urls.baseUrl + urls.api.signUp(), {
     method: "post",
@@ -33,6 +34,7 @@ export const signUp = ({
       selectedTopics,
       role,
       name,
+      interests,
     }),
   })
     .then(response => response.json())

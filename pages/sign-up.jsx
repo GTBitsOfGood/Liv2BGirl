@@ -67,7 +67,7 @@ const SignUp = () => {
     avatarColor: 0,
     age: 13,
     grade: "7th",
-    selectedTopics: [],
+    interests: [],
   });
 
   const setValues = newObj => {

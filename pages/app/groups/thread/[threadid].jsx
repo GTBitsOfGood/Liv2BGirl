@@ -1,36 +1,53 @@
-import React from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
 
 import Thread from "../../../../client/components/Group/Thread";
+import { getThread } from "../../../../client/actions/Thread";
+import { getCommentsByThread } from "../../../../client/actions/Comment";
+import { getUser } from "../../../../client/actions/User";
+import { getGroup } from "../../../../client/actions/Group";
 
 const ThreadPage = props => {
-  const router = useRouter();
-  const { threadid } = router.query;
-  const { currentUser } = props;
+  const { currentUser, data } = props;
 
-  return <Thread threadid={threadid} currentUser={currentUser} />;
+  return <Thread thread={data} currentUser={currentUser} />;
 };
 
-ThreadPage.getInitialProps = () => {
-  getThread(threadid).then(res => {
+ThreadPage.getInitialProps = async ({ query }) => {
+  const { threadid } = query;
+
+  const data = {
+    id: threadid,
+  };
+
+  await getThread(threadid).then(async res => {
+    console.log('port', process.env.PORT)
     if (res) {
-      setThreadData(res);
+      data.title = res.title;
+      data.postedAt = res.postedAt;
+      data.content = res.content;
 
-      getUser(res.posterId).then(user => {
-        if (user) setAuthor(user.username);
-      });
-
-      getGroup(res.groupId).then(group => {
-        if (group) setGroup(group.name);
-      });
-
-      getCommentsByThread(res._id).then(comments => {
-        if (comments) {
-          setComments(comments);
+      await getUser(res.posterId).then(user => {
+        if (user) {
+          data.author = user.username;
         }
+      });
+
+      await getGroup(res.groupId).then(group => {
+        if (group) {
+          data.groupId = group.groupId;
+          data.groupName = group.name;
+        }
+      });
+
+      await getCommentsByThread(res._id).then(comments => {
+        data.comments = comments || [];
       });
     }
   });
-}
+
+  return {
+    data
+  };
+};
 
 export default ThreadPage;

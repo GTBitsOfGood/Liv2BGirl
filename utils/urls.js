@@ -39,7 +39,7 @@ export default {
     filterThread: () => "/api/threads/filterThread",
     searchThread: () => "/api/threads/searchThread",
     getThread: () => "/api/threads/getThread",
-    getThreads: () => "/api/threads/getGroupThreads",
+    getGroupThreads: () => "/api/threads/getGroupThreads",
     createGroup: () => "/api/groups/createGroup",
     deleteGroup: () => "/api/groups/deleteGroup",
     getGroup: () => "/api/groups/getGroup",

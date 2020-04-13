@@ -13,10 +13,7 @@ import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 import CommentCard from "./CommentCard";
 
 // API Calls
-import { getThread } from "../../../actions/Thread";
-import { getCommentsByThread, createComment } from "../../../actions/Comment";
-import { getUser } from "../../../actions/User";
-import { getGroup } from "../../../actions/Group";
+import { createComment } from "../../../actions/Comment";
 
 // Stylings
 import styles from "./thread.module.scss";
@@ -25,17 +22,23 @@ import styles from "./thread.module.scss";
 import urls from "../../../../utils/urls";
 
 const Thread = props => {
-  const { threadid, currentUser } = props;
+  const { thread } = props;
+  const {
+    id,
+    author,
+    groupId,
+    groupName,
+    title,
+    postedAt,
+    content,
+    comments,
+  } = thread;
   const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
   const [saved, setSaved] = useState(false);
-  const [threadData, setThreadData] = useState(null);
-  const [author, setAuthor] = useState("");
-  const [groupName, setGroup] = useState("");
 
   const postComment = () => {
     if (comment.length > 0) {
-      createComment(currentUser.id, threadid, comment).then(res => {
+      createComment(currentUser.id, id, comment).then(res => {
         if (res) {
           console.log(res);
         }
@@ -43,33 +46,11 @@ const Thread = props => {
     }
   };
 
-  useEffect(() => {
-    getThread(threadid).then(res => {
-      if (res) {
-        setThreadData(res);
-
-        getUser(res.posterId).then(user => {
-          if (user) setAuthor(user.username);
-        });
-
-        getGroup(res.groupId).then(group => {
-          if (group) setGroup(group.name);
-        });
-
-        getCommentsByThread(res._id).then(comments => {
-          if (comments) {
-            setComments(comments);
-          }
-        });
-      }
-    });
-  }, []);
-
   return (
     <div className={styles.ThreadPage}>
       <div className="TopNav">
-        {threadData && (
-          <Link href={urls.pages.app.group(threadData.groupId)}>
+        {thread && (
+          <Link href={urls.pages.app.group(groupId)}>
             <Icon className="Back" icon={bxArrowBack} width="18px" />
           </Link>
         )}
@@ -86,7 +67,7 @@ const Thread = props => {
           )}
         </button>
       </div>
-      {threadData && (
+      {thread && (
         <div className={`Page ${styles.ThreadMain}`}>
           <div className={styles.ThreadInfo}>
             <img
@@ -96,7 +77,7 @@ const Thread = props => {
             />
             <h6 className={styles.ThreadGroupName}>{groupName}</h6>
           </div>
-          <h2 className={styles.ThreadName}>{threadData.title}</h2>
+          <h2 className={styles.ThreadName}>{title}</h2>
           <div className={styles.ThreadDetails}>
             <img
               className={styles.ThreadAuthorAvatar}
@@ -105,20 +86,20 @@ const Thread = props => {
             />
             <div>
               <h5 className={styles.ThreadAuthor}>{author}</h5>
-              <h6 className={styles.ThreadDate}>{threadData.postedAt}</h6>
+              <h6 className={styles.ThreadDate}>{postedAt}</h6>
             </div>
           </div>
-          <h4 className={styles.ThreadText}>{threadData.content}</h4>
+          <h4 className={styles.ThreadText}>{content}</h4>
         </div>
       )}
 
       <div className={styles.ThreadComments}>
-        {comments.map(thread => (
+        {comments.map(item => (
           <CommentCard
             key="Thread"
-            authorid={thread.poster}
-            date={thread.postedAt}
-            text={thread.content}
+            authorid={item.poster}
+            date={item.postedAt}
+            text={item.content}
           />
         ))}
       </div>
@@ -150,7 +131,7 @@ const Thread = props => {
 };
 
 Thread.propTypes = {
-  threadid: PropTypes.string.isRequired,
+  thread: PropTypes.shape({}).isRequired,
   currentUser: PropTypes.shape({
     id: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,

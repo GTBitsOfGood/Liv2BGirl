@@ -17,13 +17,13 @@ const topics = [
 ];
 
 const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
-  const { username, age, grade, selectedTopics, avatar, avatarColor } = values;
+  const { username, age, grade, interests, avatar, avatarColor } = values;
 
   useEffect(() => {
-    if (age > 0 && grade.length > 0 && selectedTopics.length > 0) {
+    if (age > 0 && grade.length > 0 && interests.length > 0) {
       setStageCompleted(true);
     }
-  }, [age, grade, selectedTopics]);
+  }, [age, grade, interests]);
 
   const renderAgeOptions = () => {
     const ages = [13, 14, 15, 16, 17, 18]; // TODO: hardcoded
@@ -47,12 +47,12 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
         <button
           type="button"
           className={
-            selectedTopics.includes(topic)
+            interests.includes(topic)
               ? "SmallPill ActivePill"
               : "SmallPill"
           }
           onClick={() => {
-            const newTopics = [...selectedTopics];
+            const newTopics = [...interests];
             const index = newTopics.indexOf(topic);
 
             if (index < 0) {
@@ -62,7 +62,7 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
             }
 
             setValues({
-              selectedTopics: newTopics,
+              interests: newTopics,
             });
           }}
         >

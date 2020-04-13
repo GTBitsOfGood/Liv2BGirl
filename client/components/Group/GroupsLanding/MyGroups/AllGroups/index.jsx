@@ -19,7 +19,7 @@ const AllGroups = ({ groups, handleBack }) => {
   ]);
 
   return (
-    <div className={styles.AllGroupsPage}>
+    <>
       <div className="TopNav">
         <button className="Back" onClick={handleBack} type="button">
           <Icon icon={arrowLeftAlt2} />
@@ -28,42 +28,45 @@ const AllGroups = ({ groups, handleBack }) => {
         <div />
       </div>
 
-      <div className={styles.CategoryBar}>
-        {[...categoryNames].map(name => (
-          <button
-            key={name}
-            className={
-              name !== selectedCategory
-                ? styles.CategoryPill
-                : `${styles.CategoryPillSelected} ${styles.CategoryPill}`
-            }
-            onClick={() => setSelectedCategory(name)}
-            type="button"
-          >
-            <p
+      <div className={styles.AllGroupsPage}>
+        <div className={styles.CategoryBar}>
+          {[...categoryNames].map(name => (
+            <button
+              key={name}
               className={
                 name !== selectedCategory
-                  ? styles.CategoryName
-                  : `${styles.CategoryNameSelected} ${styles.CategoryName}`
+                  ? styles.CategoryPill
+                  : `${styles.CategoryPillSelected} ${styles.CategoryPill}`
               }
+              onClick={() => setSelectedCategory(name)}
+              type="button"
             >
-              {name}
-            </p>
-          </button>
-        ))}
-      </div>
-
-      <div className={styles.GroupsList}>
-        {groups
-          .filter(
-            group =>
-              selectedCategory === "All" || group.Category === selectedCategory
-          )
-          .map(group => (
-            <Group key={group.name} info={group} />
+              <p
+                className={
+                  name !== selectedCategory
+                    ? styles.CategoryName
+                    : `${styles.CategoryNameSelected} ${styles.CategoryName}`
+                }
+              >
+                {name}
+              </p>
+            </button>
           ))}
+        </div>
+
+        <div className={styles.GroupsList}>
+          {groups
+            .filter(
+              group =>
+                selectedCategory === "All" ||
+                group.Category === selectedCategory
+            )
+            .map(group => (
+              <Group key={group.name} info={group} />
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

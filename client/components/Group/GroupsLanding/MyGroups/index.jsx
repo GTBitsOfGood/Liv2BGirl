@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 // Icon
 import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
 
-// Styling
-import styles from "../GroupsPage.module.scss";
-
 // Components
 import AllGroups from "./AllGroups";
+
+// Styling
+import styles from "../GroupsPage.module.scss";
 
 // Navigation
 import urls from "../../../../../utils/urls";
@@ -20,6 +20,8 @@ const MyGroups = ({ groups }) => {
   if (showAll) {
     return <AllGroups groups={groups} handleBack={() => setShowAll(false)} />;
   }
+
+  useEffect(() => {});
 
   return (
     <div className={styles.MyGroupsPage}>

@@ -2,7 +2,7 @@ import fetch from "isomorphic-unfetch";
 import urls from "../../utils/urls";
 
 export const getGroupThreads = groupId =>
-  fetch(urls.baseUrl + urls.api.getThreads(), {
+  fetch(urls.baseUrl + urls.api.getGroupThreads(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

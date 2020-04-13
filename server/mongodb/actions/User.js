@@ -48,6 +48,7 @@ export async function signUp({
   selectedTopics,
   role = "User",
   name = "",
+  interests = [],
 }) {
   await mongoDB();
 
@@ -71,6 +72,7 @@ export async function signUp({
         selectedTopics,
         role,
         name,
+        interests,
       })
     )
     .then(user =>

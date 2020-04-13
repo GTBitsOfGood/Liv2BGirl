@@ -14,18 +14,19 @@ import MyGroups from "./MyGroups";
 // Styling
 import styles from "./GroupsPage.module.scss";
 
-// Mock Data
-import loadingData from "./loadingData";
-
-const GroupsPage = () => {
+const GroupsList = props => {
+  const { currentUser } = props;
   const [search, setSearch] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [showOwnGroups, setShowOwnGroups] = useState(false);
-  const [categories, setCategories] = useState(loadingData.categories);
-  const [ownGroups, setOwnGroups] = useState(loadingData.groups);
-  const [likeGroups, setLikeGroups] = useState(loadingData.groups.slice(0, 4));
+  const [categories, setCategories] = useState([]);
+  const [ownGroups, setOwnGroups] = useState([]);
+  const [likeGroups, setLikeGroups] = useState([]);
 
   useEffect(() => {
+    if (currentUser) {
+      setOwnGroups(currentUser.groups);
+    }
     // Get categories
     // Get own groups
     // Get likeable groups
@@ -122,4 +123,4 @@ const GroupsPage = () => {
   );
 };
 
-export default GroupsPage;
+export default GroupsList;
