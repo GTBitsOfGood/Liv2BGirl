@@ -49,6 +49,12 @@
     font-weight: normal;
   }
 
+  .ThreadName {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
   .ThreadTime {
     text-align: right;
     margin-left: auto;
@@ -71,6 +77,9 @@
       height: 16px;
       margin-right: 8px;
       border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -78,12 +87,26 @@
     display: flex;
     align-items: center;
     margin-left: auto;
-
     h6 {
       margin-left: 6px;
       font-weight: normal;
     }
   }
+}
+
+.ThreadAuthorAvatar {
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AuthorAvatarImg {
+  height: 80%;
+  object-fit: contain;
 }
 
 .ThreadPage {
@@ -123,11 +146,8 @@
     .ThreadDetails {
       display: flex;
 
-      .ThreadAuthorAvatar {
-        width: 32px;
-        height: 32px;
-        margin-right: 8px;
-        border-radius: 100%;
+      .ThreadAuthor {
+        cursor: pointer;
       }
 
       .ThreadDate {
@@ -145,55 +165,55 @@
   .ThreadComments {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    padding-bottom: 90px;
+    box-sizing: border-box;
+    padding-bottom: 100px;
+    background-color: $background;
   }
 
   .CommentFooter {
     position: fixed;
+    left: 0;
     bottom: 0;
+    min-height: 100px;
     width: 100%;
-    background: #f2f2f2;
-    border: 1px solid #bdbdbd;
-    display: flex;
+    background: $background;
+    border: 1px solid $light-gray;
     box-sizing: border-box;
     padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
 
-    .UserAvatar {
-      width: 32px;
-      height: 32px;
-      margin-top: 4px;
-      margin-right: 10px;
-      border-radius: 100%;
-    }
+    .Footer1 {
+      display: flex;
 
-    .CommentInput {
-      width: 100%;
-      margin: auto 0;
-      margin-right: 16px;
-      margin-bottom: 15px;
-      padding: 10px;
-      height: 40px;
-      font-size: 16px;
-      line-height: 22px;
-      resize: none;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      border: 1px solid #cccccc;
-      box-sizing: border-box;
-      border-radius: 4px;
+      .UserAvatar {
+        min-width: 32px;
+        min-height: 32px;
+        margin-top: 4px;
+        margin-right: 10px;
+        border-radius: 100%;
+      }
 
-      &:focus {
-        height: 170px;
-        margin-bottom: 6px;
+      .CommentInput {
+        width: 100%;
+        margin: auto 0;
+        padding: 8px;
+        height: 40px;
+        font-size: 16px;
+        line-height: 22px;
+        resize: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border: 1px solid #cccccc;
+        box-sizing: border-box;
+        border-radius: 4px;
+        color: $text;
       }
     }
   }
 }
 
 .CommentPg {
-  display: flex;
-  flex-direction: column;
   background-color: white;
   margin: 0;
   margin-top: 8px;
@@ -209,6 +229,13 @@
       margin: auto 0;
       margin-right: 8px;
       border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .CommentAuthor {
+      cursor: pointer;
     }
 
     .CommentDate {
@@ -219,6 +246,7 @@
   .CommentText {
     margin-top: 16px;
     font-weight: normal;
+    white-space: pre-wrap;
   }
 
   .CommentReply {

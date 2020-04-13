@@ -9,7 +9,7 @@ import updateIcon from "@iconify/icons-dashicons/update";
 import styles from "../GroupsPage.module.scss";
 
 // Navigation
-import urls from "../../../../utils/urls";
+import urls from "../../../../../utils/urls";
 
 const ExploreGroups = ({
   categories,
@@ -26,13 +26,13 @@ const ExploreGroups = ({
           <div
             role="button"
             tabIndex={0 - i}
-            key={category.title}
+            key={category}
             className={styles.CategoryType}
-            onClick={() => setSearch(category.title)}
-            onKeyDown={() => setSearch(category.title)}
+            onClick={() => setSearch(category)}
+            onKeyDown={() => setSearch(category)}
           >
             <div className={styles.CategoryImage} />
-            <p className={styles.CategoryTitle}>{category.title}</p>
+            <p className={styles.CategoryTitle}>{category}</p>
           </div>
         ))}
       </div>
@@ -66,10 +66,10 @@ const ExploreGroups = ({
     </div>
     <div className={styles.NotFoundText}>
       <h6>Couldn’t find what you want?</h6>
-      <Link href={urls.pages.app.newGroup}>
-        <>
+      <Link href={urls.pages.app.newgroup}>
+        <div>
           <h6 className={styles.CreateText}>Create a Group</h6>
-        </>
+        </div>
       </Link>
     </div>
   </div>

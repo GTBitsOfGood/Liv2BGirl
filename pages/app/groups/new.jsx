@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Router from "next/router";
 
 // Icons
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -48,8 +47,9 @@ const getStepText = stage => {
   }
 };
 
-const NewGroupPage = () => {
-  const router = useRouter();
+const NewGroupPage = props => {
+  const { currentUser } = props;
+  const [newGroupId, setGroupId] = useState("");
   const [stage, setStage] = useState(0);
   const [stageCompleted, setStageCompleted] = useState(false);
   const [values, setPureValues] = useState({
@@ -73,10 +73,16 @@ const NewGroupPage = () => {
         setStage(prevState => prevState + 1);
         setStageCompleted(false);
       } else if (stage + 1 === 2) {
-        await createGroup(values.name, values.description, [values.category])
-          .then(() => {
+        await createGroup(
+          values.name,
+          values.description,
+          values.category,
+          currentUser.id
+        )
+          .then(res => {
             setStage(prevState => prevState + 1);
             setStageCompleted(true);
+            setGroupId(res._id);
           })
           .catch(() => {
             setStage(0);
@@ -85,7 +91,7 @@ const NewGroupPage = () => {
             window.alert("Failed to create group!");
           });
       } else if (stage + 1 === 3) {
-        await router.replace(`/app/groups/${values.name}`);
+        await Router.push(urls.pages.app.group(newGroupId));
       }
 
       window.scrollTo(0, 0);
@@ -95,9 +101,14 @@ const NewGroupPage = () => {
   return (
     <>
       <div className="TopNav">
-        <Link href={urls.pages.groupList}>
+        <div
+          role="button"
+          tabIndex={-1}
+          onClick={() => Router.back()}
+          onKeyDown={() => Router.back()}
+        >
           <FontAwesomeIcon className="Back" icon={faArrowLeft} />
-        </Link>
+        </div>
         <h3 className="Text">Create New Group</h3>
         <div />
       </div>

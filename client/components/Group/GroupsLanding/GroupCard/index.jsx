@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./Group.module.scss";
-import urls from "../../../../utils/urls";
+import urls from "../../../../../utils/urls";
 
 const Group = ({ info }) => {
   const { id, name, people, description } = info;
@@ -12,7 +12,10 @@ const Group = ({ info }) => {
         <div className={styles.Icon} />
         <div className={styles.Info}>
           <h6 className={styles.Name}>{name}</h6>
-          <p className={styles.MemberCount}>{`${people} people`}</p>
+          <p className={styles.MemberCount}>
+            {people}
+            {people > 1 ? ` people` : ` person`}
+          </p>
         </div>
         <p className={styles.Description}>{description}</p>
       </div>

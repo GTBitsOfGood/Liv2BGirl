@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Link from "next/link";
 
 // Icons
@@ -9,58 +10,28 @@ import bxSearch from "@iconify/icons-bx/bx-search";
 import styles from "./askme.module.scss";
 import QuestionCard from "./QuestionCard";
 
-const fakeQuestion = {
-  id: 1,
-  asked: "Lorem ipsum dolor sit amet, consectetur?",
-  comments: 3,
-  postDate: 1,
-  answeredDate: null,
-  ambassador: {},
-  answer: "",
-};
+// Navigation
+import urls from "../../../utils/urls";
 
-const fakeQuestion2 = {
-  id: 2,
-  asked: "Lorem ipsum dolor sit amet, consectetur?",
-  comments: 100,
-  postDate: 1,
-  answeredDate: 4,
-  ambassador: {
-    name: "ambassador",
-  },
-  answer:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore...",
-};
-
-const AskMe = () => {
+const AskMe = ({ ownQuestions }) => {
   const [curTab, setTab] = useState(0);
-
-  const featured = [
-    fakeQuestion2,
-    fakeQuestion2,
-    fakeQuestion2,
-    fakeQuestion2,
-    fakeQuestion2,
-  ];
-
-  const myQuestions = [
-    fakeQuestion,
-    fakeQuestion2,
-    fakeQuestion,
-    fakeQuestion2,
-    fakeQuestion2,
-  ];
-
-  const bookmarks = [fakeQuestion2, fakeQuestion2];
+  const featured = [];
+  const bookmarks = [];
 
   const askTab = () => {
     if (curTab === 0) {
-      return featured.map(question => <QuestionCard question={question} />);
+      return featured.map(question => (
+        <QuestionCard key={question._id} question={question} />
+      ));
     }
     if (curTab === 1) {
-      return myQuestions.map(question => <QuestionCard question={question} />);
+      return ownQuestions.map(question => (
+        <QuestionCard key={question._id} question={question} />
+      ));
     }
-    return bookmarks.map(question => <QuestionCard question={question} />);
+    return bookmarks.map(question => (
+      <QuestionCard key={question._id} question={question} />
+    ));
   };
 
   return (
@@ -72,7 +43,7 @@ const AskMe = () => {
       </div>
       <div className={styles.AskPage}>
         <div className={styles.TopHead}>
-          <Link href="/app/ask-me/new">
+          <Link href={urls.pages.app.askquestion}>
             <button type="button" className={styles.AskBtn}>
               Ask Question
             </button>
@@ -109,7 +80,7 @@ const AskMe = () => {
             onClick={() => setTab(2)}
           >
             <h6 className={curTab === 2 ? styles.SelectedNav : styles.NavItem}>
-              Bookmark
+              Bookmarks
             </h6>
           </button>
         </div>
@@ -117,6 +88,20 @@ const AskMe = () => {
       </div>
     </>
   );
+};
+
+AskMe.propTypes = {
+  ownQuestions: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      posterId: PropTypes.string.isRequired,
+      groupId: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      postedAt: PropTypes.string.isRequired,
+      numComments: PropTypes.number.isRequired,
+    }).isRequired
+  ).isRequired,
 };
 
 export default AskMe;

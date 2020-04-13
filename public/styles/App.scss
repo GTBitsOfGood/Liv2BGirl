@@ -18,11 +18,18 @@ body,
 }
 
 .Content {
+  margin: 0 auto;
   width: 100%;
+  max-width: 1024px;
+  height: 100%;
   flex: 1;
   overflow-x: hidden;
   overflow-y: auto;
   letter-spacing: 0.01em;
+  color: $text;
+}
+
+a {
   color: $text;
 }
 
@@ -70,12 +77,12 @@ h5 {
 
 h6 {
   font-size: 12px;
-  line-height: 14px;
+  line-height: 16px;
 }
 
 p {
   font-size: 12px;
-  line-height: 12px;
+  line-height: 16px;
 }
 
 button,

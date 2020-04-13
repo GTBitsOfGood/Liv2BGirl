@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -14,22 +15,15 @@ import MyGroups from "./MyGroups";
 // Styling
 import styles from "./GroupsPage.module.scss";
 
-// Mock Data
-import loadingData from "./loadingData";
-
-const GroupsPage = () => {
+const GroupsList = ({ ownGroups }) => {
   const [search, setSearch] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [showOwnGroups, setShowOwnGroups] = useState(false);
-  const [categories, setCategories] = useState(loadingData.categories);
-  const [ownGroups, setOwnGroups] = useState(loadingData.groups);
-  const [likeGroups, setLikeGroups] = useState(loadingData.groups.slice(0, 4));
+  const [likeGroups, setLikeGroups] = useState([]);
 
-  useEffect(() => {
-    // Get categories
-    // Get own groups
-    // Get likeable groups
-  }, []);
+  const categories = Array.from(
+    new Set(["All", ...(ownGroups.map(group => group.category) || [])])
+  );
 
   const handleRefresh = () => {
     // Get more likeable groups
@@ -106,9 +100,13 @@ const GroupsPage = () => {
           </div>
         )}
         {search.length > 0 || searchActive ? (
-          <SearchGroups searchTerm={search} likeableGroups={likeGroups} />
+          <SearchGroups
+            searchTerm={search}
+            likeableGroups={likeGroups}
+            clearedSearch={() => setSearchActive(false)}
+          />
         ) : showOwnGroups ? (
-          <MyGroups groups={ownGroups} />
+          <MyGroups categories={categories} groups={ownGroups} />
         ) : (
           <ExploreGroups
             categories={categories}
@@ -122,4 +120,16 @@ const GroupsPage = () => {
   );
 };
 
-export default GroupsPage;
+GroupsList.propTypes = {
+  ownGroups: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      category: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      admin: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+};
+
+export default GroupsList;

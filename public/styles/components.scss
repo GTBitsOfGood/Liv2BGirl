@@ -11,6 +11,7 @@
 .TopNav {
   position: fixed;
   top: 0;
+  left: 0;
   height: 48px;
   width: 100%;
   z-index: 999;
@@ -61,6 +62,7 @@
     font-weight: bold;
     height: 24px;
     width: 60px;
+    cursor: pointer;
 
     &:hover {
       background-color: $text;
@@ -81,8 +83,7 @@
   border: none;
   width: 255px;
   padding: 15px;
-
-  font-weight: bold;
+  cursor: pointer;
   letter-spacing: 0.05em;
   color: $text;
 
@@ -115,4 +116,22 @@
 
 .ActivePill {
   border: 2px solid $gray;
+}
+
+.PostButton {
+  border-radius: 137px;
+  font-size: 14px;
+  line-height: 21px;
+  border: none;
+  background-color: $light-gray;
+  color: $text;
+  font-weight: bold;
+  height: 24px;
+  width: 60px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $text;
+    color: white;
+  }
 }

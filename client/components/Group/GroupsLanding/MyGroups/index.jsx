@@ -5,20 +5,27 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
 
-// Styling
-import styles from "../GroupsPage.module.scss";
-
 // Components
 import AllGroups from "./AllGroups";
 
-// Navigation
-import urls from "../../../../utils/urls";
+// Styling
+import styles from "../GroupsPage.module.scss";
 
-const MyGroups = ({ groups }) => {
+// Navigation
+import urls from "../../../../../utils/urls";
+
+const MyGroups = ({ groups, categories }) => {
   const [showAll, setShowAll] = useState(false);
+  const [myGroups, setMyGroups] = useState(groups);
 
   if (showAll) {
-    return <AllGroups groups={groups} handleBack={() => setShowAll(false)} />;
+    return (
+      <AllGroups
+        categories={categories}
+        groups={groups}
+        handleBack={() => setShowAll(false)}
+      />
+    );
   }
 
   return (
@@ -26,18 +33,20 @@ const MyGroups = ({ groups }) => {
       <div className={styles.MyGroupsContainer}>
         <div className={styles.MyGroupsHeader}>
           <h2 className={styles.MyGroupsHeaderText}>My Groups</h2>
-          <button
-            className={styles.MyGroupsButton}
-            onClick={() => setShowAll(true)}
-            type="button"
-          >
-            <h6>All </h6>
-            <Icon icon={arrowRightAlt2} />
-          </button>
+          {groups && (
+            <button
+              className={styles.MyGroupsButton}
+              onClick={() => setShowAll(true)}
+              type="button"
+            >
+              <h6>All </h6>
+              <Icon icon={arrowRightAlt2} />
+            </button>
+          )}
         </div>
 
         <div className={styles.MyGroupsGroups}>
-          {groups.slice(0, 4).map(group => (
+          {myGroups.slice(0, 4).map(group => (
             <Link
               key={group.id}
               href={urls.pages.app.group(group.id)}

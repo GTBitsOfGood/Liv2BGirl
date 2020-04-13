@@ -116,11 +116,17 @@
     }
 
     .CommentIcon {
+      margin-left: auto;
       margin-right: 4px;
     }
 
     .Question {
-      max-width: 280px;
+      margin-right: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
@@ -160,8 +166,10 @@
 }
 
 .QuestionPage {
-  margin-top: 48px;
-  margin-bottom: 77px;
+  height: 100%;
+  box-sizing: border-box;
+  padding-top: 48px;
+  padding-bottom: 77px;
   background: $background;
   display: flex;
   flex-direction: column;
@@ -174,12 +182,16 @@
       margin: 13px 0;
       display: flex;
       align-items: center;
+      cursor: pointer;
 
       .QuestionAuthorAvatar {
         width: 16px;
         height: 16px;
         margin-right: 8px;
         border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .QuestionAuthor,
@@ -214,12 +226,16 @@
         margin-bottom: 13px;
         display: flex;
         align-items: center;
+        cursor: pointer;
 
         .QuestionAuthorAvatar {
           width: 16px;
           height: 16px;
           margin-right: 8px;
           border-radius: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .QuestionAuthor,
@@ -239,38 +255,55 @@
     }
   }
 
+  .CommentAuthorAvatar {
+    min-width: 32px;
+    min-height: 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4px;
+    margin-right: 8px;
+  }
+
+  .AuthorAvatarImg {
+    height: 80%;
+    object-fit: contain;
+  }
+
   .CommentFooter {
     position: fixed;
+    left: 0;
     bottom: 0;
+    min-height: 100px;
     width: 100%;
     background: $background;
     border: 1px solid $light-gray;
-    display: flex;
     box-sizing: border-box;
     padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
 
-    .UserAvatar {
-      width: 32px;
-      height: 32px;
-      margin-top: 4px;
-      margin-right: 10px;
-      border-radius: 100%;
-    }
+    .Footer1 {
+      display: flex;
 
-    .CommentInput {
-      width: 100%;
-      margin-bottom: 15px;
-      padding: 10px;
-      height: 40px;
-      font-size: 16px;
-      line-height: 22px;
-      resize: none;
-      color: $text;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      border: 1px solid $light-gray;
-      box-sizing: border-box;
-      border-radius: 4px;
+      .CommentInput {
+        width: 100%;
+        margin: auto 0;
+        padding: 8px;
+        height: 40px;
+        font-size: 16px;
+        line-height: 22px;
+        resize: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border: 1px solid #cccccc;
+        box-sizing: border-box;
+        border-radius: 4px;
+        color: $text;
+      }
     }
   }
 }

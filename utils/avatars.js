@@ -16,4 +16,11 @@ export const avatarImg = [
 ];
 
 // CreateAvatar Colors
-export const colorArr = ["red", "blue", "green", "yellow", "cyan", "magenta"];
+export const colorArr = [
+  "#C2A8E9",
+  "#1B73D3",
+  "#6FAD7E",
+  "#ED9D46",
+  "#F44336",
+  "#D3496D",
+];

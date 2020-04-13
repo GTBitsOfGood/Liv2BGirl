@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import Router from "next/router";
+
+// API Calls
 import { login } from "../../actions/User";
+
+// Navigation
 import urls from "../../../utils/urls";
 
 // Styling
 import styles from "./signin.module.scss";
 
 const SignInComponent = () => {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRemember] = useState(false);
@@ -16,7 +19,7 @@ const SignInComponent = () => {
   const handleLogin = async () =>
     login(email, password)
       .then(() =>
-        router.push({
+        Router.push({
           pathname: urls.pages.app.home,
         })
       )

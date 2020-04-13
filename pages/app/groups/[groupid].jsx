@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 
 import ViewGroup from "../../../client/components/Group/View";
 
-const GroupPage = () => {
+const GroupPage = ({ currentUser }) => {
   const router = useRouter();
   const { groupid } = router.query;
 
-  return <ViewGroup groupid={groupid} />;
+  return <ViewGroup groupid={groupid} currentUser={currentUser} />;
 };
 
 export default GroupPage;

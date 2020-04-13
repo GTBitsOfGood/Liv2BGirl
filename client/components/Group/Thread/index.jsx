@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import Router from "next/router";
 import Link from "next/link";
-import { Editor } from "@tinymce/tinymce-react";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -10,59 +10,60 @@ import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 
 // Components
+import TextareaAutosize from "react-textarea-autosize";
 import CommentCard from "./CommentCard";
-import { getCommentsByThread } from "../../../actions/Comment";
+
+// API Calls
+import { createComment } from "../../../actions/Comment";
 
 // Stylings
+import { avatarImg, colorArr } from "../../../../utils/avatars";
 import styles from "./thread.module.scss";
 
-const fakeComments = [
-  {
-    posterId: "CrazyPurpleFox",
-    postedAt: "00-00-0000 00:00",
-    content:
-      "1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    posterId: "SadBlueElephant",
-    postedAt: "00-00-0000 00:00",
-    content:
-      "2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    posterId: "HappyGreenBear",
-    postedAt: "00-00-0000 00:00",
-    content:
-      "3 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-];
+// Navigation
+import urls from "../../../../utils/urls";
 
-const ThreadPage = props => {
-  const { threadid, author, date, groupid } = props;
-  const [comments, setComments] = useState([]);
+const Thread = ({ currentUser, thread }) => {
+  const {
+    threadid,
+    author,
+    groupName,
+    title,
+    postedAt,
+    content,
+    comments,
+  } = thread;
+  const [comment, setComment] = useState("");
   const [saved, setSaved] = useState(false);
+  const { id, username, avatar, avatarColor } = author;
 
-  useEffect(() => {
-    async function loadComments() {
-      await getCommentsByThread(threadid)
-        .then(res => {
-          setComments(res); // TODO: handle design for when there are no comments?
-        })
-        .catch(error => {
-          console.log(error);
-          setComments(fakeComments); // TODO: do actual error handling
-        });
+  const postComment = () => {
+    if (comment.length > 0) {
+      createComment(currentUser.id, threadid, comment).then(res => {
+        if (res) {
+          window.location.reload();
+        }
+      });
     }
+  };
 
-    loadComments();
-  });
+  const setReply = value => {
+    setComment(value);
+  };
 
   return (
     <div className={styles.ThreadPage}>
       <div className="TopNav">
-        <Link href={`/app/groups/${groupid}`}>
-          <Icon className="Back" icon={bxArrowBack} width="18px" />
-        </Link>
+        {thread && (
+          <div
+            role="button"
+            tabIndex={-1}
+            onClick={() => Router.back()}
+            onKeyDown={() => Router.back()}
+          >
+            <Icon className="Back" icon={bxArrowBack} width="18px" />
+          </div>
+        )}
         <h3 className={styles.ThreadNavTitle}>Thread</h3>
         <button
           type="button"
@@ -76,82 +77,115 @@ const ThreadPage = props => {
           )}
         </button>
       </div>
-      <div className={`Page ${styles.ThreadMain}`}>
-        <div className={styles.ThreadInfo}>
-          <img
-            className={styles.ThreadGroupAvatar}
-            src="https://picsum.photos/100/100"
-            alt="Group Avatar"
-          />
-          <h6 className={styles.ThreadGroupName}>{groupid}</h6>
-        </div>
-        <h2 className={styles.ThreadName}>{threadid}</h2>
-        <div className={styles.ThreadDetails}>
-          <img
-            className={styles.ThreadAuthorAvatar}
-            src="https://picsum.photos/50/50"
-            alt="Group Avatar"
-          />
-          <div>
-            <h5 className={styles.ThreadAuthor}>{author}</h5>
-            <h6 className={styles.ThreadDate}>{date}</h6>
+      {thread && (
+        <div className={`Page ${styles.ThreadMain}`}>
+          <div className={styles.ThreadInfo}>
+            <img
+              className={styles.ThreadGroupAvatar}
+              src="https://picsum.photos/100/100"
+              alt="Group Avatar"
+            />
+            <h6 className={styles.ThreadGroupName}>{groupName}</h6>
           </div>
+          <h2 className={styles.ThreadName}>{title}</h2>
+          <div className={styles.ThreadDetails}>
+            <div
+              className={styles.ThreadAuthorAvatar}
+              style={{
+                backgroundColor: colorArr[avatarColor],
+              }}
+            >
+              <img
+                className={styles.AuthorAvatarImg}
+                src={avatarImg[avatar]}
+                alt="Author Avatar"
+              />
+            </div>
+            <div>
+              <Link href={urls.pages.app.profile(id)}>
+                <div>
+                  <h5 className={styles.ThreadAuthor}>{username}</h5>
+                </div>
+              </Link>
+
+              <h6 className={styles.ThreadDate}>
+                {new Date(postedAt).toLocaleString()}
+              </h6>
+            </div>
+          </div>
+          <h4 className={styles.ThreadText}>{content}</h4>
         </div>
-        <h4 className={styles.ThreadText}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </h4>
-      </div>
+      )}
+
       <div className={styles.ThreadComments}>
-        {comments.map(thread => (
+        {comments.map(item => (
           <CommentCard
-            key="Thread"
-            author={thread.posterId}
-            date={thread.postedAt}
-            text={thread.content}
+            key={item._id}
+            author={item.author}
+            date={item.postedAt}
+            text={item.content}
+            setReply={setReply}
           />
         ))}
       </div>
+
       <div className={styles.CommentFooter}>
-        <img
-          className={styles.UserAvatar}
-          src="https://picsum.photos/100/100"
-          alt="User Avatar"
-        />
-        <Editor
-          apiKey={process.env.TINY_API_KEY}
-          initialValue=""
-          init={{
-            placeholder: "Comment",
-            height: 140,
-            width: "100%",
-            menubar: false,
-            statusbar: false,
-            toolbar_location: "bottom",
-            plugins: ["lists wordcount emoticons"],
-            setup: editor => {
-              editor.ui.registry.addGroupToolbarButton("alignment", {
-                icon: "align-left",
-                tooltip: "Alignment",
-                items: "alignleft aligncenter alignright alignjustify",
-              });
-            },
-          }}
-          toolbar="emoticons bold italic underline alignment bullist"
-          onEditorChange={content => setComments(content)}
-        />
+        <div className={styles.Footer1}>
+          <div
+            className={`${styles.ThreadAuthorAvatar} ${styles.UserAvatar}`}
+            style={{
+              backgroundColor: colorArr[currentUser.avatarColor],
+            }}
+          >
+            <img
+              className={styles.AuthorAvatarImg}
+              src={avatarImg[currentUser.avatar]}
+              alt="Author Avatar"
+            />
+          </div>
+          <TextareaAutosize
+            className={styles.CommentInput}
+            placeholder="Comment"
+            onChange={event => setComment(event.target.value)}
+            value={comment}
+            maxRows={8}
+          />
+        </div>
+        <button
+          type="button"
+          className="PostButton"
+          onClick={() => postComment()}
+          style={{ marginLeft: "auto", marginTop: "12px" }}
+        >
+          Post
+        </button>
       </div>
     </div>
   );
 };
 
-ThreadPage.propTypes = {
-  threadid: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  groupid: PropTypes.string.isRequired,
+Thread.propTypes = {
+  thread: PropTypes.shape({
+    threadid: PropTypes.string.isRequired,
+    author: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }).isRequired,
+    groupId: PropTypes.string.isRequired,
+    groupName: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    postedAt: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    comments: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+  currentUser: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
-export default ThreadPage;
+export default Thread;

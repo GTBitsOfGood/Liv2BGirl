@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
-import { Editor } from "@tinymce/tinymce-react";
+import Router from "next/router";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -9,53 +8,52 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 
+// Component
+import TextareaAutosize from "react-textarea-autosize";
+import urls from "../../../../utils/urls";
+
+// API Calls
+import { createComment } from "../../../actions/Comment";
+
 // Stylings
+import { avatarImg, colorArr } from "../../../../utils/avatars";
 import styles from "../askme.module.scss";
 
-const fakeComments = [
-  {
-    author: "CrazyPurpleFox",
-    date: "00-00-0000 00:00",
-    text:
-      "1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    author: "SadBlueElephant",
-    date: "00-00-0000 00:00",
-    text:
-      "2 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-  {
-    author: "HappyGreenBear",
-    date: "00-00-0000 00:00",
-    text:
-      "3 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  },
-];
-
-const QuestionPage = props => {
-  const { questionid, question } = props;
+const Question = ({ question, currentUser }) => {
   const [comment, setComment] = useState("");
   const [saved, setSaved] = useState(false);
 
   const {
-    id,
+    questionid,
     author,
     asked,
     description,
     comments,
-    postDate,
-    answeredDate,
-    ambassador,
-    answer,
+    postedAt,
+    visibility,
   } = question;
+
+  const postComment = () => {
+    if (comment.length > 0) {
+      createComment(currentUser.id, questionid, comment).then(res => {
+        if (res) {
+          window.location.reload();
+        }
+      });
+    }
+  };
 
   return (
     <div className={styles.QuestionPage}>
       <div className="TopNav">
-        <Link href="/app/ask-me">
+        <div
+          role="button"
+          tabIndex={-1}
+          onClick={() => Router.push(urls.pages.app.askMe)}
+          onKeyDown={() => Router.push(urls.pages.app.askMe)}
+        >
           <Icon className="Back" icon={bxArrowBack} width="18px" />
-        </Link>
+        </div>
         <h3 className={styles.QuestionNavTitle}>Question</h3>
         <button
           type="button"
@@ -72,20 +70,43 @@ const QuestionPage = props => {
 
       <div className={`Page ${styles.QuestionMain}`}>
         <h3>{`Question: ${asked}`}</h3>
-        <div className={styles.QuestionDetails}>
-          <img
+        <div
+          role="button"
+          tabIndex={0}
+          className={styles.QuestionDetails}
+          onClick={
+            author.userId != null
+              ? () => Router.push(urls.pages.app.profile(author.userId))
+              : () => {}
+          }
+          onKeyDown={
+            author.userId != null
+              ? () => Router.push(urls.pages.app.profile(author.userId))
+              : () => {}
+          }
+        >
+          <div
             className={styles.QuestionAuthorAvatar}
-            src="https://picsum.photos/50/50"
-            alt="Group Avatar"
-          />
-          <h5 className={styles.QuestionAuthor}>{author}</h5>
-          <h6 className={styles.QuestionDate}>{postDate}</h6>
+            style={{
+              backgroundColor: colorArr[author.avatarColor],
+            }}
+          >
+            <img
+              className={styles.AuthorAvatarImg}
+              src={avatarImg[author.avatar]}
+              alt="Author Avatar"
+            />
+          </div>
+          <h5 className={styles.QuestionAuthor}>{author.username}</h5>
+          <h6 className={styles.QuestionDate}>
+            {new Date(postedAt).toLocaleString()}
+          </h6>
         </div>
         <h4 className={styles.QuestionText}>{description}</h4>
       </div>
 
       <div className={styles.QuestionContent}>
-        {ambassador && (
+        {/* {ambassador && (
           <>
             <h6 className={styles.SubHeader}>Ambassador’s Answer</h6>
             <div className={`Page ${styles.QuestionComments}`}>
@@ -101,41 +122,105 @@ const QuestionPage = props => {
               <h4 className={styles.QuestionText}>{answer}</h4>
             </div>
           </>
-        )}
+        )} */}
 
-        <h6 className={styles.SubHeader}>{`Comments (${comments})`}</h6>
+        <h6 className={styles.SubHeader}>{`Comments (${comments.length})`}</h6>
         <div>
-          {fakeComments.map(item => (
+          {comments.map(item => (
             <div className={`Page ${styles.QuestionComments}`}>
-              <div className={styles.QuestionDetails}>
-                <img
+              <div
+                className={styles.QuestionDetails}
+                onClick={
+                  item.author.id != null
+                    ? () => Router.push(urls.pages.app.profile(item.author.id))
+                    : () => {}
+                }
+                onKeyDown={
+                  item.author.id != null
+                    ? () => Router.push(urls.pages.app.profile(item.author.id))
+                    : () => {}
+                }
+              >
+                <div
                   className={styles.QuestionAuthorAvatar}
-                  src="https://picsum.photos/50/50"
-                  alt="Group Avatar"
-                />
-                <h5 className={styles.QuestionAuthor}>{item.author}</h5>
-                <h6 className={styles.QuestionDate}>{item.date}</h6>
+                  style={{
+                    backgroundColor: colorArr[item.author.avatarColor],
+                  }}
+                >
+                  <img
+                    className={styles.AuthorAvatarImg}
+                    src={avatarImg[item.author.avatar]}
+                    alt="Author Avatar"
+                  />
+                </div>
+                <h5 className={styles.QuestionAuthor}>
+                  {item.author.username}
+                </h5>
+                <h6 className={styles.QuestionDate}>
+                  {new Date(item.postedAt).toLocaleString()}
+                </h6>
               </div>
-              <h4 className={styles.QuestionText}>{item.text}</h4>
+              <h4 className={styles.QuestionText}>{item.content}</h4>
             </div>
           ))}
         </div>
       </div>
-
       <div className={styles.CommentFooter}>
-        <img
-          className={styles.UserAvatar}
-          src="https://picsum.photos/100/100"
-          alt="User Avatar"
-        />
-        <textarea className={styles.CommentInput} />
+        <div className={styles.Footer1}>
+          <div
+            className={styles.CommentAuthorAvatar}
+            style={{
+              backgroundColor: colorArr[currentUser.avatarColor],
+            }}
+          >
+            <img
+              className={styles.AuthorAvatarImg}
+              src={avatarImg[currentUser.avatar]}
+              alt="User Avatar"
+            />
+          </div>
+          <TextareaAutosize
+            className={styles.CommentInput}
+            placeholder="Comment"
+            onChange={event => setComment(event.target.value)}
+            value={comment}
+            maxRows={8}
+          />
+        </div>
+        <button
+          type="button"
+          className="PostButton"
+          onClick={() => postComment()}
+          style={{ marginLeft: "auto", marginTop: "12px" }}
+        >
+          Post
+        </button>
       </div>
     </div>
   );
 };
 
-QuestionPage.propTypes = {
-  questionid: PropTypes.string.isRequired,
+Question.propTypes = {
+  question: PropTypes.shape({
+    questionid: PropTypes.string.isRequired,
+    visiblity: PropTypes.string.isRequired,
+    asked: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    postedAt: PropTypes.string.isRequired,
+    comments: PropTypes.arrayOf(PropTypes.string.isRequired),
+    author: PropTypes.shape({
+      userId: PropTypes.string,
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
+
+  currentUser: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
-export default QuestionPage;
+export default Question;

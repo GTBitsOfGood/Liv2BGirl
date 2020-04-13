@@ -1,8 +1,8 @@
 import fetch from "isomorphic-unfetch";
 import urls from "../../utils/urls";
 
-export const getGroup = groupId =>
-  fetch(urls.baseUrl + urls.api.getGroup(), {
+export const getGroupThreads = groupId =>
+  fetch(urls.baseUrl + urls.api.getGroupThreads(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -22,19 +22,14 @@ export const getGroup = groupId =>
       return json.payload;
     });
 
-export const createGroup = (name, description, category, admin) =>
-  fetch(urls.baseUrl + urls.api.createGroup(), {
-    method: "post",
-    mode: "same-origin",
-    credentials: "include",
+export const getThread = threadId =>
+  fetch(urls.baseUrl + urls.api.getThread(), {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name,
-      description,
-      category,
-      admin,
+      threadId,
     }),
   })
     .then(response => response.json())
@@ -44,18 +39,39 @@ export const createGroup = (name, description, category, admin) =>
       } else if (!json.success) {
         throw new Error(json.message);
       }
+
       return json.payload;
     });
 
-export const deleteGroup = groupId =>
-  fetch(urls.baseUrl + urls.api.deleteGroup(), {
-    method: "post",
-    mode: "same-origin",
-    credentials: "include",
+export const getUserQuestions = posterId =>
+  fetch(urls.baseUrl + urls.api.getUserQuestions(), {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      posterId,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const searchThreads = (terms, groupId) =>
+  fetch(urls.baseUrl + urls.api.searchThreads(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      terms,
       groupId,
     }),
   })
@@ -66,5 +82,6 @@ export const deleteGroup = groupId =>
       } else if (!json.success) {
         throw new Error(json.message);
       }
+
       return json.payload;
     });

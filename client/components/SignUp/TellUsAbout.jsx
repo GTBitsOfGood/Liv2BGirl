@@ -17,28 +17,24 @@ const topics = [
 ];
 
 const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
-  const { username, age, grade, selectedTopics, avatar, avatarColor } = values;
+  const { username, age, grade, interests, avatar, avatarColor } = values;
 
   useEffect(() => {
-    if (age > 0 && grade.length > 0 && selectedTopics.length > 0) {
+    if (age > 0 && grade > 0 && interests.length > 0) {
       setStageCompleted(true);
     }
-  }, [age, grade, selectedTopics]);
+  }, [age, grade, interests]);
 
   const renderAgeOptions = () => {
-    const ages = [13, 14, 15, 16, 17, 18]; // TODO: hardcoded
+    const ages = [13, 14, 15, 16, 17, 18];
 
-    return ages.map(item => (
-      <option onChange={() => setValues({ age: item })}>{item}</option>
-    ));
+    return ages.map(item => <option value={item}>{item}</option>);
   };
 
   const renderGradeOptions = () => {
-    const grades = ["7th", "8th", "9th", "10th", "11th", "12th"]; // TODO: hardcoded
+    const grades = [7, 8, 9, 10, 11, 12];
 
-    return grades.map(item => (
-      <option onChange={() => setValues({ grade: item })}>{item}</option>
-    ));
+    return grades.map(item => <option value={item}>{`${item}th`}</option>);
   };
 
   const renderTopics = () => {
@@ -47,12 +43,10 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
         <button
           type="button"
           className={
-            selectedTopics.includes(topic)
-              ? "SmallPill ActivePill"
-              : "SmallPill"
+            interests.includes(topic) ? "SmallPill ActivePill" : "SmallPill"
           }
           onClick={() => {
-            const newTopics = [...selectedTopics];
+            const newTopics = [...interests];
             const index = newTopics.indexOf(topic);
 
             if (index < 0) {
@@ -62,7 +56,7 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
             }
 
             setValues({
-              selectedTopics: newTopics,
+              interests: newTopics,
             });
           }}
         >
@@ -95,7 +89,11 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
           <label className={styles.AboutLabel} htmlFor="age">
             <h2>Age:</h2>
           </label>
-          <select id="age" className={styles.AboutSelect}>
+          <select
+            id="age"
+            className={styles.AboutSelect}
+            onChange={event => setValues({ age: event.target.value })}
+          >
             {renderAgeOptions()}
           </select>
         </div>
@@ -104,7 +102,11 @@ const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
           <label className={styles.AboutLabel} htmlFor="grade">
             <h2>School Year:</h2>
           </label>
-          <select id="grade" className={styles.AboutSelect}>
+          <select
+            id="grade"
+            className={styles.AboutSelect}
+            onChange={event => setValues({ grade: event.target.value })}
+          >
             {renderGradeOptions()}
           </select>
         </div>

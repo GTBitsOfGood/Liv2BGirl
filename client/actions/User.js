@@ -14,6 +14,7 @@ export const signUp = ({
   selectedTopics,
   role,
   name,
+  interests,
 }) =>
   fetch(urls.baseUrl + urls.api.signUp(), {
     method: "post",
@@ -30,9 +31,9 @@ export const signUp = ({
       avatarColor,
       age,
       grade,
-      selectedTopics,
       role,
       name,
+      interests,
     }),
   })
     .then(response => response.json())
@@ -126,7 +127,7 @@ export const signOut = () => {
   });
 };
 
-export const createThread = (posterId, groupId, title, content, tags = []) =>
+export const createThread = (posterId, groupId, title, content) =>
   fetch(urls.baseUrl + urls.api.createThread(), {
     method: "POST",
     headers: {
@@ -136,18 +137,19 @@ export const createThread = (posterId, groupId, title, content, tags = []) =>
       posterId,
       groupId,
       title,
-      tags,
       content,
     }),
-  }).then(json => {
-    if (json == null) {
-      throw new Error("Could not connect to API!");
-    } else if (!json.success) {
-      throw new Error(json.message);
-    }
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
 
-    return json.payload;
-  });
+      return json.payload;
+    });
 
 export const getCurrentUser = cookies => {
   const conditionals = {};

@@ -1,8 +1,7 @@
-@import "../../../public/styles/colors";
+@import "../../../../public/styles/colors";
 
 .GroupsPage {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -120,7 +119,7 @@
     }
 
     .CategoryType {
-      flex: 1 0 25%;
+      width: 25%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -129,7 +128,9 @@
 
       .CategoryImage {
         width: 56px;
+        max-width: 90%;
         height: 56px;
+        max-height: 90%;
         background-color: $light-gray;
         border-radius: 100%;
         margin-bottom: 8px;
@@ -251,18 +252,27 @@
     }
 
     .MyGroupType {
-      flex: 1 0 25%;
+      width: 25%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
 
       .MyGroupImage {
         width: 72px;
+        max-width: 90%;
         height: 72px;
+        max-height: 90%;
         background-color: $background;
         border-radius: 10px;
         margin-bottom: 8px;
+      }
+
+      p {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
   }
@@ -279,6 +289,15 @@
   background: white;
   z-index: 10;
 
+  .AllGroupsContainer {
+    width: 100%;
+    margin: 0 auto;
+
+    @media (min-width: 1056px) {
+      width: 1024px;
+    }
+  }
+
   .CategoryBar {
     margin-top: 48px;
     width: 100%;
@@ -290,11 +309,14 @@
 
     .CategoryPill {
       height: 32px;
+      min-width: 80px;
       background: none;
-      border: none;
+      border: 2px solid transparent;
       border-radius: 32px;
       box-sizing: border-box;
       margin-right: 16px;
+      cursor: pointer;
+      color: $text;
     }
 
     .CategoryPillSelected {
@@ -304,6 +326,11 @@
     .CategoryName {
       text-align: center;
       padding: 8px;
+    }
+
+    .CategoryNameSelected {
+      font-weight: bold;
+      padding: 0;
     }
   }
 
@@ -353,5 +380,10 @@
     text-align: center;
     line-height: 40px;
     cursor: pointer;
+
+    &:hover {
+      background-color: $text;
+      color: white;
+    }
   }
 }

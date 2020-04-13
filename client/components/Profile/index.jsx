@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
+import Router from "next/router";
 
 // Icons
 import { Icon } from "@iconify/react";
@@ -11,8 +11,6 @@ import { avatarImg, colorArr } from "../../../utils/avatars";
 
 // Components
 import GroupCard from "./GroupCard";
-// Urls
-import urls from "../../../utils/urls";
 
 // Styling
 import styles from "./profile.module.scss";
@@ -20,9 +18,14 @@ import styles from "./profile.module.scss";
 const ProfilePage = ({ user }) => (
   <div>
     <div className="TopNav">
-      <Link href={urls.pages.app.home}>
+      <div
+        role="button"
+        tabIndex={-1}
+        onClick={() => Router.back()}
+        onKeyDown={() => Router.back()}
+      >
         <Icon className="Back" icon={bxArrowBack} width="18px" />
-      </Link>
+      </div>
       <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
       <div />
     </div>
@@ -42,10 +45,10 @@ const ProfilePage = ({ user }) => (
       <div className={styles.ProfileTitle}>
         <h3 className={styles.ProfileName}>{user.username}</h3>
         <h3 className={styles.ProfileStats}>
-          {`${user.age} yo • ${user.grade} grade`}
+          {`${user.age} yo • ${user.grade}th grade`}
         </h3>
         <h6 className={styles.ProfileDescription}>
-          Discription Lorem ipsum dolor sit amet, elit
+          Description Lorem ipsum dolor sit amet, elit test overflow
         </h6>
       </div>
     </div>
@@ -125,7 +128,12 @@ const ProfilePage = ({ user }) => (
 ProfilePage.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+    groups: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+      })
+    ).isRequired,
     followers: PropTypes.arrayOf(PropTypes.string).isRequired,
     following: PropTypes.arrayOf(PropTypes.string).isRequired,
     email: PropTypes.string.isRequired,

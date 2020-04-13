@@ -18,10 +18,12 @@
     display: flex;
     min-height: 1.5rem;
     padding-left: 1.5rem;
+    cursor: pointer;
 
     .CheckboxLabel {
       display: flex;
       align-items: center;
+      cursor: pointer;
 
       h3 {
         margin-left: 10px;
@@ -69,6 +71,7 @@
       line-height: inherit;
       box-sizing: border-box;
       padding: 0;
+      cursor: pointer;
     }
 
     .CustomCheckbox:checked + .CheckboxLabel::before {

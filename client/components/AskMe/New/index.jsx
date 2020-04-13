@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import Router from "next/router";
+import PropTypes from "prop-types";
 
 // Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
-
 import {
   faAngleRight,
   faGlobe,
@@ -14,12 +13,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+// Components
+import TextareaAutosize from "react-textarea-autosize";
 import Audience from "./Audience";
+
+// API Call
+import { createThread } from "../../../actions/User";
 
 // Styling
 import styles from "./newquestion.module.scss";
 
-const NewQuestion = () => {
+// Navigation
+import urls from "../../../../utils/urls";
+
+const NewQuestion = props => {
+  const { currentUser } = props;
   const [visibility, setVisibility] = useState("Public");
   const [question, setQuestion] = useState("");
   const [description, setDescription] = useState("");
@@ -41,21 +49,27 @@ const NewQuestion = () => {
 
   const postQuestion = () => {
     if (question !== "") {
-      // eslint-disable-next-line no-alert
-      alert(`Question: ${question} Description: ${description}`);
-      Router.push("/app/ask-me");
-      return;
+      createThread(currentUser.id, visibility, question, description).then(
+        res => {
+          if (res) {
+            Router.push(urls.pages.app.viewQuestion(res._id));
+          }
+        }
+      );
     }
-    // eslint-disable-next-line no-alert
-    alert(`Question Required!`);
   };
 
   return (
     <>
       <div className="TopNav">
-        <Link href="/app/ask-me/">
+        <div
+          role="button"
+          tabIndex={-1}
+          onClick={() => Router.back()}
+          onKeyDown={() => Router.back()}
+        >
           <Icon className="Back" icon={bxArrowBack} width="18px" />
-        </Link>
+        </div>
         <h3>Ask Question</h3>
         <button type="button" className="Button" onClick={() => postQuestion()}>
           Post
@@ -89,10 +103,11 @@ const NewQuestion = () => {
 
         <div className={styles.Description}>
           <h3>Description (Optional)</h3>
-          <textarea
+          <TextareaAutosize
             className={styles.DescriptionBox}
             placeholder="Add more context to your question."
             onChange={event => setDescription(event.target.value)}
+            minRows={8}
           />
         </div>
       </div>
@@ -106,6 +121,12 @@ const NewQuestion = () => {
       )}
     </>
   );
+};
+
+NewQuestion.propTypes = {
+  currentUser: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default NewQuestion;

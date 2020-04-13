@@ -35,10 +35,12 @@ const UserSchema = new Schema({
   followers: {
     type: [String],
     required: true,
+    default: [],
   },
   following: {
     type: [String],
     required: true,
+    default: [],
   },
   avatar: {
     type: Number,
@@ -53,9 +55,21 @@ const UserSchema = new Schema({
     required: true,
   },
   grade: {
-    type: String,
+    type: Number,
     required: true,
   },
+  interests: {
+    type: [String],
+    required: true,
+  },
+  askBookmarks: {
+    type: [String],
+    required: true,
+  },
+  groupBookmarks: {
+    type: [String],
+    required: true,
+  }
 });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

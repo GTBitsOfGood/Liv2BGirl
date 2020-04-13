@@ -8,7 +8,6 @@ const handler = (req, res) => {
     req.body.posterId,
     req.body.groupId,
     req.body.title,
-    req.body.tags,
     req.body.content
   )
     .then(thread =>
