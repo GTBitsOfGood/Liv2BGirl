@@ -1,14 +1,14 @@
-import { getGroupThreads } from "../../../server/mongodb/actions/Thread";
+import { getUserQuestions } from "../../../server/mongodb/actions/AskMeThread";
 
-// @route   POST api/threads/getGroupThreads
-// @desc    Get a group's threads
+// @route   POST api/ask-me/getUserQuestions
+// @desc    Get a user's questions
 // @access  Public
 const handler = (req, res) =>
-  getGroupThreads(req.body.groupId)
-    .then(threads =>
+  getUserQuestions(req.body.posterId)
+    .then(questions =>
       res.status(200).json({
         success: true,
-        payload: threads,
+        payload: questions,
       })
     )
     .catch(error =>

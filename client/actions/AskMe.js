@@ -1,145 +1,9 @@
 import fetch from "isomorphic-unfetch";
-import Router from "next/router";
-import cookie from "js-cookie";
 import urls from "../../utils/urls";
 
-export const signUp = ({
-  username,
-  email,
-  password,
-  avatar,
-  avatarColor,
-  age,
-  grade,
-  role,
-  name,
-  interests,
-}) =>
-  fetch(urls.baseUrl + urls.api.signUp(), {
-    method: "post",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      email,
-      password,
-      avatar,
-      avatarColor,
-      age,
-      grade,
-      role,
-      name,
-      interests,
-    }),
-  })
-    .then(response => response.json())
-    .then(json => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      }
-
-      return json.payload;
-    });
-
-export const login = (email, password) =>
-  fetch(urls.baseUrl + urls.api.user.login(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  })
-    .then(response => response.json())
-    .then(json => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      }
-
-      return json.payload;
-    });
-
-export const followGroup = (groupId, userId) =>
-  fetch(urls.baseUrl + urls.api.user.followGroup(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      groupId,
-      userId,
-    }),
-  })
-    .then(response => response.json())
-    .then(json => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      }
-
-      return json.payload;
-    });
-
-export const unfollowGroup = (groupId, userId) =>
-  fetch(urls.baseUrl + urls.api.user.unfollowGroup(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      groupId,
-      userId,
-    }),
-  })
-    .then(response => response.json())
-    .then(json => {
-      if (json == null) {
-        throw new Error("Could not connect to API!");
-      } else if (!json.success) {
-        throw new Error(json.message);
-      }
-
-      return json.payload;
-    });
-
-export const signOut = () => {
-  cookie.remove("token");
-
-  return Router.push({
-    pathname: "/",
-  });
-};
-
-export const getCurrentUser = cookies => {
-  const conditionals = {};
-
-  if (cookies != null) {
-    conditionals.headers = {
-      cookie: cookies,
-    };
-  }
-
-  return fetch(urls.baseUrl + urls.api.user.getCurrentUser(), {
+export const getAskThreads = () =>
+  fetch(urls.baseUrl + urls.api.askMe.getAskThreads(), {
     method: "GET",
-    mode: "same-origin",
-    credentials: "include",
-    ...conditionals,
   })
     .then(response => response.json())
     .then(json => {
@@ -151,16 +15,102 @@ export const getCurrentUser = cookies => {
 
       return json.payload;
     });
-};
 
-export const getUser = userId =>
-  fetch(urls.baseUrl + urls.api.user.getUser(), {
+export const getThread = threadId =>
+  fetch(urls.baseUrl + urls.api.askMe.getThread(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      userId,
+      threadId,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const searchThreads = terms =>
+  fetch(urls.baseUrl + urls.api.askMe.searchThreads(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      terms,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const createThread = (posterId, title, content, visibility) =>
+  fetch(urls.baseUrl + urls.api.askMe.createThread(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      posterId,
+      title,
+      content,
+      visibility,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const deleteThread = threadId =>
+  fetch(urls.baseUrl + urls.api.askMe.deleteThread(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      threadId,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const getUserQuestions = posterId =>
+  fetch(urls.baseUrl + urls.api.askMe.getUserQuestions(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      posterId,
     }),
   })
     .then(response => response.json())

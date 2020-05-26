@@ -1,24 +1,24 @@
 import mongoDB from "../index";
 
-import Thread from "../models/Thread";
+import AskMeThread from "../models/AskMeThread";
 import Comments from "../models/Comment";
 
-export async function createThread(posterId, groupId, title, content) {
+export async function createThread(posterId, title, content, visibility) {
   if (posterId == null) {
     throw new Error("You must be logged in to create a thread!");
   }
 
-  if (groupId == null || title == null) {
+  if (title == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return Thread.create({
+  return AskMeThread.create({
     posterId,
-    groupId,
     title,
     content,
+    visibility,
   });
 }
 
@@ -29,7 +29,7 @@ export async function deleteThread(threadId) {
 
   await mongoDB();
 
-  return Thread.findOneAndDelete({ _id: threadId }).then(deletedThread => {
+  return AskMeThread.findOneAndDelete({ _id: threadId }).then(deletedThread => {
     if (deletedThread) {
       console.log("Successfully deleted thread");
     } else {
@@ -40,23 +40,23 @@ export async function deleteThread(threadId) {
   });
 }
 
-export async function getGroupThreads(groupId) {
-  if (groupId == null) {
-    throw new Error("All parameters must be provided!");
+export async function getUserQuestions(posterId) {
+  if (posterId == null) {
+    throw new Error("A user must be provided!");
   }
 
   await mongoDB();
 
-  return Thread.find({ groupId })
+  return AskMeThread.find({ posterId })
     .sort({
       postedAt: -1,
     })
     .then(threads => {
       if (threads) {
         if (threads.length) {
-          console.log("Successfully filtered threads");
+          console.log("Successfully found user questions");
         } else {
-          console.log("No threads in this group");
+          console.log("No questions from user");
         }
       } else {
         return Promise.reject(new Error("Request failed"));
@@ -71,10 +71,37 @@ export async function getGroupThreads(groupId) {
     });
 }
 
-export async function getThread(threadId) {
+export async function getThreads() {
   await mongoDB();
 
-  return Thread.findById(threadId).then(thread => {
+  return AskMeThread.find({
+    visibility: { $ne: "Ambassador" },
+  })
+    .sort({
+      postedAt: -1,
+    })
+    .then(threads => {
+      if (!threads) {
+        return Promise.reject(new Error("Request failed"));
+      }
+
+      return Promise.all(
+        threads.map(async thread => ({
+          ...thread.toObject(),
+          numComments: await Comments.find({ parentId: thread._id }).count(),
+        }))
+      );
+    });
+}
+
+export async function getThread(threadId) {
+  if (threadId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return AskMeThread.findById(threadId).then(thread => {
     if (thread == null) {
       throw new Error("Thread does not exist!");
     }
@@ -85,50 +112,41 @@ export async function getThread(threadId) {
 
 // Currently just filtering by date, expects dates in format 'YYYY-MM-DD' or null
 export async function filterThreads(
-  groupId,
   lowerBound = new Date("0001-01-01"),
   upperBound = new Date()
 ) {
-  if (groupId == null) {
-    throw new Error("All parameters must be provided!");
-  }
-
   await mongoDB();
 
-  return Thread.find({
-    groupId,
+  return AskMeThread.find({
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
-  }).then(threads => {
-    if (threads) {
-      if (threads.length) {
-        console.log("Successfully filtered threads");
+  })
+    .sort({
+      postedAt: -1,
+    })
+    .then(threads => {
+      if (threads) {
+        if (threads.length) {
+          console.log("Successfully filtered threads");
+        } else {
+          console.log("No threads match filtering criteria");
+        }
       } else {
-        console.log("No threads match filtering criteria");
+        return Promise.reject(new Error("Request failed"));
       }
-    } else {
-      return Promise.reject(new Error("Request failed"));
-    }
 
-    return threads;
-  });
+      return threads;
+    });
 }
 
-export async function searchThreads(terms, groupId) {
-  if (groupId == null || terms == null) {
+export async function searchThreads(terms) {
+  if (terms == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  const options = {};
-
-  if (groupId != null) {
-    options.groupId = groupId;
-  }
-
-  return Thread.find(
+  return AskMeThread.find(
     {
-      ...options,
       $text: { $search: terms },
     },
     {

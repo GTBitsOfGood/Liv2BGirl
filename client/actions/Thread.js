@@ -2,7 +2,7 @@ import fetch from "isomorphic-unfetch";
 import urls from "../../utils/urls";
 
 export const getGroupThreads = groupId =>
-  fetch(urls.baseUrl + urls.api.getGroupThreads(), {
+  fetch(urls.baseUrl + urls.api.threads.getGroupThreads(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export const getGroupThreads = groupId =>
     });
 
 export const getThread = threadId =>
-  fetch(urls.baseUrl + urls.api.getThread(), {
+  fetch(urls.baseUrl + urls.api.threads.getThread(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -43,14 +43,15 @@ export const getThread = threadId =>
       return json.payload;
     });
 
-export const getUserQuestions = posterId =>
-  fetch(urls.baseUrl + urls.api.getUserQuestions(), {
+export const searchThreads = (terms, groupId) =>
+  fetch(urls.baseUrl + urls.api.threads.searchThreads(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      posterId,
+      terms,
+      groupId,
     }),
   })
     .then(response => response.json())
@@ -64,15 +65,38 @@ export const getUserQuestions = posterId =>
       return json.payload;
     });
 
-export const searchThreads = (terms, groupId) =>
-  fetch(urls.baseUrl + urls.api.searchThreads(), {
+export const createThread = (posterId, groupId, title, content) =>
+  fetch(urls.baseUrl + urls.api.threads.createThread(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      terms,
+      posterId,
       groupId,
+      title,
+      content,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const deleteThread = threadId =>
+  fetch(urls.baseUrl + urls.api.threads.deleteThread(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      threadId,
     }),
   })
     .then(response => response.json())

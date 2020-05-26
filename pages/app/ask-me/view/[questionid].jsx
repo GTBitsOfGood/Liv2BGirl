@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // API Calls
-import { getThread } from "../../../../client/actions/Thread";
-import { getCommentsByThread } from "../../../../client/actions/Comment";
+import { getThread } from "../../../../client/actions/AskMe";
+import { getCommentsByAskMeThread } from "../../../../client/actions/Comment";
 import { getUser } from "../../../../client/actions/User";
 
 // Page Component
@@ -29,17 +29,17 @@ QuestionPage.getInitialProps = async ({ query }) => {
       await getUser(res.posterId).then(user => {
         if (user) {
           data.author = {
-            userId: res.groupId === "Anonymous" ? null : user.id,
-            username: res.groupId === "Anonymous" ? "Anonymous" : user.username,
-            avatar: res.groupId === "Anonymous" ? 1 : user.avatar,
-            avatarColor: res.groupId === "Anonymous" ? 1 : user.avatarColor,
+            userId: res.visibility === "Anonymous" ? null : user.id,
+            username: res.visibility === "Anonymous" ? "Anonymous" : user.username,
+            avatar: res.visibility === "Anonymous" ? 1 : user.avatar,
+            avatarColor: res.visibility === "Anonymous" ? 1 : user.avatarColor,
           };
         }
       });
 
       data.visibility = res.groupId;
 
-      await getCommentsByThread(res._id).then(comments => {
+      await getCommentsByAskMeThread(res._id).then(comments => {
         data.comments = comments || [];
       });
     }

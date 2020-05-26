@@ -2,7 +2,7 @@ import fetch from "isomorphic-unfetch";
 import urls from "../../utils/urls";
 
 export const getGroup = groupId =>
-  fetch(urls.baseUrl + urls.api.getGroup(), {
+  fetch(urls.baseUrl + urls.api.groups.getGroup(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -23,7 +23,7 @@ export const getGroup = groupId =>
     });
 
 export const createGroup = (name, description, category, admin) =>
-  fetch(urls.baseUrl + urls.api.createGroup(), {
+  fetch(urls.baseUrl + urls.api.groups.createGroup(), {
     method: "post",
     mode: "same-origin",
     credentials: "include",
@@ -48,7 +48,7 @@ export const createGroup = (name, description, category, admin) =>
     });
 
 export const deleteGroup = groupId =>
-  fetch(urls.baseUrl + urls.api.deleteGroup(), {
+  fetch(urls.baseUrl + urls.api.groups.deleteGroup(), {
     method: "post",
     mode: "same-origin",
     credentials: "include",

@@ -1,15 +1,10 @@
-import { createThread } from "../../../server/mongodb/actions/Thread";
+import { deleteThread } from "../../../server/mongodb/actions/AskMeThread";
 
-// @route   POST api/threads/createThread
-// @desc    Create Thread Request
+// @route   DELETE api/ask-me/deleteThread
+// @desc    Delete Thread Request
 // @access  Public
 const handler = (req, res) =>
-  createThread(
-    req.body.posterId,
-    req.body.groupId,
-    req.body.title,
-    req.body.content
-  )
+  deleteThread(req.body.threadId)
     .then(thread =>
       res.status(200).json({
         success: true,

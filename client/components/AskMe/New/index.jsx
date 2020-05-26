@@ -18,7 +18,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import Audience from "./Audience";
 
 // API Call
-import { createThread } from "../../../actions/User";
+import { createThread } from "../../../actions/AskMe";
 
 // Styling
 import styles from "./newquestion.module.scss";
@@ -37,9 +37,11 @@ const NewQuestion = props => {
     if (visibility === "Public") {
       return <FontAwesomeIcon icon={faGlobe} className={styles.Icon} />;
     }
+
     if (visibility === "Anonymous") {
       return <FontAwesomeIcon icon={faGlasses} className={styles.Icon} />;
     }
+
     return <FontAwesomeIcon icon={faUserCircle} className={styles.Icon} />;
   };
 
@@ -49,7 +51,7 @@ const NewQuestion = props => {
 
   const postQuestion = () => {
     if (question !== "") {
-      createThread(currentUser.id, visibility, question, description).then(
+      createThread(currentUser.id, question, description, visibility).then(
         res => {
           if (res) {
             Router.push(urls.pages.app.viewQuestion(res._id));

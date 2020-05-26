@@ -9,13 +9,13 @@ import TextareaAutosize from "react-textarea-autosize";
 import logo from "../../../../../public/img/logo.png";
 
 // API Call
-import { createThread } from "../../../../actions/User";
 
 // Styling
 import styles from "../thread.module.scss";
 
 // Navigation
 import urls from "../../../../../utils/urls";
+import { createThread } from "../../../../actions/Thread";
 
 const CreateThreadComponent = props => {
   const { currentUser } = props;

@@ -1,14 +1,14 @@
-import { getUserQuestions } from "../../../server/mongodb/actions/Thread";
+import { getThreads } from "../../../server/mongodb/actions/AskMeThread";
 
-// @route   POST api/threads/getUserQuestions
-// @desc    Get a user's questions
+// @route   POST api/ask-me/getAskThreads
+// @desc    Get ask me threads
 // @access  Public
 const handler = (req, res) =>
-  getUserQuestions(req.body.posterId)
-    .then(questions =>
+  getThreads()
+    .then(threads =>
       res.status(200).json({
         success: true,
-        payload: questions,
+        payload: threads,
       })
     )
     .catch(error =>

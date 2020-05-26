@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 // API Calls
 import { getCurrentUser } from "../../../client/actions/User";
-import { getUserQuestions } from "../../../client/actions/Thread";
+import { getAskThreads, getUserQuestions } from "../../../client/actions/AskMe";
 
 // Page Component
 import AskMe from "../../../client/components/AskMe";
@@ -29,7 +29,7 @@ AskMePage.getInitialProps = async ({ req }) => {
 
   const user = await getCurrentUser(cookies);
 
-  const featuredQuestions = [];
+  const featuredQuestions = await getAskThreads();
   const ownQuestions = user ? await getUserQuestions(user.id) : [];
   const bookmarks = [];
 

@@ -7,7 +7,7 @@ import { verifyToken } from "../../../server/mongodb/actions/User";
 const handler = async (req, res) => {
   const currUser = await verifyToken(req, res);
 
-  createGroup(
+  return createGroup(
     currUser.id,
     req.body.name,
     req.body.description,
@@ -27,4 +27,5 @@ const handler = async (req, res) => {
       })
     );
 };
+
 export default handler;

@@ -1,14 +1,14 @@
-import { createThread } from "../../../server/mongodb/actions/Thread";
+import { createThread } from "../../../server/mongodb/actions/AskMeThread";
 
-// @route   POST api/threads/createThread
+// @route   POST api/ask-me/createThread
 // @desc    Create Thread Request
 // @access  Public
 const handler = (req, res) =>
   createThread(
     req.body.posterId,
-    req.body.groupId,
     req.body.title,
-    req.body.content
+    req.body.content,
+    req.body.visibility
   )
     .then(thread =>
       res.status(200).json({
