@@ -36,6 +36,8 @@ class MyApp extends App {
   render() {
     const { Component, pageProps, router, currentUser } = this.props;
 
+    console.log("cu", currentUser);
+
     return (
       <>
         <Head>
@@ -63,13 +65,14 @@ class MyApp extends App {
               "/app/profile",
               "/app/ask-me",
               "/app/notifications",
-            ].some(route => router.asPath.includes(route)) && <TopNavBar />}
+            ].some(route => router.asPath.includes(route)) && <TopNavBar currentUser={currentUser} />}
 
-            <BottomNavBar />
+            <BottomNavBar loggedIn={currentUser != null} />
           </>
         )}
       </>
     );
   }
 }
+
 export default MyApp;

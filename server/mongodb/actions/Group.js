@@ -10,7 +10,7 @@ export const followGroup = async (groupId, userId) => {
   await mongoDB();
 
   return User.findByIdAndUpdate(userId, { $push: { groups: groupId } });
-}
+};
 
 export const unfollowGroup = async (groupId, userId) => {
   if (groupId == null || userId == null) {
@@ -20,7 +20,7 @@ export const unfollowGroup = async (groupId, userId) => {
   await mongoDB();
 
   return User.findByIdAndUpdate(userId, { $pull: { groups: groupId } });
-}
+};
 
 export const createGroup = async (
   currentUser,
@@ -29,7 +29,12 @@ export const createGroup = async (
   category,
   admin
 ) => {
-  if (name == null || description == null || category == null || admin == null) {
+  if (
+    name == null ||
+    description == null ||
+    category == null ||
+    admin == null
+  ) {
     throw new Error("All parameters must be provided!");
   }
 
@@ -50,9 +55,9 @@ export const createGroup = async (
 
     return group;
   });
-}
+};
 
-export const deleteGroup = async (groupId) => {
+export const deleteGroup = async groupId => {
   if (groupId == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -68,9 +73,9 @@ export const deleteGroup = async (groupId) => {
 
     return deletedGroup;
   });
-}
+};
 
-export const getGroup = async (groupId) => {
+export const getGroup = async groupId => {
   if (groupId == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -95,9 +100,9 @@ export const getGroup = async (groupId) => {
       people,
     };
   });
-}
+};
 
-export const searchGroups = async (groupId) => {
+export const searchGroups = async groupId => {
   if (groupId == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -122,4 +127,4 @@ export const searchGroups = async (groupId) => {
       people,
     };
   });
-}
+};

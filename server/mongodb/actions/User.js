@@ -39,7 +39,7 @@ export const login = async (email, password) => {
         }
       )
     );
-}
+};
 
 export const signUp = async ({
   email,
@@ -102,7 +102,7 @@ export const signUp = async ({
         }
       )
     );
-}
+};
 
 export const signOut = () => {
   cookie.remove("token");
@@ -130,7 +130,7 @@ export const verifyToken = async (req, res) => {
 
     throw new Error("Invalid token!");
   });
-}
+};
 
 export const verifyTokenSecure = async (req, res) => {
   // eslint-disable-next-line global-require
@@ -138,7 +138,7 @@ export const verifyTokenSecure = async (req, res) => {
 
   const token = cookies.get("token");
   if (token == null) {
-    throw new Error("User is not signed in!");
+    return null;
   }
 
   await mongoDB();
@@ -177,7 +177,7 @@ export const verifyTokenSecure = async (req, res) => {
         throw findError;
       });
   });
-}
+};
 
 export const follow = async (userId, toFollowId) => {
   if (userId == null || toFollowId == null) {
@@ -190,7 +190,7 @@ export const follow = async (userId, toFollowId) => {
 
   await User.findByIdAndUpdate(userId, { $push: { following: toFollowId } });
   await User.findByIdAndUpdate(toFollowId, { $push: { followers: userId } });
-}
+};
 
 export const unfollow = async (userId, toUnfollowId) => {
   if (userId == null || toUnfollowId == null) {
@@ -203,7 +203,7 @@ export const unfollow = async (userId, toUnfollowId) => {
 
   await User.findByIdAndUpdate(userId, { $pull: { following: toUnfollowId } });
   await User.findByIdAndUpdate(toUnfollowId, { $pull: { followers: userId } });
-}
+};
 
 export const getUser = async userId => {
   if (userId == null) {
@@ -228,7 +228,7 @@ export const getUser = async userId => {
       interests: user.interests,
     };
   });
-}
+};
 
 export const getUserAskBookmarks = async userId => {
   if (userId == null) {
@@ -248,7 +248,7 @@ export const getUserAskBookmarks = async userId => {
       askBookmarks: user.askBookmarks,
     };
   });
-}
+};
 
 export const addAskBookmark = async (userId, threadId) => {
   if (userId == null || threadId == null) {
@@ -258,7 +258,7 @@ export const addAskBookmark = async (userId, threadId) => {
   await mongoDB();
 
   return User.findByIdAndUpdate(userId, { $push: { askBookmarks: threadId } });
-}
+};
 
 export const removeAskBookmark = async (userId, threadId) => {
   if (userId == null || threadId == null) {
@@ -268,7 +268,7 @@ export const removeAskBookmark = async (userId, threadId) => {
   await mongoDB();
 
   return User.findByIdAndUpdate(userId, { $pull: { askBookmarks: threadId } });
-}
+};
 
 export const getUserGroupBookmarks = async userId => {
   if (userId == null) {
@@ -288,7 +288,7 @@ export const getUserGroupBookmarks = async userId => {
       groupBookmarks: user.groupBookmarks,
     };
   });
-}
+};
 
 export const addGroupBookmark = async (userId, threadId) => {
   if (userId == null || threadId == null) {
@@ -298,7 +298,7 @@ export const addGroupBookmark = async (userId, threadId) => {
   await mongoDB();
 
   return User.findByIdAndUpdate(userId, { $push: { askBookmarks: threadId } });
-}
+};
 
 export const removeGroupBookmark = async (userId, threadId) => {
   if (userId == null || threadId == null) {
@@ -308,4 +308,4 @@ export const removeGroupBookmark = async (userId, threadId) => {
   await mongoDB();
 
   await User.findByIdAndUpdate(userId, { $pull: { askBookmarks: threadId } });
-}
+};

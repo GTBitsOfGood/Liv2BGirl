@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Link from "next/link";
 
 // Logo/Avatar Assets
@@ -31,7 +32,7 @@ const TopNavBar = ({ currentUser }) => {
           </div>
         </Link>
       ) : (
-        <div className="Avatar" />
+        <div />
       )}
       <a href={urls.pages.app.home}>
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
@@ -39,6 +40,14 @@ const TopNavBar = ({ currentUser }) => {
       <div />
     </div>
   );
+};
+
+TopNavBar.propTypes = {
+  currentUser: PropTypes.object,
+};
+
+TopNavBar.defaultProps = {
+  currentUser: null,
 };
 
 export default TopNavBar;

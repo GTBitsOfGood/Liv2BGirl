@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // Component
-import Thread from "../../../../client/components/Group/Thread";
+import Thread from "../../../client/components/Group/Thread";
 
 // API Calls
-import { getThread } from "../../../../client/actions/Thread";
-import { getCommentsByThread } from "../../../../client/actions/Comment";
-import { getUser } from "../../../../client/actions/User";
-import { getGroup } from "../../../../client/actions/Group";
+import { getThread } from "../../../client/actions/Thread";
+import { getCommentsByThread } from "../../../client/actions/Comment";
+import { getUser } from "../../../client/actions/User";
+import { getGroup } from "../../../client/actions/Group";
 
 const ThreadPage = props => {
   const { currentUser, data } = props;

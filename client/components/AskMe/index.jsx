@@ -13,22 +13,22 @@ import QuestionCard from "./QuestionCard";
 // Navigation
 import urls from "../../../utils/urls";
 
-const AskMe = ({ ownQuestions }) => {
+const AskMe = ({ loggedIn, featuredQuestions, ownQuestions, bookmarks }) => {
   const [curTab, setTab] = useState(0);
-  const featured = [];
-  const bookmarks = [];
 
   const askTab = () => {
     if (curTab === 0) {
-      return featured.map(question => (
+      return featuredQuestions.map(question => (
         <QuestionCard key={question._id} question={question} />
       ));
     }
+
     if (curTab === 1) {
       return ownQuestions.map(question => (
         <QuestionCard key={question._id} question={question} />
       ));
     }
+
     return bookmarks.map(question => (
       <QuestionCard key={question._id} question={question} />
     ));
@@ -43,7 +43,7 @@ const AskMe = ({ ownQuestions }) => {
       </div>
       <div className={styles.AskPage}>
         <div className={styles.TopHead}>
-          <Link href={urls.pages.app.askquestion}>
+          <Link href={urls.pages.app.askQuestion}>
             <button type="button" className={styles.AskBtn}>
               Ask Question
             </button>
@@ -53,55 +53,67 @@ const AskMe = ({ ownQuestions }) => {
             <Icon icon={bxSearch} />
           </div>
         </div>
-        <div className={styles.SecondHead}>
-          <button
-            type="button"
-            className={styles.NavBtn}
-            onClick={() => setTab(0)}
-          >
-            <h6 className={curTab === 0 ? styles.SelectedNav : styles.NavItem}>
-              Featured
-            </h6>
-          </button>
+        {loggedIn && (
+          <div className={styles.SecondHead}>
+            <button
+              type="button"
+              className={styles.NavBtn}
+              onClick={() => setTab(0)}
+            >
+              <h6
+                className={curTab === 0 ? styles.SelectedNav : styles.NavItem}
+              >
+                Featured
+              </h6>
+            </button>
 
-          <button
-            type="button"
-            className={styles.NavBtn}
-            onClick={() => setTab(1)}
-          >
-            <h6 className={curTab === 1 ? styles.SelectedNav : styles.NavItem}>
-              My Questions
-            </h6>
-          </button>
+            <button
+              type="button"
+              className={styles.NavBtn}
+              onClick={() => setTab(1)}
+              disabled={ownQuestions == null}
+            >
+              <h6
+                className={curTab === 1 ? styles.SelectedNav : styles.NavItem}
+              >
+                My Questions
+              </h6>
+            </button>
 
-          <button
-            type="button"
-            className={styles.NavBtn}
-            onClick={() => setTab(2)}
-          >
-            <h6 className={curTab === 2 ? styles.SelectedNav : styles.NavItem}>
-              Bookmarks
-            </h6>
-          </button>
-        </div>
+            <button
+              type="button"
+              className={styles.NavBtn}
+              onClick={() => setTab(2)}
+            >
+              <h6
+                className={curTab === 2 ? styles.SelectedNav : styles.NavItem}
+              >
+                Bookmarks
+              </h6>
+            </button>
+          </div>
+        )}
         <div className={styles.SelectedPage}>{askTab()}</div>
       </div>
     </>
   );
 };
 
+const QuestionType = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  posterId: PropTypes.string.isRequired,
+  groupId: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  postedAt: PropTypes.string.isRequired,
+  numComments: PropTypes.number.isRequired,
+}).isRequired;
+
 AskMe.propTypes = {
-  ownQuestions: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      posterId: PropTypes.string.isRequired,
-      groupId: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      postedAt: PropTypes.string.isRequired,
-      numComments: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+  featuredQuestions: PropTypes.arrayOf(QuestionType).isRequired,
+  ownQuestions: PropTypes.arrayOf(QuestionType).isRequired,
+  bookmarks: PropTypes.arrayOf(QuestionType).isRequired,
 };
 
 export default AskMe;

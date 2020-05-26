@@ -8,8 +8,8 @@ import GroupsList from "../../../client/components/Group/GroupsLanding";
 import { getCurrentUser } from "../../../client/actions/User";
 import { getGroup } from "../../../client/actions/Group";
 
-const GroupsPage = ({ ownGroups }) => {
-  return <GroupsList ownGroups={ownGroups} />;
+const GroupsPage = ({ currentUser, ownGroups }) => {
+  return <GroupsList loggedIn={currentUser != null} ownGroups={ownGroups} />;
 };
 
 GroupsPage.getInitialProps = async ({ req }) => {
@@ -17,16 +17,21 @@ GroupsPage.getInitialProps = async ({ req }) => {
 
   const cookies = req ? req.headers.cookie : null;
 
-  await getCurrentUser(cookies).then(async user => {
+  const user = await getCurrentUser(cookies);
+
+  if (user != null) {
     props.ownGroups = await Promise.all(
       user.groups.map(groupId => getGroup(groupId))
     );
-  });
+  } else {
+    props.ownGroups = [];
+  }
 
   return props;
 };
 
 GroupsPage.propTypes = {
+  currentUser: PropTypes.object,
   ownGroups: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
@@ -34,6 +39,10 @@ GroupsPage.propTypes = {
     description: PropTypes.string.isRequired,
     admin: PropTypes.string.isRequired,
   }).isRequired,
+};
+
+GroupsPage.defaultProps = {
+  currentUser: null,
 };
 
 export default GroupsPage;

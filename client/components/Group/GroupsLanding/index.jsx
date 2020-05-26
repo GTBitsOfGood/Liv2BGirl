@@ -15,7 +15,7 @@ import MyGroups from "./MyGroups";
 // Styling
 import styles from "./GroupsPage.module.scss";
 
-const GroupsList = ({ ownGroups }) => {
+const GroupsList = ({ loggedIn, ownGroups }) => {
   const [search, setSearch] = useState("");
   const [searchActive, setSearchActive] = useState(false);
   const [showOwnGroups, setShowOwnGroups] = useState(false);
@@ -121,6 +121,7 @@ const GroupsList = ({ ownGroups }) => {
 };
 
 GroupsList.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
   ownGroups: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,

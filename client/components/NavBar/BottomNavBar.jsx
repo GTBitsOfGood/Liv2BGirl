@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -8,7 +9,7 @@ import style from "./navbar.module.scss";
 // Navigation
 import urls from "../../../utils/urls";
 
-const BottomNavBar = () => {
+const BottomNavBar = ({ loggedIn }) => {
   const router = useRouter();
 
   return (
@@ -52,20 +53,26 @@ const BottomNavBar = () => {
         </div>
       </Link>
 
-      <Link href={urls.pages.app.notifications}>
-        <div className={style.NavItem}>
-          <div
-            className={
-              router.asPath === urls.pages.app.notifications
-                ? `${style.NavButton} ${style.ActiveItem}`
-                : style.NavButton
-            }
-          />
-          <p>Notifications</p>
-        </div>
-      </Link>
+      {loggedIn && (
+        <Link href={urls.pages.app.notifications}>
+          <div className={style.NavItem}>
+            <div
+              className={
+                router.asPath === urls.pages.app.notifications
+                  ? `${style.NavButton} ${style.ActiveItem}`
+                  : style.NavButton
+              }
+            />
+            <p>Notifications</p>
+          </div>
+        </Link>
+      )}
     </div>
   );
+};
+
+BottomNavBar.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
 };
 
 export default BottomNavBar;

@@ -71,6 +71,15 @@
       color: $text;
       width: 33%;
 
+      &:disabled {
+        border: 2px solid rgba(79, 79, 79, 0.5);
+        background: rgba(79, 79, 79, 0.5);
+        box-sizing: border-box;
+        border-radius: 43px;
+        color: white;
+        cursor: not-allowed;
+      }
+
       .SelectedNav {
         border: 2px solid $text;
         box-sizing: border-box;
