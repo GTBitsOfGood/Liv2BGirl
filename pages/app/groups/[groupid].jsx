@@ -10,4 +10,7 @@ const GroupPage = ({ currentUser }) => {
   return <ViewGroup groupid={groupid} currentUser={currentUser} />;
 };
 
+GroupPage.showTopNav = true;
+GroupPage.showTopNav = true;
+
 export default GroupPage;

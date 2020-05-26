@@ -66,4 +66,7 @@ QuestionPage.propTypes = {
   }).isRequired,
 };
 
+QuestionPage.showTopNav = false;
+QuestionPage.showBottomNav = false;
+
 export default QuestionPage;

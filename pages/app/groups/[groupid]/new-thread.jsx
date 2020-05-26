@@ -15,4 +15,7 @@ NewThreadPage.propTypes = {
   }).isRequired,
 };
 
+NewThreadPage.showTopNav = false;
+NewThreadPage.showBottomNav = false;
+
 export default NewThreadPage;

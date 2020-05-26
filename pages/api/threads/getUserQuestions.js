@@ -3,7 +3,7 @@ import { getUserQuestions } from "../../../server/mongodb/actions/Thread";
 // @route   POST api/threads/getUserQuestions
 // @desc    Get a user's questions
 // @access  Public
-const handler = (req, res) => {
+const handler = (req, res) =>
   getUserQuestions(req.body.posterId)
     .then(questions =>
       res.status(200).json({
@@ -17,6 +17,5 @@ const handler = (req, res) => {
         message: error.message,
       })
     );
-};
 
 export default handler;

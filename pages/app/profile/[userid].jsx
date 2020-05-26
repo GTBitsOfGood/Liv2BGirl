@@ -43,4 +43,7 @@ ProfilePage.propTypes = {
   }).isRequired,
 };
 
+ProfilePage.showTopNav = false;
+ProfilePage.showBottomNav = true;
+
 export default ProfilePage;

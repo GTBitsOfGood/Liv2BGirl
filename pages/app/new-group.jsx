@@ -127,4 +127,7 @@ const NewGroupPage = props => {
   );
 };
 
+NewGroupPage.showTopNav = false;
+NewGroupPage.showBottomNav = false;
+
 export default NewGroupPage;

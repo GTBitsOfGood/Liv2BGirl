@@ -45,4 +45,7 @@ GroupsPage.defaultProps = {
   currentUser: null,
 };
 
+GroupsPage.showTopNav = false;
+GroupsPage.showBottomNav = true;
+
 export default GroupsPage;

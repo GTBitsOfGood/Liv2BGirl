@@ -14,4 +14,7 @@ NewQuestionPage.propTypes = {
   }).isRequired,
 };
 
+NewQuestionPage.showTopNav = false;
+NewQuestionPage.showBottomNav = false;
+
 export default NewQuestionPage;

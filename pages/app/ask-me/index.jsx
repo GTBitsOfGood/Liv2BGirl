@@ -57,4 +57,7 @@ AskMePage.propTypes = {
   bookmarks: PropTypes.arrayOf(QuestionType).isRequired,
 };
 
+AskMePage.showTopNav = false;
+AskMePage.showBottomNav = true;
+
 export default AskMePage;

@@ -1,19 +1,11 @@
 import App from "next/app";
 import React from "react";
 import Head from "next/head";
-
-// Nav Bar
 import BottomNavBar from "../client/components/NavBar/BottomNavBar";
 import TopNavBar from "../client/components/NavBar/TopNavBar";
-
-// API Call
 import { getCurrentUser } from "../client/actions/User";
-
-// Icons
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
-
-// Global Styles
 import "../public/styles/App.scss";
 import "../public/styles/components.scss";
 
@@ -34,9 +26,7 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps, router, currentUser } = this.props;
-
-    console.log("cu", currentUser);
+    const { Component, pageProps, currentUser } = this.props;
 
     return (
       <>
@@ -52,23 +42,11 @@ class MyApp extends App {
           <Component {...pageProps} currentUser={currentUser} />
         </div>
 
-        {![
-          "/sign-up",
-          "/sign-in",
-          "/app/groups/thread",
-          "/app/groups/new",
-          "/app/ask-me/view",
-        ].some(route => router.asPath.includes(route)) && (
-          <>
-            {![
-              "/app/groups",
-              "/app/profile",
-              "/app/ask-me",
-              "/app/notifications",
-            ].some(route => router.asPath.includes(route)) && <TopNavBar currentUser={currentUser} />}
-
-            <BottomNavBar loggedIn={currentUser != null} />
-          </>
+        {Component.showTopNav && (
+          <TopNavBar currentUser={currentUser} />
+        )}
+        {Component.showBottomNav && (
+          <BottomNavBar loggedIn={currentUser != null} />
         )}
       </>
     );

@@ -120,4 +120,7 @@ const SignUp = () => {
   );
 };
 
+SignUp.showTopNav = false;
+SignUp.showBottomNav = false;
+
 export default SignUp;

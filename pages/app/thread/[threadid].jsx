@@ -75,4 +75,7 @@ ThreadPage.propTypes = {
   }).isRequired,
 };
 
+ThreadPage.showTopNav = false;
+ThreadPage.showBottomNav = false;
+
 export default ThreadPage;

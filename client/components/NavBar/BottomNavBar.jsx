@@ -36,7 +36,7 @@ const BottomNavBar = ({ loggedIn }) => {
                 : style.NavButton
             }
           />
-          <p>Group</p>
+          <p>Groups</p>
         </div>
       </Link>
 
