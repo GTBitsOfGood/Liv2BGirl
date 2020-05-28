@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import Group from "./Group";
+import Thread from "./Thread";
+import Comment from "./Comment";
 
 const { Schema } = mongoose;
 
@@ -75,5 +78,21 @@ const UserSchema = new Schema({
     default: [],
   },
 });
+
+async function handleDelete(provDoc) {
+  const doc =
+    this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
+  const id = doc._id;
+
+  await Group.updateMany({ admin: id }, { admin: null });
+  await Thread.deleteMany({ posterId: id });
+  await Comment.deleteMany({ poster: id });
+}
+
+UserSchema.pre("remove", handleDelete);
+UserSchema.pre("findOneAndDelete", handleDelete);
+UserSchema.pre("findOneAndRemove", handleDelete);
+UserSchema.pre("deleteOne", handleDelete);
+UserSchema.pre("deleteMany", handleDelete);
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Comment from "./Comment";
 
 const { Schema } = mongoose;
 
@@ -28,5 +29,19 @@ const ThreadSchema = new Schema({
     default: Date.now,
   },
 });
+
+async function handleDelete(provDoc) {
+  const doc =
+    this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
+  const id = doc._id;
+
+  await Comment.deleteMany({ parentId: id });
+}
+
+ThreadSchema.pre("remove", handleDelete);
+ThreadSchema.pre("findOneAndDelete", handleDelete);
+ThreadSchema.pre("findOneAndRemove", handleDelete);
+ThreadSchema.pre("deleteOne", handleDelete);
+ThreadSchema.pre("deleteMany", handleDelete);
 
 export default mongoose.models.Thread || mongoose.model("Thread", ThreadSchema);
