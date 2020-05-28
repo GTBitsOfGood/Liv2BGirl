@@ -6,7 +6,16 @@ import Group from "../../GroupCard";
 import styles from "../../GroupsPage.module.scss";
 
 const AllGroups = ({ groups, categories, handleBack }) => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const handleSelection = category =>
+    setSelectedCategory(prevCategory => {
+      if (prevCategory === category) {
+        return null;
+      }
+
+      return category;
+    });
 
   return (
     <>
@@ -29,7 +38,7 @@ const AllGroups = ({ groups, categories, handleBack }) => {
                     ? styles.CategoryPill
                     : `${styles.CategoryPillSelected} ${styles.CategoryPill}`
                 }
-                onClick={() => setSelectedCategory(category._id)}
+                onClick={() => handleSelection(category._id)}
                 type="button"
               >
                 <p
@@ -49,7 +58,7 @@ const AllGroups = ({ groups, categories, handleBack }) => {
             {groups
               .filter(
                 group =>
-                  selectedCategory === "All" ||
+                  selectedCategory == null ||
                   group.category._id === selectedCategory
               )
               .map(group => (

@@ -1,23 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
-import { useDebounce } from "../../../../utils/hooks";
 import Group from "../GroupCard";
+import Spinner from "./Spinner";
+import { useDebounce } from "../../../../utils/hooks";
 import { searchGroups } from "../../../../actions/Group";
 import urls from "../../../../../utils/urls";
 import styles from "../GroupsPage.module.scss";
 
 const SearchGroups = ({ searchTerm, searchCategory, likeableGroups }) => {
-  const [groups, setGroups] = useState(likeableGroups);
+  const [groups, setGroups] = React.useState(likeableGroups);
+  const [isSearching, setIsSearching] = React.useState(false);
   const debouncedTerm = useDebounce(searchTerm, 500);
 
-  useEffect(() => {
+  React.useEffect(() => {
+    setIsSearching(true);
+
     searchGroups({
       term: debouncedTerm,
       category: searchCategory ? searchCategory._id : null,
-    }).then(newGroups => {
-      setGroups(newGroups);
-    });
+    })
+      .then(newGroups => {
+        setGroups(newGroups);
+        setIsSearching(false);
+      })
+      .catch(() => {
+        window.alert("Failed to search :(");
+        setIsSearching(false);
+      });
   }, [debouncedTerm, searchCategory]);
 
   return (
@@ -25,7 +35,8 @@ const SearchGroups = ({ searchTerm, searchCategory, likeableGroups }) => {
       {groups.map(group => (
         <Group key={group._id} info={group} />
       ))}
-      {groups.length === 0 && (
+      {isSearching && <Spinner />}
+      {groups.length === 0 && !isSearching && (
         <div className={styles.NoGroupsContainer}>
           <h3 className={styles.NoGroupsText}>No groups found.</h3>
           <Link href={urls.pages.app.newGroup}>
