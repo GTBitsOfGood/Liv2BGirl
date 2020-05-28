@@ -1,19 +1,32 @@
-import React, { useEffect } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { createGroup } from "../../../actions/Group";
 import styles from "./newgroup.module.scss";
 
-const NewGroup = ({ categories, values, setValues, setStageCompleted }) => {
-  const { name, description, category } = values;
+const NewGroup = ({ currentUser, categories, handleNext }) => {
+  const [name, setName] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [category, setCategory] = React.useState(null);
 
-  useEffect(() => {
-    if (name.length > 0 && description.length > 0 && category.length > 0) {
-      setStageCompleted(true);
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    if (category == null) {
+      return window.alert("A category must be selected!");
     }
-  }, [name, description, category]);
+
+    return createGroup(name, description, category, currentUser.id)
+      .then(res => handleNext(res._id))
+      .catch(() => {
+        // eslint-disable-next-line no-alert
+        window.alert("Failed to create group!");
+      });
+  };
 
   return (
-    <div className={styles.NewGroupPage}>
+    <form className={styles.NewGroupPage} onSubmit={handleSubmit}>
       <div className="Page" style={{ marginBottom: "32px" }}>
         <div className={styles.AddIcon}>
           <button type="button" className={styles.AddBtn}>
@@ -26,7 +39,10 @@ const NewGroup = ({ categories, values, setValues, setStageCompleted }) => {
           <input
             id="groupname"
             className={styles.GroupNameText}
-            onChange={event => setValues({ name: event.target.value })}
+            type="text"
+            required
+            value={name}
+            onChange={event => setName(event.target.value)}
           />
         </div>
         <div>
@@ -34,7 +50,9 @@ const NewGroup = ({ categories, values, setValues, setStageCompleted }) => {
           <textarea
             id="description"
             className={styles.GroupDescText}
-            onChange={event => setValues({ description: event.target.value })}
+            required
+            value={description}
+            onChange={event => setDescription(event.target.value)}
           />
         </div>
         <h3 className={styles.CreateGroupHeader}>Category *</h3>
@@ -43,11 +61,9 @@ const NewGroup = ({ categories, values, setValues, setStageCompleted }) => {
             <button
               key={cat._id}
               type="button"
-              onClick={() => {
-                setValues({ category: cat._id });
-              }}
+              onClick={() => setCategory(cat._id)}
               className={
-                category === cat ? "SmallPill ActivePill" : "SmallPill"
+                category === cat._id ? "SmallPill ActivePill" : "SmallPill"
               }
             >
               {cat.name}
@@ -55,7 +71,17 @@ const NewGroup = ({ categories, values, setValues, setStageCompleted }) => {
           ))}
         </div>
       </div>
-    </div>
+      <div style={{ display: "flex" }}>
+        <button className="NextButton" type="submit">
+          <h1>CREATE</h1>
+        </button>
+      </div>
+    </form>
   );
 };
+
+NewGroup.propTypes = {
+  handleNext: PropTypes.func.isRequired,
+};
+
 export default NewGroup;

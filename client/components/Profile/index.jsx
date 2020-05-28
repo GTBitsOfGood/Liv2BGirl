@@ -114,7 +114,7 @@ const ProfilePage = ({ user }) => (
         {user.groups &&
           user.groups.map(group => (
             <GroupCard
-              id={group.id}
+              id={group._id}
               title={group.name}
               description={group.description}
               image={group.image || "https://picsum.photos/100/100"}

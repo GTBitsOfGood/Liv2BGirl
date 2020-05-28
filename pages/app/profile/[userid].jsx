@@ -29,8 +29,10 @@ ProfilePage.getInitialProps = async ({ query }) => {
     );
 
     return {
-      ...user,
-      groups,
+      user: {
+        ...user,
+        groups,
+      },
     };
   });
 };

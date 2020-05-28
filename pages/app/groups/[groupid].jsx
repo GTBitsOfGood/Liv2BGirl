@@ -1,13 +1,44 @@
 import React from "react";
-import { useRouter } from "next/router";
-
+import { getGroup } from "../../../client/actions/Group";
+import { getGroupThreads } from "../../../client/actions/Thread";
 import ViewGroup from "../../../client/components/Group/View";
 
-const GroupPage = ({ currentUser }) => {
-  const router = useRouter();
-  const { groupid } = router.query;
+const GroupPage = ({ error, currentUser, groupid, groupData, threads }) => {
+  if (error) {
+    return (
+      <div>
+        <h2>{error}</h2>
+      </div>
+    );
+  }
 
-  return <ViewGroup groupid={groupid} currentUser={currentUser} />;
+  return (
+    <ViewGroup
+      currentUser={currentUser}
+      groupid={groupid}
+      groupData={groupData}
+      threads={threads}
+    />
+  );
+};
+
+GroupPage.getInitialProps = async ({ query }) => {
+  const { groupid } = query;
+
+  try {
+    const groupData = await getGroup(groupid);
+    const threads = await getGroupThreads(groupid);
+
+    return {
+      groupid,
+      groupData,
+      threads,
+    };
+  } catch (error) {
+    return {
+      error: error.message,
+    };
+  }
 };
 
 GroupPage.showTopNav = false;

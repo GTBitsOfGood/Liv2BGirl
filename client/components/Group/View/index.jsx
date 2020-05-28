@@ -1,72 +1,44 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import Router from "next/router";
-
-// Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 import dotsHorizontal from "@iconify/icons-mdi/dots-horizontal";
 import accountCircleOutline from "@iconify/icons-mdi/account-circle-outline";
-
-// API Call
 import { followGroup, unfollowGroup } from "../../../actions/User";
-import { getGroup } from "../../../actions/Group";
-import { getGroupThreads } from "../../../actions/Thread";
-
-// Components
 import ThreadPost from "../Thread/Post";
 import AdminTab from "./AdminTab";
-
-// Logo for Header
 import logo from "../../../../public/img/logo.png";
-
-// Stylings
+import urls from "../../../../utils/urls";
 import styles from "./viewgroup.module.scss";
 
-// Navigation
-import urls from "../../../../utils/urls";
+const ViewGroup = ({ groupid, groupData, threads, currentUser }) => {
+  const [joined, setJoined] = React.useState(false);
+  const [sortedBy, setSortedBy] = React.useState("latest comment");
+  const [adminTab, setAdminTab] = React.useState(false);
+  const [isAdmin, setAdmin] = React.useState(false);
 
-const ViewGroup = ({ groupid, currentUser }) => {
-  const [joined, setJoined] = useState(false);
-  const [sortedBy, setSortedBy] = useState("latest comment");
-  const [groupData, setGroupData] = useState(null);
-  const [adminTab, setAdminTab] = useState(false);
-  const [threads, setThreads] = useState([]);
-  const [isAdmin, setAdmin] = useState(false);
-
-  const groupAction = () => {
+  const groupAction = async () => {
     if (joined) {
-      unfollowGroup(groupid, currentUser.id);
+      await unfollowGroup(groupid, currentUser.id);
       setJoined(false);
     } else {
-      followGroup(groupid, currentUser.id);
+      await followGroup(groupid, currentUser.id);
       setJoined(true);
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (currentUser.groups.includes(groupid)) {
       setJoined(true);
     }
 
-    getGroup(groupid).then(res => {
-      if (res) {
-        setGroupData(res);
-
-        if (currentUser.role === "Ambassador" || currentUser.id === res.admin) {
-          setJoined(true);
-          setAdmin(true);
-        }
-      }
-    });
-
-    getGroupThreads(groupid).then(res => {
-      if (res) {
-        setThreads(res);
-      }
-    });
+    if (currentUser.role === "Ambassador" || currentUser.id === groupData.admin) {
+      setJoined(true);
+      setAdmin(true);
+    }
   }, []);
 
   const toggle = () => {

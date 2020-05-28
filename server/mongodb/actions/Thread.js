@@ -101,13 +101,7 @@ export async function filterThreads(
     groupId,
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
   }).then(threads => {
-    if (threads) {
-      if (threads.length) {
-        console.log("Successfully filtered threads");
-      } else {
-        console.log("No threads match filtering criteria");
-      }
-    } else {
+    if (!threads) {
       return Promise.reject(new Error("Request failed"));
     }
 
@@ -122,15 +116,8 @@ export async function searchThreads(terms, groupId) {
 
   await mongoDB();
 
-  const options = {};
-
-  if (groupId != null) {
-    options.groupId = groupId;
-  }
-
   return Thread.find(
     {
-      ...options,
       $text: { $search: terms },
     },
     {
