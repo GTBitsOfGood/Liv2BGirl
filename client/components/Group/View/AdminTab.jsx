@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Router from "next/router";
-
-// API Call
 import { deleteGroup } from "../../../actions/Group";
-
-// Components
 import ManageTab from "./ManageTab";
-
-// Styling
+import urls from "../../../../utils/urls";
 import styles from "./viewgroup.module.scss";
 
-// Navigation
-import urls from "../../../../utils/urls";
-
 const AdminTab = ({ onClick, groupid }) => {
-  const [confirmDelete, setDelete] = useState(false);
-  const [manageMems, setManage] = useState(false);
+  const [confirmDelete, setDelete] = React.useState(false);
+  const [manageMems, setManage] = React.useState(false);
 
   const toggleManage = () => {
     setManage(!manageMems);
   };
 
-  useEffect(() => {
+  const handleDelete = () =>
+    deleteGroup(groupid).then(() => Router.push(urls.pages.app.groupList));
+
+  React.useEffect(() => {
     document.body.style.overflow = "hidden";
+
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -37,7 +33,7 @@ const AdminTab = ({ onClick, groupid }) => {
               <button
                 type="button"
                 className={styles.AdminButton}
-                onClick={() => toggleManage()}
+                onClick={toggleManage}
               >
                 <h2>Manage Members</h2>
               </button>
@@ -73,13 +69,7 @@ const AdminTab = ({ onClick, groupid }) => {
                 <button
                   type="button"
                   className={styles.Confirm}
-                  onClick={() => {
-                    deleteGroup(groupid).then(res => {
-                      if (res) {
-                        Router.push(urls.pages.app.groupList);
-                      }
-                    });
-                  }}
+                  onClick={handleDelete}
                 >
                   <h3>Delete</h3>
                 </button>
@@ -88,7 +78,7 @@ const AdminTab = ({ onClick, groupid }) => {
           )}
         </div>
       ) : (
-        <ManageTab onClick={() => toggleManage()} />
+        <ManageTab onClick={toggleManage} />
       )}
     </>
   );

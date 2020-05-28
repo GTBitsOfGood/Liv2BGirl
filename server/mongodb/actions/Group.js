@@ -65,8 +65,13 @@ export const deleteGroup = async groupId => {
 
   await mongoDB();
 
-  return Group.findOneAndDelete({ _id: groupId }).then(deletedGroup => {
+  return Group.findOneAndDelete({ _id: groupId }).then(async deletedGroup => {
     if (deletedGroup) {
+      await User.updateMany(
+        { groups: groupId },
+        { $pull: { groups: groupId } }
+      );
+
       console.log("Successfully deleted group");
     } else {
       return Promise.reject(new Error("No group matches the provided id"));

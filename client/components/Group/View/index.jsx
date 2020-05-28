@@ -35,7 +35,10 @@ const ViewGroup = ({ groupid, groupData, threads, currentUser }) => {
       setJoined(true);
     }
 
-    if (currentUser.role === "Ambassador" || currentUser.id === groupData.admin) {
+    if (
+      currentUser.role === "Ambassador" ||
+      currentUser.id === groupData.admin
+    ) {
       setJoined(true);
       setAdmin(true);
     }
