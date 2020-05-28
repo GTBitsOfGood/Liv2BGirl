@@ -11,6 +11,6 @@ const GroupPage = ({ currentUser }) => {
 };
 
 GroupPage.showTopNav = false;
-GroupPage.showTopNav = true;
+GroupPage.showBottomNav = true;
 
 export default GroupPage;

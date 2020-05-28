@@ -4,22 +4,24 @@ const { Schema } = mongoose;
 
 const MessageSchema = new Schema({
   to: {
-    type: String,
+    type: Schema.Types.ObjectId,
     index: true,
     required: true,
   },
   from: {
-    type: String,
+    type: Schema.Types.ObjectId,
     index: true,
     required: true,
   },
   content: {
     type: String,
+    required: true,
     text: true,
   },
   sentAt: {
     type: Date,
     required: true,
+    default: Date.now,
   },
 });
 

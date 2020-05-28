@@ -42,9 +42,7 @@ class MyApp extends App {
           <Component {...pageProps} currentUser={currentUser} />
         </div>
 
-        {Component.showTopNav && (
-          <TopNavBar currentUser={currentUser} />
-        )}
+        {Component.showTopNav && <TopNavBar currentUser={currentUser} />}
         {Component.showBottomNav && (
           <BottomNavBar loggedIn={currentUser != null} />
         )}

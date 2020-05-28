@@ -1,38 +1,37 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Link from "next/link";
-
-// Icon
 import { Icon } from "@iconify/react";
 import updateIcon from "@iconify/icons-dashicons/update";
-
-// Styling
-import styles from "../GroupsPage.module.scss";
-
-// Navigation
 import urls from "../../../../../utils/urls";
+import styles from "../GroupsPage.module.scss";
 
 const ExploreGroups = ({
   categories,
   likeableGroups,
   handleRefresh,
-  setSearch,
+  setSearchCategory,
 }) => (
   <div className={styles.ExploreGroups}>
     <div className={styles.CategoryContainer}>
       <h2 className={styles.CategoryHeader}>Category</h2>
-
       <div className={styles.CategoryGroups}>
         {categories.map((category, i) => (
           <div
             role="button"
             tabIndex={0 - i}
-            key={category}
+            key={category._id}
             className={styles.CategoryType}
-            onClick={() => setSearch(category)}
-            onKeyDown={() => setSearch(category)}
+            onClick={() => setSearchCategory(category)}
+            onKeyDown={() => setSearchCategory(category)}
           >
-            <div className={styles.CategoryImage} />
-            <p className={styles.CategoryTitle}>{category}</p>
+            <div
+              className={styles.CategoryImage}
+              style={{
+                backgroundImage: `url("${category.iconUrl}")`,
+              }}
+            />
+            <p className={styles.CategoryTitle}>{category.name}</p>
           </div>
         ))}
       </div>
@@ -74,5 +73,26 @@ const ExploreGroups = ({
     </div>
   </div>
 );
+
+ExploreGroups.propTypes = {
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      parentId: PropTypes.string,
+    })
+  ).isRequired,
+  likeableGroups: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      category: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      admin: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  handleRefresh: PropTypes.func.isRequired,
+  setSearchCategory: PropTypes.func.isRequired,
+};
 
 export default ExploreGroups;

@@ -1,32 +1,47 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-
-// Icons
 import { Icon } from "@iconify/react";
 import searchIcon from "@iconify/icons-dashicons/search";
-
-// Components
 import ExploreGroups from "./ExploreGroups";
 import SearchGroups from "./SearchGroups";
 import MyGroups from "./MyGroups";
-
-// Icons
-
-// Styling
 import styles from "./GroupsPage.module.scss";
 
-const GroupsList = ({ loggedIn, ownGroups }) => {
+const GroupsList = ({ categories, ownGroups }) => {
   const [search, setSearch] = useState("");
+  const [searchCategory, setSearchCategory] = useState(null);
   const [searchActive, setSearchActive] = useState(false);
   const [showOwnGroups, setShowOwnGroups] = useState(false);
   const [likeGroups, setLikeGroups] = useState([]);
 
-  const categories = Array.from(
-    new Set(["All", ...(ownGroups.map(group => group.category) || [])])
-  );
-
   const handleRefresh = () => {
     // Get more likeable groups
+  };
+
+  const handleSetTerm = event => {
+    const { value } = event.target;
+
+    setSearch(value);
+    setSearchActive(true);
+  };
+
+  const handleSetCategory = category => {
+    setSearchCategory(category);
+    setSearchActive(true);
+  };
+
+  const handleRemoveCategory = () => {
+    setSearchCategory(null);
+
+    if (search.length === 0) {
+      setSearchActive(false);
+    }
+  };
+
+  const handleCancelSearch = () => {
+    setSearchActive(false);
+    setSearch("");
+    setSearchCategory(null);
   };
 
   return (
@@ -35,25 +50,29 @@ const GroupsList = ({ loggedIn, ownGroups }) => {
         <div className={styles.SearchContainer}>
           <div className={styles.SearchBar}>
             <Icon icon={searchIcon} className={styles.SearchIcon} />
+            {searchCategory != null && (
+              <button
+                className={styles.CategorySelection}
+                type="button"
+                onClick={handleRemoveCategory}
+                onKeyPress={handleRemoveCategory}
+              >
+                <p>{searchCategory.name}</p>
+                <p className={styles.CancelButton}>X</p>
+              </button>
+            )}
             <input
               className={styles.SearchInput}
               placeholder="Find a group"
-              onChange={event => {
-                const { value } = event.target;
-
-                setSearch(value);
-              }}
+              onChange={handleSetTerm}
               onFocus={() => setSearchActive(true)}
               value={search}
             />
           </div>
-          {search.length > 0 && (
+          {searchActive && (
             <button
               className={styles.SearchCancel}
-              onClick={() => {
-                setSearch("");
-                setSearchActive(false);
-              }}
+              onClick={handleCancelSearch}
               type="button"
             >
               Cancel
@@ -93,11 +112,11 @@ const GroupsList = ({ loggedIn, ownGroups }) => {
           </button>
         </div>
       )}
-      {search.length > 0 || searchActive ? (
+      {searchActive ? (
         <SearchGroups
           searchTerm={search}
+          searchCategory={searchCategory}
           likeableGroups={likeGroups}
-          clearedSearch={() => setSearchActive(false)}
         />
       ) : showOwnGroups ? (
         <MyGroups categories={categories} groups={ownGroups} />
@@ -106,7 +125,7 @@ const GroupsList = ({ loggedIn, ownGroups }) => {
           categories={categories}
           likeableGroups={likeGroups}
           handleRefresh={handleRefresh}
-          setSearch={setSearch}
+          setSearchCategory={handleSetCategory}
         />
       )}
     </div>
@@ -114,16 +133,30 @@ const GroupsList = ({ loggedIn, ownGroups }) => {
 };
 
 GroupsList.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      parentId: PropTypes.string,
+    })
+  ).isRequired,
   ownGroups: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
-      category: PropTypes.string.isRequired,
+      category: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        parentId: PropTypes.string,
+      }).isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       admin: PropTypes.string.isRequired,
     }).isRequired
-  ).isRequired,
+  ),
+};
+
+GroupsList.defaultProps = {
+  ownGroups: [],
 };
 
 export default GroupsList;

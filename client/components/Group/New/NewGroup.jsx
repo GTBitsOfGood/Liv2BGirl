@@ -1,25 +1,9 @@
 import React, { useEffect } from "react";
-
-// Font Awesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
-// Styling
 import styles from "./newgroup.module.scss";
 
-const categories = [
-  "Music",
-  "Movie",
-  "Art",
-  "Books",
-  "Sports",
-  "Mental Health",
-  "Dating",
-  "College",
-  "Career",
-];
-
-const NewGroup = ({ values, setValues, setStageCompleted }) => {
+const NewGroup = ({ categories, values, setValues, setStageCompleted }) => {
   const { name, description, category } = values;
 
   useEffect(() => {
@@ -53,19 +37,20 @@ const NewGroup = ({ values, setValues, setStageCompleted }) => {
             onChange={event => setValues({ description: event.target.value })}
           />
         </div>
-        <h3 className={styles.CreateGroupHeader}>Category</h3>
+        <h3 className={styles.CreateGroupHeader}>Category *</h3>
         <div>
           {categories.map(cat => (
             <button
+              key={cat._id}
               type="button"
               onClick={() => {
-                setValues({ category: cat });
+                setValues({ category: cat._id });
               }}
               className={
                 category === cat ? "SmallPill ActivePill" : "SmallPill"
               }
             >
-              {cat}
+              {cat.name}
             </button>
           ))}
         </div>

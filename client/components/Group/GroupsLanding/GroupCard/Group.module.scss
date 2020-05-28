@@ -13,6 +13,8 @@
   .Icon {
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     background: $background;
     border-radius: 10px;
     margin-right: 16px;
@@ -22,6 +24,7 @@
     height: 36px;
     display: flex;
     flex-direction: column;
+    white-space: nowrap;
 
     .Name {
       margin-bottom: 6px;
@@ -32,7 +35,6 @@
   }
 
   .Description {
-    width: 185px;
     max-height: 40px;
     margin-left: 16px;
     display: -webkit-box;

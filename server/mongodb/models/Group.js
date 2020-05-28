@@ -12,11 +12,13 @@ const GroupSchema = new Schema({
     type: String,
   },
   category: {
-    type: String,
+    type: Schema.Types.ObjectId,
     index: true,
+    required: true,
   },
   admin: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    index: true,
     required: true,
   },
 });

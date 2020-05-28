@@ -30,7 +30,8 @@ QuestionPage.getInitialProps = async ({ query }) => {
         if (user) {
           data.author = {
             userId: res.visibility === "Anonymous" ? null : user.id,
-            username: res.visibility === "Anonymous" ? "Anonymous" : user.username,
+            username:
+              res.visibility === "Anonymous" ? "Anonymous" : user.username,
             avatar: res.visibility === "Anonymous" ? 1 : user.avatar,
             avatarColor: res.visibility === "Anonymous" ? 1 : user.avatarColor,
           };

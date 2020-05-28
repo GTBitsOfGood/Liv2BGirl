@@ -11,7 +11,7 @@ const handler = async (req, res) => {
     currUser.id,
     req.body.name,
     req.body.description,
-    req.body.tags,
+    req.body.category,
     req.body.admin
   )
     .then(group =>

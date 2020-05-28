@@ -65,7 +65,9 @@ export async function getUserQuestions(posterId) {
       return Promise.all(
         threads.map(async thread => ({
           ...thread.toObject(),
-          numComments: await Comments.find({ parentId: thread._id }).count(),
+          numComments: await Comments.find({
+            parentId: thread._id,
+          }).countDocuments(),
         }))
       );
     });
@@ -88,7 +90,9 @@ export async function getThreads() {
       return Promise.all(
         threads.map(async thread => ({
           ...thread.toObject(),
-          numComments: await Comments.find({ parentId: thread._id }).count(),
+          numComments: await Comments.find({
+            parentId: thread._id,
+          }).countDocuments(),
         }))
       );
     });

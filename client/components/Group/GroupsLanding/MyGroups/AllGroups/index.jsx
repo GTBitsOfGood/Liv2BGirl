@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-
-// Icon
+import PropTypes from "prop-types";
 import { Icon } from "@iconify/react";
 import arrowLeftAlt2 from "@iconify/icons-dashicons/arrow-left-alt2";
-
-// Components
 import Group from "../../GroupCard";
-
-// Styling
 import styles from "../../GroupsPage.module.scss";
 
 const AllGroups = ({ groups, categories, handleBack }) => {
@@ -26,25 +21,25 @@ const AllGroups = ({ groups, categories, handleBack }) => {
       <div className={styles.AllGroupsPage}>
         <div className={styles.AllGroupsContainer}>
           <div className={styles.CategoryBar}>
-            {categories.map(name => (
+            {categories.map(category => (
               <button
-                key={name}
+                key={category._id}
                 className={
-                  name !== selectedCategory
+                  category._id !== selectedCategory
                     ? styles.CategoryPill
                     : `${styles.CategoryPillSelected} ${styles.CategoryPill}`
                 }
-                onClick={() => setSelectedCategory(name)}
+                onClick={() => setSelectedCategory(category._id)}
                 type="button"
               >
                 <p
                   className={
-                    name !== selectedCategory
+                    category._id !== selectedCategory
                       ? styles.CategoryName
                       : `${styles.CategoryNameSelected} ${styles.CategoryName}`
                   }
                 >
-                  {name}
+                  {category.name}
                 </p>
               </button>
             ))}
@@ -55,16 +50,40 @@ const AllGroups = ({ groups, categories, handleBack }) => {
               .filter(
                 group =>
                   selectedCategory === "All" ||
-                  group.category === selectedCategory
+                  group.category._id === selectedCategory
               )
               .map(group => (
-                <Group key={group.id} info={group} />
+                <Group key={group._id} info={group} />
               ))}
           </div>
         </div>
       </div>
     </>
   );
+};
+
+AllGroups.propTypes = {
+  groups: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      category: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        parentId: PropTypes.string,
+      }).isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      admin: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      parentId: PropTypes.string,
+    }).isRequired
+  ).isRequired,
+  handleBack: PropTypes.func.isRequired,
 };
 
 export default AllGroups;

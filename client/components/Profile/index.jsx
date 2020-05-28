@@ -130,6 +130,7 @@ ProfilePage.propTypes = {
     id: PropTypes.string.isRequired,
     groups: PropTypes.arrayOf(
       PropTypes.shape({
+        _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
       })

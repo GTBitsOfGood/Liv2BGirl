@@ -1,22 +1,14 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Link from "next/link";
-
-// Icon
 import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
-
-// Components
 import AllGroups from "./AllGroups";
-
-// Styling
-import styles from "../GroupsPage.module.scss";
-
-// Navigation
 import urls from "../../../../../utils/urls";
+import styles from "../GroupsPage.module.scss";
 
 const MyGroups = ({ groups, categories }) => {
   const [showAll, setShowAll] = useState(false);
-  const [myGroups, setMyGroups] = useState(groups);
 
   if (showAll) {
     return (
@@ -39,16 +31,16 @@ const MyGroups = ({ groups, categories }) => {
               onClick={() => setShowAll(true)}
               type="button"
             >
-              <h6>All </h6>
+              <h6>All</h6>
               <Icon icon={arrowRightAlt2} />
             </button>
           )}
         </div>
 
         <div className={styles.MyGroupsGroups}>
-          {myGroups.slice(0, 4).map(group => (
+          {groups.slice(0, 4).map(group => (
             <Link
-              key={group.id}
+              key={group._id}
               href={urls.pages.app.group(group.id)}
               prefetch={false}
             >
@@ -62,6 +54,29 @@ const MyGroups = ({ groups, categories }) => {
       </div>
     </div>
   );
+};
+
+MyGroups.propTypes = {
+  groups: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      category: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        parentId: PropTypes.string,
+      }).isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      admin: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      parentId: PropTypes.string,
+    }).isRequired
+  ).isRequired,
 };
 
 export default MyGroups;

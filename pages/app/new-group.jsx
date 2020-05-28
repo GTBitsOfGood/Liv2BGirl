@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 import Router from "next/router";
-
-// Icons
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-// API Call
+import { getCategories } from "../../client/actions/Categories";
 import { createGroup } from "../../client/actions/Group";
-
-// Components
 import TermsCond from "../../client/components/Group/New/TermsCond";
 import NewGroup from "../../client/components/Group/New/NewGroup";
 import NewGroupConfirmation from "../../client/components/Group/New/NewGroupConfirmation";
-
-// Navigation
 import urls from "../../utils/urls";
 
 const CurrentStep = ({ stage, ...rest }) => {
@@ -47,8 +40,7 @@ const getStepText = stage => {
   }
 };
 
-const NewGroupPage = props => {
-  const { currentUser } = props;
+const NewGroupPage = ({ currentUser, categories }) => {
   const [newGroupId, setGroupId] = useState("");
   const [stage, setStage] = useState(0);
   const [stageCompleted, setStageCompleted] = useState(false);
@@ -73,6 +65,8 @@ const NewGroupPage = props => {
         setStage(prevState => prevState + 1);
         setStageCompleted(false);
       } else if (stage + 1 === 2) {
+        console.log('val', values)
+        console.log('id', currentUser.id)
         await createGroup(
           values.name,
           values.description,
@@ -113,6 +107,7 @@ const NewGroupPage = props => {
         <div />
       </div>
       <CurrentStep
+        categories={categories}
         stage={stage}
         values={values}
         setValues={setValues}
@@ -125,6 +120,14 @@ const NewGroupPage = props => {
       </div>
     </>
   );
+};
+
+NewGroupPage.getInitialProps = async () => {
+  const categories = await getCategories();
+
+  return {
+    categories,
+  };
 };
 
 NewGroupPage.showTopNav = false;

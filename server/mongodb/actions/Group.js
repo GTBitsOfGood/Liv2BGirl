@@ -1,5 +1,6 @@
 import mongoDB from "../index";
 import Group from "../models/Group";
+import GroupCategory from "../models/GroupCategory";
 import User from "../models/User";
 
 export const followGroup = async (groupId, userId) => {
@@ -29,6 +30,10 @@ export const createGroup = async (
   category,
   admin
 ) => {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to create a group!");
+  }
+
   if (
     name == null ||
     description == null ||
@@ -36,10 +41,6 @@ export const createGroup = async (
     admin == null
   ) {
     throw new Error("All parameters must be provided!");
-  }
-
-  if (currentUser == null) {
-    throw new Error("You must be logged in to create a group!");
   }
 
   await mongoDB();
@@ -87,44 +88,65 @@ export const getGroup = async groupId => {
       throw new Error("Group does not exist!");
     }
 
-    const people = await User.find({ groups: groupId }).count();
+    const people = await User.find({
+      groups: groupId,
+    }).countDocuments();
+    const category = await GroupCategory.findById(group.category);
 
     return {
-      id: group._id,
+      _id: group._id,
       name: group.name,
       description: group.description,
       admin: group.admin,
       subscribers: group.subscribers,
       image: group.image,
-      category: group.category,
+      category,
       people,
     };
   });
 };
 
-export const searchGroups = async groupId => {
-  if (groupId == null) {
+export async function searchGroups({ term, category }) {
+  if (term == null && category == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return Group.findById(groupId).then(async group => {
-    if (group == null) {
-      throw new Error("Group does not exist!");
-    }
+  const query = {};
+  const projection = {};
+  const sort = {};
 
-    const people = await User.find({ groups: groupId }).count();
+  if (term != null && term.length > 0) {
+    query.$text = { $search: term };
+    projection.score = { $meta: "textScore" };
+    sort.score = { $meta: "textScore" };
+  }
 
-    return {
-      id: group._id,
-      name: group.name,
-      description: group.description,
-      admin: group.admin,
-      subscribers: group.subscribers,
-      image: group.image,
-      category: group.category,
-      people,
-    };
-  });
-};
+  if (category != null) {
+    query.category = category;
+    sort.name = 1;
+  }
+
+  return Group.find(query, projection)
+    .sort(sort)
+    .then(groups =>
+      Promise.all(
+        groups.map(async group => {
+          const people = await User.find({
+            groups: group._id,
+          }).countDocuments();
+
+          return {
+            _id: group._id,
+            name: group.name,
+            description: group.description,
+            admin: group.admin,
+            subscribers: group.subscribers,
+            image: group.image,
+            people,
+          };
+        })
+      )
+    );
+}

@@ -4,12 +4,12 @@ const { Schema } = mongoose;
 
 const ThreadSchema = new Schema({
   posterId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     required: true,
     index: true,
   },
   groupId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     required: true,
     index: true,
   },
@@ -24,6 +24,7 @@ const ThreadSchema = new Schema({
   },
   postedAt: {
     type: Date,
+    required: true,
     default: Date.now,
   },
 });

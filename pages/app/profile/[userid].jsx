@@ -12,7 +12,7 @@ const ProfilePage = ({ user }) => {
   if (user == null) {
     return (
       <div>
-        <h1>User not found :</h1>
+        <h1>User not found :(</h1>
       </div>
     );
   }
@@ -24,23 +24,43 @@ ProfilePage.getInitialProps = async ({ query }) => {
   const userId = query.userid;
 
   return getUser(userId).then(async user => {
-    user.groups = await Promise.all(
+    const groups = await Promise.all(
       user.groups.map(groupId => getGroup(groupId))
     );
 
     return {
-      user,
+      ...user,
+      groups,
     };
   });
 };
 
 ProfilePage.propTypes = {
   user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    groups: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    followers: PropTypes.arrayOf(PropTypes.string).isRequired,
+    following: PropTypes.arrayOf(PropTypes.string).isRequired,
+    email: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,
-    groups: PropTypes.arrayOf(PropTypes.string.isRequired),
-  }).isRequired,
+    age: PropTypes.number.isRequired,
+    grade: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    interests: PropTypes.arrayOf(PropTypes.string).isRequired,
+    subscriptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
+};
+
+ProfilePage.defaultProps = {
+  user: null,
 };
 
 ProfilePage.showTopNav = false;

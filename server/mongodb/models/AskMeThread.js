@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const AskMeThread = new Schema({
   posterId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     required: true,
     index: true,
   },
@@ -25,6 +25,7 @@ const AskMeThread = new Schema({
   },
   postedAt: {
     type: Date,
+    required: true,
     default: Date.now,
   },
 });

@@ -4,22 +4,22 @@ const { Schema } = mongoose;
 
 const ReportSchema = new Schema({
   filedBy: {
-    type: String,
+    type: Schema.Types.ObjectId,
     index: true,
     required: true,
   },
   reportedUser: {
-    type: String,
+    type: Schema.Types.ObjectId,
     index: true,
     required: true,
   },
   parentId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     index: true,
     required: true,
   },
   category: {
-    type: String,
+    type: Schema.Types.ObjectId,
     index: true,
     required: true,
   },
@@ -29,10 +29,12 @@ const ReportSchema = new Schema({
   },
   decided: {
     type: Boolean,
+    default: false,
   },
   madeAt: {
     type: Date,
     required: true,
+    default: Date.now,
   },
 });
 

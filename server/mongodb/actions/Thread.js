@@ -65,7 +65,9 @@ export async function getGroupThreads(groupId) {
       return Promise.all(
         threads.map(async thread => ({
           ...thread.toObject(),
-          numComments: await Comments.find({ parentId: thread._id }).count(),
+          numComments: await Comments.find({
+            parentId: thread._id,
+          }).countDocuments(),
         }))
       );
     });
@@ -114,7 +116,7 @@ export async function filterThreads(
 }
 
 export async function searchThreads(terms, groupId) {
-  if (groupId == null || terms == null) {
+  if (terms == null || groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 

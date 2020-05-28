@@ -11,11 +11,11 @@ export async function createComment(
   content,
   postedAt = Date.now()
 ) {
-  await mongoDB();
-
   if (poster == null) {
     throw new Error("You must be logged in to create a comment!");
   }
+
+  await mongoDB();
 
   return User.findById(poster).then(user => {
     if (!user) {

@@ -32,6 +32,9 @@ export default {
       getAskThreads: () => "/api/ask-me/getAskThreads",
       getUserQuestions: () => "/api/ask-me/getUserQuestions",
     },
+    categories: {
+      getCategories: () => "/api/categories/getCategories",
+    },
     comments: {
       createComment: () => "/api/comments/createComment",
       deleteComment: () => "/api/comments/deleteComment",
@@ -44,6 +47,7 @@ export default {
       getGroup: () => "/api/groups/getGroup",
       followGroup: () => "/api/groups/followGroup",
       unfollowGroup: () => "/api/groups/unfollowGroup",
+      searchGroups: () => "/api/groups/searchGroups",
     },
     threads: {
       createThread: () => "/api/threads/createThread",

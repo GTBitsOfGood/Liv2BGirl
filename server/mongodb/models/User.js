@@ -22,23 +22,25 @@ const UserSchema = new Schema({
   role: {
     type: String,
     required: true,
+    default: "User",
   },
   name: {
     // admin/ambassador only
     type: String,
   },
   groups: {
-    type: [String],
+    type: [Schema.Types.ObjectId],
     required: true,
     index: true,
+    default: [],
   },
   followers: {
-    type: [String],
+    type: [Schema.Types.ObjectId],
     required: true,
     default: [],
   },
   following: {
-    type: [String],
+    type: [Schema.Types.ObjectId],
     required: true,
     default: [],
   },
@@ -63,12 +65,14 @@ const UserSchema = new Schema({
     required: true,
   },
   askBookmarks: {
-    type: [String],
+    type: [Schema.Types.ObjectId],
     required: true,
+    default: [],
   },
   groupBookmarks: {
-    type: [String],
+    type: [Schema.Types.ObjectId],
     required: true,
+    default: [],
   },
 });
 

@@ -4,17 +4,18 @@ const { Schema } = mongoose;
 
 const CommentSchema = new Schema({
   poster: {
-    type: String,
+    type: Schema.Types.ObjectId,
     index: true,
     required: true,
   },
   parentId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     index: true,
     required: true,
   },
   officialAnswer: {
     type: Boolean,
+    default: false,
   },
   content: {
     type: String,
