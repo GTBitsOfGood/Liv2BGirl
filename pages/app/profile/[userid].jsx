@@ -39,7 +39,7 @@ ProfilePage.getInitialProps = async ({ query }) => {
 
 ProfilePage.propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     groups: PropTypes.arrayOf(
       PropTypes.shape({
         _id: PropTypes.string.isRequired,

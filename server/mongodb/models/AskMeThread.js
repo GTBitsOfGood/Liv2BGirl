@@ -6,6 +6,7 @@ const { Schema } = mongoose;
 const AskMeThread = new Schema({
   posterId: {
     type: Schema.Types.ObjectId,
+    ref: "User",
     required: true,
     index: true,
   },

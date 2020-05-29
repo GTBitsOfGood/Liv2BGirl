@@ -10,7 +10,7 @@ import { avatarImg, colorArr } from "../../../utils/avatars";
 import urls from "../../../utils/urls";
 
 const TopNavBar = ({ currentUser }) => {
-  const userId = currentUser != null ? currentUser.id : null;
+  const userId = currentUser != null ? currentUser._id : null;
   const avatar = currentUser != null ? currentUser.avatar : null;
   const avatarColor = currentUser != null ? currentUser.avatarColor : null;
 

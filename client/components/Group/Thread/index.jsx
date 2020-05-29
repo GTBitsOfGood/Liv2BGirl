@@ -35,11 +35,11 @@ const Thread = ({ currentUser, thread }) => {
   } = thread;
   const [comment, setComment] = useState("");
   const [saved, setSaved] = useState(false);
-  const { id, username, avatar, avatarColor } = author;
+  const { _id, username, avatar, avatarColor } = author;
 
   const postComment = () => {
     if (comment.length > 0) {
-      createComment(currentUser.id, threadid, comment).then(res => {
+      createComment(currentUser._id, threadid, comment).then(res => {
         if (res) {
           window.location.reload();
         }
@@ -102,7 +102,7 @@ const Thread = ({ currentUser, thread }) => {
               />
             </div>
             <div>
-              <Link href={urls.pages.app.profile(id)}>
+              <Link href={urls.pages.app.profile(_id)}>
                 <div>
                   <h5 className={styles.ThreadAuthor}>{username}</h5>
                 </div>
@@ -165,10 +165,16 @@ const Thread = ({ currentUser, thread }) => {
 };
 
 Thread.propTypes = {
+  currentUser: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+  }).isRequired,
   thread: PropTypes.shape({
     threadid: PropTypes.string.isRequired,
     author: PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
       avatar: PropTypes.number.isRequired,
       avatarColor: PropTypes.number.isRequired,
@@ -179,12 +185,6 @@ Thread.propTypes = {
     postedAt: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     comments: PropTypes.arrayOf(PropTypes.object).isRequired,
-  }).isRequired,
-  currentUser: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
-    avatar: PropTypes.number.isRequired,
-    avatarColor: PropTypes.number.isRequired,
   }).isRequired,
 };
 

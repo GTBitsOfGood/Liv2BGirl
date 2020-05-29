@@ -5,11 +5,13 @@ const { Schema } = mongoose;
 const ReportSchema = new Schema({
   filedBy: {
     type: Schema.Types.ObjectId,
+    ref: "User",
     index: true,
     required: true,
   },
   reportedUser: {
     type: Schema.Types.ObjectId,
+    ref: "User",
     index: true,
     required: true,
   },

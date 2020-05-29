@@ -4,6 +4,7 @@ import cookie from "js-cookie";
 import Router from "next/router";
 import mongoDB from "../index";
 import User from "../models/User";
+import Comments from "../models/Comment";
 
 export const login = async (email, password) => {
   if (email == null || password == null) {
@@ -156,20 +157,9 @@ export const verifyTokenSecure = async (req, res) => {
           throw new Error("User does not exist!");
         }
 
-        return {
-          id: user._id,
-          groups: user.groups,
-          followers: user.followers,
-          following: user.following,
-          email: user.email,
-          username: user.username,
-          avatar: user.avatar,
-          avatarColor: user.avatarColor,
-          age: user.age,
-          grade: user.grade,
-          role: user.role,
-          interests: user.interests,
-        };
+        const { password, ...rest } = user.toObject();
+
+        return rest;
       })
       .catch(findError => {
         cookies.remove("token");
@@ -218,7 +208,7 @@ export const getUser = async userId => {
     }
 
     return {
-      id: user._id,
+      _id: user._id,
       username: user.username,
       avatar: user.avatar,
       avatarColor: user.avatarColor,
@@ -237,21 +227,32 @@ export const getUserAskBookmarks = async userId => {
 
   await mongoDB();
 
-  return User.findById(userId).then(user => {
-    if (user == null) {
-      throw new Error("User does not exist!");
-    }
+  return User.findById(userId)
+    .populate({
+      path: "askBookmarks",
+      model: "AskMeThread",
+    })
+    .then(user => {
+      if (user == null) {
+        throw new Error("User does not exist!");
+      }
 
-    return {
-      id: user._id,
-      username: user.username,
-      askBookmarks: user.askBookmarks,
-    };
-  });
+      return user.askBookmarks;
+    })
+    .then(bookmarks =>
+      Promise.all(
+        bookmarks.map(async bookmark => ({
+          ...bookmark.toObject(),
+          numComments: await Comments.find({
+            parentId: bookmark._id,
+          }).countDocuments(),
+        }))
+      )
+    );
 };
 
 export const addAskBookmark = async (userId, threadId) => {
-  if (userId == null || threadId == null) {
+  if (threadId == null || userId == null) {
     throw new Error("All parameters must be provided!");
   }
 
@@ -277,17 +278,28 @@ export const getUserGroupBookmarks = async userId => {
 
   await mongoDB();
 
-  return User.findById(userId).then(user => {
-    if (user == null) {
-      throw new Error("User does not exist!");
-    }
+  return User.findById(userId)
+    .populate({
+      path: "groupBookmarks",
+      model: "Thread",
+    })
+    .then(user => {
+      if (user == null) {
+        throw new Error("User does not exist!");
+      }
 
-    return {
-      id: user._id,
-      username: user.username,
-      groupBookmarks: user.groupBookmarks,
-    };
-  });
+      return user.askBookmarks;
+    })
+    .then(bookmarks =>
+      Promise.all(
+        bookmarks.map(async bookmark => ({
+          ...bookmark.toObject(),
+          numComments: await Comments.find({
+            parentId: bookmark._id,
+          }).countDocuments(),
+        }))
+      )
+    );
 };
 
 export const addGroupBookmark = async (userId, threadId) => {
@@ -297,7 +309,9 @@ export const addGroupBookmark = async (userId, threadId) => {
 
   await mongoDB();
 
-  return User.findByIdAndUpdate(userId, { $push: { askBookmarks: threadId } });
+  return User.findByIdAndUpdate(userId, {
+    $push: { groupBookmarks: threadId },
+  });
 };
 
 export const removeGroupBookmark = async (userId, threadId) => {
@@ -307,5 +321,7 @@ export const removeGroupBookmark = async (userId, threadId) => {
 
   await mongoDB();
 
-  await User.findByIdAndUpdate(userId, { $pull: { askBookmarks: threadId } });
+  await User.findByIdAndUpdate(userId, {
+    $pull: { groupBookmarks: threadId },
+  });
 };

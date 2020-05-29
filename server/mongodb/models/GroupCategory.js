@@ -13,6 +13,7 @@ const GroupCategorySchema = new Schema({
   },
   parentId: {
     type: Schema.Types.ObjectId,
+    ref: "GroupCategory",
     index: true,
     default: null,
   },

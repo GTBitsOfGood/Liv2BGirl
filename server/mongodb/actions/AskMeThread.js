@@ -2,6 +2,7 @@ import mongoDB from "../index";
 
 import AskMeThread from "../models/AskMeThread";
 import Comments from "../models/Comment";
+import User from "../models/User";
 
 export async function createThread(posterId, title, content, visibility) {
   if (posterId == null) {

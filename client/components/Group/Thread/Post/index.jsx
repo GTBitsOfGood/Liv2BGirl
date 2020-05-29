@@ -22,9 +22,7 @@ const ThreadPost = props => {
   const [author, setAuthor] = useState("");
 
   useEffect(() => {
-    getUser(authorid).then(res => {
-      if (res) setAuthor(res);
-    });
+    getUser(authorid).then(res => setAuthor(res));
   }, []);
 
   const timeSince = date => {

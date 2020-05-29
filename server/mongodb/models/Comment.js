@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const CommentSchema = new Schema({
   poster: {
     type: Schema.Types.ObjectId,
+    ref: "User",
     index: true,
     required: true,
   },

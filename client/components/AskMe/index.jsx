@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
-
-// Icons
 import { Icon } from "@iconify/react";
 import bxSearch from "@iconify/icons-bx/bx-search";
-
-// Styling
-import styles from "./askme.module.scss";
 import QuestionCard from "./QuestionCard";
-
-// Navigation
 import urls from "../../../utils/urls";
+import styles from "./askme.module.scss";
 
-const AskMe = ({ loggedIn, featuredQuestions, ownQuestions, bookmarks }) => {
+const AskMe = ({ featuredQuestions, ownQuestions, bookmarks }) => {
   const [curTab, setTab] = useState(0);
 
   const askTab = () => {
@@ -53,46 +47,38 @@ const AskMe = ({ loggedIn, featuredQuestions, ownQuestions, bookmarks }) => {
             <Icon icon={bxSearch} />
           </div>
         </div>
-        {loggedIn && (
-          <div className={styles.SecondHead}>
-            <button
-              type="button"
-              className={styles.NavBtn}
-              onClick={() => setTab(0)}
-            >
-              <h6
-                className={curTab === 0 ? styles.SelectedNav : styles.NavItem}
-              >
-                Featured
-              </h6>
-            </button>
+        <div className={styles.SecondHead}>
+          <button
+            type="button"
+            className={styles.NavBtn}
+            onClick={() => setTab(0)}
+          >
+            <h6 className={curTab === 0 ? styles.SelectedNav : styles.NavItem}>
+              Featured
+            </h6>
+          </button>
 
-            <button
-              type="button"
-              className={styles.NavBtn}
-              onClick={() => setTab(1)}
-              disabled={ownQuestions == null}
-            >
-              <h6
-                className={curTab === 1 ? styles.SelectedNav : styles.NavItem}
-              >
-                My Questions
-              </h6>
-            </button>
+          <button
+            type="button"
+            className={styles.NavBtn}
+            onClick={() => setTab(1)}
+            disabled={ownQuestions == null}
+          >
+            <h6 className={curTab === 1 ? styles.SelectedNav : styles.NavItem}>
+              My Questions
+            </h6>
+          </button>
 
-            <button
-              type="button"
-              className={styles.NavBtn}
-              onClick={() => setTab(2)}
-            >
-              <h6
-                className={curTab === 2 ? styles.SelectedNav : styles.NavItem}
-              >
-                Bookmarks
-              </h6>
-            </button>
-          </div>
-        )}
+          <button
+            type="button"
+            className={styles.NavBtn}
+            onClick={() => setTab(2)}
+          >
+            <h6 className={curTab === 2 ? styles.SelectedNav : styles.NavItem}>
+              Bookmarks
+            </h6>
+          </button>
+        </div>
         <div className={styles.SelectedPage}>{askTab()}</div>
       </div>
     </>
@@ -102,7 +88,6 @@ const AskMe = ({ loggedIn, featuredQuestions, ownQuestions, bookmarks }) => {
 const QuestionType = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   posterId: PropTypes.string.isRequired,
-  groupId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   postedAt: PropTypes.string.isRequired,
@@ -110,7 +95,6 @@ const QuestionType = PropTypes.shape({
 }).isRequired;
 
 AskMe.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
   featuredQuestions: PropTypes.arrayOf(QuestionType).isRequired,
   ownQuestions: PropTypes.arrayOf(QuestionType).isRequired,
   bookmarks: PropTypes.arrayOf(QuestionType).isRequired,

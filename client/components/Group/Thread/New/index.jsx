@@ -27,7 +27,7 @@ const CreateThreadComponent = props => {
 
   const handleCreateThread = async () => {
     if (title.length > 0 && text.length > 0) {
-      createThread(currentUser.id, groupid, title, text).then(res => {
+      createThread(currentUser._id, groupid, title, text).then(res => {
         if (res) {
           Router.push(urls.pages.app.thread(res._id));
         }

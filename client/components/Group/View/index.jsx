@@ -22,10 +22,10 @@ const ViewGroup = ({ groupid, groupData, threads, currentUser }) => {
 
   const groupAction = async () => {
     if (joined) {
-      await unfollowGroup(groupid, currentUser.id);
+      await unfollowGroup(groupid, currentUser._id);
       setJoined(false);
     } else {
-      await followGroup(groupid, currentUser.id);
+      await followGroup(groupid, currentUser._id);
       setJoined(true);
     }
   };
@@ -37,7 +37,7 @@ const ViewGroup = ({ groupid, groupData, threads, currentUser }) => {
 
     if (
       currentUser.role === "Ambassador" ||
-      currentUser.id === groupData.admin
+      currentUser._id === groupData.admin
     ) {
       setJoined(true);
       setAdmin(true);

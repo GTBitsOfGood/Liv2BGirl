@@ -1,46 +1,40 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
-
-// Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
-
-// Component
 import TextareaAutosize from "react-textarea-autosize";
-import urls from "../../../../utils/urls";
-
-// API Calls
+import Comment from "./Comment/Comment";
 import { createComment } from "../../../actions/Comment";
-
-// Stylings
+import { addAskBookmark, removeAskBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
+import urls from "../../../../utils/urls";
 import styles from "../askme.module.scss";
 
-const Question = ({ question, currentUser }) => {
+const Question = ({ currentUser, threadId, thread, author, comments }) => {
   const [comment, setComment] = useState("");
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved] = useState(
+    currentUser.askBookmarks.includes(threadId)
+  );
 
-  const {
-    questionid,
-    author,
-    asked,
-    description,
-    comments,
-    postedAt,
-    visibility,
-  } = question;
-
-  const postComment = () => {
+  const postComment = async () => {
     if (comment.length > 0) {
-      createComment(currentUser.id, questionid, comment).then(res => {
-        if (res) {
-          window.location.reload();
-        }
-      });
+      await createComment(currentUser._id, threadId, comment).then(() =>
+        window.location.reload()
+      );
     }
+  };
+
+  const toggleBookmarked = () => {
+    if (saved) {
+      return removeAskBookmark(threadId, currentUser._id).then(() =>
+        setSaved(false)
+      );
+    }
+
+    return addAskBookmark(threadId, currentUser._id).then(() => setSaved(true));
   };
 
   return (
@@ -56,9 +50,10 @@ const Question = ({ question, currentUser }) => {
         </div>
         <h3 className={styles.QuestionNavTitle}>Question</h3>
         <button
-          type="button"
-          onClick={() => setSaved(!saved)}
           className="IconButton"
+          type="button"
+          onClick={toggleBookmarked}
+          onKeyPress={toggleBookmarked}
         >
           {saved ? (
             <Icon icon={bxsBookmark} height="18px" />
@@ -69,7 +64,7 @@ const Question = ({ question, currentUser }) => {
       </div>
 
       <div className={`Page ${styles.QuestionMain}`}>
-        <h3>{`Question: ${asked}`}</h3>
+        <h3>{`Question: ${thread.title}`}</h3>
         <div
           role="button"
           tabIndex={0}
@@ -99,10 +94,10 @@ const Question = ({ question, currentUser }) => {
           </div>
           <h5 className={styles.QuestionAuthor}>{author.username}</h5>
           <h6 className={styles.QuestionDate}>
-            {new Date(postedAt).toLocaleString()}
+            {new Date(thread.postedAt).toLocaleString()}
           </h6>
         </div>
-        <h4 className={styles.QuestionText}>{description}</h4>
+        <h4 className={styles.QuestionText}>{thread.content}</h4>
       </div>
 
       <div className={styles.QuestionContent}>
@@ -127,41 +122,7 @@ const Question = ({ question, currentUser }) => {
         <h6 className={styles.SubHeader}>{`Comments (${comments.length})`}</h6>
         <div>
           {comments.map(item => (
-            <div className={`Page ${styles.QuestionComments}`}>
-              <div
-                className={styles.QuestionDetails}
-                onClick={
-                  item.author.id != null
-                    ? () => Router.push(urls.pages.app.profile(item.author.id))
-                    : () => {}
-                }
-                onKeyDown={
-                  item.author.id != null
-                    ? () => Router.push(urls.pages.app.profile(item.author.id))
-                    : () => {}
-                }
-              >
-                <div
-                  className={styles.QuestionAuthorAvatar}
-                  style={{
-                    backgroundColor: colorArr[item.author.avatarColor],
-                  }}
-                >
-                  <img
-                    className={styles.AuthorAvatarImg}
-                    src={avatarImg[item.author.avatar]}
-                    alt="Author Avatar"
-                  />
-                </div>
-                <h5 className={styles.QuestionAuthor}>
-                  {item.author.username}
-                </h5>
-                <h6 className={styles.QuestionDate}>
-                  {new Date(item.postedAt).toLocaleString()}
-                </h6>
-              </div>
-              <h4 className={styles.QuestionText}>{item.content}</h4>
-            </div>
+            <Comment author={item.author} comment={item.comment} />
           ))}
         </div>
       </div>
@@ -201,26 +162,45 @@ const Question = ({ question, currentUser }) => {
 };
 
 Question.propTypes = {
-  question: PropTypes.shape({
-    questionid: PropTypes.string.isRequired,
-    visiblity: PropTypes.string.isRequired,
-    asked: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    postedAt: PropTypes.string.isRequired,
-    comments: PropTypes.arrayOf(PropTypes.string.isRequired),
-    author: PropTypes.shape({
-      userId: PropTypes.string,
-      username: PropTypes.string.isRequired,
-      avatar: PropTypes.number.isRequired,
-      avatarColor: PropTypes.number.isRequired,
-    }).isRequired,
-  }).isRequired,
-
   currentUser: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+    askBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  threadId: PropTypes.string.isRequired,
+  thread: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    posterId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string,
+    visibility: PropTypes.string.isRequired,
+    postedAt: PropTypes.string.isRequired,
+  }).isRequired,
+  author: PropTypes.shape({
+    userId: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,
   }).isRequired,
+  comments: PropTypes.arrayOf(
+    PropTypes.shape({
+      author: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
+        avatar: PropTypes.number.isRequired,
+        avatarColor: PropTypes.number.isRequired,
+      }).isRequired,
+      comment: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        parentId: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        officialAnswer: PropTypes.bool.isRequired,
+        postedAt: PropTypes.string.isRequired,
+      }).isRequired,
+    })
+  ).isRequired,
 };
 
 export default Question;

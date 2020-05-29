@@ -73,8 +73,13 @@ export async function getCommentsByAskMeThread(threadId) {
 
           return Promise.all(
             comments.map(async comment => ({
-              ...comment.toObject(),
-              author: await getUser(comment.poster),
+              comment: comment.toObject(),
+              author: await getUser(comment.poster).then(user => ({
+                _id: user._id,
+                username: user.username,
+                avatar: user.avatar,
+                avatarColor: user.avatarColor,
+              })),
             }))
           );
         });
@@ -107,7 +112,12 @@ export async function getCommentsByThread(threadId) {
           return Promise.all(
             comments.map(async comment => ({
               ...comment.toObject(),
-              author: await getUser(comment.poster),
+              author: await getUser(comment.poster).then(user => ({
+                _id: user._id,
+                username: user.username,
+                avatar: user.avatar,
+                avatarColor: user.avatarColor,
+              })),
             }))
           );
         });

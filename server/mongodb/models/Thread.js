@@ -6,11 +6,13 @@ const { Schema } = mongoose;
 const ThreadSchema = new Schema({
   posterId: {
     type: Schema.Types.ObjectId,
+    ref: "User",
     required: true,
     index: true,
   },
   groupId: {
     type: Schema.Types.ObjectId,
+    ref: "Group",
     required: true,
     index: true,
   },

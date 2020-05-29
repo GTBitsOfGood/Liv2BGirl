@@ -33,17 +33,20 @@ const UserSchema = new Schema({
   },
   groups: {
     type: [Schema.Types.ObjectId],
+    ref: "Group",
     required: true,
     index: true,
     default: [],
   },
   followers: {
     type: [Schema.Types.ObjectId],
+    ref: "User",
     required: true,
     default: [],
   },
   following: {
     type: [Schema.Types.ObjectId],
+    ref: "User",
     required: true,
     default: [],
   },
@@ -69,11 +72,13 @@ const UserSchema = new Schema({
   },
   askBookmarks: {
     type: [Schema.Types.ObjectId],
+    ref: "AskMeThread",
     required: true,
     default: [],
   },
   groupBookmarks: {
     type: [Schema.Types.ObjectId],
+    ref: "Thread",
     required: true,
     default: [],
   },

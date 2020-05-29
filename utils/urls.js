@@ -64,6 +64,10 @@ export default {
       getUser: () => "/api/user/getUser",
       followUser: () => "/api/user/followUser",
       unfollowUser: () => "/api/user/unfollowUser",
+      getAskBookmarks: () => "/api/user/getAskBookmarks",
+      addAskBookmark: () => "/api/user/addAskBookmark",
+      removeAskBookmark: () => "/api/user/removeAskBookmark",
+      getUserAskBookmarks: () => "/api/user/getUserAskBookmarks",
     },
   },
 };

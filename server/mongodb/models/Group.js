@@ -15,11 +15,13 @@ const GroupSchema = new Schema({
   },
   category: {
     type: Schema.Types.ObjectId,
+    ref: "GroupCategory",
     index: true,
     required: true,
   },
   admin: {
     type: Schema.Types.ObjectId,
+    ref: "User",
     index: true,
     required: true,
   },

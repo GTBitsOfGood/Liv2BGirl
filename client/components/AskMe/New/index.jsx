@@ -51,7 +51,7 @@ const NewQuestion = props => {
 
   const postQuestion = () => {
     if (question !== "") {
-      createThread(currentUser.id, question, description, visibility).then(
+      createThread(currentUser._id, question, description, visibility).then(
         res => {
           if (res) {
             Router.push(urls.pages.app.viewQuestion(res._id));
