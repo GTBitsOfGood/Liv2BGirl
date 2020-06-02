@@ -1,7 +1,9 @@
 import React from "react";
+import IndexHeader from "../client/components/IndexHeader";
 
 const HomePage = () => (
   <>
+    <IndexHeader />
     <h1>Welcome!</h1>
   </>
 );
