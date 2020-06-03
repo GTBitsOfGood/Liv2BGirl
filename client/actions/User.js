@@ -263,3 +263,68 @@ export const getUserAskBookmarks = userId =>
 
       return json.payload;
     });
+
+export const addGroupBookmark = (threadId, userId) =>
+  fetch(urls.baseUrl + urls.api.user.addGroupBookmark(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      threadId,
+      userId,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const removeGroupBookmark = (threadId, userId) =>
+  fetch(urls.baseUrl + urls.api.user.removeGroupBookmark(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      threadId,
+      userId,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const getUserGroupBookmarks = userId =>
+  fetch(urls.baseUrl + urls.api.user.getUserGroupBookmarks(), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });

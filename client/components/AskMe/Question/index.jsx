@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
 import { Icon } from "@iconify/react";
@@ -14,8 +14,8 @@ import urls from "../../../../utils/urls";
 import styles from "../askme.module.scss";
 
 const Question = ({ currentUser, threadId, thread, author, comments }) => {
-  const [comment, setComment] = useState("");
-  const [saved, setSaved] = useState(
+  const [comment, setComment] = React.useState("");
+  const [saved, setSaved] = React.useState(
     currentUser.askBookmarks.includes(threadId)
   );
 

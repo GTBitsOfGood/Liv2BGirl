@@ -9,13 +9,16 @@ import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 import TextareaAutosize from "react-textarea-autosize";
 import CommentCard from "./CommentCard";
 import { createComment } from "../../../actions/Comment";
+import { addGroupBookmark, removeGroupBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
 import urls from "../../../../utils/urls";
 import styles from "./thread.module.scss";
 
 const Thread = ({ currentUser, thread, author, group, comments }) => {
   const [comment, setComment] = React.useState("");
-  const [saved, setSaved] = React.useState(false);
+  const [saved, setSaved] = React.useState(
+    currentUser.groupBookmarks.includes(thread._id)
+  );
 
   const postComment = () => {
     if (comment.length > 0) {
@@ -29,23 +32,33 @@ const Thread = ({ currentUser, thread, author, group, comments }) => {
     setComment(value);
   };
 
+  const toggleBookmarked = () => {
+    if (saved) {
+      return removeGroupBookmark(thread._id, currentUser._id).then(() =>
+        setSaved(false)
+      );
+    }
+
+    return addGroupBookmark(thread._id, currentUser._id).then(() =>
+      setSaved(true)
+    );
+  };
+
   return (
     <div className={styles.ThreadPage}>
       <div className="TopNav">
-        {thread && (
-          <div
-            role="button"
-            tabIndex={-1}
-            onClick={() => Router.back()}
-            onKeyDown={() => Router.back()}
-          >
-            <Icon className="Back" icon={bxArrowBack} width="18px" />
-          </div>
-        )}
+        <div
+          role="button"
+          tabIndex={-1}
+          onClick={() => Router.back()}
+          onKeyDown={() => Router.back()}
+        >
+          <Icon className="Back" icon={bxArrowBack} width="18px" />
+        </div>
         <h3 className={styles.ThreadNavTitle}>Thread</h3>
         <button
           type="button"
-          onClick={() => setSaved(!saved)}
+          onClick={toggleBookmarked}
           className="IconButton"
         >
           {saved ? (
@@ -145,6 +158,7 @@ Thread.propTypes = {
     username: PropTypes.string.isRequired,
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,
+    groupBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   thread: PropTypes.shape({
     _id: PropTypes.string.isRequired,
