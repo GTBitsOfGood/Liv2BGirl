@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import Router from "next/router";
-
-// API Call
-import { getCurrentUser, signUp } from "../client/actions/User";
-import urls from "../utils/urls";
-
-// Pages
 import SignUpInfo from "../client/components/SignUp";
 import CreateAvatar from "../client/components/SignUp/CreateAvatar";
 import GenUsername from "../client/components/SignUp/GenUsername";
 import TellUsAbout from "../client/components/SignUp/TellUsAbout";
-
-// Other Components
 import SignUpProgressBar from "../client/components/SignUp/SignUpProgressBar";
 import RegistrationCompleted from "../client/components/SignUp/RegistrationCompleted";
+import { getCurrentUser } from "../client/actions/User";
+import urls from "../utils/urls";
 
 const CurrentStep = ({ stage, ...rest }) => {
   switch (stage) {
@@ -38,35 +32,17 @@ const CurrentStep = ({ stage, ...rest }) => {
   }
 };
 
-const getStepText = stage => {
-  switch (stage) {
-    case 0: {
-      return "SIGN UP";
-    }
-    case 3: {
-      return "CREATE PROFILE";
-    }
-    case 4: {
-      return "GET STARTED";
-    }
-    default: {
-      return "NEXT STEP";
-    }
-  }
-};
-
 const SignUp = () => {
   const [stage, setStage] = useState(0);
-  const [stageCompleted, setStageCompleted] = useState(false);
   const [values, setPureValues] = useState({
+    invCode: "",
     username: "",
     email: "",
     password: "",
-    invCode: "",
     avatar: 0,
     avatarColor: 0,
-    age: 0,
-    grade: 0,
+    age: 13,
+    grade: 7,
     interests: [],
   });
 
@@ -77,29 +53,9 @@ const SignUp = () => {
     }));
   };
 
-  const goToNext = async () => {
-    if (stageCompleted) {
-      if (stage + 1 < 4) {
-        setStage(prevState => prevState + 1);
-        setStageCompleted(false);
-      } else if (stage + 1 === 4) {
-        await signUp(values)
-          .then(() => {
-            setStage(prevState => prevState + 1);
-            setStageCompleted(true);
-          })
-          .catch(() => {
-            setStage(0);
-            setStageCompleted(false);
-            // eslint-disable-next-line no-alert
-            window.alert("Failed to create account!");
-          });
-      } else if (stage + 1 === 5) {
-        Router.push(urls.pages.app.home);
-      }
-
-      window.scrollTo(0, 0);
-    }
+  const handleNext = () => {
+    setStage(prevStage => prevStage + 1);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -109,13 +65,8 @@ const SignUp = () => {
         stage={stage}
         values={values}
         setValues={setValues}
-        setStageCompleted={setStageCompleted}
+        handleNext={handleNext}
       />
-      <div style={{ display: "flex" }}>
-        <button type="button" className="NextButton" onClick={goToNext}>
-          <h1>{getStepText(stage)}</h1>
-        </button>
-      </div>
     </div>
   );
 };
@@ -123,18 +74,22 @@ const SignUp = () => {
 SignUp.getInitialProps = async ({ req, res }) => {
   const cookies = req ? req.headers.cookie : null;
 
-  return getCurrentUser(cookies)
-    .then(async () => {
-      if (res) {
-        res.writeHead(302, {
-          Location: urls.pages.app.home,
-        });
-        res.end();
-      } else {
-        await Router.push(urls.pages.app.home);
-      }
-    })
-    .catch(() => ({}));
+  const currentUser = await getCurrentUser(cookies);
+
+  if (currentUser != null) {
+    if (res) {
+      res.writeHead(302, {
+        Location: urls.pages.app.home,
+      });
+      res.end();
+    } else {
+      await Router.push(urls.pages.app.home);
+    }
+  }
+
+  return {
+    currentUser,
+  };
 };
 
 SignUp.showTopNav = false;

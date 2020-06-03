@@ -31,9 +31,7 @@ export async function deleteThread(threadId) {
   await mongoDB();
 
   return AskMeThread.findOneAndDelete({ _id: threadId }).then(deletedThread => {
-    if (deletedThread) {
-      console.log("Successfully deleted thread");
-    } else {
+    if (!deletedThread) {
       return Promise.reject(new Error("No comment matches the provided id"));
     }
 
@@ -53,13 +51,7 @@ export async function getUserQuestions(posterId) {
       postedAt: -1,
     })
     .then(threads => {
-      if (threads) {
-        if (threads.length) {
-          console.log("Successfully found user questions");
-        } else {
-          console.log("No questions from user");
-        }
-      } else {
+      if (!threads) {
         return Promise.reject(new Error("Request failed"));
       }
 
@@ -129,13 +121,7 @@ export async function filterThreads(
       postedAt: -1,
     })
     .then(threads => {
-      if (threads) {
-        if (threads.length) {
-          console.log("Successfully filtered threads");
-        } else {
-          console.log("No threads match filtering criteria");
-        }
-      } else {
+      if (!threads) {
         return Promise.reject(new Error("Request failed"));
       }
 
@@ -162,13 +148,7 @@ export async function searchThreads(terms) {
       score: { $meta: "textScore" },
     })
     .then(threads => {
-      if (threads) {
-        if (threads.length) {
-          console.log("Successfully searched for threads");
-        } else {
-          console.log("No threads match search criteria");
-        }
-      } else {
+      if (!threads) {
         return Promise.reject(new Error("Request failed"));
       }
 

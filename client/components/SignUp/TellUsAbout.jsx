@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-
-// Styling
-import styles from "./signup.module.scss";
-
-// Avatar Utils
+import React from "react";
+import PropTypes from "prop-types";
+import Router from "next/router";
+import { signUp } from "../../actions/User";
 import { avatarImg, colorArr } from "../../../utils/avatars";
+import styles from "./signup.module.scss";
 
 const topics = [
   "Music",
@@ -15,107 +14,128 @@ const topics = [
   "Sports",
   "Science",
 ];
+const ages = [13, 14, 15, 16, 17, 18];
+const grades = [7, 8, 9, 10, 11, 12];
 
-const TellUsAbout = ({ values, setValues, setStageCompleted }) => {
+const TellUsAbout = ({ values, setValues, handleNext }) => {
   const { username, age, grade, interests, avatar, avatarColor } = values;
 
-  useEffect(() => {
-    if (age > 0 && grade > 0 && interests.length > 0) {
-      setStageCompleted(true);
+  const goToNext = async () => {
+    if (age === 0 || grade === 0 || interests.length === 0) {
+      window.alert("All fields must be answered before continuing!");
+    } else {
+      await signUp(values)
+        .then(() => handleNext())
+        .catch(() => {
+          window.alert("Failed to create account!");
+
+          return Router.reload();
+        });
     }
-  }, [age, grade, interests]);
-
-  const renderAgeOptions = () => {
-    const ages = [13, 14, 15, 16, 17, 18];
-
-    return ages.map(item => <option value={item}>{item}</option>);
   };
 
-  const renderGradeOptions = () => {
-    const grades = [7, 8, 9, 10, 11, 12];
+  const renderedTopics = topics.map(topic => (
+    <button
+      type="button"
+      className={
+        interests.includes(topic) ? "SmallPill ActivePill" : "SmallPill"
+      }
+      onClick={() => {
+        const newTopics = [...interests];
+        const index = newTopics.indexOf(topic);
 
-    return grades.map(item => <option value={item}>{`${item}th`}</option>);
-  };
+        if (index < 0) {
+          newTopics.push(topic);
+        } else {
+          newTopics.splice(index, 1);
+        }
 
-  const renderTopics = () => {
-    return topics.map(topic => {
-      return (
-        <button
-          type="button"
-          className={
-            interests.includes(topic) ? "SmallPill ActivePill" : "SmallPill"
-          }
-          onClick={() => {
-            const newTopics = [...interests];
-            const index = newTopics.indexOf(topic);
-
-            if (index < 0) {
-              newTopics.push(topic);
-            } else {
-              newTopics.splice(index, 1);
-            }
-
-            setValues({
-              interests: newTopics,
-            });
-          }}
-        >
-          <h2>{topic}</h2>
-        </button>
-      );
-    });
-  };
+        setValues({
+          interests: newTopics,
+        });
+      }}
+    >
+      <h2>{topic}</h2>
+    </button>
+  ));
 
   return (
-    <div className={`Page ${styles.AboutPg}`}>
-      <h1 className={styles.AboutHead}>Tell us more about you.</h1>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div
-          style={{
-            backgroundColor: colorArr[avatarColor],
-          }}
-          className={`${styles.AboutAvatar} ${styles.AvatarLogo}`}
-        >
-          <img
-            src={avatarImg[avatar]}
-            alt="CreateAvatar"
-            className={styles.AvatarImg}
-          />
+    <>
+      <div className={`Page ${styles.AboutPg}`}>
+        <h1 className={styles.AboutHead}>Tell us more about you.</h1>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              backgroundColor: colorArr[avatarColor],
+            }}
+            className={`${styles.AboutAvatar} ${styles.AvatarLogo}`}
+          >
+            <img
+              src={avatarImg[avatar]}
+              alt="CreateAvatar"
+              className={styles.AvatarImg}
+            />
+          </div>
+          <h2 className={styles.AboutUsername}>{username}</h2>
         </div>
-        <h2 className={styles.AboutUsername}>{username}</h2>
+        <form>
+          <div style={{ display: "flex" }}>
+            <label className={styles.AboutLabel} htmlFor="age">
+              <h2>Age:</h2>
+            </label>
+            <select
+              id="age"
+              className={styles.AboutSelect}
+              onChange={event => setValues({ age: event.target.value })}
+            >
+              {ages.map(item => (
+                <option value={item}>{item}</option>
+              ))}
+            </select>
+          </div>
+
+          <div style={{ display: "flex" }}>
+            <label className={styles.AboutLabel} htmlFor="grade">
+              <h2>School Year:</h2>
+            </label>
+            <select
+              id="grade"
+              className={styles.AboutSelect}
+              onChange={event => setValues({ grade: event.target.value })}
+            >
+              {grades.map(item => (
+                <option value={item}>{`${item}th`}</option>
+              ))}
+            </select>
+          </div>
+
+          <h2 className={styles.AboutLabel}>Topics you are interested in:</h2>
+          <div className={styles.AboutTopics}>{renderedTopics}</div>
+        </form>
       </div>
-      <form>
-        <div style={{ display: "flex" }}>
-          <label className={styles.AboutLabel} htmlFor="age">
-            <h2>Age:</h2>
-          </label>
-          <select
-            id="age"
-            className={styles.AboutSelect}
-            onChange={event => setValues({ age: event.target.value })}
-          >
-            {renderAgeOptions()}
-          </select>
-        </div>
-
-        <div style={{ display: "flex" }}>
-          <label className={styles.AboutLabel} htmlFor="grade">
-            <h2>School Year:</h2>
-          </label>
-          <select
-            id="grade"
-            className={styles.AboutSelect}
-            onChange={event => setValues({ grade: event.target.value })}
-          >
-            {renderGradeOptions()}
-          </select>
-        </div>
-
-        <h2 className={styles.AboutLabel}>Topics you are interested in:</h2>
-        <div className={styles.AboutTopics}>{renderTopics()}</div>
-      </form>
-    </div>
+      <div style={{ display: "flex" }}>
+        <button type="button" className="NextButton" onClick={goToNext}>
+          <h1>CREATE PROFILE</h1>
+        </button>
+      </div>
+    </>
   );
+};
+
+TellUsAbout.propTypes = {
+  values: PropTypes.shape({
+    invCode: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+    age: PropTypes.number.isRequired,
+    grade: PropTypes.number.isRequired,
+    interests: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+  setValues: PropTypes.func.isRequired,
+  handleNext: PropTypes.func.isRequired,
 };
 
 export default TellUsAbout;

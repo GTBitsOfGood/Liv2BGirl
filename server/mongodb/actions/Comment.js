@@ -39,9 +39,7 @@ export async function deleteComment(commentId) {
   await mongoDB();
 
   return Comment.findOneAndDelete({ _id: commentId }).then(deletedComment => {
-    if (deletedComment) {
-      console.log("Successfully deleted comment");
-    } else {
+    if (!deletedComment) {
       return Promise.reject(new Error("No comment matches the provided id"));
     }
 

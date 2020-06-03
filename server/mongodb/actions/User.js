@@ -5,6 +5,8 @@ import Router from "next/router";
 import mongoDB from "../index";
 import User from "../models/User";
 import Comments from "../models/Comment";
+import { useCode } from "./InvitationCode";
+import InvitationCode from "../models/InvitationCode";
 
 export const login = async (email, password) => {
   if (email == null || password == null) {
@@ -43,6 +45,7 @@ export const login = async (email, password) => {
 };
 
 export const signUp = async ({
+  invCode,
   email,
   username,
   password,
@@ -58,39 +61,41 @@ export const signUp = async ({
   askBookmarks = [],
   groupBookmarks = [],
 }) => {
-  if (email == null || username == null || password == null) {
+  if (
+    invCode == null ||
+    email == null ||
+    username == null ||
+    password == null
+  ) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return User.countDocuments({ email })
-    .then(count => {
-      if (count) {
-        return Promise.reject(new Error("This email has already been used."));
-      }
+  const hashedPassword = bcrypt.hashSync(password, 10);
 
-      return bcrypt.hashSync(password, 10);
-    })
-    .then(hashedPassword =>
-      User.create({
-        email,
-        username,
-        password: hashedPassword,
-        avatar,
-        avatarColor,
-        age,
-        grade,
-        role,
-        name,
-        interests,
-        followers,
-        following,
-        askBookmarks,
-        groupBookmarks,
-      })
-    )
-    .then(user =>
+  const user = new User({
+    email,
+    username,
+    password: hashedPassword,
+    avatar,
+    avatarColor,
+    age,
+    grade,
+    role,
+    name,
+    interests,
+    followers,
+    following,
+    askBookmarks,
+    groupBookmarks,
+  });
+
+  return user
+    .validate()
+    .then(() => useCode(invCode, user._id))
+    .then(() => user.save())
+    .then(() =>
       jwt.sign(
         {
           id: user._id,
@@ -104,6 +109,16 @@ export const signUp = async ({
       )
     );
 };
+
+export async function verifyEmailUnused(email) {
+  if (email == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return User.exists({ email }).then(exists => !exists);
+}
 
 export const signOut = () => {
   cookie.remove("token");
@@ -146,7 +161,9 @@ export const verifyTokenSecure = async (req, res) => {
 
   return jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
     if (err || decoded == null) {
-      throw new Error("Invalid token!");
+      cookies.remove("token");
+
+      return null;
     }
 
     const { id } = decoded;
@@ -157,14 +174,14 @@ export const verifyTokenSecure = async (req, res) => {
           throw new Error("User does not exist!");
         }
 
-        const { password, ...rest } = user.toObject();
+        const { password, ...userInfo } = user.toObject();
 
-        return rest;
+        return userInfo;
       })
-      .catch(findError => {
+      .catch(() => {
         cookies.remove("token");
 
-        throw findError;
+        return null;
       });
   });
 };

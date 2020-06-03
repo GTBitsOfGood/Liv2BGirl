@@ -21,6 +21,7 @@ const QuestionPage = ({
     );
   }
 
+  console.log("curU", currentUser);
   console.log("com", comments);
 
   return (

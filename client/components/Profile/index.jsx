@@ -1,18 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Router from "next/router";
-
-// Icons
 import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import logo from "../../../public/img/logo.png";
 import { avatarImg, colorArr } from "../../../utils/avatars";
-
-// Components
 import GroupCard from "./GroupCard";
-
-// Styling
 import styles from "./profile.module.scss";
 
 const ProfilePage = ({ user }) => (
@@ -66,10 +60,11 @@ const ProfilePage = ({ user }) => (
         </button>
       </div>
       <div className={styles.InterestDeck}>
-        {user.interests &&
-          user.interests.map(interest => (
-            <span className={styles.InterestPill}>{interest}</span>
-          ))}
+        {user.interests.map(interest => (
+          <span className={styles.InterestPill} key={interest}>
+            {interest}
+          </span>
+        ))}
       </div>
       <div
         style={{
@@ -85,16 +80,15 @@ const ProfilePage = ({ user }) => (
         </button>
       </div>
       <div className={styles.SubscriptionDeck}>
-        {user.subscriptions &&
-          user.subscriptions.map(subscription => (
-            <div className={styles.SubscriptionCard}>
-              <img
-                className={styles.SubscriptionImg}
-                src={subscription}
-                alt="Subscription Pic"
-              />
-            </div>
-          ))}
+        {user.subscriptions.map(subscription => (
+          <div className={styles.SubscriptionCard}>
+            <img
+              className={styles.SubscriptionImg}
+              src={subscription}
+              alt="Subscription Pic"
+            />
+          </div>
+        ))}
       </div>
       <div
         style={{
@@ -111,15 +105,14 @@ const ProfilePage = ({ user }) => (
       </div>
 
       <div className={styles.ProfileGroupDeck}>
-        {user.groups &&
-          user.groups.map(group => (
-            <GroupCard
-              id={group._id}
-              title={group.name}
-              description={group.description}
-              image={group.image || "https://picsum.photos/100/100"}
-            />
-          ))}
+        {user.groups.map(group => (
+          <GroupCard
+            id={group._id}
+            title={group.name}
+            description={group.description}
+            image={group.image || "https://picsum.photos/100/100"}
+          />
+        ))}
       </div>
     </div>
   </div>

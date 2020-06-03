@@ -4,6 +4,7 @@ import cookie from "js-cookie";
 import urls from "../../utils/urls";
 
 export const signUp = ({
+  invCode,
   username,
   email,
   password,
@@ -15,7 +16,7 @@ export const signUp = ({
   name,
   interests,
 }) =>
-  fetch(urls.baseUrl + urls.api.signUp(), {
+  fetch(urls.baseUrl + urls.api.user.signUp(), {
     method: "post",
     mode: "same-origin",
     credentials: "include",
@@ -23,6 +24,7 @@ export const signUp = ({
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      invCode,
       username,
       email,
       password,
@@ -33,6 +35,29 @@ export const signUp = ({
       role,
       name,
       interests,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const verifyEmailUnused = email =>
+  fetch(urls.baseUrl + urls.api.user.verifyEmailUnused(), {
+    method: "post",
+    mode: "same-origin",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
     }),
   })
     .then(response => response.json())

@@ -49,6 +49,10 @@ export default {
       unfollowGroup: () => "/api/groups/unfollowGroup",
       searchGroups: () => "/api/groups/searchGroups",
     },
+    invitationCode: {
+      createCode: () => "/api/invitation-code/createCode",
+      verifyCodeUnused: () => "/api/invitation-code/verifyCodeUnused",
+    },
     threads: {
       createThread: () => "/api/threads/createThread",
       deleteThread: () => "/api/threads/deleteThread",
@@ -68,6 +72,7 @@ export default {
       addAskBookmark: () => "/api/user/addAskBookmark",
       removeAskBookmark: () => "/api/user/removeAskBookmark",
       getUserAskBookmarks: () => "/api/user/getUserAskBookmarks",
+      verifyEmailUnused: () => "/api/user/verifyEmailUnused",
     },
   },
 };

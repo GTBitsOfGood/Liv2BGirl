@@ -1,6 +1,7 @@
 import App from "next/app";
 import React from "react";
 import Head from "next/head";
+import Router from "next/router";
 import BottomNavBar from "../client/components/NavBar/BottomNavBar";
 import TopNavBar from "../client/components/NavBar/TopNavBar";
 import { getCurrentUser } from "../client/actions/User";
@@ -8,6 +9,7 @@ import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 import "../public/styles/App.scss";
 import "../public/styles/components.scss";
+import urls from "../utils/urls";
 
 class MyApp extends App {
   static async getInitialProps(appContext) {
@@ -17,12 +19,25 @@ class MyApp extends App {
       ? appContext.ctx.req.headers.cookie
       : null;
 
-    return getCurrentUser(cookies)
-      .then(user => ({
-        ...appProps,
-        currentUser: user,
-      }))
-      .catch(() => appProps);
+    const currentUser = await getCurrentUser(cookies);
+
+    if (currentUser == null && appContext.router.asPath.startsWith("/app")) {
+      if (appContext.ctx.res) {
+        appContext.ctx.res.writeHead(302, {
+          Location: urls.pages.signIn,
+        });
+        appContext.ctx.res.end();
+      } else {
+        await Router.push(urls.pages.signIn);
+      }
+
+      return appProps;
+    }
+
+    return {
+      ...appProps,
+      currentUser,
+    };
   }
 
   render() {

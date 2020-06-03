@@ -52,13 +52,7 @@ export async function getGroupThreads(groupId) {
       postedAt: -1,
     })
     .then(threads => {
-      if (threads) {
-        if (threads.length) {
-          console.log("Successfully filtered threads");
-        } else {
-          console.log("No threads in this group");
-        }
-      } else {
+      if (!threads) {
         return Promise.reject(new Error("Request failed"));
       }
 
@@ -128,13 +122,7 @@ export async function searchThreads(terms, groupId) {
       score: { $meta: "textScore" },
     })
     .then(threads => {
-      if (threads) {
-        if (threads.length) {
-          console.log("Successfully searched for threads");
-        } else {
-          console.log("No threads match search criteria");
-        }
-      } else {
+      if (!threads) {
         return Promise.reject(new Error("Request failed"));
       }
 

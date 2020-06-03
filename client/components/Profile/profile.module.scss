@@ -11,6 +11,7 @@
 
   .ProfileAvatar {
     min-width: 86px;
+    width: 86px;
     height: 86px;
     border-radius: 100px;
     margin-right: 35px;
@@ -20,7 +21,8 @@
   }
 
   .ProfileAvatarImg {
-    height: 80%;
+    width: calc(100% / 1.41);
+    height: calc(100% / 1.41);
     object-fit: contain;
   }
 
