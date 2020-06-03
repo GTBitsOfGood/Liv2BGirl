@@ -9,7 +9,7 @@ import { avatarImg, colorArr } from "../../../utils/avatars";
 import GroupCard from "./GroupCard";
 import styles from "./profile.module.scss";
 
-const ProfilePage = ({ user }) => (
+const ProfilePage = ({ user, userGroups }) => (
   <div>
     <div className="TopNav">
       <div
@@ -74,30 +74,6 @@ const ProfilePage = ({ user }) => (
           marginBottom: "25px",
         }}
       >
-        <h4 className={styles.ProfileHeading}>Subscriptions</h4>
-        <button type="button" className={styles.ProfileNext}>
-          <Icon icon={arrowRightAlt2} />
-        </button>
-      </div>
-      <div className={styles.SubscriptionDeck}>
-        {user.subscriptions.map(subscription => (
-          <div className={styles.SubscriptionCard}>
-            <img
-              className={styles.SubscriptionImg}
-              src={subscription}
-              alt="Subscription Pic"
-            />
-          </div>
-        ))}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginTop: "40px",
-          marginBottom: "25px",
-        }}
-      >
         <h4 className={styles.ProfileHeading}>Joined Groups</h4>
         <button type="button" className={styles.ProfileNext}>
           <Icon icon={arrowRightAlt2} />
@@ -105,7 +81,7 @@ const ProfilePage = ({ user }) => (
       </div>
 
       <div className={styles.ProfileGroupDeck}>
-        {user.groups.map(group => (
+        {userGroups.map(group => (
           <GroupCard
             id={group._id}
             title={group.name}
@@ -121,13 +97,6 @@ const ProfilePage = ({ user }) => (
 ProfilePage.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    groups: PropTypes.arrayOf(
-      PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-      })
-    ).isRequired,
     followers: PropTypes.arrayOf(PropTypes.string).isRequired,
     following: PropTypes.arrayOf(PropTypes.string).isRequired,
     email: PropTypes.string.isRequired,
@@ -138,8 +107,14 @@ ProfilePage.propTypes = {
     grade: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
     interests: PropTypes.arrayOf(PropTypes.string).isRequired,
-    subscriptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
+  userGroups: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 ProfilePage.defaultProps = {
