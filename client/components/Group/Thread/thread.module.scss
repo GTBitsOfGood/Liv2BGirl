@@ -105,7 +105,8 @@
 }
 
 .AuthorAvatarImg {
-  height: 80%;
+  width: calc(100% / 1.41);
+  height: calc(100% / 1.41);
   object-fit: contain;
 }
 

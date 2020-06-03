@@ -1,13 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
-
-// Stylings
+import urls from "../../../../../utils/urls";
 import { avatarImg, colorArr } from "../../../../../utils/avatars";
 import styles from "../thread.module.scss";
-
-// Navigation
-import urls from "../../../../../utils/urls";
 
 const CommentPage = ({ author, date, text, setReply }) => (
   <div className={`Page ${styles.CommentPg}`}>
@@ -25,7 +21,7 @@ const CommentPage = ({ author, date, text, setReply }) => (
         />
       </div>
       <div>
-        <Link href={urls.pages.app.profile(author.id)}>
+        <Link href={urls.pages.app.profile(author._id)}>
           <div>
             <h5 className={styles.CommentAuthor}>{author.username}</h5>
           </div>
@@ -48,7 +44,7 @@ const CommentPage = ({ author, date, text, setReply }) => (
 
 CommentPage.propTypes = {
   author: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,

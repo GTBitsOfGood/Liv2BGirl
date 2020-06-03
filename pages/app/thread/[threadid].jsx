@@ -1,52 +1,57 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-// Component
 import Thread from "../../../client/components/Group/Thread";
-
-// API Calls
 import { getThread } from "../../../client/actions/Thread";
 import { getCommentsByThread } from "../../../client/actions/Comment";
 import { getUser } from "../../../client/actions/User";
 import { getGroup } from "../../../client/actions/Group";
 
-const ThreadPage = props => {
-  const { currentUser, data } = props;
+const ThreadPage = ({
+  currentUser,
+  error,
+  thread,
+  author,
+  group,
+  comments,
+}) => {
+  if (error != null) {
+    return (
+      <div>
+        <h2>Thread not found :(</h2>
+      </div>
+    );
+  }
 
-  return <Thread thread={data} currentUser={currentUser} />;
+  return (
+    <Thread
+      currentUser={currentUser}
+      thread={thread}
+      author={author}
+      group={group}
+      comments={comments}
+    />
+  );
 };
 
 ThreadPage.getInitialProps = async ({ query }) => {
   const { threadid } = query;
 
-  const data = {
-    threadid,
-  };
+  return getThread(threadid)
+    .then(async thread => {
+      const author = await getUser(thread.posterId);
+      const group = await getGroup(thread.groupId);
+      const comments = await getCommentsByThread(thread._id);
 
-  await getThread(threadid).then(async res => {
-    if (res) {
-      data.title = res.title;
-      data.postedAt = res.postedAt;
-      data.content = res.content;
-
-      await getUser(res.posterId).then(user => {
-        data.author = user;
-      });
-
-      await getGroup(res.groupId).then(group => {
-        data.groupId = group.id;
-        data.groupName = group.name;
-      });
-
-      await getCommentsByThread(res._id).then(comments => {
-        data.comments = comments || [];
-      });
-    }
-  });
-
-  return {
-    data,
-  };
+      return {
+        thread,
+        author,
+        group,
+        comments,
+      };
+    })
+    .catch(error => ({
+      error: error.message,
+    }));
 };
 
 ThreadPage.propTypes = {
@@ -55,20 +60,45 @@ ThreadPage.propTypes = {
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,
   }).isRequired,
-
-  data: PropTypes.shape({
-    threadid: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  thread: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     postedAt: PropTypes.string.isRequired,
-    author: PropTypes.shape({
-      username: PropTypes.string.isRequired,
-      avatar: PropTypes.number.isRequired,
-      avatarColor: PropTypes.number.isRequired,
-    }).isRequired,
-    groupId: PropTypes.string.isRequired,
-    groupName: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
+  author: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+  }),
+  group: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
+  comments: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      poster: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      postedAt: PropTypes.string.isRequired,
+      author: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
+        avatar: PropTypes.number.isRequired,
+        avatarColor: PropTypes.number.isRequired,
+      }),
+    })
+  ),
+};
+
+ThreadPage.defaultProps = {
+  error: null,
+  thread: null,
+  author: null,
+  group: null,
+  comments: null,
 };
 
 ThreadPage.showTopNav = false;
