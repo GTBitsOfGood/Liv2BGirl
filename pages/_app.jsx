@@ -7,9 +7,9 @@ import TopNavBar from "../client/components/NavBar/TopNavBar";
 import { getCurrentUser } from "../client/actions/User";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
+import urls from "../utils/urls";
 import "../public/styles/App.scss";
 import "../public/styles/components.scss";
-import urls from "../utils/urls";
 
 class MyApp extends App {
   static async getInitialProps(appContext) {
@@ -58,9 +58,7 @@ class MyApp extends App {
         </div>
 
         {Component.showTopNav && <TopNavBar currentUser={currentUser} />}
-        {Component.showBottomNav && (
-          <BottomNavBar loggedIn={currentUser != null} />
-        )}
+        {Component.showBottomNav && <BottomNavBar currentUser={currentUser} />}
       </>
     );
   }

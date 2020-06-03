@@ -41,7 +41,7 @@ const MyGroups = ({ groups, categories }) => {
           {groups.slice(0, 4).map(group => (
             <Link
               key={group._id}
-              href={urls.pages.app.group(group.id)}
+              href={urls.pages.app.group(group._id)}
               prefetch={false}
             >
               <div className={styles.MyGroupType}>

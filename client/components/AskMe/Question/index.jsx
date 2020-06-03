@@ -7,7 +7,7 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 import TextareaAutosize from "react-textarea-autosize";
-import Comment from "./Comment/Comment";
+import ThreadComment from "../../ThreadComment";
 import { createComment } from "../../../actions/Comment";
 import { addAskBookmark, removeAskBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
@@ -20,11 +20,10 @@ const Question = ({ currentUser, threadId, thread, author, comments }) => {
     currentUser.askBookmarks.includes(threadId)
   );
 
-  const postComment = async () => {
+  const handlePostComment = async () => {
     if (comment.length > 0) {
-      await createComment(currentUser._id, threadId, comment).then(() =>
-        window.location.reload()
-      );
+      await createComment(currentUser._id, threadId, comment);
+      window.location.reload();
     }
   };
 
@@ -99,28 +98,10 @@ const Question = ({ currentUser, threadId, thread, author, comments }) => {
       </div>
 
       <div className={styles.QuestionContent}>
-        {/* {ambassador && (
-          <>
-            <h6 className={styles.SubHeader}>Ambassador’s Answer</h6>
-            <div className={`Page ${styles.QuestionComments}`}>
-              <div className={styles.QuestionDetails}>
-                <img
-                  className={styles.QuestionAuthorAvatar}
-                  src="https://picsum.photos/50/50"
-                  alt="Group Avatar"
-                />
-                <h5 className={styles.QuestionAuthor}>{ambassador.name}</h5>
-                <h6 className={styles.QuestionDate}>{answeredDate}</h6>
-              </div>
-              <h4 className={styles.QuestionText}>{answer}</h4>
-            </div>
-          </>
-        )} */}
-
         <h6 className={styles.SubHeader}>{`Comments (${comments.length})`}</h6>
         <div>
           {comments.map(item => (
-            <Comment author={item.author} comment={item.comment} />
+            <ThreadComment key={item._id} {...item} setReply={setComment} />
           ))}
         </div>
       </div>
@@ -149,7 +130,7 @@ const Question = ({ currentUser, threadId, thread, author, comments }) => {
         <button
           type="button"
           className="PostButton"
-          onClick={() => postComment()}
+          onClick={handlePostComment}
           style={{ marginLeft: "auto", marginTop: "12px" }}
         >
           Post

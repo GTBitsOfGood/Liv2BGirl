@@ -226,42 +226,6 @@
       margin-left: 16px;
       margin-bottom: 13px;
     }
-
-    .QuestionComments {
-      margin-bottom: 13px;
-      background-color: white;
-
-      .QuestionDetails {
-        margin-bottom: 13px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-
-        .QuestionAuthorAvatar {
-          width: 16px;
-          height: 16px;
-          margin-right: 8px;
-          border-radius: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .QuestionAuthor,
-        .QuestionDate {
-          font-weight: normal;
-        }
-
-        .QuestionDate {
-          margin-left: auto;
-        }
-      }
-
-      .QuestionText {
-        margin-bottom: 12px;
-        font-weight: normal;
-      }
-    }
   }
 
   .CommentAuthorAvatar {
@@ -273,12 +237,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 4px;
     margin-right: 8px;
   }
 
   .AuthorAvatarImg {
-    height: 80%;
+    width: calc(100% / 1.41);
+    height: calc(100% / 1.41);
     object-fit: contain;
   }
 
@@ -297,6 +261,8 @@
 
     .Footer1 {
       display: flex;
+      flex-direction: row;
+      align-items: center;
 
       .CommentInput {
         width: 100%;

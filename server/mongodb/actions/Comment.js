@@ -62,7 +62,8 @@ export async function getCommentsByAskMeThread(threadId) {
 
       return Comment.find({ parentId: threadId })
         .sort({
-          postedAt: -1,
+          officialAnswer: -1, // official answers come first
+          postedAt: 1, // newest at bottom
         })
         .then(async comments => {
           if (!comments) {
@@ -100,6 +101,7 @@ export async function getCommentsByThread(threadId) {
 
       return Comment.find({ parentId: threadId })
         .sort({
+          officialAnswer: -1, // official answers come first
           postedAt: 1, // newest at bottom
         })
         .then(async comments => {
@@ -109,7 +111,7 @@ export async function getCommentsByThread(threadId) {
 
           return Promise.all(
             comments.map(async comment => ({
-              ...comment.toObject(),
+              comment: comment.toObject(),
               author: await getUser(comment.poster).then(user => ({
                 _id: user._id,
                 username: user.username,

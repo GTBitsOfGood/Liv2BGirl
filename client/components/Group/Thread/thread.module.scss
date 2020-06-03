@@ -186,12 +186,12 @@
 
     .Footer1 {
       display: flex;
+      flex-direction: row;
+      align-items: center;
 
       .UserAvatar {
         min-width: 32px;
         min-height: 32px;
-        margin-top: 4px;
-        margin-right: 10px;
         border-radius: 100%;
       }
 
@@ -210,56 +210,6 @@
         border-radius: 4px;
         color: $text;
       }
-    }
-  }
-}
-
-.CommentPg {
-  background-color: white;
-  margin: 0;
-  margin-top: 8px;
-  margin-bottom: 0 !important;
-
-  .CommentDetails {
-    display: flex;
-    align-items: center;
-
-    .CommentAuthorAvatar {
-      width: 32px;
-      height: 32px;
-      margin: auto 0;
-      margin-right: 8px;
-      border-radius: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .CommentAuthor {
-      cursor: pointer;
-    }
-
-    .CommentDate {
-      font-weight: normal;
-    }
-  }
-
-  .CommentText {
-    margin-top: 16px;
-    font-weight: normal;
-    white-space: pre-wrap;
-  }
-
-  .CommentReply {
-    background: transparent;
-    border: none;
-    margin: 8px 0;
-    margin-left: auto;
-    color: $gray;
-    cursor: pointer;
-
-    h5 {
-      font-weight: normal;
     }
   }
 }

@@ -6,7 +6,7 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 import TextareaAutosize from "react-textarea-autosize";
-import CommentCard from "./CommentCard";
+import ThreadComment from "../../ThreadComment";
 import { createComment } from "../../../actions/Comment";
 import { addGroupBookmark, removeGroupBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
@@ -19,16 +19,11 @@ const Thread = ({ currentUser, thread, author, group, comments }) => {
     currentUser.groupBookmarks.includes(thread._id)
   );
 
-  const postComment = () => {
+  const postComment = async () => {
     if (comment.length > 0) {
-      createComment(currentUser._id, thread._id, comment).then(() => {
-        window.location.reload();
-      });
+      await createComment(currentUser._id, thread._id, comment);
+      window.location.reload();
     }
-  };
-
-  const setReply = value => {
-    setComment(value);
   };
 
   const toggleBookmarked = async () => {
@@ -97,13 +92,7 @@ const Thread = ({ currentUser, thread, author, group, comments }) => {
       </div>
       <div className={styles.ThreadComments}>
         {comments.map(item => (
-          <CommentCard
-            key={item._id}
-            author={item.author}
-            date={item.postedAt}
-            text={item.content}
-            setReply={setReply}
-          />
+          <ThreadComment key={item._id} {...item} setReply={setComment} />
         ))}
       </div>
 
@@ -168,16 +157,20 @@ Thread.propTypes = {
   }).isRequired,
   comments: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      postedAt: PropTypes.string.isRequired,
       author: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
         avatar: PropTypes.number.isRequired,
         avatarColor: PropTypes.number.isRequired,
-      }),
+      }).isRequired,
+      comment: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        parentId: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        officialAnswer: PropTypes.bool.isRequired,
+        postedAt: PropTypes.string.isRequired,
+      }).isRequired,
     })
   ).isRequired,
 };

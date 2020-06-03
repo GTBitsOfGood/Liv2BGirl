@@ -2,23 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
-// Styling
+import urls from "../../../utils/urls";
 import style from "./navbar.module.scss";
 
-// Navigation
-import urls from "../../../utils/urls";
-
-const BottomNavBar = ({ loggedIn }) => {
+const BottomNavBar = ({ currentUser }) => {
   const router = useRouter();
+
+  // Using profile page instead of home page (urls.pages.app.home) until it is designed
+  const homePath = urls.pages.app.profile(currentUser._id);
 
   return (
     <div className={style.BottomNav}>
-      <Link href={urls.pages.app.home}>
+      <Link href={homePath}>
         <div className={style.NavItem}>
           <div
             className={
-              router.asPath === urls.pages.app.home
+              router.asPath === homePath
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }
@@ -52,27 +51,28 @@ const BottomNavBar = ({ loggedIn }) => {
           <p>Ask Me</p>
         </div>
       </Link>
-
-      {loggedIn && (
-        <Link href={urls.pages.app.notifications}>
-          <div className={style.NavItem}>
-            <div
-              className={
-                router.asPath === urls.pages.app.notifications
-                  ? `${style.NavButton} ${style.ActiveItem}`
-                  : style.NavButton
-              }
-            />
-            <p>Notifications</p>
-          </div>
-        </Link>
-      )}
+      <Link href={urls.pages.app.notifications}>
+        <div className={style.NavItem}>
+          <div
+            className={
+              router.asPath === urls.pages.app.notifications
+                ? `${style.NavButton} ${style.ActiveItem}`
+                : style.NavButton
+            }
+          />
+          <p>Notifications</p>
+        </div>
+      </Link>
     </div>
   );
 };
 
 BottomNavBar.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
+  currentUser: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default BottomNavBar;
