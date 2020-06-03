@@ -15,6 +15,8 @@ const ThreadPage = ({
   comments,
 }) => {
   if (error != null) {
+    console.error("error", error);
+
     return (
       <div>
         <h2>Thread not found :(</h2>

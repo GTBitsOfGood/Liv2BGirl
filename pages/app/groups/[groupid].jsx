@@ -5,9 +5,11 @@ import ViewGroup from "../../../client/components/Group/View";
 
 const GroupPage = ({ error, currentUser, groupid, groupData, threads }) => {
   if (error) {
+    console.error("error", error);
+
     return (
       <div>
-        <h2>{error}</h2>
+        <h2>Group not found :(</h2>
       </div>
     );
   }

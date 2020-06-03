@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Router from "next/router";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
@@ -32,35 +31,26 @@ const Thread = ({ currentUser, thread, author, group, comments }) => {
     setComment(value);
   };
 
-  const toggleBookmarked = () => {
+  const toggleBookmarked = async () => {
     if (saved) {
-      return removeGroupBookmark(thread._id, currentUser._id).then(() =>
-        setSaved(false)
-      );
+      await removeGroupBookmark(thread._id, currentUser._id);
+      setSaved(false);
+    } else {
+      await addGroupBookmark(thread._id, currentUser._id);
+      setSaved(true);
     }
-
-    return addGroupBookmark(thread._id, currentUser._id).then(() =>
-      setSaved(true)
-    );
   };
 
   return (
     <div className={styles.ThreadPage}>
       <div className="TopNav">
-        <div
-          role="button"
-          tabIndex={-1}
-          onClick={() => Router.back()}
-          onKeyDown={() => Router.back()}
-        >
-          <Icon className="Back" icon={bxArrowBack} width="18px" />
-        </div>
+        <Link href={urls.pages.app.group(group._id)}>
+          <div>
+            <Icon className="Back" icon={bxArrowBack} width="18px" />
+          </div>
+        </Link>
         <h3 className={styles.ThreadNavTitle}>Thread</h3>
-        <button
-          type="button"
-          onClick={toggleBookmarked}
-          className="IconButton"
-        >
+        <button className="IconButton" type="button" onClick={toggleBookmarked}>
           {saved ? (
             <Icon icon={bxsBookmark} height="18px" />
           ) : (

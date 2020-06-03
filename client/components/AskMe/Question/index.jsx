@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "next/link";
 import Router from "next/router";
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
@@ -27,27 +28,24 @@ const Question = ({ currentUser, threadId, thread, author, comments }) => {
     }
   };
 
-  const toggleBookmarked = () => {
+  const toggleBookmarked = async () => {
     if (saved) {
-      return removeAskBookmark(threadId, currentUser._id).then(() =>
-        setSaved(false)
-      );
+      await removeAskBookmark(threadId, currentUser._id);
+      setSaved(false);
+    } else {
+      await addAskBookmark(threadId, currentUser._id);
+      setSaved(true);
     }
-
-    return addAskBookmark(threadId, currentUser._id).then(() => setSaved(true));
   };
 
   return (
     <div className={styles.QuestionPage}>
       <div className="TopNav">
-        <div
-          role="button"
-          tabIndex={-1}
-          onClick={() => Router.push(urls.pages.app.askMe)}
-          onKeyDown={() => Router.push(urls.pages.app.askMe)}
-        >
-          <Icon className="Back" icon={bxArrowBack} width="18px" />
-        </div>
+        <Link href={urls.pages.app.askMe}>
+          <div>
+            <Icon className="Back" icon={bxArrowBack} width="18px" />
+          </div>
+        </Link>
         <h3 className={styles.QuestionNavTitle}>Question</h3>
         <button
           className="IconButton"

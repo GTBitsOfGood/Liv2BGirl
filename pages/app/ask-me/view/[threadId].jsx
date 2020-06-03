@@ -14,15 +14,14 @@ const QuestionPage = ({
   comments,
 }) => {
   if (error) {
+    console.error("error", error);
+
     return (
       <div>
         <h2>{error}</h2>
       </div>
     );
   }
-
-  console.log("curU", currentUser);
-  console.log("com", comments);
 
   return (
     <Question
