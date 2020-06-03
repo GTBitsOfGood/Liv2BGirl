@@ -49,7 +49,7 @@ export async function getGroupThreads(groupId) {
 
   return Thread.find({ groupId })
     .sort({
-      postedAt: -1,
+      postedAt: -1, // newest at top
     })
     .then(threads => {
       if (!threads) {

@@ -100,7 +100,7 @@ export async function getCommentsByThread(threadId) {
 
       return Comment.find({ parentId: threadId })
         .sort({
-          postedAt: -1,
+          postedAt: 1, // newest at bottom
         })
         .then(async comments => {
           if (!comments) {
