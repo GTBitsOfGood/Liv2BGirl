@@ -6,7 +6,7 @@ import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 // @access  Public
 const handler = (req, res) =>
   verifyTokenSecure(req, res)
-    .then(curUser => deleteThread(curUser, req.body.threadId))
+    .then(curUser => deleteThread(curUser, req.body))
     .then(payload =>
       res.status(200).json({
         success: true,

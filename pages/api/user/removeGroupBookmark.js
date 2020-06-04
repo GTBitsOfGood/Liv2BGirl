@@ -8,7 +8,7 @@ import {
 // @access  Public
 const handler = (req, res) =>
   verifyToken(req, res)
-    .then(curUser => removeGroupBookmark(curUser, req.body.threadId))
+    .then(curUser => removeGroupBookmark(curUser, req.body))
     .then(payload =>
       res.status(200).json({
         success: true,

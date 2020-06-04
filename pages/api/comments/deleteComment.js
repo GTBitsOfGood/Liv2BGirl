@@ -1,12 +1,12 @@
 import { deleteComment } from "../../../server/mongodb/actions/Comment";
 import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 
-// @route   DELETE api/comments/deleteComment
+// @route   POST api/comments/deleteComment
 // @desc    Delete Comment Request
 // @access  Public
 const handler = async (req, res) =>
   verifyTokenSecure(req, res)
-    .then(currUser => deleteComment(currUser, req.body.commentId))
+    .then(currUser => deleteComment(currUser, req.body))
     .then(payload =>
       res.status(200).json({
         success: true,

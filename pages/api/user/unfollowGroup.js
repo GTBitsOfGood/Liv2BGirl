@@ -1,12 +1,12 @@
 import { unfollowGroup } from "../../../server/mongodb/actions/Group";
 import { verifyToken } from "../../../server/mongodb/actions/User";
 
-// @route   PUT api/user/unfollowGroup
+// @route   POST api/user/unfollowGroup
 // @desc    Unfollow Group Request
 // @access  Public
 const handler = (req, res) =>
   verifyToken(req, res)
-    .then(curUser => unfollowGroup(curUser, req.body.groupId))
+    .then(curUser => unfollowGroup(curUser, req.body))
     .then(payload =>
       res.status(200).json({
         success: true,

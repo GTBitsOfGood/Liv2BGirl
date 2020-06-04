@@ -4,7 +4,7 @@ import { verifyEmailUnused } from "../../../server/mongodb/actions/User";
 // @desc    Verify Email Unused Request
 // @access  Public
 const handler = (req, res) =>
-  verifyEmailUnused(req.body.email)
+  verifyEmailUnused(req.body)
     .then(payload =>
       res.status(200).json({
         success: true,

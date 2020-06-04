@@ -6,7 +6,7 @@ import { verifyToken } from "../../../server/mongodb/actions/User";
 // @access  Public
 const handler = (req, res) =>
   verifyToken(req, res)
-    .then(curUser => searchThreads(curUser, req.body.terms, req.body.groupId))
+    .then(curUser => searchThreads(curUser, req.body))
     .then(payload =>
       res.status(200).json({
         success: true,

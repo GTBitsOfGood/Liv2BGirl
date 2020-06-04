@@ -4,7 +4,7 @@ import { verifyCodeUnused } from "../../../server/mongodb/actions/InvitationCode
 // @desc    Verify Code Unused Request
 // @access  Public
 const handler = (req, res) =>
-  verifyCodeUnused(req.body.code)
+  verifyCodeUnused(req.body)
     .then(payload =>
       res.status(200).json({
         success: true,

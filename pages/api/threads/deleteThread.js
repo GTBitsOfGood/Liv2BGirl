@@ -1,12 +1,12 @@
 import { deleteThread } from "../../../server/mongodb/actions/Thread";
 import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 
-// @route   DELETE api/threads/deleteThread
+// @route   POST api/threads/deleteThread
 // @desc    Delete Thread Request
 // @access  Public
 const handler = async (req, res) =>
   verifyTokenSecure(req, res)
-    .then(currUser => deleteThread(currUser, req.body.threadId))
+    .then(currUser => deleteThread(currUser, req.body))
     .then(payload =>
       res.status(200).json({
         success: true,

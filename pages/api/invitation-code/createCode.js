@@ -1,7 +1,7 @@
 import { createCode } from "../../../server/mongodb/actions/InvitationCode";
 import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 
-// @route   POST api/invitation-code/createCode
+// @route   GET api/invitation-code/createCode
 // @desc    Create Code Request
 // @access  Public
 const handler = (req, res) =>

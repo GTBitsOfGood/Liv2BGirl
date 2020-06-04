@@ -43,4 +43,5 @@ GroupThreadSchema.pre("findOneAndRemove", handleDelete);
 GroupThreadSchema.pre("deleteOne", handleDelete);
 GroupThreadSchema.pre("deleteMany", handleDelete);
 
-export default mongoose.models.GroupThread || mongoose.model("GroupThread", GroupThreadSchema);
+export default mongoose.models.GroupThread ||
+  mongoose.model("GroupThread", GroupThreadSchema);

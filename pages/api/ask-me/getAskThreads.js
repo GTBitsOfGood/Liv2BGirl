@@ -1,7 +1,7 @@
 import { getThreads } from "../../../server/mongodb/actions/AskMeThread";
 import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 
-// @route   POST api/ask-me/getAskThreads
+// @route   GET api/ask-me/getAskThreads
 // @desc    Get ask me threads
 // @access  Public
 const handler = (req, res) =>

@@ -3,7 +3,7 @@ import { verifyToken } from "../../../server/mongodb/actions/User";
 
 const handler = (req, res) =>
   verifyToken(req, res)
-    .then(curUser => getGroup(curUser, req.body.groupId))
+    .then(curUser => getGroup(curUser, req.body))
     .then(payload =>
       res.status(200).json({
         success: true,

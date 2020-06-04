@@ -6,15 +6,7 @@ import { verifyToken } from "../../../server/mongodb/actions/User";
 // @access  Public
 const handler = async (req, res) =>
   verifyToken(req, res)
-    .then(currUser =>
-      createGroup(
-        currUser._id,
-        req.body.name,
-        req.body.description,
-        req.body.category,
-        req.body.admin
-      )
-    )
+    .then(currUser => createGroup(currUser, req.body))
     .then(payload =>
       res.status(200).json({
         success: true,

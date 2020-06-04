@@ -4,7 +4,7 @@ import { login } from "../../../server/mongodb/actions/User";
 // @desc    Login Request
 // @access  Public
 const handler = (req, res) =>
-  login(req.body.email, req.body.password)
+  login(req.body)
     .then(token => {
       res.setHeader(
         "Set-Cookie",

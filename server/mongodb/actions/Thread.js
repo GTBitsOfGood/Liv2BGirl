@@ -70,7 +70,7 @@ export async function getGroupThreads(currentUser, groupId) {
         threads.map(async thread => ({
           ...thread.toObject(),
           numComments: await Comments.find({
-            parentId: thread._id,
+            parent: thread._id,
           }).countDocuments(),
         }))
       );

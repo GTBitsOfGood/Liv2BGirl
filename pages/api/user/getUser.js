@@ -2,7 +2,7 @@ import { getUser, verifyToken } from "../../../server/mongodb/actions/User";
 
 const handler = (req, res) =>
   verifyToken(req, res)
-    .then(curUser => getUser(curUser, req.body.userId))
+    .then(curUser => getUser(curUser, req.body))
     .then(payload =>
       res.status(200).json({
         success: true,

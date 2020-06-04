@@ -60,7 +60,7 @@ export async function getUserQuestions(currentUser) {
         threads.map(async thread => ({
           ...thread.toObject(),
           numComments: await Comments.find({
-            parentId: thread._id,
+            parent: thread._id,
           }).countDocuments(),
         }))
       );
@@ -92,7 +92,7 @@ export async function getThreads(currentUser) {
         threads.map(async thread => ({
           ...thread.toObject(),
           numComments: await Comments.find({
-            parentId: thread._id,
+            parent: thread._id,
           }).countDocuments(),
         }))
       );

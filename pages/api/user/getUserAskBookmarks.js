@@ -3,7 +3,7 @@ import {
   verifyToken,
 } from "../../../server/mongodb/actions/User";
 
-// @route   POST api/user/getUserAskBookmarks
+// @route   GET api/user/getUserAskBookmarks
 // @desc    Gets a user's Ask Me bookmarks
 // @access  Public
 const handler = (req, res) =>

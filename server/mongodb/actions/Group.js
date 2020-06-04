@@ -27,21 +27,10 @@ export const unfollowGroup = async (currentUser, groupId) => {
   });
 };
 
-export const createGroup = async (
-  currentUser,
-  name,
-  description,
-  category,
-  moderator
-) => {
+export const createGroup = async (currentUser, name, description, category) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a group!");
-  } else if (
-    name == null ||
-    description == null ||
-    category == null ||
-    moderator == null
-  ) {
+  } else if (name == null || description == null || category == null) {
     throw new Error("All parameters must be provided!");
   }
 
@@ -51,7 +40,7 @@ export const createGroup = async (
     name,
     description,
     category,
-    moderator,
+    moderator: currentUser._id,
   }).then(async group => {
     await followGroup(currentUser, group._id);
 
