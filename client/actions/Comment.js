@@ -1,16 +1,15 @@
 import fetch from "isomorphic-unfetch";
 import urls from "../../utils/urls";
 
-export const createComment = (poster, parentId, content) =>
+export const createComment = (parentId, content) =>
   fetch(urls.baseUrl + urls.api.comments.createComment(), {
-    method: "post",
+    method: "POST",
     mode: "same-origin",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      poster,
       parentId,
       content,
     }),
@@ -27,7 +26,7 @@ export const createComment = (poster, parentId, content) =>
 
 export const getCommentsByThread = threadId =>
   fetch(urls.baseUrl + urls.api.comments.getCommentsByThread(), {
-    method: "post",
+    method: "POST",
     mode: "same-origin",
     credentials: "include",
     headers: {
@@ -50,7 +49,7 @@ export const getCommentsByThread = threadId =>
 
 export const getCommentsByAskMeThread = threadId =>
   fetch(urls.baseUrl + urls.api.comments.getCommentsByAskMeThread(), {
-    method: "post",
+    method: "POST",
     mode: "same-origin",
     credentials: "include",
     headers: {

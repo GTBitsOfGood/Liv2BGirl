@@ -22,22 +22,32 @@ export async function createThread(posterId, groupId, title, content) {
   });
 }
 
-export async function deleteThread(threadId) {
-  if (threadId == null) {
+export async function deleteThread(currentUser, threadId) {
+  if (currentUser == null || threadId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return Thread.findOneAndDelete({ _id: threadId }).then(
-    async deletedThread => {
-      if (!deletedThread) {
-        return Promise.reject(new Error("No comment matches the provided id"));
-      }
+  const query = {
+    _id: threadId,
+  };
 
-      return deletedThread;
+  if (currentUser.role === "User") {
+    query.posterId = currentUser._id;
+  }
+
+  return Thread.findOneAndDelete(query).then(async deletedThread => {
+    if (!deletedThread) {
+      return Promise.reject(
+        new Error(
+          "No thread matches the provided id or user does not have permission!"
+        )
+      );
     }
-  );
+
+    return deletedThread;
+  });
 }
 
 export async function getGroupThreads(groupId) {

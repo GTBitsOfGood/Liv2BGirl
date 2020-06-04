@@ -1,15 +1,19 @@
 import { createThread } from "../../../server/mongodb/actions/AskMeThread";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/ask-me/createThread
 // @desc    Create Thread Request
 // @access  Public
 const handler = (req, res) =>
-  createThread(
-    req.body.posterId,
-    req.body.title,
-    req.body.content,
-    req.body.visibility
-  )
+  verifyToken(req, res)
+    .then(curUser =>
+      createThread(
+        curUser._id,
+        req.body.title,
+        req.body.content,
+        req.body.visibility
+      )
+    )
     .then(thread =>
       res.status(200).json({
         success: true,

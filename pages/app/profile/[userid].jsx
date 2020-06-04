@@ -23,20 +23,21 @@ const ProfilePage = ({ error, user, userGroups }) => {
 ProfilePage.getInitialProps = async ({ query }) => {
   const userId = query.userid;
 
-  return getUser(userId)
-    .then(async user => {
-      const userGroups = await Promise.all(
-        user.groups.map(groupId => getGroup(groupId))
-      );
+  try {
+    const user = await getUser(userId);
+    const userGroups = await Promise.all(
+      user.groups.map(groupId => getGroup(groupId))
+    );
 
-      return {
-        user,
-        userGroups,
-      };
-    })
-    .catch(error => ({
+    return {
+      user,
+      userGroups,
+    };
+  } catch (error) {
+    return {
       error: error.message,
-    }));
+    };
+  }
 };
 
 ProfilePage.propTypes = {

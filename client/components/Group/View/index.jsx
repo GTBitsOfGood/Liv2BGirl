@@ -22,10 +22,10 @@ const ViewGroup = ({ groupid, groupData, threads, currentUser }) => {
 
   const groupAction = async () => {
     if (joined) {
-      await unfollowGroup(groupid, currentUser._id);
+      await unfollowGroup(groupid);
       setJoined(false);
     } else {
-      await followGroup(groupid, currentUser._id);
+      await followGroup(groupid);
       setJoined(true);
     }
   };

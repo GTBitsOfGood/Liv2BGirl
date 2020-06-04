@@ -4,6 +4,8 @@ import urls from "../../utils/urls";
 export const getCategories = () =>
   fetch(urls.baseUrl + urls.api.categories.getCategories(), {
     method: "GET",
+    mode: "same-origin",
+    credentials: "include",
   })
     .then(response => response.json())
     .then(json => {

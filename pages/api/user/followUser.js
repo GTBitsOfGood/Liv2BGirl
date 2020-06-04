@@ -1,10 +1,11 @@
-import { follow } from "../../../server/mongodb/actions/User";
+import { follow, verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/follow
 // @desc    Follow Request
 // @access  Public
 const handler = (req, res) =>
-  follow(req.body.userId, req.body.toFollowId)
+  verifyToken(req, res)
+    .then(curUser => follow(curUser._id, req.body.toFollowId))
     .then(user =>
       res.status(200).json({
         success: true,

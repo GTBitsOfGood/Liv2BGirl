@@ -81,10 +81,12 @@ ThreadPage.propTypes = {
   }),
   comments: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      postedAt: PropTypes.string.isRequired,
+      comment: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        postedAt: PropTypes.string.isRequired,
+      }),
       author: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,

@@ -28,10 +28,10 @@ const Thread = ({ currentUser, thread, author, group, comments }) => {
 
   const toggleBookmarked = async () => {
     if (saved) {
-      await removeGroupBookmark(thread._id, currentUser._id);
+      await removeGroupBookmark(thread._id);
       setSaved(false);
     } else {
-      await addGroupBookmark(thread._id, currentUser._id);
+      await addGroupBookmark(thread._id);
       setSaved(true);
     }
   };
@@ -92,7 +92,11 @@ const Thread = ({ currentUser, thread, author, group, comments }) => {
       </div>
       <div className={styles.ThreadComments}>
         {comments.map(item => (
-          <ThreadComment key={item._id} {...item} setReply={setComment} />
+          <ThreadComment
+            key={item.comment._id}
+            {...item}
+            setReply={setComment}
+          />
         ))}
       </div>
 

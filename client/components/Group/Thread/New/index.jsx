@@ -1,24 +1,14 @@
 import React, { useState } from "react";
 import Router, { useRouter } from "next/router";
-import PropTypes from "prop-types";
-
-// Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import TextareaAutosize from "react-textarea-autosize";
-import logo from "../../../../../public/img/logo.png";
-
-// API Call
-
-// Styling
-import styles from "../thread.module.scss";
-
-// Navigation
 import urls from "../../../../../utils/urls";
 import { createThread } from "../../../../actions/Thread";
+import logo from "../../../../../public/img/logo.png";
+import styles from "../thread.module.scss";
 
-const CreateThreadComponent = props => {
-  const { currentUser } = props;
+const CreateThreadComponent = () => {
   const router = useRouter();
   const { groupid } = router.query;
 
@@ -27,7 +17,7 @@ const CreateThreadComponent = props => {
 
   const handleCreateThread = async () => {
     if (title.length > 0 && text.length > 0) {
-      createThread(currentUser._id, groupid, title, text).then(res => {
+      createThread(groupid, title, text).then(res => {
         if (res) {
           Router.push(urls.pages.app.thread(res._id));
         }
@@ -77,12 +67,6 @@ const CreateThreadComponent = props => {
       </div>
     </div>
   );
-};
-
-CreateThreadComponent.propTypes = {
-  currentUser: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default CreateThreadComponent;

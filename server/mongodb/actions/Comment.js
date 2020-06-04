@@ -31,16 +31,28 @@ export async function createComment(
   });
 }
 
-export async function deleteComment(commentId) {
-  if (commentId == null) {
+export async function deleteComment(currentUser, commentId) {
+  if (currentUser == null || commentId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return Comment.findOneAndDelete({ _id: commentId }).then(deletedComment => {
+  const query = {
+    _id: commentId,
+  };
+
+  if (currentUser.role === "User") {
+    query.poster = currentUser._id;
+  }
+
+  return Comment.findOneAndDelete(query).then(deletedComment => {
     if (!deletedComment) {
-      return Promise.reject(new Error("No comment matches the provided id"));
+      return Promise.reject(
+        new Error(
+          "No comment matches the provided id or user does not have permission!"
+        )
+      );
     }
 
     return deletedComment;

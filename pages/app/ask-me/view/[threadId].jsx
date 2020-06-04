@@ -53,7 +53,7 @@ QuestionPage.getInitialProps = async ({ query }) => {
             avatar: user.avatar,
             avatarColor: user.avatarColor,
           }));
-    const comments = (await getCommentsByAskMeThread(thread._id)) || [];
+    const comments = await getCommentsByAskMeThread(thread._id);
 
     return {
       threadId,

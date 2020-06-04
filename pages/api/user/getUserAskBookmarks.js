@@ -1,10 +1,14 @@
-import { getUserAskBookmarks } from "../../../server/mongodb/actions/User";
+import {
+  getUserAskBookmarks,
+  verifyToken,
+} from "../../../server/mongodb/actions/User";
 
 // @route   POST api/user/getUserAskBookmarks
 // @desc    Gets a user's Ask Me bookmarks
 // @access  Public
 const handler = (req, res) =>
-  getUserAskBookmarks(req.body.userId)
+  verifyToken(req, res)
+    .then(curUser => getUserAskBookmarks(curUser._id))
     .then(bookmarks =>
       res.status(200).json({
         success: true,

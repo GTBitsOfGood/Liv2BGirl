@@ -1,10 +1,12 @@
 import { deleteThread } from "../../../server/mongodb/actions/AskMeThread";
+import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 
 // @route   DELETE api/ask-me/deleteThread
 // @desc    Delete Thread Request
 // @access  Public
 const handler = (req, res) =>
-  deleteThread(req.body.threadId)
+  verifyTokenSecure(req, res)
+    .then(curUser => deleteThread(curUser, req.body.threadId))
     .then(thread =>
       res.status(200).json({
         success: true,

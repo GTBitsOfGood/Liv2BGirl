@@ -30,11 +30,6 @@ const AskMe = ({ featuredQuestions, ownQuestions, bookmarks }) => {
 
   return (
     <>
-      <div className="TopNav">
-        <div className="Avatar" />
-        <h3>Ask Me</h3>
-        <div />
-      </div>
       <div className={styles.AskPage}>
         <div className={styles.TopHead}>
           <Link href={urls.pages.app.askQuestion}>

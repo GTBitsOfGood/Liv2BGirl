@@ -2,9 +2,11 @@ import { v4 as uuidv4 } from "uuid";
 import mongoDB from "../index";
 import InvitationCode from "../models/InvitationCode";
 
-export async function createCode(createdBy) {
-  if (createdBy == null) {
+export async function createCode(currUser) {
+  if (currUser == null) {
     throw new Error("You must be logged in to create a invitation code!");
+  } else if (currUser.role !== "Admin") {
+    throw new Error("Only admins can create an invitation code!");
   }
 
   // Use uuid v4 for codes that are not repeated
@@ -14,7 +16,7 @@ export async function createCode(createdBy) {
 
   return InvitationCode.create({
     code,
-    createdBy,
+    createdBy: currUser._id,
   }).catch(() =>
     Promise.reject(new Error("Incorrect user supplied for creation!"))
   );

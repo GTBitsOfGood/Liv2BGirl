@@ -1,10 +1,12 @@
 import { createCode } from "../../../server/mongodb/actions/InvitationCode";
+import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/invitation-code/createCode
 // @desc    Create Code Request
 // @access  Public
 const handler = (req, res) =>
-  createCode(req.body.createdBy)
+  verifyTokenSecure(req, res)
+    .then(currUser => createCode(currUser))
     .then(code =>
       res.status(200).json({
         success: true,

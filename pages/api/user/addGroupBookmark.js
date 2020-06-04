@@ -1,10 +1,14 @@
-import { addGroupBookmark } from "../../../server/mongodb/actions/User";
+import {
+  addGroupBookmark,
+  verifyToken,
+} from "../../../server/mongodb/actions/User";
 
 // @route   POST api/user/addGroupBookmark
 // @desc    Bookmark a Group thread
 // @access  Public
 const handler = (req, res) =>
-  addGroupBookmark(req.body.userId, req.body.threadId)
+  verifyToken(req, res)
+    .then(curUser => addGroupBookmark(curUser._id, req.body.threadId))
     .then(thread =>
       res.status(200).json({
         success: true,

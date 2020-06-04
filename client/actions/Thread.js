@@ -4,6 +4,8 @@ import urls from "../../utils/urls";
 export const getGroupThreads = groupId =>
   fetch(urls.baseUrl + urls.api.threads.getGroupThreads(), {
     method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -25,6 +27,8 @@ export const getGroupThreads = groupId =>
 export const getThread = threadId =>
   fetch(urls.baseUrl + urls.api.threads.getThread(), {
     method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -46,6 +50,8 @@ export const getThread = threadId =>
 export const searchThreads = (terms, groupId) =>
   fetch(urls.baseUrl + urls.api.threads.searchThreads(), {
     method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -65,14 +71,15 @@ export const searchThreads = (terms, groupId) =>
       return json.payload;
     });
 
-export const createThread = (posterId, groupId, title, content) =>
+export const createThread = (groupId, title, content) =>
   fetch(urls.baseUrl + urls.api.threads.createThread(), {
     method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      posterId,
       groupId,
       title,
       content,
@@ -92,6 +99,8 @@ export const createThread = (posterId, groupId, title, content) =>
 export const deleteThread = threadId =>
   fetch(urls.baseUrl + urls.api.threads.deleteThread(), {
     method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },

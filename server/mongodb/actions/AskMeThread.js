@@ -23,14 +23,19 @@ export async function createThread(posterId, title, content, visibility) {
   });
 }
 
-export async function deleteThread(threadId) {
-  if (threadId == null) {
+export async function deleteThread(currentUser, threadId) {
+  if (currentUser == null || threadId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return AskMeThread.findOneAndDelete({ _id: threadId }).then(deletedThread => {
+  const query = { _id: threadId };
+  if (currentUser.role === "User") {
+    query.posterId = currentUser._id;
+  }
+
+  return AskMeThread.findOneAndDelete(query).then(deletedThread => {
     if (!deletedThread) {
       return Promise.reject(new Error("No comment matches the provided id"));
     }

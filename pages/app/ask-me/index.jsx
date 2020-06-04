@@ -21,8 +21,8 @@ AskMePage.getInitialProps = async ({ req }) => {
   const user = await getCurrentUser(cookies);
 
   const featuredQuestions = await getAskThreads();
-  const ownQuestions = user ? await getUserQuestions(user._id) : [];
-  const bookmarks = user ? await getUserAskBookmarks(user._id) : [];
+  const ownQuestions = await getUserQuestions(user._id);
+  const bookmarks = await getUserAskBookmarks(cookies);
 
   return {
     featuredQuestions,
@@ -46,7 +46,7 @@ AskMePage.propTypes = {
   bookmarks: PropTypes.arrayOf(QuestionType).isRequired,
 };
 
-AskMePage.showTopNav = false;
+AskMePage.showTopNav = true;
 AskMePage.showBottomNav = true;
 
 export default AskMePage;

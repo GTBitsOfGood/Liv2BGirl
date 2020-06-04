@@ -129,7 +129,8 @@ const GenUsername = ({ values, setValues, handleNext }) => {
         <button
           type="button"
           onClick={() =>
-            setUsernames(Array.from({ length: 9 }, () => genUser()))}
+            setUsernames(Array.from({ length: 9 }, () => genUser()))
+          }
           className={styles.GenBtn}
         >
           Generate!

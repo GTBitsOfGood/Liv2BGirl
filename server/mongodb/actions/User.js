@@ -1,12 +1,9 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import cookie from "js-cookie";
-import Router from "next/router";
 import mongoDB from "../index";
 import User from "../models/User";
 import Comments from "../models/Comment";
 import { useCode } from "./InvitationCode";
-import InvitationCode from "../models/InvitationCode";
 
 export const login = async (email, password) => {
   if (email == null || password == null) {
@@ -32,7 +29,7 @@ export const login = async (email, password) => {
     .then(user =>
       jwt.sign(
         {
-          id: user._id,
+          _id: user._id,
           email: user.email,
           role: user.role,
         },
@@ -98,7 +95,7 @@ export const signUp = async ({
     .then(() =>
       jwt.sign(
         {
-          id: user._id,
+          _id: user._id,
           email: user.email,
           role: user.role,
         },
@@ -120,19 +117,12 @@ export async function verifyEmailUnused(email) {
   return User.exists({ email }).then(exists => !exists);
 }
 
-export const signOut = () => {
-  cookie.remove("token");
-
-  return Router.push({
-    pathname: "/",
-  });
+export const signOut = (req, res) => {
+  res.setHeader("Set-Cookie", "token=; Max-Age=0; SameSite=Lax; Path=/");
 };
 
 export const verifyToken = async (req, res) => {
-  // eslint-disable-next-line global-require
-  const cookies = require("cookie-universal")(req, res);
-
-  const token = cookies.get("token");
+  const token = req.cookies != null ? req.cookies.token : null;
   if (token == null) {
     throw new Error("User is not signed in!");
   }
@@ -142,17 +132,13 @@ export const verifyToken = async (req, res) => {
       return decoded;
     }
 
-    cookies.remove("token");
-
+    res.setHeader("Set-Cookie", "token=; Max-Age=0; SameSite=Lax; Path=/");
     throw new Error("Invalid token!");
   });
 };
 
 export const verifyTokenSecure = async (req, res) => {
-  // eslint-disable-next-line global-require
-  const cookies = require("cookie-universal")(req, res);
-
-  const token = cookies.get("token");
+  const token = req.cookies != null ? req.cookies.token : null;
   if (token == null) {
     return null;
   }
@@ -161,16 +147,20 @@ export const verifyTokenSecure = async (req, res) => {
 
   return jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
     if (err || decoded == null) {
-      cookies.remove("token");
+      res.setHeader("Set-Cookie", "token=; Max-Age=0; SameSite=Lax; Path=/");
 
       return null;
     }
 
-    const { id } = decoded;
+    const { _id } = decoded;
 
-    return User.findOne({ _id: id })
+    return User.findOne({ _id })
       .then(user => {
         if (user == null) {
+          res.setHeader(
+            "Set-Cookie",
+            "token=; Max-Age=0; SameSite=Lax; Path=/"
+          );
           throw new Error("User does not exist!");
         }
 
@@ -179,7 +169,7 @@ export const verifyTokenSecure = async (req, res) => {
         return userInfo;
       })
       .catch(() => {
-        cookies.remove("token");
+        res.setHeader("Set-Cookie", "token=; Max-Age=0; SameSite=Lax; Path=/");
 
         return null;
       });

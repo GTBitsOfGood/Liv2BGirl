@@ -1,17 +1,11 @@
 import fetch from "isomorphic-unfetch";
 import urls from "../../utils/urls";
 
-export const createCode = createdBy =>
+export const createCode = () =>
   fetch(urls.baseUrl + urls.api.invitationCode.createCode(), {
-    method: "post",
+    method: "GET",
     mode: "same-origin",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      createdBy,
-    }),
   })
     .then(response => response.json())
     .then(json => {
@@ -26,7 +20,7 @@ export const createCode = createdBy =>
 
 export const verifyCodeUnused = code =>
   fetch(urls.baseUrl + urls.api.invitationCode.verifyCodeUnused(), {
-    method: "post",
+    method: "POST",
     mode: "same-origin",
     credentials: "include",
     headers: {

@@ -49,15 +49,10 @@ const NewQuestion = props => {
     audienceToggle(!changeAudience);
   };
 
-  const postQuestion = () => {
-    if (question !== "") {
-      createThread(currentUser._id, question, description, visibility).then(
-        res => {
-          if (res) {
-            Router.push(urls.pages.app.viewQuestion(res._id));
-          }
-        }
-      );
+  const postQuestion = async () => {
+    if (question.length > 0) {
+      const thread = await createThread(question, description, visibility);
+      await Router.push(urls.pages.app.viewQuestion(thread._id));
     }
   };
 

@@ -1,10 +1,14 @@
-import { getUserGroupBookmarks } from "../../../server/mongodb/actions/User";
+import {
+  getUserGroupBookmarks,
+  verifyToken,
+} from "../../../server/mongodb/actions/User";
 
 // @route   POST api/user/getUserGroupBookmarks
 // @desc    Gets a user's Group bookmarks
 // @access  Public
 const handler = (req, res) =>
-  getUserGroupBookmarks(req.body.userId)
+  verifyToken(req, res)
+    .then(curUser => getUserGroupBookmarks(curUser._id))
     .then(bookmarks =>
       res.status(200).json({
         success: true,

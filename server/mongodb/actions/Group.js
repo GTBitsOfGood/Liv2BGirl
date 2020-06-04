@@ -58,16 +58,28 @@ export const createGroup = async (
   });
 };
 
-export const deleteGroup = async groupId => {
-  if (groupId == null) {
+export const deleteGroup = async (currentUser, groupId) => {
+  if (currentUser == null || groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
+  const query = {
+    _id: groupId,
+  };
+
+  if (currentUser.role === "User") {
+    query.admin = currentUser._id;
+  }
+
   return Group.findOneAndDelete({ _id: groupId }).then(async deletedGroup => {
     if (!deletedGroup) {
-      return Promise.reject(new Error("No group matches the provided id"));
+      return Promise.reject(
+        new Error(
+          "No group matches the provided id or user does not have permission!"
+        )
+      );
     }
 
     return deletedGroup;

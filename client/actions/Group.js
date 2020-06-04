@@ -22,9 +22,9 @@ export const getGroup = groupId =>
       return json.payload;
     });
 
-export const createGroup = (name, description, category, admin) =>
+export const createGroup = (name, description, category) =>
   fetch(urls.baseUrl + urls.api.groups.createGroup(), {
-    method: "post",
+    method: "POST",
     mode: "same-origin",
     credentials: "include",
     headers: {
@@ -34,7 +34,6 @@ export const createGroup = (name, description, category, admin) =>
       name,
       description,
       category,
-      admin,
     }),
   })
     .then(response => response.json())
@@ -49,7 +48,7 @@ export const createGroup = (name, description, category, admin) =>
 
 export const deleteGroup = groupId =>
   fetch(urls.baseUrl + urls.api.groups.deleteGroup(), {
-    method: "post",
+    method: "POST",
     mode: "same-origin",
     credentials: "include",
     headers: {
@@ -71,7 +70,7 @@ export const deleteGroup = groupId =>
 
 export const searchGroups = ({ term, category }) =>
   fetch(urls.baseUrl + urls.api.groups.searchGroups(), {
-    method: "post",
+    method: "POST",
     mode: "same-origin",
     credentials: "include",
     headers: {

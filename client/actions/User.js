@@ -1,6 +1,5 @@
 import fetch from "isomorphic-unfetch";
-import Router from "next/router";
-import cookie from "js-cookie";
+import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const signUp = ({
@@ -17,7 +16,7 @@ export const signUp = ({
   interests,
 }) =>
   fetch(urls.baseUrl + urls.api.user.signUp(), {
-    method: "post",
+    method: "POST",
     mode: "same-origin",
     credentials: "include",
     headers: {
@@ -50,7 +49,7 @@ export const signUp = ({
 
 export const verifyEmailUnused = email =>
   fetch(urls.baseUrl + urls.api.user.verifyEmailUnused(), {
-    method: "post",
+    method: "POST",
     mode: "same-origin",
     credentials: "include",
     headers: {
@@ -95,7 +94,7 @@ export const login = (email, password) =>
       return json.payload;
     });
 
-export const followGroup = (groupId, userId) =>
+export const followGroup = groupId =>
   fetch(urls.baseUrl + urls.api.user.followGroup(), {
     method: "POST",
     mode: "same-origin",
@@ -105,7 +104,6 @@ export const followGroup = (groupId, userId) =>
     },
     body: JSON.stringify({
       groupId,
-      userId,
     }),
   })
     .then(response => response.json())
@@ -119,7 +117,7 @@ export const followGroup = (groupId, userId) =>
       return json.payload;
     });
 
-export const unfollowGroup = (groupId, userId) =>
+export const unfollowGroup = groupId =>
   fetch(urls.baseUrl + urls.api.user.unfollowGroup(), {
     method: "POST",
     mode: "same-origin",
@@ -129,7 +127,6 @@ export const unfollowGroup = (groupId, userId) =>
     },
     body: JSON.stringify({
       groupId,
-      userId,
     }),
   })
     .then(response => response.json())
@@ -142,14 +139,6 @@ export const unfollowGroup = (groupId, userId) =>
 
       return json.payload;
     });
-
-export const signOut = () => {
-  cookie.remove("token");
-
-  return Router.push({
-    pathname: "/",
-  });
-};
 
 export const getCurrentUser = cookies => {
   const conditionals = {};
@@ -181,6 +170,8 @@ export const getCurrentUser = cookies => {
 export const getUser = userId =>
   fetch(urls.baseUrl + urls.api.user.getUser(), {
     method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
@@ -199,15 +190,16 @@ export const getUser = userId =>
       return json.payload;
     });
 
-export const addAskBookmark = (threadId, userId) =>
+export const addAskBookmark = threadId =>
   fetch(urls.baseUrl + urls.api.user.addAskBookmark(), {
     method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       threadId,
-      userId,
     }),
   })
     .then(response => response.json())
@@ -221,15 +213,16 @@ export const addAskBookmark = (threadId, userId) =>
       return json.payload;
     });
 
-export const removeAskBookmark = (threadId, userId) =>
+export const removeAskBookmark = threadId =>
   fetch(urls.baseUrl + urls.api.user.removeAskBookmark(), {
     method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       threadId,
-      userId,
     }),
   })
     .then(response => response.json())
@@ -243,16 +236,16 @@ export const removeAskBookmark = (threadId, userId) =>
       return json.payload;
     });
 
-export const getUserAskBookmarks = userId =>
-  fetch(urls.baseUrl + urls.api.user.getUserAskBookmarks(), {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+export const getUserAskBookmarks = cookies =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.getUserAskBookmarks(),
+    {
+      method: "GET",
+      mode: "same-origin",
+      credentials: "include",
     },
-    body: JSON.stringify({
-      userId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -264,15 +257,16 @@ export const getUserAskBookmarks = userId =>
       return json.payload;
     });
 
-export const addGroupBookmark = (threadId, userId) =>
+export const addGroupBookmark = threadId =>
   fetch(urls.baseUrl + urls.api.user.addGroupBookmark(), {
     method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       threadId,
-      userId,
     }),
   })
     .then(response => response.json())
@@ -286,15 +280,16 @@ export const addGroupBookmark = (threadId, userId) =>
       return json.payload;
     });
 
-export const removeGroupBookmark = (threadId, userId) =>
+export const removeGroupBookmark = threadId =>
   fetch(urls.baseUrl + urls.api.user.removeGroupBookmark(), {
     method: "POST",
+    mode: "same-origin",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       threadId,
-      userId,
     }),
   })
     .then(response => response.json())
@@ -308,16 +303,16 @@ export const removeGroupBookmark = (threadId, userId) =>
       return json.payload;
     });
 
-export const getUserGroupBookmarks = userId =>
-  fetch(urls.baseUrl + urls.api.user.getUserGroupBookmarks(), {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+export const getUserGroupBookmarks = cookies =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.getUserGroupBookmarks(),
+    {
+      method: "GET",
+      mode: "same-origin",
+      credentials: "include",
     },
-    body: JSON.stringify({
-      userId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

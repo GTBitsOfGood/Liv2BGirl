@@ -1,10 +1,14 @@
-import { removeAskBookmark } from "../../../server/mongodb/actions/User";
+import {
+  removeAskBookmark,
+  verifyToken,
+} from "../../../server/mongodb/actions/User";
 
 // @route   POST api/user/removeAskBookmark
 // @desc    Unbookmark an Ask Me thread
 // @access  Public
 const handler = (req, res) =>
-  removeAskBookmark(req.body.userId, req.body.threadId)
+  verifyToken(req, res)
+    .then(curUser => removeAskBookmark(curUser._id, req.body.threadId))
     .then(thread =>
       res.status(200).json({
         success: true,
