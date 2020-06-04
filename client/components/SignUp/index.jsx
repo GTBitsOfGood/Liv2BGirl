@@ -13,7 +13,7 @@ const SignUpInfo = ({ values, setValues, handleNext }) => {
     if (email.length === 0 || password.length === 0 || invCode.length === 0) {
       window.alert("All fields must be answered before continuing!");
     } else {
-      const emailUnused = await verifyEmailUnused(email).then(unused => {
+      const emailUnused = await verifyEmailUnused(null, email).then(unused => {
         if (!unused) {
           window.alert("This email is already associated with an account!");
         }
@@ -21,7 +21,7 @@ const SignUpInfo = ({ values, setValues, handleNext }) => {
         return unused;
       });
 
-      const codeUnused = await verifyCodeUnused(invCode)
+      const codeUnused = await verifyCodeUnused(null, invCode)
         .then(unused => {
           if (!unused) {
             window.alert("This invitation code has already been used!");

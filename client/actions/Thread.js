@@ -1,4 +1,3 @@
-import fetch from "isomorphic-unfetch";
 import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
@@ -29,7 +28,7 @@ export const getGroupThreads = (cookies, groupId) =>
       return json.payload;
     });
 
-export const getThread = (cookies, threadId) =>
+export const getThread = (cookies, id) =>
   authedFetch(
     urls.baseUrl + urls.api.threads.getThread(),
     {
@@ -40,7 +39,7 @@ export const getThread = (cookies, threadId) =>
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        threadId,
+        id,
       }),
     },
     cookies
@@ -56,7 +55,7 @@ export const getThread = (cookies, threadId) =>
       return json.payload;
     });
 
-export const searchThreads = (cookies, terms, groupId) =>
+export const searchThreads = (cookies, term, groupId) =>
   authedFetch(
     urls.baseUrl + urls.api.threads.searchThreads(),
     {
@@ -67,7 +66,7 @@ export const searchThreads = (cookies, terms, groupId) =>
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        terms,
+        term,
         groupId,
       }),
     },
@@ -84,20 +83,24 @@ export const searchThreads = (cookies, terms, groupId) =>
       return json.payload;
     });
 
-export const createThread = (groupId, title, content) =>
-  fetch(urls.baseUrl + urls.api.threads.createThread(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const createThread = (cookies, groupId, title, content) =>
+  authedFetch(
+    urls.baseUrl + urls.api.threads.createThread(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        groupId,
+        title,
+        content,
+      }),
     },
-    body: JSON.stringify({
-      groupId,
-      title,
-      content,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -109,18 +112,22 @@ export const createThread = (groupId, title, content) =>
       return json.payload;
     });
 
-export const deleteThread = threadId =>
-  fetch(urls.baseUrl + urls.api.threads.deleteThread(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const deleteThread = (cookies, id) =>
+  authedFetch(
+    urls.baseUrl + urls.api.threads.deleteThread(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
     },
-    body: JSON.stringify({
-      threadId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

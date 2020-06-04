@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import mongoDB from "../index";
 import InvitationCode from "../models/InvitationCode";
 
-export async function createCode(currentUser) {
+export const createCode = async currentUser => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a invitation code!");
   } else if (currentUser.role !== "Admin") {
@@ -20,9 +20,9 @@ export async function createCode(currentUser) {
   }).catch(() => {
     throw new Error("Incorrect user supplied for creation!");
   });
-}
+};
 
-export async function verifyCodeUnused(code) {
+export const verifyCodeUnused = async ({ code }) => {
   if (code == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -38,9 +38,9 @@ export async function verifyCodeUnused(code) {
 
       return invCode.usedAt == null;
     });
-}
+};
 
-export async function useCode(code, usedBy) {
+export const useCode = async ({ code, usedBy }) => {
   if (code == null || usedBy == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -64,4 +64,4 @@ export async function useCode(code, usedBy) {
     .catch(() => {
       throw new Error("Invitation Code is invalid or has already been used!");
     });
-}
+};

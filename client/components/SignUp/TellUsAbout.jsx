@@ -24,7 +24,7 @@ const TellUsAbout = ({ values, setValues, handleNext }) => {
     if (age === 0 || grade === 0 || interests.length === 0) {
       window.alert("All fields must be answered before continuing!");
     } else {
-      await signUp(values)
+      await signUp(null, values)
         .then(() => handleNext())
         .catch(() => {
           window.alert("Failed to create account!");

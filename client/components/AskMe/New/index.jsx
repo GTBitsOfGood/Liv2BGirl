@@ -40,7 +40,12 @@ const NewQuestion = () => {
 
   const postQuestion = async () => {
     if (question.length > 0) {
-      const thread = await createThread(question, description, visibility);
+      const thread = await createThread(
+        null,
+        question,
+        description,
+        visibility
+      );
       await Router.push(urls.pages.app.viewQuestion(thread._id));
     }
   };

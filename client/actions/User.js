@@ -1,41 +1,47 @@
-import fetch from "isomorphic-unfetch";
 import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
-export const signUp = ({
-  invCode,
-  username,
-  email,
-  password,
-  avatar,
-  avatarColor,
-  age,
-  grade,
-  role = "User",
-  name,
-  interests,
-}) =>
-  fetch(urls.baseUrl + urls.api.user.signUp(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const signUp = (
+  cookies,
+  {
+    invCode,
+    email,
+    username,
+    password,
+    avatar,
+    avatarColor,
+    age,
+    grade,
+    role,
+    name,
+    interests,
+  }
+) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.signUp(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        invCode,
+        email,
+        username,
+        password,
+        avatar,
+        avatarColor,
+        age,
+        grade,
+        role,
+        name,
+        interests,
+      }),
     },
-    body: JSON.stringify({
-      invCode,
-      username,
-      email,
-      password,
-      avatar,
-      avatarColor,
-      age,
-      grade,
-      role,
-      name,
-      interests,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -47,18 +53,22 @@ export const signUp = ({
       return json.payload;
     });
 
-export const verifyEmailUnused = email =>
-  fetch(urls.baseUrl + urls.api.user.verifyEmailUnused(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const verifyEmailUnused = (cookies, email) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.verifyEmailUnused(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
     },
-    body: JSON.stringify({
-      email,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -70,19 +80,23 @@ export const verifyEmailUnused = email =>
       return json.payload;
     });
 
-export const login = (email, password) =>
-  fetch(urls.baseUrl + urls.api.user.login(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const login = (cookies, email, password) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.login(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
     },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -94,18 +108,22 @@ export const login = (email, password) =>
       return json.payload;
     });
 
-export const followGroup = groupId =>
-  fetch(urls.baseUrl + urls.api.user.followGroup(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const followGroup = (cookies, groupId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.followGroup(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        groupId,
+      }),
     },
-    body: JSON.stringify({
-      groupId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -117,18 +135,22 @@ export const followGroup = groupId =>
       return json.payload;
     });
 
-export const unfollowGroup = groupId =>
-  fetch(urls.baseUrl + urls.api.user.unfollowGroup(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const unfollowGroup = (cookies, groupId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.unfollowGroup(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        groupId,
+      }),
     },
-    body: JSON.stringify({
-      groupId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -188,18 +210,22 @@ export const getUser = (cookies, userId) =>
       return json.payload;
     });
 
-export const addAskBookmark = threadId =>
-  fetch(urls.baseUrl + urls.api.user.addAskBookmark(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const addAskBookmark = (cookies, threadId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.addAskBookmark(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        threadId,
+      }),
     },
-    body: JSON.stringify({
-      threadId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -211,18 +237,22 @@ export const addAskBookmark = threadId =>
       return json.payload;
     });
 
-export const removeAskBookmark = threadId =>
-  fetch(urls.baseUrl + urls.api.user.removeAskBookmark(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const removeAskBookmark = (cookies, threadId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.removeAskBookmark(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        threadId,
+      }),
     },
-    body: JSON.stringify({
-      threadId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -255,18 +285,22 @@ export const getUserAskBookmarks = cookies =>
       return json.payload;
     });
 
-export const addGroupBookmark = threadId =>
-  fetch(urls.baseUrl + urls.api.user.addGroupBookmark(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const addGroupBookmark = (cookies, threadId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.addGroupBookmark(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        threadId,
+      }),
     },
-    body: JSON.stringify({
-      threadId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -278,18 +312,22 @@ export const addGroupBookmark = threadId =>
       return json.payload;
     });
 
-export const removeGroupBookmark = threadId =>
-  fetch(urls.baseUrl + urls.api.user.removeGroupBookmark(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const removeGroupBookmark = (cookies, threadId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.removeGroupBookmark(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        threadId,
+      }),
     },
-    body: JSON.stringify({
-      threadId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

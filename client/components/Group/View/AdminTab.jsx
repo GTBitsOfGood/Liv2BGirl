@@ -14,7 +14,9 @@ const AdminTab = ({ onClick, groupid }) => {
   };
 
   const handleDelete = () =>
-    deleteGroup(groupid).then(() => Router.push(urls.pages.app.groupList));
+    deleteGroup(null, groupid).then(() =>
+      Router.push(urls.pages.app.groupList)
+    );
 
   React.useEffect(() => {
     document.body.style.overflow = "hidden";

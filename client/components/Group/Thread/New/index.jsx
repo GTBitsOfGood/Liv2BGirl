@@ -17,11 +17,9 @@ const CreateThreadComponent = () => {
 
   const handleCreateThread = async () => {
     if (title.length > 0 && text.length > 0) {
-      createThread(groupid, title, text).then(res => {
-        if (res) {
-          Router.push(urls.pages.app.thread(res._id));
-        }
-      });
+      createThread(null, groupid, title, text).then(res =>
+        Router.push(urls.pages.app.thread(res._id))
+      );
     } else {
       // eslint-disable-next-line no-alert
       window.alert("Post must have a title and description!");

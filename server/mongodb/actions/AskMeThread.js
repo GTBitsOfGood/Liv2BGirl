@@ -2,7 +2,10 @@ import mongoDB from "../index";
 import AskMeThread from "../models/AskMeThread";
 import Comments from "../models/Comment";
 
-export async function createThread(currentUser, title, content, visibility) {
+export const createThread = async (
+  currentUser,
+  { title, content, visibility }
+) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a thread!");
   } else if (title == null) {
@@ -17,16 +20,16 @@ export async function createThread(currentUser, title, content, visibility) {
     content,
     visibility,
   });
-}
+};
 
-export async function deleteThread(currentUser, threadId) {
-  if (currentUser == null || threadId == null) {
+export const deleteThread = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  const query = { _id: threadId };
+  const query = { _id: id };
   if (currentUser.role === "User") {
     query.author = currentUser._id;
   }
@@ -38,9 +41,9 @@ export async function deleteThread(currentUser, threadId) {
 
     return deletedThread;
   });
-}
+};
 
-export async function getUserQuestions(currentUser) {
+export const getUserQuestions = async currentUser => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
   }
@@ -65,9 +68,9 @@ export async function getUserQuestions(currentUser) {
         }))
       );
     });
-}
+};
 
-export async function getThreads(currentUser) {
+export const getThreads = async currentUser => {
   if (currentUser == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -97,19 +100,19 @@ export async function getThreads(currentUser) {
         }))
       );
     });
-}
+};
 
-export async function getThread(currentUser, threadId) {
+export const getThread = async (currentUser, { id }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
-  } else if (threadId == null) {
+  } else if (id == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
   const query = {
-    _id: threadId,
+    _id: id,
   };
   if (currentUser.role === "User") {
     query.visibility = { $ne: "Ambassador" };
@@ -128,14 +131,13 @@ export async function getThread(currentUser, threadId) {
     .catch(() => {
       throw new Error("Invalid link or thread does not exist!");
     });
-}
+};
 
 // Currently just filtering by date, expects dates in format 'YYYY-MM-DD' or null
-export async function filterThreads(
+export const filterThreads = async (
   currentUser,
-  lowerBound = new Date("0001-01-01"),
-  upperBound = new Date()
-) {
+  { lowerBound = new Date("0001-01-01"), upperBound = new Date() }
+) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
   }
@@ -163,19 +165,19 @@ export async function filterThreads(
 
       return threads;
     });
-}
+};
 
-export async function searchThreads(currentUser, terms) {
+export const searchThreads = async (currentUser, { term }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
-  } else if (terms == null) {
+  } else if (term == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
   const query = {
-    $text: { $search: terms },
+    $text: { $search: term },
   };
   if (currentUser.role === "User") {
     query.visibility = { $ne: "Ambassador" };
@@ -194,4 +196,4 @@ export async function searchThreads(currentUser, terms) {
 
       return threads;
     });
-}
+};

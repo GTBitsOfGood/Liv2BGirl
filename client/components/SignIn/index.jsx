@@ -17,7 +17,7 @@ const SignInComponent = () => {
   const [rememberMe, setRemember] = useState(false);
 
   const handleLogin = async () =>
-    login(email, password)
+    login(null, email, password)
       .then(() =>
         Router.push({
           pathname: urls.pages.app.home,

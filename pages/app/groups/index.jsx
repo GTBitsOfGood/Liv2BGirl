@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import GroupsList from "../../../client/components/Group/GroupsLanding";
 import { getCurrentUser } from "../../../client/actions/User";
 import { getGroup } from "../../../client/actions/Group";
-import { getCategories } from "../../../client/actions/Categories";
+import { getCategories } from "../../../client/actions/GroupCategory";
 
 const GroupsPage = ({ categories, ownGroups }) => (
   <GroupsList categories={categories} ownGroups={ownGroups} />

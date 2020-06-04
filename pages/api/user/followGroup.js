@@ -1,5 +1,4 @@
-import { followGroup } from "../../../server/mongodb/actions/Group";
-import { verifyToken } from "../../../server/mongodb/actions/User";
+import { followGroup, verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/user/followGroup
 // @desc    Follow Request

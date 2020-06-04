@@ -1,12 +1,7 @@
 import mongoDB from "../index";
 import Comment from "../models/Comment";
 
-export async function createComment(
-  currentUser,
-  parent,
-  content,
-  postedAt = Date.now()
-) {
+export const createComment = async (currentUser, { parentId, content }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a comment!");
   }
@@ -15,20 +10,19 @@ export async function createComment(
 
   return Comment.create({
     author: currentUser._id,
-    parent,
+    parent: parentId,
     content,
-    postedAt,
   });
-}
+};
 
-export async function deleteComment(currentUser, commentId) {
-  if (currentUser == null || commentId == null) {
+export const deleteComment = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  const query = { _id: commentId };
+  const query = { _id: id };
   if (currentUser.role === "User") {
     query.author = currentUser._id;
   }
@@ -42,18 +36,18 @@ export async function deleteComment(currentUser, commentId) {
 
     return deletedComment;
   });
-}
+};
 
-export async function getCommentsByAskMeThread(currentUser, threadId) {
+export const getCommentsByAskMeThread = async (currentUser, { id }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
-  } else if (threadId == null) {
+  } else if (id == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return Comment.find({ parent: threadId })
+  return Comment.find({ parent: id })
     .populate({
       path: "author",
       model: "User",
@@ -70,18 +64,18 @@ export async function getCommentsByAskMeThread(currentUser, threadId) {
 
       return comments;
     });
-}
+};
 
-export async function getCommentsByThread(currentUser, threadId) {
+export const getCommentsByThread = async (currentUser, { id }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
-  } else if (threadId == null) {
+  } else if (id == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return Comment.find({ parent: threadId })
+  return Comment.find({ parent: id })
     .populate({
       path: "author",
       model: "User",
@@ -98,4 +92,4 @@ export async function getCommentsByThread(currentUser, threadId) {
 
       return comments;
     });
-}
+};

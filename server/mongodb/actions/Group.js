@@ -2,32 +2,12 @@ import mongoDB from "../index";
 import Group from "../models/Group";
 import GroupCategory from "../models/GroupCategory";
 import User from "../models/User";
+import { followGroup } from "./User";
 
-export const followGroup = async (currentUser, groupId) => {
-  if (currentUser == null || groupId == null) {
-    throw new Error("All parameters must be provided!");
-  }
-
-  await mongoDB();
-
-  return User.findByIdAndUpdate(currentUser._id, {
-    $push: { groups: groupId },
-  });
-};
-
-export const unfollowGroup = async (currentUser, groupId) => {
-  if (currentUser == null || groupId == null) {
-    throw new Error("All parameters must be provided!");
-  }
-
-  await mongoDB();
-
-  return User.findByIdAndUpdate(currentUser._id, {
-    $pull: { groups: groupId },
-  });
-};
-
-export const createGroup = async (currentUser, name, description, category) => {
+export const createGroup = async (
+  currentUser,
+  { name, description, category }
+) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a group!");
   } else if (name == null || description == null || category == null) {
@@ -48,19 +28,19 @@ export const createGroup = async (currentUser, name, description, category) => {
   });
 };
 
-export const deleteGroup = async (currentUser, groupId) => {
-  if (currentUser == null || groupId == null) {
+export const deleteGroup = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  const query = { _id: groupId };
+  const query = { _id: id };
   if (currentUser.role === "User") {
     query.moderator = currentUser._id;
   }
 
-  return Group.findOneAndDelete({ _id: groupId }).then(async deletedGroup => {
+  return Group.findOneAndDelete({ _id: id }).then(async deletedGroup => {
     if (deletedGroup == null) {
       throw new Error(
         "No group matches the provided id or user does not have permission!"
@@ -71,22 +51,22 @@ export const deleteGroup = async (currentUser, groupId) => {
   });
 };
 
-export const getGroup = async (currentUser, groupId) => {
+export const getGroup = async (currentUser, { id }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
-  } else if (groupId == null) {
+  } else if (id == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return Group.findById(groupId).then(async group => {
+  return Group.findById(id).then(async group => {
     if (group == null) {
       throw new Error("Group does not exist!");
     }
 
     const people = await User.find({
-      groups: groupId,
+      groups: id,
     }).countDocuments();
     const category = await GroupCategory.findById(group.category);
 
@@ -98,7 +78,7 @@ export const getGroup = async (currentUser, groupId) => {
   });
 };
 
-export async function searchGroups(currentUser, { term, category }) {
+export const searchGroups = async (currentUser, { term, category }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
   } else if (term == null && category == null) {
@@ -138,4 +118,4 @@ export async function searchGroups(currentUser, { term, category }) {
         })
       )
     );
-}
+};

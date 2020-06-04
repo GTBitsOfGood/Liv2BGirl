@@ -17,7 +17,7 @@ const NewGroup = ({ currentUser, categories, handleNext }) => {
       return window.alert("A category must be selected!");
     }
 
-    return createGroup(name, description, category)
+    return createGroup(null, name, description, category)
       .then(res => handleNext(res._id))
       .catch(() => {
         // eslint-disable-next-line no-alert

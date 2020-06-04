@@ -1,4 +1,3 @@
-import fetch from "isomorphic-unfetch";
 import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
@@ -23,7 +22,7 @@ export const getAskThreads = cookies =>
       return json.payload;
     });
 
-export const getThread = (cookies, threadId) =>
+export const getThread = (cookies, id) =>
   authedFetch(
     urls.baseUrl + urls.api.askMe.getThread(),
     {
@@ -34,7 +33,7 @@ export const getThread = (cookies, threadId) =>
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        threadId,
+        id,
       }),
     },
     cookies
@@ -77,20 +76,24 @@ export const searchThreads = (cookies, terms) =>
       return json.payload;
     });
 
-export const createThread = (title, content, visibility) =>
-  fetch(urls.baseUrl + urls.api.askMe.createThread(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const createThread = (cookies, title, content, visibility) =>
+  authedFetch(
+    urls.baseUrl + urls.api.askMe.createThread(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        content,
+        visibility,
+      }),
     },
-    body: JSON.stringify({
-      title,
-      content,
-      visibility,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -102,8 +105,8 @@ export const createThread = (title, content, visibility) =>
       return json.payload;
     });
 
-export const deleteThread = threadId =>
-  fetch(urls.baseUrl + urls.api.askMe.deleteThread(), {
+export const deleteThread = (cookies, id) =>
+  authedFetch(urls.baseUrl + urls.api.askMe.deleteThread(), {
     method: "POST",
     mode: "same-origin",
     credentials: "include",
@@ -111,7 +114,7 @@ export const deleteThread = threadId =>
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      threadId,
+      id,
     }),
   })
     .then(response => response.json())

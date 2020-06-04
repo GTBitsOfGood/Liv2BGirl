@@ -3,7 +3,10 @@ import mongoDB from "../index";
 import Thread from "../models/GroupThread";
 import Comments from "../models/Comment";
 
-export async function createThread(currentUser, groupId, title, content) {
+export const createThread = async (
+  currentUser,
+  { groupId, title, content }
+) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a thread!");
   } else if (groupId == null || title == null) {
@@ -18,16 +21,16 @@ export async function createThread(currentUser, groupId, title, content) {
     title,
     content,
   });
-}
+};
 
-export async function deleteThread(currentUser, threadId) {
-  if (currentUser == null || threadId == null) {
+export const deleteThread = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  const query = { _id: threadId };
+  const query = { _id: id };
   if (currentUser.role === "User") {
     query.author = currentUser._id;
   }
@@ -41,9 +44,9 @@ export async function deleteThread(currentUser, threadId) {
 
     return deletedThread;
   });
-}
+};
 
-export async function getGroupThreads(currentUser, groupId) {
+export const getGroupThreads = async (currentUser, { groupId }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
   } else if (groupId == null) {
@@ -75,16 +78,16 @@ export async function getGroupThreads(currentUser, groupId) {
         }))
       );
     });
-}
+};
 
-export async function getThread(currentUser, threadId) {
+export const getThread = async (currentUser, { id }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
   }
 
   await mongoDB();
 
-  return Thread.findById(threadId)
+  return Thread.findById(id)
     .then(thread => {
       if (thread == null) {
         throw new Error("Thread does not exist!");
@@ -95,15 +98,14 @@ export async function getThread(currentUser, threadId) {
     .catch(() => {
       throw new Error("Invalid link or thread does not exist!");
     });
-}
+};
 
 // Currently just filtering by date, expects dates in format 'YYYY-MM-DD' or null
-export async function filterThreads(
+export const filterThreads = async (
   currentUser,
   groupId,
-  lowerBound = new Date("0001-01-01"),
-  upperBound = new Date()
-) {
+  { lowerBound = new Date("0001-01-01"), upperBound = new Date() }
+) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
   } else if (groupId == null) {
@@ -122,19 +124,19 @@ export async function filterThreads(
 
     return threads;
   });
-}
+};
 
-export async function searchThreads(currentUser, terms, groupId) {
+export const searchThreads = async (currentUser, { term, groupId }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
-  } else if (terms == null && groupId == null) {
+  } else if (term == null && groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
   const query = {
-    $text: { $search: terms },
+    $text: { $search: term },
   };
   if (groupId != null) {
     query.group = groupId;
@@ -153,4 +155,4 @@ export async function searchThreads(currentUser, terms, groupId) {
 
       return threads;
     });
-}
+};

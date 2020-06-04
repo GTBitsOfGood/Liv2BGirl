@@ -22,17 +22,17 @@ const Question = ({ currentUser, threadId, thread, author, comments }) => {
 
   const handlePostComment = async () => {
     if (comment.length > 0) {
-      await createComment(threadId, comment);
+      await createComment(null, threadId, comment);
       window.location.reload();
     }
   };
 
   const toggleBookmarked = async () => {
     if (saved) {
-      await removeAskBookmark(threadId);
+      await removeAskBookmark(null, threadId);
       setSaved(false);
     } else {
-      await addAskBookmark(threadId);
+      await addAskBookmark(null, threadId);
       setSaved(true);
     }
   };

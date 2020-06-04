@@ -1,8 +1,15 @@
 import mongoDB from "../index";
 import GroupCategory from "../models/GroupCategory";
 
-export async function createCategory(name, iconUrl, parent) {
-  if (name == null || iconUrl == null) {
+export const createCategory = async (
+  currentUser,
+  { name, iconUrl, parent }
+) => {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to create a group category!");
+  } else if (currentUser.role !== "Admin") {
+    throw new Error("Only admins can create a group category!");
+  } else if (name == null || iconUrl == null) {
     throw new Error("All parameters must be provided!");
   }
 
@@ -13,12 +20,12 @@ export async function createCategory(name, iconUrl, parent) {
     iconUrl,
     parent,
   });
-}
+};
 
-export async function getCategories() {
+export const getCategories = async () => {
   await mongoDB();
 
   return GroupCategory.find().sort({
     name: 1,
   });
-}
+};

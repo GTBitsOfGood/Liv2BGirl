@@ -1,12 +1,16 @@
-import fetch from "isomorphic-unfetch";
+import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
-export const createCode = () =>
-  fetch(urls.baseUrl + urls.api.invitationCode.createCode(), {
-    method: "GET",
-    mode: "same-origin",
-    credentials: "include",
-  })
+export const createCode = cookies =>
+  authedFetch(
+    urls.baseUrl + urls.api.invitationCode.createCode(),
+    {
+      method: "GET",
+      mode: "same-origin",
+      credentials: "include",
+    },
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -18,18 +22,22 @@ export const createCode = () =>
       return json.payload;
     });
 
-export const verifyCodeUnused = code =>
-  fetch(urls.baseUrl + urls.api.invitationCode.verifyCodeUnused(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const verifyCodeUnused = (cookies, code) =>
+  authedFetch(
+    urls.baseUrl + urls.api.invitationCode.verifyCodeUnused(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        code,
+      }),
     },
-    body: JSON.stringify({
-      code,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

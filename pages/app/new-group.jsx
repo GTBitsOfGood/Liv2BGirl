@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getCategories } from "../../client/actions/Categories";
+import { getCategories } from "../../client/actions/GroupCategory";
 import TermsCond from "../../client/components/Group/New/TermsCond";
 import NewGroup from "../../client/components/Group/New/NewGroup";
 import NewGroupConfirmation from "../../client/components/Group/New/NewGroupConfirmation";

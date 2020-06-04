@@ -21,17 +21,17 @@ const Thread = ({ currentUser, thread, author, group, comments }) => {
 
   const postComment = async () => {
     if (comment.length > 0) {
-      await createComment(currentUser._id, thread._id, comment);
+      await createComment(null, thread._id, comment);
       window.location.reload();
     }
   };
 
   const toggleBookmarked = async () => {
     if (saved) {
-      await removeGroupBookmark(thread._id);
+      await removeGroupBookmark(cookies, thread._id);
       setSaved(false);
     } else {
-      await addGroupBookmark(thread._id);
+      await addGroupBookmark(cookies, thread._id);
       setSaved(true);
     }
   };

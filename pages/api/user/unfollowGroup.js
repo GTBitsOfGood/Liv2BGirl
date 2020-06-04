@@ -1,5 +1,7 @@
-import { unfollowGroup } from "../../../server/mongodb/actions/Group";
-import { verifyToken } from "../../../server/mongodb/actions/User";
+import {
+  unfollowGroup,
+  verifyToken,
+} from "../../../server/mongodb/actions/User";
 
 // @route   POST api/user/unfollowGroup
 // @desc    Unfollow Group Request

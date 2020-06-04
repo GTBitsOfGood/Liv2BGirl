@@ -1,8 +1,7 @@
-import fetch from "isomorphic-unfetch";
 import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
-export const getGroup = (cookies, groupId) =>
+export const getGroup = (cookies, id) =>
   authedFetch(
     urls.baseUrl + urls.api.groups.getGroup(),
     {
@@ -11,7 +10,7 @@ export const getGroup = (cookies, groupId) =>
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        groupId,
+        id,
       }),
     },
     cookies
@@ -27,20 +26,24 @@ export const getGroup = (cookies, groupId) =>
       return json.payload;
     });
 
-export const createGroup = (name, description, category) =>
-  fetch(urls.baseUrl + urls.api.groups.createGroup(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const createGroup = (cookies, name, description, category) =>
+  authedFetch(
+    urls.baseUrl + urls.api.groups.createGroup(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        description,
+        category,
+      }),
     },
-    body: JSON.stringify({
-      name,
-      description,
-      category,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -51,18 +54,22 @@ export const createGroup = (name, description, category) =>
       return json.payload;
     });
 
-export const deleteGroup = groupId =>
-  fetch(urls.baseUrl + urls.api.groups.deleteGroup(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const deleteGroup = (cookies, id) =>
+  authedFetch(
+    urls.baseUrl + urls.api.groups.deleteGroup(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
     },
-    body: JSON.stringify({
-      groupId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
