@@ -16,7 +16,7 @@ const SearchGroups = ({ searchTerm, searchCategory, likeableGroups }) => {
   React.useEffect(() => {
     setIsSearching(true);
 
-    searchGroups({
+    searchGroups(null, {
       term: debouncedTerm,
       category: searchCategory ? searchCategory._id : null,
     })

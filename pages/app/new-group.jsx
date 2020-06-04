@@ -60,8 +60,10 @@ const NewGroupPage = ({ currentUser, categories }) => {
   );
 };
 
-NewGroupPage.getInitialProps = async () => {
-  const categories = await getCategories();
+NewGroupPage.getInitialProps = async ({ req }) => {
+  const cookies = req ? req.headers.cookie : null;
+
+  const categories = await getCategories(cookies);
 
   return {
     categories,

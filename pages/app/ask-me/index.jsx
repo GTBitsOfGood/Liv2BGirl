@@ -18,10 +18,8 @@ const AskMePage = ({ featuredQuestions, ownQuestions, bookmarks }) => (
 AskMePage.getInitialProps = async ({ req }) => {
   const cookies = req ? req.headers.cookie : null;
 
-  const user = await getCurrentUser(cookies);
-
   const featuredQuestions = await getAskThreads(cookies);
-  const ownQuestions = await getUserQuestions(user._id);
+  const ownQuestions = await getUserQuestions(cookies);
   const bookmarks = await getUserAskBookmarks(cookies);
 
   return {

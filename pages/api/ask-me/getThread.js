@@ -1,16 +1,16 @@
 import { getThread } from "../../../server/mongodb/actions/AskMeThread";
-import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/ask-me/getThread
 // @desc    Get a thread
 // @access  Public
 const handler = (req, res) =>
-  verifyTokenSecure(req, res)
+  verifyToken(req, res)
     .then(curUser => getThread(curUser, req.body.threadId))
-    .then(thread =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: thread,
+        payload,
       })
     )
     .catch(error =>

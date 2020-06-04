@@ -15,10 +15,10 @@ const handler = async (req, res) =>
         req.body.admin
       )
     )
-    .then(group =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: group,
+        payload,
       })
     )
     .catch(error =>

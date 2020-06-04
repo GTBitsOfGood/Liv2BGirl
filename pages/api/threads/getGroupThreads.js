@@ -1,14 +1,16 @@
 import { getGroupThreads } from "../../../server/mongodb/actions/Thread";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/threads/getGroupThreads
 // @desc    Get a group's threads
 // @access  Public
 const handler = (req, res) =>
-  getGroupThreads(req.body.groupId)
-    .then(threads =>
+  verifyToken(req, res)
+    .then(curUser => getGroupThreads(curUser, req.body.groupId))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: threads,
+        payload,
       })
     )
     .catch(error =>

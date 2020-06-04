@@ -18,8 +18,8 @@ export async function createComment(
   await mongoDB();
 
   return User.findById(poster).then(user => {
-    if (!user) {
-      return Promise.reject(new Error("Invalid User ID for poster"));
+    if (user == null) {
+      throw new Error("Invalid User ID for poster");
     }
 
     return Comment.create({
@@ -47,11 +47,9 @@ export async function deleteComment(currentUser, commentId) {
   }
 
   return Comment.findOneAndDelete(query).then(deletedComment => {
-    if (!deletedComment) {
-      return Promise.reject(
-        new Error(
-          "No comment matches the provided id or user does not have permission!"
-        )
+    if (deletedComment == null) {
+      throw new Error(
+        "No comment matches the provided id or user does not have permission!"
       );
     }
 
@@ -59,8 +57,10 @@ export async function deleteComment(currentUser, commentId) {
   });
 }
 
-export async function getCommentsByAskMeThread(threadId) {
-  if (threadId == null) {
+export async function getCommentsByAskMeThread(currentUser, threadId) {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  } else if (threadId == null) {
     throw new Error("All parameters must be provided!");
   }
 
@@ -68,8 +68,8 @@ export async function getCommentsByAskMeThread(threadId) {
 
   return AskMeThread.findById(threadId)
     .then(thread => {
-      if (!thread) {
-        return Promise.reject(new Error("Invalid Thread ID"));
+      if (thread == null) {
+        throw new Error("Invalid Thread ID");
       }
 
       return Comment.find({ parentId: threadId })
@@ -78,8 +78,8 @@ export async function getCommentsByAskMeThread(threadId) {
           postedAt: 1, // newest at bottom
         })
         .then(async comments => {
-          if (!comments) {
-            return Promise.reject(new Error("Error retrieving comments"));
+          if (comments == null) {
+            throw new Error("Error retrieving comments");
           }
 
           return Promise.all(
@@ -95,11 +95,15 @@ export async function getCommentsByAskMeThread(threadId) {
           );
         });
     })
-    .catch(() => Promise.reject(new Error("Invalid Thread ID")));
+    .catch(() => {
+      throw new Error("Invalid Thread ID");
+    });
 }
 
-export async function getCommentsByThread(threadId) {
-  if (threadId == null) {
+export async function getCommentsByThread(currentUser, threadId) {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  } else if (threadId == null) {
     throw new Error("All parameters must be provided!");
   }
 
@@ -107,8 +111,8 @@ export async function getCommentsByThread(threadId) {
 
   return Thread.findById(threadId)
     .then(thread => {
-      if (!thread) {
-        return Promise.reject(new Error("Invalid Thread ID"));
+      if (thread == null) {
+        throw new Error("Invalid Thread ID");
       }
 
       return Comment.find({ parentId: threadId })
@@ -117,8 +121,8 @@ export async function getCommentsByThread(threadId) {
           postedAt: 1, // newest at bottom
         })
         .then(async comments => {
-          if (!comments) {
-            return Promise.reject(new Error("Error retrieving comments"));
+          if (comments == null) {
+            throw new Error("Error retrieving comments");
           }
 
           return Promise.all(
@@ -134,5 +138,7 @@ export async function getCommentsByThread(threadId) {
           );
         });
     })
-    .catch(() => Promise.reject(new Error("Invalid Thread ID")));
+    .catch(() => {
+      throw new Error("Invalid Thread ID");
+    });
 }

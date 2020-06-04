@@ -12,11 +12,11 @@ const GroupsPage = ({ categories, ownGroups }) => (
 GroupsPage.getInitialProps = async ({ req }) => {
   const cookies = req ? req.headers.cookie : null;
 
-  const categories = await getCategories();
+  const categories = await getCategories(cookies);
 
   const user = await getCurrentUser(cookies);
   const ownGroups = await Promise.all(
-    user.groups.map(groupId => getGroup(groupId))
+    user.groups.map(groupId => getGroup(cookies, groupId))
   );
 
   return {

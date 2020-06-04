@@ -26,9 +26,7 @@ const Error = ({ currentUser, statusCode, message }) => {
         </h2>
         {message && <h4>{message}</h4>}
       </div>
-      {inApp && currentUser != null && (
-        <BottomNavBar currentUser={currentUser} />
-      )}
+      {inApp && <BottomNavBar />}
     </>
   );
 };

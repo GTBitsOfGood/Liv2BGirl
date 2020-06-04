@@ -1,18 +1,23 @@
 import fetch from "isomorphic-unfetch";
+import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
-export const getGroupThreads = groupId =>
-  fetch(urls.baseUrl + urls.api.threads.getGroupThreads(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const getGroupThreads = (cookies, groupId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.threads.getGroupThreads(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        groupId,
+      }),
     },
-    body: JSON.stringify({
-      groupId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -24,18 +29,22 @@ export const getGroupThreads = groupId =>
       return json.payload;
     });
 
-export const getThread = threadId =>
-  fetch(urls.baseUrl + urls.api.threads.getThread(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const getThread = (cookies, threadId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.threads.getThread(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        threadId,
+      }),
     },
-    body: JSON.stringify({
-      threadId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -47,19 +56,23 @@ export const getThread = threadId =>
       return json.payload;
     });
 
-export const searchThreads = (terms, groupId) =>
-  fetch(urls.baseUrl + urls.api.threads.searchThreads(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const searchThreads = (cookies, terms, groupId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.threads.searchThreads(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        terms,
+        groupId,
+      }),
     },
-    body: JSON.stringify({
-      terms,
-      groupId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

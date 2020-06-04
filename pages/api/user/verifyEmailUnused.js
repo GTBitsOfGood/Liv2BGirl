@@ -5,10 +5,10 @@ import { verifyEmailUnused } from "../../../server/mongodb/actions/User";
 // @access  Public
 const handler = (req, res) =>
   verifyEmailUnused(req.body.email)
-    .then(unused =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: unused,
+        payload,
       })
     )
     .catch(error =>

@@ -50,18 +50,22 @@ export const getThread = (cookies, threadId) =>
       return json.payload;
     });
 
-export const searchThreads = terms =>
-  fetch(urls.baseUrl + urls.api.askMe.searchThreads(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const searchThreads = (cookies, terms) =>
+  authedFetch(
+    urls.baseUrl + urls.api.askMe.searchThreads(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        terms,
+      }),
     },
-    body: JSON.stringify({
-      terms,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -121,18 +125,16 @@ export const deleteThread = threadId =>
       return json.payload;
     });
 
-export const getUserQuestions = posterId =>
-  fetch(urls.baseUrl + urls.api.askMe.getUserQuestions(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const getUserQuestions = cookies =>
+  authedFetch(
+    urls.baseUrl + urls.api.askMe.getUserQuestions(),
+    {
+      method: "GET",
+      mode: "same-origin",
+      credentials: "include",
     },
-    body: JSON.stringify({
-      posterId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

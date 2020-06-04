@@ -34,14 +34,15 @@ const ThreadPage = ({
   );
 };
 
-ThreadPage.getInitialProps = async ({ query }) => {
+ThreadPage.getInitialProps = async ({ query, req }) => {
   const { threadid } = query;
+  const cookies = req ? req.headers.cookie : null;
 
-  return getThread(threadid)
+  return getThread(cookies, threadid)
     .then(async thread => {
-      const author = await getUser(thread.posterId);
-      const group = await getGroup(thread.groupId);
-      const comments = await getCommentsByThread(thread._id);
+      const author = await getUser(cookies, thread.posterId);
+      const group = await getGroup(cookies, thread.groupId);
+      const comments = await getCommentsByThread(cookies, thread._id);
 
       return {
         thread,

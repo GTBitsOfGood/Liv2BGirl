@@ -1,23 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import urls from "../../../utils/urls";
 import style from "./navbar.module.scss";
 
-const BottomNavBar = ({ currentUser }) => {
+const BottomNavBar = () => {
   const router = useRouter();
-
-  // Using profile page instead of home page (urls.pages.app.home) until it is designed
-  const homePath = urls.pages.app.profile(currentUser._id);
 
   return (
     <div className={style.BottomNav}>
-      <Link href={homePath}>
+      <Link href={urls.pages.app.home}>
         <div className={style.NavItem}>
           <div
             className={
-              router.asPath === homePath
+              router.asPath === urls.pages.app.home
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }
@@ -65,14 +61,6 @@ const BottomNavBar = ({ currentUser }) => {
       </Link>
     </div>
   );
-};
-
-BottomNavBar.propTypes = {
-  currentUser: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    avatar: PropTypes.number.isRequired,
-    avatarColor: PropTypes.number.isRequired,
-  }).isRequired,
 };
 
 export default BottomNavBar;

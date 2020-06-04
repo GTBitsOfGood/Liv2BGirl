@@ -2,10 +2,10 @@ import { v4 as uuidv4 } from "uuid";
 import mongoDB from "../index";
 import InvitationCode from "../models/InvitationCode";
 
-export async function createCode(currUser) {
-  if (currUser == null) {
+export async function createCode(currentUser) {
+  if (currentUser == null) {
     throw new Error("You must be logged in to create a invitation code!");
-  } else if (currUser.role !== "Admin") {
+  } else if (currentUser.role !== "Admin") {
     throw new Error("Only admins can create an invitation code!");
   }
 
@@ -16,10 +16,10 @@ export async function createCode(currUser) {
 
   return InvitationCode.create({
     code,
-    createdBy: currUser._id,
-  }).catch(() =>
-    Promise.reject(new Error("Incorrect user supplied for creation!"))
-  );
+    createdBy: currentUser._id,
+  }).catch(() => {
+    throw new Error("Incorrect user supplied for creation!");
+  });
 }
 
 export async function verifyCodeUnused(code) {
@@ -61,9 +61,7 @@ export async function useCode(code, usedBy) {
     }
   )
     .then(newCode => newCode.toObject())
-    .catch(() =>
-      Promise.reject(
-        new Error("Invitation Code is invalid or has already been used!")
-      )
-    );
+    .catch(() => {
+      throw new Error("Invitation Code is invalid or has already been used!");
+    });
 }

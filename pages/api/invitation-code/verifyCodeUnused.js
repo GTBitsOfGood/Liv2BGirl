@@ -5,10 +5,10 @@ import { verifyCodeUnused } from "../../../server/mongodb/actions/InvitationCode
 // @access  Public
 const handler = (req, res) =>
   verifyCodeUnused(req.body.code)
-    .then(unused =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: unused,
+        payload,
       })
     )
     .catch(error =>

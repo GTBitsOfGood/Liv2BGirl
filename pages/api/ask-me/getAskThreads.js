@@ -7,10 +7,10 @@ import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 const handler = (req, res) =>
   verifyTokenSecure(req, res)
     .then(curUser => getThreads(curUser))
-    .then(threads =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: threads,
+        payload,
       })
     )
     .catch(error =>

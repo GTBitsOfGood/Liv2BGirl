@@ -47,13 +47,13 @@ QuestionPage.getInitialProps = async ({ query, req }) => {
             avatar: 1,
             avatarColor: 1,
           }
-        : await getUser(thread.posterId).then(user => ({
+        : await getUser(cookies, thread.posterId).then(user => ({
             userId: user._id,
             username: user.username,
             avatar: user.avatar,
             avatarColor: user.avatarColor,
           }));
-    const comments = await getCommentsByAskMeThread(thread._id);
+    const comments = await getCommentsByAskMeThread(cookies, thread._id);
 
     return {
       threadId,

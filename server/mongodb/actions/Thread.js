@@ -3,8 +3,8 @@ import mongoDB from "../index";
 import Thread from "../models/Thread";
 import Comments from "../models/Comment";
 
-export async function createThread(posterId, groupId, title, content) {
-  if (posterId == null) {
+export async function createThread(currentUser, groupId, title, content) {
+  if (currentUser == null) {
     throw new Error("You must be logged in to create a thread!");
   }
 
@@ -15,7 +15,7 @@ export async function createThread(posterId, groupId, title, content) {
   await mongoDB();
 
   return Thread.create({
-    posterId,
+    posterId: currentUser._id,
     groupId,
     title,
     content,
@@ -38,11 +38,9 @@ export async function deleteThread(currentUser, threadId) {
   }
 
   return Thread.findOneAndDelete(query).then(async deletedThread => {
-    if (!deletedThread) {
-      return Promise.reject(
-        new Error(
-          "No thread matches the provided id or user does not have permission!"
-        )
+    if (deletedThread == null) {
+      throw new Error(
+        "No thread matches the provided id or user does not have permission!"
       );
     }
 
@@ -50,7 +48,11 @@ export async function deleteThread(currentUser, threadId) {
   });
 }
 
-export async function getGroupThreads(groupId) {
+export async function getGroupThreads(currentUser, groupId) {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  }
+
   if (groupId == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -62,8 +64,8 @@ export async function getGroupThreads(groupId) {
       postedAt: -1, // newest at top
     })
     .then(threads => {
-      if (!threads) {
-        return Promise.reject(new Error("Request failed"));
+      if (threads == null) {
+        throw new Error("Request failed");
       }
 
       return Promise.all(
@@ -77,24 +79,37 @@ export async function getGroupThreads(groupId) {
     });
 }
 
-export async function getThread(threadId) {
+export async function getThread(currentUser, threadId) {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  }
+
   await mongoDB();
 
-  return Thread.findById(threadId).then(thread => {
-    if (thread == null) {
-      throw new Error("Thread does not exist!");
-    }
+  return Thread.findById(threadId)
+    .then(thread => {
+      if (thread == null) {
+        throw new Error("Thread does not exist!");
+      }
 
-    return thread;
-  });
+      return thread;
+    })
+    .catch(() => {
+      throw new Error("Invalid link or thread does not exist!");
+    });
 }
 
 // Currently just filtering by date, expects dates in format 'YYYY-MM-DD' or null
 export async function filterThreads(
+  currentUser,
   groupId,
   lowerBound = new Date("0001-01-01"),
   upperBound = new Date()
 ) {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  }
+
   if (groupId == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -105,16 +120,18 @@ export async function filterThreads(
     groupId,
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
   }).then(threads => {
-    if (!threads) {
-      return Promise.reject(new Error("Request failed"));
+    if (threads == null) {
+      throw new Error("Request failed");
     }
 
     return threads;
   });
 }
 
-export async function searchThreads(terms, groupId) {
-  if (terms == null || groupId == null) {
+export async function searchThreads(currentUser, terms, groupId) {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  } else if (terms == null || groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 
@@ -132,8 +149,8 @@ export async function searchThreads(terms, groupId) {
       score: { $meta: "textScore" },
     })
     .then(threads => {
-      if (!threads) {
-        return Promise.reject(new Error("Request failed"));
+      if (threads == null) {
+        throw new Error("Request failed");
       }
 
       return threads;

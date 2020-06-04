@@ -1,14 +1,16 @@
 import { getUserQuestions } from "../../../server/mongodb/actions/AskMeThread";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
-// @route   POST api/ask-me/getUserQuestions
+// @route   GET api/ask-me/getUserQuestions
 // @desc    Get a user's questions
 // @access  Public
 const handler = (req, res) =>
-  getUserQuestions(req.body.posterId)
-    .then(questions =>
+  verifyToken(req, res)
+    .then(curUser => getUserQuestions(curUser))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: questions,
+        payload,
       })
     )
     .catch(error =>

@@ -1,12 +1,16 @@
-import fetch from "isomorphic-unfetch";
+import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
-export const getCategories = () =>
-  fetch(urls.baseUrl + urls.api.categories.getCategories(), {
-    method: "GET",
-    mode: "same-origin",
-    credentials: "include",
-  })
+export const getCategories = cookies =>
+  authedFetch(
+    urls.baseUrl + urls.api.categories.getCategories(),
+    {
+      method: "GET",
+      mode: "same-origin",
+      credentials: "include",
+    },
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

@@ -11,7 +11,7 @@ export const signUp = ({
   avatarColor,
   age,
   grade,
-  role,
+  role = "User",
   name,
   interests,
 }) =>
@@ -140,21 +140,16 @@ export const unfollowGroup = groupId =>
       return json.payload;
     });
 
-export const getCurrentUser = cookies => {
-  const conditionals = {};
-
-  if (cookies != null) {
-    conditionals.headers = {
-      cookie: cookies,
-    };
-  }
-
-  return fetch(urls.baseUrl + urls.api.user.getCurrentUser(), {
-    method: "GET",
-    mode: "same-origin",
-    credentials: "include",
-    ...conditionals,
-  })
+export const getCurrentUser = cookies =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.getCurrentUser(),
+    {
+      method: "GET",
+      mode: "same-origin",
+      credentials: "include",
+    },
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -165,20 +160,23 @@ export const getCurrentUser = cookies => {
 
       return json.payload;
     });
-};
 
-export const getUser = userId =>
-  fetch(urls.baseUrl + urls.api.user.getUser(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const getUser = (cookies, userId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.getUser(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+      }),
     },
-    body: JSON.stringify({
-      userId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

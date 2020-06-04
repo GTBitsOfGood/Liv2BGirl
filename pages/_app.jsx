@@ -58,7 +58,7 @@ class MyApp extends App {
         </div>
 
         {Component.showTopNav && <TopNavBar currentUser={currentUser} />}
-        {Component.showBottomNav && <BottomNavBar currentUser={currentUser} />}
+        {Component.showBottomNav && <BottomNavBar />}
       </>
     );
   }

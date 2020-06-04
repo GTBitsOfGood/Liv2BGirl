@@ -1,4 +1,5 @@
 import fetch from "isomorphic-unfetch";
+import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const createComment = (parentId, content) =>
@@ -24,18 +25,22 @@ export const createComment = (parentId, content) =>
       return json.payload;
     });
 
-export const getCommentsByThread = threadId =>
-  fetch(urls.baseUrl + urls.api.comments.getCommentsByThread(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const getCommentsByThread = (cookies, threadId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.comments.getCommentsByThread(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        threadId,
+      }),
     },
-    body: JSON.stringify({
-      threadId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -47,18 +52,22 @@ export const getCommentsByThread = threadId =>
       return json.payload;
     });
 
-export const getCommentsByAskMeThread = threadId =>
-  fetch(urls.baseUrl + urls.api.comments.getCommentsByAskMeThread(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const getCommentsByAskMeThread = (cookies, threadId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.comments.getCommentsByAskMeThread(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        threadId,
+      }),
     },
-    body: JSON.stringify({
-      threadId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

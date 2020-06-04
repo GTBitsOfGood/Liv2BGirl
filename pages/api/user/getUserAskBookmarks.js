@@ -8,11 +8,11 @@ import {
 // @access  Public
 const handler = (req, res) =>
   verifyToken(req, res)
-    .then(curUser => getUserAskBookmarks(curUser._id))
-    .then(bookmarks =>
+    .then(curUser => getUserAskBookmarks(curUser))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: bookmarks,
+        payload,
       })
     )
     .catch(error =>

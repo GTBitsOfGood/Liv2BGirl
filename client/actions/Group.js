@@ -1,16 +1,21 @@
 import fetch from "isomorphic-unfetch";
+import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
-export const getGroup = groupId =>
-  fetch(urls.baseUrl + urls.api.groups.getGroup(), {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+export const getGroup = (cookies, groupId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.groups.getGroup(),
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        groupId,
+      }),
     },
-    body: JSON.stringify({
-      groupId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -68,19 +73,23 @@ export const deleteGroup = groupId =>
       return json.payload;
     });
 
-export const searchGroups = ({ term, category }) =>
-  fetch(urls.baseUrl + urls.api.groups.searchGroups(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const searchGroups = (cookies, { term, category }) =>
+  authedFetch(
+    urls.baseUrl + urls.api.groups.searchGroups(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        term,
+        category,
+      }),
     },
-    body: JSON.stringify({
-      term,
-      category,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

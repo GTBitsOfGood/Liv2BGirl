@@ -7,10 +7,10 @@ import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 const handler = (req, res) =>
   verifyTokenSecure(req, res)
     .then(currUser => createCode(currUser))
-    .then(code =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: code,
+        payload,
       })
     )
     .catch(error =>

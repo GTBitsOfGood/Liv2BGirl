@@ -1,17 +1,20 @@
 import { filterThreads } from "../../../server/mongodb/actions/AskMeThread";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
-// @route   GET api/ask-me/filterThreads
-// @desc    GET Filtered threads Request
+// @route   POST api/ask-me/filterThreads
+// @desc    Filtered threads Request
 // @access  Public
-
 const handler = (req, res) =>
-  filterThreads(req.query.lowerBound, req.query.upperBound)
-    .then(token => {
+  verifyToken(req, res)
+    .then(curUser =>
+      filterThreads(curUser, req.body.lowerBound, req.query.upperBound)
+    )
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: token,
-      });
-    })
+        payload,
+      })
+    )
     .catch(error =>
       res.status(400).json({
         success: false,

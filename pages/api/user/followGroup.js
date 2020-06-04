@@ -1,16 +1,16 @@
 import { followGroup } from "../../../server/mongodb/actions/Group";
 import { verifyToken } from "../../../server/mongodb/actions/User";
 
-// @route   PUT api/group/followGroup
+// @route   POST api/user/followGroup
 // @desc    Follow Request
 // @access  Public
 const handler = async (req, res) =>
   verifyToken(req, res)
-    .then(currUser => followGroup(req.body.groupId, currUser._id))
-    .then(group =>
+    .then(curUser => followGroup(curUser, req.body.groupId))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: group,
+        payload,
       })
     )
     .catch(error =>

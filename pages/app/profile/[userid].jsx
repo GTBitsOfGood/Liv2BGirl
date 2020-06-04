@@ -15,13 +15,14 @@ const ProfilePage = ({ currentUser, error, user, userGroups }) => {
   return <Profile user={user} userGroups={userGroups} />;
 };
 
-ProfilePage.getInitialProps = async ({ query }) => {
+ProfilePage.getInitialProps = async ({ query, req }) => {
   const userId = query.userid;
+  const cookies = req ? req.headers.cookie : null;
 
   try {
-    const user = await getUser(userId);
+    const user = await getUser(cookies, userId);
     const userGroups = await Promise.all(
-      user.groups.map(groupId => getGroup(groupId))
+      user.groups.map(groupId => getGroup(cookies, groupId))
     );
 
     return {

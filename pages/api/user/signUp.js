@@ -1,18 +1,21 @@
-import { signUp } from "../../../server/mongodb/actions/User";
+import {
+  signUp,
+  verifyTokenSecure,
+} from "../../../server/mongodb/actions/User";
 
-// @route   POST api/signUp
+// @route   POST api/user/signUp
 // @desc    SignUp Request
 // @access  Public
-
 const handler = (req, res) =>
-  signUp(req.body)
+  verifyTokenSecure(req, res)
+    .then(curUser => signUp(curUser, req.body))
     .then(token => {
       res.setHeader(
         "Set-Cookie",
         `token=${token}; Max-Age=604800; SameSite=Lax; Path=/`
       );
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         payload: token,
       });

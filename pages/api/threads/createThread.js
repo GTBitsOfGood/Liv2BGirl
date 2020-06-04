@@ -7,17 +7,12 @@ import { verifyToken } from "../../../server/mongodb/actions/User";
 const handler = (req, res) =>
   verifyToken(req, res)
     .then(curUser =>
-      createThread(
-        curUser._id,
-        req.body.groupId,
-        req.body.title,
-        req.body.content
-      )
+      createThread(curUser, req.body.groupId, req.body.title, req.body.content)
     )
-    .then(thread =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: thread,
+        payload,
       })
     )
     .catch(error =>

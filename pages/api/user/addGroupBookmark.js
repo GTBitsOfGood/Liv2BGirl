@@ -8,11 +8,11 @@ import {
 // @access  Public
 const handler = (req, res) =>
   verifyToken(req, res)
-    .then(curUser => addGroupBookmark(curUser._id, req.body.threadId))
-    .then(thread =>
+    .then(curUser => addGroupBookmark(curUser, req.body.threadId))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: thread,
+        payload,
       })
     )
     .catch(error =>

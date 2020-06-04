@@ -5,10 +5,10 @@ import { getCategories } from "../../../server/mongodb/actions/GroupCategory";
 // @access  Public
 const handler = (req, res) =>
   getCategories()
-    .then(categories =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: categories,
+        payload,
       })
     )
     .catch(error =>

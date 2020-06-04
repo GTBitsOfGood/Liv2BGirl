@@ -8,16 +8,16 @@ const handler = (req, res) =>
   verifyToken(req, res)
     .then(curUser =>
       createThread(
-        curUser._id,
+        curUser,
         req.body.title,
         req.body.content,
         req.body.visibility
       )
     )
-    .then(thread =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: thread,
+        payload,
       })
     )
     .catch(error =>

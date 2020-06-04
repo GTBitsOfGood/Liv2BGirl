@@ -3,24 +3,28 @@ import Group from "../models/Group";
 import GroupCategory from "../models/GroupCategory";
 import User from "../models/User";
 
-export const followGroup = async (groupId, userId) => {
-  if (groupId == null || userId == null) {
+export const followGroup = async (currentUser, groupId) => {
+  if (currentUser == null || groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return User.findByIdAndUpdate(userId, { $push: { groups: groupId } });
+  return User.findByIdAndUpdate(currentUser._id, {
+    $push: { groups: groupId },
+  });
 };
 
-export const unfollowGroup = async (groupId, userId) => {
-  if (groupId == null || userId == null) {
+export const unfollowGroup = async (currentUser, groupId) => {
+  if (currentUser == null || groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return User.findByIdAndUpdate(userId, { $pull: { groups: groupId } });
+  return User.findByIdAndUpdate(currentUser._id, {
+    $pull: { groups: groupId },
+  });
 };
 
 export const createGroup = async (
@@ -51,8 +55,7 @@ export const createGroup = async (
     category,
     admin,
   }).then(async group => {
-    const groupid = group._id;
-    await followGroup(groupid, currentUser);
+    await followGroup(currentUser, group._id);
 
     return group;
   });
@@ -74,11 +77,9 @@ export const deleteGroup = async (currentUser, groupId) => {
   }
 
   return Group.findOneAndDelete({ _id: groupId }).then(async deletedGroup => {
-    if (!deletedGroup) {
-      return Promise.reject(
-        new Error(
-          "No group matches the provided id or user does not have permission!"
-        )
+    if (deletedGroup == null) {
+      throw new Error(
+        "No group matches the provided id or user does not have permission!"
       );
     }
 
@@ -86,8 +87,10 @@ export const deleteGroup = async (currentUser, groupId) => {
   });
 };
 
-export const getGroup = async groupId => {
-  if (groupId == null) {
+export const getGroup = async (currentUser, groupId) => {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  } else if (groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 
@@ -116,8 +119,10 @@ export const getGroup = async groupId => {
   });
 };
 
-export async function searchGroups({ term, category }) {
-  if (term == null && category == null) {
+export async function searchGroups(currentUser, { term, category }) {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  } else if (term == null && category == null) {
     throw new Error("All parameters must be provided!");
   }
 

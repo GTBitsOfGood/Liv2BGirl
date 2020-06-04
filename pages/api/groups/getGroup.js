@@ -1,11 +1,13 @@
 import { getGroup } from "../../../server/mongodb/actions/Group";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
 const handler = (req, res) =>
-  getGroup(req.body.groupId)
-    .then(group =>
+  verifyToken(req, res)
+    .then(curUser => getGroup(curUser, req.body.groupId))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: group,
+        payload,
       })
     )
     .catch(error =>

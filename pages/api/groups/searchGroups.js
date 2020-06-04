@@ -1,14 +1,16 @@
 import { searchGroups } from "../../../server/mongodb/actions/Group";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/groups/searchGroups
 // @desc    Search groups by text
 // @access  Public
 const handler = async (req, res) =>
-  searchGroups(req.body)
-    .then(groups =>
+  verifyToken(req, res)
+    .then(curUser => searchGroups(curUser, req.body))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: groups,
+        payload,
       })
     )
     .catch(error =>

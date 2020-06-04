@@ -1,15 +1,18 @@
-import { unfollow, verifyToken } from "../../../server/mongodb/actions/User";
+import {
+  unfollowUser,
+  verifyToken,
+} from "../../../server/mongodb/actions/User";
 
-// @route   POST api/unfollow
+// @route   POST api/unfollowUser
 // @desc    Unfollow Request
 // @access  Public
 const handler = (req, res) =>
   verifyToken(req, res)
-    .then(curUser => unfollow(curUser._id, req.body.toUnfollowId))
-    .then(user =>
+    .then(curUser => unfollowUser(curUser, req.body.toUnfollowId))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: user,
+        payload,
       })
     )
     .catch(error =>

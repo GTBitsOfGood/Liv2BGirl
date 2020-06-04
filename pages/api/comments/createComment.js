@@ -9,10 +9,10 @@ const handler = (req, res) =>
     .then(currUser =>
       createComment(currUser._id, req.body.parentId, req.body.content)
     )
-    .then(comment =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: comment,
+        payload,
       })
     )
     .catch(error =>

@@ -24,12 +24,13 @@ const GroupPage = ({ error, currentUser, groupid, groupData, threads }) => {
   );
 };
 
-GroupPage.getInitialProps = async ({ query }) => {
+GroupPage.getInitialProps = async ({ query, req }) => {
   const { groupid } = query;
+  const cookies = req ? req.headers.cookie : null;
 
   try {
-    const groupData = await getGroup(groupid);
-    const threads = await getGroupThreads(groupid);
+    const groupData = await getGroup(cookies, groupid);
+    const threads = await getGroupThreads(cookies, groupid);
 
     return {
       groupid,

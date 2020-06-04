@@ -22,7 +22,8 @@ const ThreadPost = props => {
   const [author, setAuthor] = useState("");
 
   useEffect(() => {
-    getUser(authorid).then(res => setAuthor(res));
+    // TODO: prefetch
+    getUser(null, authorid).then(res => setAuthor(res));
   }, []);
 
   const timeSince = date => {

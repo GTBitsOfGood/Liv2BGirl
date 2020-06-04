@@ -1,14 +1,16 @@
 import { getCommentsByAskMeThread } from "../../../server/mongodb/actions/Comment";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   GET api/comments/getCommentsByAskMeThread
 // @desc    Get Comments for a Ask Me Thread
 // @access  Public
 const handler = (req, res) =>
-  getCommentsByAskMeThread(req.body.threadId)
-    .then(comments =>
+  verifyToken(req, res)
+    .then(curUser => getCommentsByAskMeThread(curUser, req.body.threadId))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: comments,
+        payload,
       })
     )
     .catch(error =>

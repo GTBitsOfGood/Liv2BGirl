@@ -1,22 +1,26 @@
 import { filterThreads } from "../../../server/mongodb/actions/Thread";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   GET api/threads/filterThreads
 // @desc    GET Filtered threads Request
 // @access  Public
 
 const handler = (req, res) =>
-  filterThreads(
-    req.query.groupId,
-    req.query.option,
-    req.query.lowerBound,
-    req.query.upperBound
-  )
-    .then(token => {
+  verifyToken(req, res)
+    .then(curUser =>
+      filterThreads(
+        curUser,
+        req.query.groupId,
+        req.query.lowerBound,
+        req.query.upperBound
+      )
+    )
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: token,
-      });
-    })
+        payload,
+      })
+    )
     .catch(error =>
       res.status(400).json({
         success: false,

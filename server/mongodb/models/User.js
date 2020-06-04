@@ -23,12 +23,13 @@ const UserSchema = new Schema({
     required: true,
   },
   role: {
+    // Admin, Ambassador, User
     type: String,
     required: true,
     default: "User",
   },
   name: {
-    // admin/ambassador only
+    // Admin/Ambassador only
     type: String,
   },
   groups: {

@@ -1,17 +1,18 @@
 import { searchThreads } from "../../../server/mongodb/actions/Thread";
+import { verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/threads/searchThreads
 // @desc    POST Search threads Request
 // @access  Public
-
 const handler = (req, res) =>
-  searchThreads(req.body.terms, req.body.groupId)
-    .then(token => {
+  verifyToken(req, res)
+    .then(curUser => searchThreads(curUser, req.body.terms, req.body.groupId))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: token,
-      });
-    })
+        payload,
+      })
+    )
     .catch(error =>
       res.status(400).json({
         success: false,

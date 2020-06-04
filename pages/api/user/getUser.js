@@ -1,11 +1,12 @@
-import { getUser } from "../../../server/mongodb/actions/User";
+import { getUser, verifyToken } from "../../../server/mongodb/actions/User";
 
 const handler = (req, res) =>
-  getUser(req.body.userId)
-    .then(token =>
+  verifyToken(req, res)
+    .then(curUser => getUser(curUser, req.body.userId))
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: token,
+        payload,
       })
     )
     .catch(error =>

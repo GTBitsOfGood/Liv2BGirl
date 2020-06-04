@@ -7,10 +7,10 @@ import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 const handler = async (req, res) =>
   verifyTokenSecure(req, res)
     .then(currUser => deleteComment(currUser, req.body.commentId))
-    .then(comment =>
+    .then(payload =>
       res.status(200).json({
         success: true,
-        payload: comment,
+        payload,
       })
     )
     .catch(error =>

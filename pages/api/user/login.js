@@ -1,6 +1,6 @@
 import { login } from "../../../server/mongodb/actions/User";
 
-// @route   POST api/login
+// @route   POST api/user/login
 // @desc    Login Request
 // @access  Public
 const handler = (req, res) =>
@@ -11,7 +11,7 @@ const handler = (req, res) =>
         `token=${token}; Max-Age=604800; SameSite=Lax; Path=/`
       );
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         payload: token,
       });
