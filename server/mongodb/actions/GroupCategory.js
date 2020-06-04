@@ -1,7 +1,7 @@
 import mongoDB from "../index";
 import GroupCategory from "../models/GroupCategory";
 
-export async function createCategory(name, iconUrl, parentId) {
+export async function createCategory(name, iconUrl, parent) {
   if (name == null || iconUrl == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -11,7 +11,7 @@ export async function createCategory(name, iconUrl, parentId) {
   return GroupCategory.create({
     name,
     iconUrl,
-    parentId,
+    parent,
   });
 }
 

@@ -12,7 +12,7 @@ export async function createThread(currentUser, title, content, visibility) {
   await mongoDB();
 
   return AskMeThread.create({
-    posterId: currentUser._id,
+    author: currentUser._id,
     title,
     content,
     visibility,
@@ -28,11 +28,11 @@ export async function deleteThread(currentUser, threadId) {
 
   const query = { _id: threadId };
   if (currentUser.role === "User") {
-    query.posterId = currentUser._id;
+    query.author = currentUser._id;
   }
 
   return AskMeThread.findOneAndDelete(query).then(deletedThread => {
-    if (!deletedThread) {
+    if (deletedThread == null) {
       throw new Error("No thread matches the provided id!");
     }
 
@@ -47,7 +47,7 @@ export async function getUserQuestions(currentUser) {
 
   await mongoDB();
 
-  return AskMeThread.find({ posterId: currentUser._id })
+  return AskMeThread.find({ author: currentUser._id })
     .sort({
       postedAt: -1,
     })
@@ -84,7 +84,7 @@ export async function getThreads(currentUser) {
       postedAt: -1,
     })
     .then(threads => {
-      if (!threads) {
+      if (threads == null) {
         throw new Error("Request failed");
       }
 

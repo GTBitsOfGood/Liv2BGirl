@@ -1,22 +1,20 @@
 import mongoDB from "../index";
 
-import Thread from "../models/Thread";
+import Thread from "../models/GroupThread";
 import Comments from "../models/Comment";
 
 export async function createThread(currentUser, groupId, title, content) {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a thread!");
-  }
-
-  if (groupId == null || title == null) {
+  } else if (groupId == null || title == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
   return Thread.create({
-    posterId: currentUser._id,
-    groupId,
+    author: currentUser._id,
+    group: groupId,
     title,
     content,
   });
@@ -29,12 +27,9 @@ export async function deleteThread(currentUser, threadId) {
 
   await mongoDB();
 
-  const query = {
-    _id: threadId,
-  };
-
+  const query = { _id: threadId };
   if (currentUser.role === "User") {
-    query.posterId = currentUser._id;
+    query.author = currentUser._id;
   }
 
   return Thread.findOneAndDelete(query).then(async deletedThread => {
@@ -51,17 +46,15 @@ export async function deleteThread(currentUser, threadId) {
 export async function getGroupThreads(currentUser, groupId) {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
-  }
-
-  if (groupId == null) {
+  } else if (groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return Thread.find({ groupId })
+  return Thread.find({ group: groupId })
     .populate({
-      path: "posterId",
+      path: "author",
       model: "User",
       select: "_id username avatar avatarColor",
     })
@@ -113,16 +106,14 @@ export async function filterThreads(
 ) {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
-  }
-
-  if (groupId == null) {
+  } else if (groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
   return Thread.find({
-    groupId,
+    group: groupId,
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
   }).then(threads => {
     if (threads == null) {
@@ -136,20 +127,22 @@ export async function filterThreads(
 export async function searchThreads(currentUser, terms, groupId) {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
-  } else if (terms == null || groupId == null) {
+  } else if (terms == null && groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return Thread.find(
-    {
-      $text: { $search: terms },
-    },
-    {
-      score: { $meta: "textScore" },
-    }
-  )
+  const query = {
+    $text: { $search: terms },
+  };
+  if (groupId != null) {
+    query.group = groupId;
+  }
+
+  return Thread.find(query, {
+    score: { $meta: "textScore" },
+  })
     .sort({
       score: { $meta: "textScore" },
     })

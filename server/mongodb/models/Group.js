@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
-import Thread from "./Thread";
-import User from "./User";
 
-const { Schema } = mongoose;
-
-const GroupSchema = new Schema({
+const GroupSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -14,13 +10,13 @@ const GroupSchema = new Schema({
     type: String,
   },
   category: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "GroupCategory",
     index: true,
     required: true,
   },
-  admin: {
-    type: Schema.Types.ObjectId,
+  moderator: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     index: true,
     required: true,
@@ -32,8 +28,10 @@ async function handleDelete(provDoc) {
     this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
   const id = doc._id;
 
-  await User.updateMany({ groups: id }, { $pull: { groups: id } });
-  await Thread.deleteMany({ groupId: id });
+  await mongoose
+    .model("User")
+    .updateMany({ groups: id }, { $pull: { groups: id } });
+  await mongoose.model("Thread").deleteMany({ group: id });
 }
 
 GroupSchema.pre("remove", handleDelete);

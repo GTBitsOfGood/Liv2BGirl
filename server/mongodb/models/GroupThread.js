@@ -1,9 +1,15 @@
 import mongoose from "mongoose";
 
-const AskMeThread = new mongoose.Schema({
+const GroupThreadSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: true,
+    index: true,
+  },
+  group: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Group",
     required: true,
     index: true,
   },
@@ -15,12 +21,6 @@ const AskMeThread = new mongoose.Schema({
   content: {
     type: String,
     text: true,
-  },
-  visibility: {
-    type: String,
-    default: "Public",
-    required: true,
-    index: true,
   },
   postedAt: {
     type: Date,
@@ -37,11 +37,10 @@ async function handleDelete(provDoc) {
   await mongoose.model("Comment").deleteMany({ parent: id });
 }
 
-AskMeThread.pre("remove", handleDelete);
-AskMeThread.pre("findOneAndDelete", handleDelete);
-AskMeThread.pre("findOneAndRemove", handleDelete);
-AskMeThread.pre("deleteOne", handleDelete);
-AskMeThread.pre("deleteMany", handleDelete);
+GroupThreadSchema.pre("remove", handleDelete);
+GroupThreadSchema.pre("findOneAndDelete", handleDelete);
+GroupThreadSchema.pre("findOneAndRemove", handleDelete);
+GroupThreadSchema.pre("deleteOne", handleDelete);
+GroupThreadSchema.pre("deleteMany", handleDelete);
 
-export default mongoose.models.AskMeThread ||
-  mongoose.model("AskMeThread", AskMeThread);
+export default mongoose.models.GroupThread || mongoose.model("GroupThread", GroupThreadSchema);

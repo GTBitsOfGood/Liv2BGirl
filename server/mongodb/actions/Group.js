@@ -32,17 +32,15 @@ export const createGroup = async (
   name,
   description,
   category,
-  admin
+  moderator
 ) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a group!");
-  }
-
-  if (
+  } else if (
     name == null ||
     description == null ||
     category == null ||
-    admin == null
+    moderator == null
   ) {
     throw new Error("All parameters must be provided!");
   }
@@ -53,7 +51,7 @@ export const createGroup = async (
     name,
     description,
     category,
-    admin,
+    moderator,
   }).then(async group => {
     await followGroup(currentUser, group._id);
 
@@ -68,12 +66,9 @@ export const deleteGroup = async (currentUser, groupId) => {
 
   await mongoDB();
 
-  const query = {
-    _id: groupId,
-  };
-
+  const query = { _id: groupId };
   if (currentUser.role === "User") {
-    query.admin = currentUser._id;
+    query.moderator = currentUser._id;
   }
 
   return Group.findOneAndDelete({ _id: groupId }).then(async deletedGroup => {
@@ -107,12 +102,7 @@ export const getGroup = async (currentUser, groupId) => {
     const category = await GroupCategory.findById(group.category);
 
     return {
-      _id: group._id,
-      name: group.name,
-      description: group.description,
-      admin: group.admin,
-      subscribers: group.subscribers,
-      image: group.image,
+      ...group,
       category,
       people,
     };
@@ -153,12 +143,7 @@ export async function searchGroups(currentUser, { term, category }) {
           }).countDocuments();
 
           return {
-            _id: group._id,
-            name: group.name,
-            description: group.description,
-            admin: group.admin,
-            subscribers: group.subscribers,
-            image: group.image,
+            ...group,
             people,
           };
         })

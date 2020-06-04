@@ -1,27 +1,25 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose;
-
-const ReportSchema = new Schema({
+const ReportSchema = new mongoose.Schema({
   filedBy: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     index: true,
     required: true,
   },
   reportedUser: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     index: true,
     required: true,
   },
-  parentId: {
-    type: Schema.Types.ObjectId,
+  parent: {
+    type: mongoose.Schema.Types.ObjectId,
     index: true,
     required: true,
   },
   category: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     index: true,
     required: true,
   },

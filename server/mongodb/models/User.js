@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
-import Group from "./Group";
-import Thread from "./Thread";
-import Comment from "./Comment";
 
-const { Schema } = mongoose;
-
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -23,31 +18,29 @@ const UserSchema = new Schema({
     required: true,
   },
   role: {
-    // Admin, Ambassador, User
     type: String,
     required: true,
     default: "User",
     enum: ["Admin", "Ambassador", "User"],
   },
   name: {
-    // Admin/Ambassador only
     type: String,
   },
   groups: {
-    type: [Schema.Types.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     ref: "Group",
     required: true,
     index: true,
     default: [],
   },
   followers: {
-    type: [Schema.Types.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     ref: "User",
     required: true,
     default: [],
   },
   following: {
-    type: [Schema.Types.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     ref: "User",
     required: true,
     default: [],
@@ -73,13 +66,13 @@ const UserSchema = new Schema({
     required: true,
   },
   askBookmarks: {
-    type: [Schema.Types.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     ref: "AskMeThread",
     required: true,
     default: [],
   },
   groupBookmarks: {
-    type: [Schema.Types.ObjectId],
+    type: [mongoose.Schema.Types.ObjectId],
     ref: "Thread",
     required: true,
     default: [],
@@ -91,9 +84,11 @@ async function handleDelete(provDoc) {
     this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
   const id = doc._id;
 
-  await Group.updateMany({ admin: id }, { admin: null });
-  await Thread.deleteMany({ posterId: id });
-  await Comment.deleteMany({ poster: id });
+  await mongoose
+    .model("Group")
+    .updateMany({ moderator: id }, { moderator: null });
+  await mongoose.model("Thread").deleteMany({ author: id });
+  await mongoose.model("Comment").deleteMany({ author: id });
 }
 
 UserSchema.pre("remove", handleDelete);

@@ -2,7 +2,7 @@ import { getCommentsByAskMeThread } from "../../../server/mongodb/actions/Commen
 import { verifyToken } from "../../../server/mongodb/actions/User";
 
 // @route   GET api/comments/getCommentsByAskMeThread
-// @desc    Get Comments for a Ask Me Thread
+// @desc    Get Comment for a Ask Me Thread
 // @access  Public
 const handler = (req, res) =>
   verifyToken(req, res)

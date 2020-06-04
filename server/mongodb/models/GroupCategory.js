@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose;
-
-const GroupCategorySchema = new Schema({
+const GroupCategorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -11,8 +9,8 @@ const GroupCategorySchema = new Schema({
     type: String,
     required: true,
   },
-  parentId: {
-    type: Schema.Types.ObjectId,
+  parent: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: "GroupCategory",
     index: true,
     default: null,

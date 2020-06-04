@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose;
-
 const InvitationCodeSchema = new Schema({
   code: {
     type: String,
@@ -9,7 +7,7 @@ const InvitationCodeSchema = new Schema({
     index: true,
   },
   createdBy: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     index: true,
     required: true,
@@ -20,7 +18,7 @@ const InvitationCodeSchema = new Schema({
     default: Date.now,
   },
   usedBy: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     index: true,
   },

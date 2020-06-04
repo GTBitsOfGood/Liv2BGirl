@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import mongoDB from "../index";
 import User from "../models/User";
-import Comments from "../models/Comment";
+import Comment from "../models/Comment";
 import { useCode } from "./InvitationCode";
 
 export const login = async (email, password) => {
@@ -68,9 +68,7 @@ export const signUp = async (
     password == null
   ) {
     throw new Error("All parameters must be provided!");
-  }
-
-  if (
+  } else if (
     role !== "User" &&
     (currentUser == null || currentUser.role !== "Admin")
   ) {
@@ -268,8 +266,8 @@ export const getUserAskBookmarks = async currentUser => {
       Promise.all(
         bookmarks.map(async bookmark => ({
           ...bookmark.toObject(),
-          numComments: await Comments.find({
-            parentId: bookmark._id,
+          numComments: await Comment.find({
+            parent: bookmark._id,
           }).countDocuments(),
         }))
       )
@@ -323,8 +321,8 @@ export const getUserGroupBookmarks = async currentUser => {
       Promise.all(
         bookmarks.map(async bookmark => ({
           ...bookmark.toObject(),
-          numComments: await Comments.find({
-            parentId: bookmark._id,
+          numComments: await Comment.find({
+            parent: bookmark._id,
           }).countDocuments(),
         }))
       )

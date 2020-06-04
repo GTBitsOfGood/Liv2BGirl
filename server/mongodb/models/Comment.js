@@ -1,16 +1,14 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose;
-
-const CommentSchema = new Schema({
-  poster: {
-    type: Schema.Types.ObjectId,
+const CommentSchema = new mongoose.Schema({
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     index: true,
     required: true,
   },
-  parentId: {
-    type: Schema.Types.ObjectId,
+  parent: {
+    type: mongoose.Schema.Types.ObjectId,
     index: true,
     required: true,
   },
@@ -33,7 +31,7 @@ async function handleDelete(provDoc) {
     this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
   const id = doc._id;
 
-  await this.model.deleteMany({ parentId: id });
+  await this.model.deleteMany({ parent: id });
 }
 
 CommentSchema.pre("remove", handleDelete);
