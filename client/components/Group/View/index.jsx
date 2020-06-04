@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
-import Router from "next/router";
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
@@ -139,16 +138,7 @@ const ViewGroup = ({ currentUser, groupid, groupData, threads }) => {
               </button>
             </div>
             {threads.map(thread => (
-              <ThreadPost
-                key={thread._id}
-                threadid={thread._id}
-                title={thread.title}
-                summary={thread.content}
-                authorid={thread.posterId}
-                postedAt={thread.postedAt}
-                numComments={thread.numComments}
-                currentUser={currentUser}
-              />
+              <ThreadPost key={thread._id} {...thread} />
             ))}
           </div>
         </>
@@ -161,23 +151,19 @@ ViewGroup.propTypes = {
   currentUser: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
-    groups: PropTypes.arrayOf(
-      PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        posterId: PropTypes.string.isRequired,
-        groupId: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        content: PropTypes.string.isRequired,
-        postedAt: PropTypes.string.isRequired,
-      }).isRequired
-    ),
+    groups: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   groupid: PropTypes.string.isRequired,
   groupData: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    category: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      iconUrl: PropTypes.string.isRequired,
+      parentId: PropTypes.string,
+    }).isRequired,
   }).isRequired,
   threads: PropTypes.arrayOf(
     PropTypes.shape({

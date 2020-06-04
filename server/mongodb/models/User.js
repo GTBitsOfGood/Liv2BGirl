@@ -27,6 +27,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     default: "User",
+    enum: ["Admin", "Ambassador", "User"],
   },
   name: {
     // Admin/Ambassador only

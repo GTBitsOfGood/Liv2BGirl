@@ -53,8 +53,13 @@ GroupPage.propTypes = {
   groupData: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    category: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      iconUrl: PropTypes.string.isRequired,
+      parentId: PropTypes.string,
+    }).isRequired,
   }),
   threads: PropTypes.arrayOf(
     PropTypes.shape({

@@ -60,6 +60,11 @@ export async function getGroupThreads(currentUser, groupId) {
   await mongoDB();
 
   return Thread.find({ groupId })
+    .populate({
+      path: "posterId",
+      model: "User",
+      select: "_id username avatar avatarColor",
+    })
     .sort({
       postedAt: -1, // newest at top
     })
