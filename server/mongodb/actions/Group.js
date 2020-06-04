@@ -21,7 +21,7 @@ export const createGroup = async (
     description,
     category,
     moderator: currentUser._id,
-  }).then(async group => {
+  }).then(async (group) => {
     await followGroup(currentUser, group._id);
 
     return group;
@@ -40,7 +40,7 @@ export const deleteGroup = async (currentUser, { id }) => {
     query.moderator = currentUser._id;
   }
 
-  return Group.findOneAndDelete({ _id: id }).then(async deletedGroup => {
+  return Group.findOneAndDelete({ _id: id }).then(async (deletedGroup) => {
     if (deletedGroup == null) {
       throw new Error(
         "No group matches the provided id or user does not have permission!"
@@ -60,7 +60,7 @@ export const getGroup = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  return Group.findById(id).then(async group => {
+  return Group.findById(id).then(async (group) => {
     if (group == null) {
       throw new Error("Group does not exist!");
     }
@@ -104,9 +104,9 @@ export const searchGroups = async (currentUser, { term, category }) => {
 
   return Group.find(query, projection)
     .sort(sort)
-    .then(groups =>
+    .then((groups) =>
       Promise.all(
-        groups.map(async group => {
+        groups.map(async (group) => {
           const people = await User.find({
             groups: group._id,
           }).countDocuments();

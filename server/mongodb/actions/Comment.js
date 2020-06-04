@@ -27,7 +27,7 @@ export const deleteComment = async (currentUser, { id }) => {
     query.author = currentUser._id;
   }
 
-  return Comment.findOneAndDelete(query).then(deletedComment => {
+  return Comment.findOneAndDelete(query).then((deletedComment) => {
     if (deletedComment == null) {
       throw new Error(
         "No comment matches the provided id or user does not have permission!"
@@ -57,9 +57,9 @@ export const getCommentsByAskMeThread = async (currentUser, { id }) => {
       officialAnswer: -1, // official answers come first
       postedAt: 1, // newest at bottom
     })
-    .then(async comments => {
+    .then(async (comments) => {
       if (comments == null) {
-        throw new Error("Error retrieving comments");
+        throw new Error("Error retrieving comment");
       }
 
       return comments;
@@ -85,9 +85,9 @@ export const getCommentsByThread = async (currentUser, { id }) => {
       officialAnswer: -1, // official answers come first
       postedAt: 1, // newest at bottom
     })
-    .then(async comments => {
+    .then(async (comments) => {
       if (comments == null) {
-        throw new Error("Error retrieving comments");
+        throw new Error("Error retrieving comment");
       }
 
       return comments;

@@ -34,7 +34,7 @@ export const deleteThread = async (currentUser, { id }) => {
     query.author = currentUser._id;
   }
 
-  return AskMeThread.findOneAndDelete(query).then(deletedThread => {
+  return AskMeThread.findOneAndDelete(query).then((deletedThread) => {
     if (deletedThread == null) {
       throw new Error("No thread matches the provided id!");
     }
@@ -43,7 +43,7 @@ export const deleteThread = async (currentUser, { id }) => {
   });
 };
 
-export const getUserQuestions = async currentUser => {
+export const getUserQuestions = async (currentUser) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
   }
@@ -54,13 +54,13 @@ export const getUserQuestions = async currentUser => {
     .sort({
       postedAt: -1,
     })
-    .then(threads => {
+    .then((threads) => {
       if (threads == null) {
         throw new Error("Request failed");
       }
 
       return Promise.all(
-        threads.map(async thread => ({
+        threads.map(async (thread) => ({
           ...thread.toObject(),
           numComments: await Comments.find({
             parent: thread._id,
@@ -70,7 +70,7 @@ export const getUserQuestions = async currentUser => {
     });
 };
 
-export const getThreads = async currentUser => {
+export const getThreads = async (currentUser) => {
   if (currentUser == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -86,13 +86,13 @@ export const getThreads = async currentUser => {
     .sort({
       postedAt: -1,
     })
-    .then(threads => {
+    .then((threads) => {
       if (threads == null) {
         throw new Error("Request failed");
       }
 
       return Promise.all(
-        threads.map(async thread => ({
+        threads.map(async (thread) => ({
           ...thread.toObject(),
           numComments: await Comments.find({
             parent: thread._id,
@@ -119,7 +119,7 @@ export const getThread = async (currentUser, { id }) => {
   }
 
   return AskMeThread.findOne(query)
-    .then(thread => {
+    .then((thread) => {
       if (thread == null) {
         throw new Error(
           "Thread does not exist or user does not have permission!"
@@ -158,7 +158,7 @@ export const filterThreads = async (
     .sort({
       postedAt: -1,
     })
-    .then(threads => {
+    .then((threads) => {
       if (threads == null) {
         throw new Error("Request failed");
       }
@@ -189,7 +189,7 @@ export const searchThreads = async (currentUser, { term }) => {
     .sort({
       score: { $meta: "textScore" },
     })
-    .then(threads => {
+    .then((threads) => {
       if (threads == null) {
         throw new Error("Request failed");
       }

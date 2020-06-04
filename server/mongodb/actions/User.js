@@ -13,9 +13,9 @@ export const login = async ({ email, password }) => {
   await mongoDB();
 
   return User.findOne({ email })
-    .then(user => {
+    .then((user) => {
       if (user) {
-        return bcrypt.compare(password, user.password).then(result => {
+        return bcrypt.compare(password, user.password).then((result) => {
           if (result) return Promise.resolve(user);
 
           return Promise.reject(
@@ -26,7 +26,7 @@ export const login = async ({ email, password }) => {
 
       return Promise.reject(new Error("The username does not exist."));
     })
-    .then(user =>
+    .then((user) =>
       jwt.sign(
         {
           _id: user._id,
@@ -122,7 +122,7 @@ export const verifyEmailUnused = async ({ email }) => {
 
   await mongoDB();
 
-  return User.exists({ email }).then(exists => !exists);
+  return User.exists({ email }).then((exists) => !exists);
 };
 
 export const signOut = (req, res) => {
@@ -163,7 +163,7 @@ export const verifyTokenSecure = async (req, res) => {
     const { _id } = decoded;
 
     return User.findOne({ _id })
-      .then(user => {
+      .then((user) => {
         if (user == null) {
           res.setHeader(
             "Set-Cookie",
@@ -222,7 +222,7 @@ export const getUser = async (currentUser, { userId }) => {
   await mongoDB();
 
   return User.findById(userId)
-    .then(user => {
+    .then((user) => {
       if (user == null) {
         throw new Error("User does not exist!");
       }
@@ -243,7 +243,7 @@ export const getUser = async (currentUser, { userId }) => {
     });
 };
 
-export const getUserAskBookmarks = async currentUser => {
+export const getUserAskBookmarks = async (currentUser) => {
   if (currentUser == null) {
     throw new Error("User must be logged in!");
   }
@@ -255,16 +255,16 @@ export const getUserAskBookmarks = async currentUser => {
       path: "askBookmarks",
       model: "AskMeThread",
     })
-    .then(user => {
+    .then((user) => {
       if (user == null) {
         throw new Error("User does not exist!");
       }
 
       return user.askBookmarks;
     })
-    .then(bookmarks =>
+    .then((bookmarks) =>
       Promise.all(
-        bookmarks.map(async bookmark => ({
+        bookmarks.map(async (bookmark) => ({
           ...bookmark.toObject(),
           numComments: await Comment.find({
             parent: bookmark._id,
@@ -298,7 +298,7 @@ export const removeAskBookmark = async (currentUser, { threadId }) => {
   });
 };
 
-export const getUserGroupBookmarks = async currentUser => {
+export const getUserGroupBookmarks = async (currentUser) => {
   if (currentUser == null) {
     throw new Error("User must be logged in!");
   }
@@ -310,16 +310,16 @@ export const getUserGroupBookmarks = async currentUser => {
       path: "groupBookmarks",
       model: "Thread",
     })
-    .then(user => {
+    .then((user) => {
       if (user == null) {
         throw new Error("User does not exist!");
       }
 
       return user.askBookmarks;
     })
-    .then(bookmarks =>
+    .then((bookmarks) =>
       Promise.all(
-        bookmarks.map(async bookmark => ({
+        bookmarks.map(async (bookmark) => ({
           ...bookmark.toObject(),
           numComments: await Comment.find({
             parent: bookmark._id,

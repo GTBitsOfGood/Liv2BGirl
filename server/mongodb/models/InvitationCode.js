@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const InvitationCodeSchema = new Schema({
+const InvitationCodeSchema = new mongoose.Schema({
   code: {
     type: String,
     required: true,
