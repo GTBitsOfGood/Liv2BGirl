@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Thread from "../../../client/components/Group/Thread";
+import ErrorPage from "../../_error";
 import { getThread } from "../../../client/actions/Thread";
 import { getCommentsByThread } from "../../../client/actions/Comment";
 import { getUser } from "../../../client/actions/User";
@@ -18,9 +19,7 @@ const ThreadPage = ({
     console.error("error", error);
 
     return (
-      <div>
-        <h2>Thread not found :(</h2>
-      </div>
+      <ErrorPage currentUser={currentUser} statusCode={500} message={error} />
     );
   }
 

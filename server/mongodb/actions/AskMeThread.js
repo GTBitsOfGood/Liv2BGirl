@@ -71,18 +71,21 @@ export async function getUserQuestions(posterId) {
     });
 }
 
-export async function getThreads() {
+export async function getThreads(curUser) {
   await mongoDB();
 
-  return AskMeThread.find({
-    visibility: { $ne: "Ambassador" },
-  })
+  const query = {};
+  if (curUser.role === "User") {
+    query.visibility = { $ne: "Ambassador" };
+  }
+
+  return AskMeThread.find(query)
     .sort({
       postedAt: -1,
     })
     .then(threads => {
       if (!threads) {
-        return Promise.reject(new Error("Request failed"));
+        throw new Error("Request failed");
       }
 
       return Promise.all(
@@ -96,16 +99,25 @@ export async function getThreads() {
     });
 }
 
-export async function getThread(threadId) {
-  if (threadId == null) {
+export async function getThread(curUser, threadId) {
+  if (curUser == null || threadId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return AskMeThread.findById(threadId).then(thread => {
+  const query = {
+    _id: threadId,
+  };
+  if (curUser.role === "User") {
+    query.visibility = { $ne: "Ambassador" };
+  }
+
+  return AskMeThread.findOne(query).then(thread => {
     if (thread == null) {
-      throw new Error("Thread does not exist!");
+      throw new Error(
+        "Thread does not exist or user does not have permission!"
+      );
     }
 
     return thread;

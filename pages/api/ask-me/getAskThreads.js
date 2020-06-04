@@ -1,10 +1,12 @@
 import { getThreads } from "../../../server/mongodb/actions/AskMeThread";
+import { verifyTokenSecure } from "../../../server/mongodb/actions/User";
 
 // @route   POST api/ask-me/getAskThreads
 // @desc    Get ask me threads
 // @access  Public
 const handler = (req, res) =>
-  getThreads()
+  verifyTokenSecure(req, res)
+    .then(curUser => getThreads(curUser))
     .then(threads =>
       res.status(200).json({
         success: true,

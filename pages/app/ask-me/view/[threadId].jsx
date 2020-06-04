@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ErrorPage from "../../../_error";
 import Question from "../../../../client/components/AskMe/Question";
 import { getThread } from "../../../../client/actions/AskMe";
 import { getCommentsByAskMeThread } from "../../../../client/actions/Comment";
@@ -17,9 +18,7 @@ const QuestionPage = ({
     console.error("error", error);
 
     return (
-      <div>
-        <h2>{error}</h2>
-      </div>
+      <ErrorPage currentUser={currentUser} statusCode={500} message={error} />
     );
   }
 
@@ -34,11 +33,12 @@ const QuestionPage = ({
   );
 };
 
-QuestionPage.getInitialProps = async ({ query }) => {
+QuestionPage.getInitialProps = async ({ query, req }) => {
   const { threadId } = query;
+  const cookies = req ? req.headers.cookie : null;
 
   try {
-    const thread = await getThread(threadId);
+    const thread = await getThread(cookies, threadId);
     const author =
       thread.visibility === "Anonymous"
         ? {
@@ -86,19 +86,27 @@ QuestionPage.propTypes = {
     postedAt: PropTypes.string.isRequired,
   }),
   author: PropTypes.shape({
-    userId: PropTypes.string.isRequired,
+    userId: PropTypes.string,
     username: PropTypes.string.isRequired,
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,
   }),
   comments: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      poster: PropTypes.string.isRequired,
-      parentId: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      officialAnswer: PropTypes.bool.isRequired,
-      postedAt: PropTypes.string.isRequired,
+      author: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
+        avatar: PropTypes.number.isRequired,
+        avatarColor: PropTypes.number.isRequired,
+      }).isRequired,
+      comment: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired,
+        parentId: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        officialAnswer: PropTypes.bool.isRequired,
+        postedAt: PropTypes.string.isRequired,
+      }).isRequired,
     })
   ),
 };

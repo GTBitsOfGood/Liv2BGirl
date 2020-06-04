@@ -1,16 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-// Page Component
 import NewQuestion from "../../../client/components/AskMe/New";
 
-const NewQuestionPage = ({ currentUser }) => {
-  return <NewQuestion currentUser={currentUser} />;
-};
+const NewQuestionPage = ({ currentUser }) => (
+  <NewQuestion currentUser={currentUser} />
+);
 
 NewQuestionPage.propTypes = {
   currentUser: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
   }).isRequired,
 };
 

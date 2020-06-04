@@ -1,12 +1,17 @@
 import fetch from "isomorphic-unfetch";
+import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
-export const getAskThreads = () =>
-  fetch(urls.baseUrl + urls.api.askMe.getAskThreads(), {
-    method: "GET",
-    mode: "same-origin",
-    credentials: "include",
-  })
+export const getAskThreads = cookies =>
+  authedFetch(
+    urls.baseUrl + urls.api.askMe.getAskThreads(),
+    {
+      method: "GET",
+      mode: "same-origin",
+      credentials: "include",
+    },
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {
@@ -18,18 +23,22 @@ export const getAskThreads = () =>
       return json.payload;
     });
 
-export const getThread = threadId =>
-  fetch(urls.baseUrl + urls.api.askMe.getThread(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const getThread = (cookies, threadId) =>
+  authedFetch(
+    urls.baseUrl + urls.api.askMe.getThread(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        threadId,
+      }),
     },
-    body: JSON.stringify({
-      threadId,
-    }),
-  })
+    cookies
+  )
     .then(response => response.json())
     .then(json => {
       if (json == null) {

@@ -1,19 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-// Component
 import Profile from "../../../client/components/Profile";
-
-// API Call
+import ErrorPage from "../../_error";
 import { getUser } from "../../../client/actions/User";
 import { getGroup } from "../../../client/actions/Group";
 
-const ProfilePage = ({ error, user, userGroups }) => {
+const ProfilePage = ({ currentUser, error, user, userGroups }) => {
   if (error != null) {
     return (
-      <div>
-        <h1>{error}</h1>
-      </div>
+      <ErrorPage currentUser={currentUser} statusCode={500} message={error} />
     );
   }
 
@@ -42,6 +37,9 @@ ProfilePage.getInitialProps = async ({ query }) => {
 
 ProfilePage.propTypes = {
   error: PropTypes.string,
+  currentUser: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     followers: PropTypes.arrayOf(PropTypes.string).isRequired,

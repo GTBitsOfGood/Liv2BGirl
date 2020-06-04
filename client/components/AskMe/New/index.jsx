@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import Link from "next/link";
 import Router from "next/router";
-import PropTypes from "prop-types";
-
-// Icons
 import { Icon } from "@iconify/react";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import {
@@ -12,38 +10,29 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-// Components
 import TextareaAutosize from "react-textarea-autosize";
 import Audience from "./Audience";
-
-// API Call
 import { createThread } from "../../../actions/AskMe";
-
-// Styling
+import urls from "../../../../utils/urls";
 import styles from "./newquestion.module.scss";
 
-// Navigation
-import urls from "../../../../utils/urls";
+const getIcon = visibility => {
+  if (visibility === "Public") {
+    return <FontAwesomeIcon icon={faGlobe} className={styles.Icon} />;
+  }
 
-const NewQuestion = props => {
-  const { currentUser } = props;
-  const [visibility, setVisibility] = useState("Public");
-  const [question, setQuestion] = useState("");
-  const [description, setDescription] = useState("");
-  const [changeAudience, audienceToggle] = useState(false);
+  if (visibility === "Anonymous") {
+    return <FontAwesomeIcon icon={faGlasses} className={styles.Icon} />;
+  }
 
-  const getIcon = () => {
-    if (visibility === "Public") {
-      return <FontAwesomeIcon icon={faGlobe} className={styles.Icon} />;
-    }
+  return <FontAwesomeIcon icon={faUserCircle} className={styles.Icon} />;
+};
 
-    if (visibility === "Anonymous") {
-      return <FontAwesomeIcon icon={faGlasses} className={styles.Icon} />;
-    }
-
-    return <FontAwesomeIcon icon={faUserCircle} className={styles.Icon} />;
-  };
+const NewQuestion = () => {
+  const [visibility, setVisibility] = React.useState("Public");
+  const [question, setQuestion] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [changeAudience, audienceToggle] = React.useState(false);
 
   const toggle = () => {
     audienceToggle(!changeAudience);
@@ -59,16 +48,13 @@ const NewQuestion = props => {
   return (
     <>
       <div className="TopNav">
-        <div
-          role="button"
-          tabIndex={-1}
-          onClick={() => Router.back()}
-          onKeyDown={() => Router.back()}
-        >
-          <Icon className="Back" icon={bxArrowBack} width="18px" />
-        </div>
+        <Link href={urls.pages.app.askMe}>
+          <div>
+            <Icon className="Back" icon={bxArrowBack} width="18px" />
+          </div>
+        </Link>
         <h3>Ask Question</h3>
-        <button type="button" className="Button" onClick={() => postQuestion()}>
+        <button type="button" className="Button" onClick={postQuestion}>
           Post
         </button>
       </div>
@@ -79,11 +65,11 @@ const NewQuestion = props => {
           <div
             role="button"
             tabIndex={0}
-            onClick={() => toggle()}
-            onKeyDown={() => toggle()}
+            onClick={toggle}
+            onKeyDown={toggle}
             className={styles.SetVis}
           >
-            {getIcon()}
+            {getIcon(visibility)}
             <h3>{visibility}</h3>
             <FontAwesomeIcon icon={faAngleRight} className={styles.Toggle} />
           </div>
@@ -118,12 +104,6 @@ const NewQuestion = props => {
       )}
     </>
   );
-};
-
-NewQuestion.propTypes = {
-  currentUser: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default NewQuestion;

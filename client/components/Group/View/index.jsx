@@ -14,7 +14,7 @@ import logo from "../../../../public/img/logo.png";
 import urls from "../../../../utils/urls";
 import styles from "./viewgroup.module.scss";
 
-const ViewGroup = ({ groupid, groupData, threads, currentUser }) => {
+const ViewGroup = ({ currentUser, groupid, groupData, threads }) => {
   const [joined, setJoined] = React.useState(false);
   const [sortedBy, setSortedBy] = React.useState("latest comment");
   const [adminTab, setAdminTab] = React.useState(false);
@@ -52,14 +52,11 @@ const ViewGroup = ({ groupid, groupData, threads, currentUser }) => {
     <>
       {adminTab && <AdminTab onClick={toggle} groupid={groupid} />}
       <div className="TopNav">
-        <div
-          role="button"
-          tabIndex={-1}
-          onClick={() => Router.back()}
-          onKeyDown={() => Router.back()}
-        >
-          <Icon className="Back" icon={bxArrowBack} width="18px" />
-        </div>
+        <Link href={urls.pages.app.groupList}>
+          <div>
+            <Icon className="Back" icon={bxArrowBack} width="18px" />
+          </div>
+        </Link>
 
         <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
 
@@ -161,9 +158,8 @@ const ViewGroup = ({ groupid, groupData, threads, currentUser }) => {
 };
 
 ViewGroup.propTypes = {
-  groupid: PropTypes.string.isRequired,
   currentUser: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
     groups: PropTypes.arrayOf(
       PropTypes.shape({
@@ -176,6 +172,21 @@ ViewGroup.propTypes = {
       }).isRequired
     ),
   }).isRequired,
+  groupid: PropTypes.string.isRequired,
+  groupData: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
+  threads: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      postedAt: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default ViewGroup;

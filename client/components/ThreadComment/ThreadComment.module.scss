@@ -6,7 +6,6 @@
   margin-top: 10px;
   padding: 20px;
   background-color: white;
-  border: 5px solid transparent;
 
   .Details {
     margin-bottom: 13px;
@@ -64,10 +63,4 @@
       font-weight: normal;
     }
   }
-}
-
-.OfficialAnswer {
-  border: 5px solid;
-  border-image-source: linear-gradient(45deg, #d53369 0%, #daae51 50%);
-  border-image-slice: 1;
 }

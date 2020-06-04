@@ -1,0 +1,15 @@
+.root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  h2 {
+    margin-bottom: 16px;
+  }
+}

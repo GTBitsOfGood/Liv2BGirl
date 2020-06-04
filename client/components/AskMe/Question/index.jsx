@@ -37,6 +37,9 @@ const Question = ({ currentUser, threadId, thread, author, comments }) => {
     }
   };
 
+  const officialAnswers = comments.filter(item => item.comment.officialAnswer);
+  const generalComments = comments.filter(item => !item.comment.officialAnswer);
+
   return (
     <div className={styles.QuestionPage}>
       <div className="TopNav">
@@ -97,11 +100,31 @@ const Question = ({ currentUser, threadId, thread, author, comments }) => {
         <h4 className={styles.QuestionText}>{thread.content}</h4>
       </div>
 
+      {officialAnswers.length > 0 && (
+        <div className={styles.QuestionContent}>
+          <h6 className={styles.SubHeader}>Ambassador's Answer</h6>
+          <div>
+            {officialAnswers.map(item => (
+              <ThreadComment
+                key={item.comment._id}
+                {...item}
+                setReply={setComment}
+              />
+            ))}
+          </div>
+        </div>
+      )}
       <div className={styles.QuestionContent}>
-        <h6 className={styles.SubHeader}>{`Comments (${comments.length})`}</h6>
+        <h6 className={styles.SubHeader}>
+          {`Comments (${generalComments.length})`}
+        </h6>
         <div>
-          {comments.map(item => (
-            <ThreadComment key={item._id} {...item} setReply={setComment} />
+          {generalComments.map(item => (
+            <ThreadComment
+              key={item.comment._id}
+              {...item}
+              setReply={setComment}
+            />
           ))}
         </div>
       </div>
@@ -157,7 +180,7 @@ Question.propTypes = {
     postedAt: PropTypes.string.isRequired,
   }).isRequired,
   author: PropTypes.shape({
-    userId: PropTypes.string.isRequired,
+    userId: PropTypes.string,
     username: PropTypes.string.isRequired,
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,

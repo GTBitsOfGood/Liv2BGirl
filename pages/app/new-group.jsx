@@ -1,11 +1,13 @@
 import React from "react";
-import Router from "next/router";
+import PropTypes from "prop-types";
+import Link from "next/link";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getCategories } from "../../client/actions/Categories";
 import TermsCond from "../../client/components/Group/New/TermsCond";
 import NewGroup from "../../client/components/Group/New/NewGroup";
 import NewGroupConfirmation from "../../client/components/Group/New/NewGroupConfirmation";
+import urls from "../../utils/urls";
 
 const CurrentStep = ({ stage, ...rest }) => {
   switch (stage) {
@@ -39,14 +41,11 @@ const NewGroupPage = ({ currentUser, categories }) => {
   return (
     <>
       <div className="TopNav">
-        <div
-          role="button"
-          tabIndex={-1}
-          onClick={() => Router.back()}
-          onKeyDown={() => Router.back()}
-        >
-          <FontAwesomeIcon className="Back" icon={faArrowLeft} />
-        </div>
+        <Link href={urls.pages.app.groupList}>
+          <div>
+            <FontAwesomeIcon className="Back" icon={faArrowLeft} />
+          </div>
+        </Link>
         <h3 className="Text">Create New Group</h3>
         <div />
       </div>
@@ -67,6 +66,18 @@ NewGroupPage.getInitialProps = async () => {
   return {
     categories,
   };
+};
+
+NewGroupPage.propTypes = {
+  currentUser: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+  }).isRequired,
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 NewGroupPage.showTopNav = false;

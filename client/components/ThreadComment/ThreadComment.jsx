@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import clsx from "clsx";
 import Link from "next/link";
 import { timeSince } from "./utils";
 import urls from "../../../utils/urls";
@@ -8,12 +7,7 @@ import { avatarImg, colorArr } from "../../../utils/avatars";
 import styles from "./ThreadComment.module.scss";
 
 const ThreadComment = ({ author, comment, setReply }) => (
-  <div
-    className={clsx(
-      styles.Comment,
-      comment.officialAnswer && styles.OfficialAnswer
-    )}
-  >
+  <div className={styles.Comment}>
     <div className={styles.Details}>
       <Link href={urls.pages.app.profile(author._id)}>
         <div className={styles.Author}>
