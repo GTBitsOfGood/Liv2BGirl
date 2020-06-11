@@ -5,7 +5,7 @@ import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import TextareaAutosize from "react-textarea-autosize";
 import urls from "../../../../../utils/urls";
 import { createThread } from "../../../../actions/GroupThread";
-import logo from "../../../../../public/img/logo.png";
+import logo from "../../../../../public/static/img/logo.png";
 import styles from "../thread.module.scss";
 
 const CreateThreadComponent = () => {

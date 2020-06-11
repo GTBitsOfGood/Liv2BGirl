@@ -1,7 +1,7 @@
 import { authedFetch } from "../utils/requests";
 import urls from "../../utils/urls";
 
-export const createComment = (cookies, parentId, content) =>
+export const createComment = (cookies, parentId, content, taggedUsers) =>
   authedFetch(
     urls.baseUrl + urls.api.comment.createComment(),
     {
@@ -14,6 +14,7 @@ export const createComment = (cookies, parentId, content) =>
       body: JSON.stringify({
         parentId,
         content,
+        taggedUsers,
       }),
     },
     cookies

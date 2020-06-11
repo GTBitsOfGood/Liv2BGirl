@@ -13,7 +13,6 @@ const GroupCategorySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "GroupCategory",
     index: true,
-    default: null,
   },
 });
 

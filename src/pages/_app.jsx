@@ -8,8 +8,8 @@ import { getCurrentUser } from "../actions/User";
 import "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 import urls from "../../utils/urls";
-import "../../public/styles/App.scss";
-import "../public/styles/components.scss";
+import "../../public/static/styles/App.scss";
+import "../../public/static/styles/components.scss";
 
 class MyApp extends App {
   static async getInitialProps(appContext) {

@@ -1,6 +1,5 @@
 import mongoDB from "../index";
 import Group from "../models/Group";
-import GroupCategory from "../models/GroupCategory";
 import User from "../models/User";
 import { followGroup } from "./User";
 
@@ -22,7 +21,9 @@ export const createGroup = async (
     category,
     moderator: currentUser._id,
   }).then(async (group) => {
-    await followGroup(currentUser, group._id);
+    await followGroup(currentUser, {
+      groupId: group._id,
+    });
 
     return group;
   });
@@ -60,22 +61,27 @@ export const getGroup = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  return Group.findById(id).then(async (group) => {
-    if (group == null) {
-      throw new Error("Group does not exist!");
-    }
+  return Group.findById(id)
+    .populate({
+      path: "category",
+      model: "GroupCategory",
+      select: "_id name iconUrl parent",
+    })
+    .exec()
+    .then(async (group) => {
+      if (group == null) {
+        throw new Error("Group does not exist!");
+      }
 
-    const people = await User.find({
-      groups: id,
-    }).countDocuments();
-    const category = await GroupCategory.findById(group.category);
+      const people = await User.find({
+        groups: id,
+      }).countDocuments();
 
-    return {
-      ...group,
-      category,
-      people,
-    };
-  });
+      return {
+        ...group.toObject(),
+        people,
+      };
+    });
 };
 
 export const searchGroups = async (currentUser, { term, category }) => {
@@ -112,7 +118,7 @@ export const searchGroups = async (currentUser, { term, category }) => {
           }).countDocuments();
 
           return {
-            ...group,
+            ...group.toObject(),
             people,
           };
         })

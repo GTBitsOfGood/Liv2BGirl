@@ -4,7 +4,7 @@ import Router from "next/router";
 import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
 import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
-import logo from "../../../public/img/logo.png";
+import logo from "../../../public/static/img/logo.png";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import GroupCard from "./GroupCard";
 import styles from "./profile.module.scss";

@@ -8,14 +8,7 @@ import urls from "../../../../../utils/urls";
 import { avatarImg, colorArr } from "../../../../../utils/avatars";
 import styles from "../thread.module.scss";
 
-const ThreadPost = ({
-  _id,
-  title,
-  content,
-  postedAt,
-  posterId: author,
-  numComments,
-}) => (
+const ThreadPost = ({ _id, title, content, postedAt, author, numComments }) => (
   <button type="button" className={styles.GroupThread}>
     <Link href={urls.pages.app.thread(_id)}>
       <div>
@@ -53,13 +46,13 @@ ThreadPost.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   postedAt: PropTypes.string.isRequired,
-  posterId: PropTypes.shape({
+  numComments: PropTypes.number.isRequired,
+  author: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,
-  }).isRequired,
-  numComments: PropTypes.number.isRequired,
+  }),
 };
 
 export default ThreadPost;

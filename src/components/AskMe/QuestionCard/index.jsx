@@ -38,56 +38,41 @@ const timeSince = (date) => {
   return `${Math.floor(seconds)} seconds`;
 };
 
-const QuestionCard = ({ question }) => {
-  const { _id, title, postedAt, numComments } = question;
-
-  return (
-    <>
-      <Link href={urls.pages.app.viewQuestion(_id)}>
-        <div className={styles.QuestionCard}>
-          <div className={styles.QuestionHeader}>
-            <h3 className={styles.Question}>{`Question: ${title}`}</h3>
-            <Icon className={styles.CommentIcon} icon={bxCommentDetail} />
-            <h6 className={styles.Comments}>{numComments}</h6>
-          </div>
-          {/* {answeredDate ? (
-            <div className={styles.Answered}>
-              <div className={styles.AmbassadorInfo}>
-                {ambassador.avatar ? (
-                  <div />
-                ) : (
-                  <div className={styles.AvatarPic} />
-                )}
-                <div>
-                  <h4>{ambassador.name}</h4>
-                  <p className={styles.AnsweredDate}>
-                    {`Answered ${answeredDate}h ago`}
-                  </p>
-                </div>
-              </div>
-              <h4 className={styles.Answer}>{`Answer: ${answer}`}</h4>
-            </div>
-          ) : ( */}
-          <div className={styles.Unanswered}>
-            <p className={styles.AskedDate}>
-              {`Asked ${timeSince(postedAt)} ago`}
-            </p>
-          </div>
-          {/* )} */}
+const QuestionCard = ({ question }) => (
+  <>
+    <Link
+      href={urls.pages.app.viewQuestion("[threadid]")}
+      as={urls.pages.app.viewQuestion(question._id)}
+    >
+      <div className={styles.QuestionCard}>
+        <div className={styles.QuestionHeader}>
+          <h3 className={styles.Question}>{`Question: ${question.title}`}</h3>
+          <Icon className={styles.CommentIcon} icon={bxCommentDetail} />
+          <h6 className={styles.Comments}>{question.numComments}</h6>
         </div>
-      </Link>
-    </>
-  );
-};
+        <div className={styles.Unanswered}>
+          <p className={styles.AskedDate}>
+            {`Asked ${timeSince(question.postedAt)} ago`}
+          </p>
+        </div>
+      </div>
+    </Link>
+  </>
+);
 
 QuestionCard.propTypes = {
   question: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    posterId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     postedAt: PropTypes.string.isRequired,
     numComments: PropTypes.number.isRequired,
+    author: PropTypes.shape({
+      _id: PropTypes.string,
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }),
   }).isRequired,
 };
 

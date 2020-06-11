@@ -19,6 +19,11 @@ const CommentSchema = new mongoose.Schema({
   content: {
     type: String,
   },
+  taggedUsers: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "User",
+    index: true,
+  },
   postedAt: {
     type: Date,
     required: true,

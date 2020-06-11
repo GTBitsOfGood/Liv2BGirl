@@ -13,7 +13,9 @@ import { avatarImg, colorArr } from "../../../../utils/avatars";
 import urls from "../../../../utils/urls";
 import styles from "./thread.module.scss";
 
-const Thread = ({ currentUser, thread, author, group, comments }) => {
+const usernameRegex = /(?<=@)[^\s]*/g;
+
+const Thread = ({ currentUser, thread, group, comments }) => {
   const [comment, setComment] = React.useState("");
   const [saved, setSaved] = React.useState(
     currentUser.groupBookmarks.includes(thread._id)
@@ -21,17 +23,30 @@ const Thread = ({ currentUser, thread, author, group, comments }) => {
 
   const postComment = async () => {
     if (comment.length > 0) {
-      await createComment(null, thread._id, comment);
+      const taggedUsers = new Set();
+
+      const allUsernames = comment.match(usernameRegex);
+      comments.forEach(({ author }) => {
+        const { username } = author;
+
+        if (!taggedUsers.has(username) && allUsernames.includes(username)) {
+          taggedUsers.add(author._id);
+        }
+      });
+
+      const userArray = Array.from(taggedUsers);
+
+      await createComment(null, thread._id, comment, userArray);
       window.location.reload();
     }
   };
 
   const toggleBookmarked = async () => {
     if (saved) {
-      await removeGroupBookmark(cookies, thread._id);
+      await removeGroupBookmark(null, thread._id);
       setSaved(false);
     } else {
-      await addGroupBookmark(cookies, thread._id);
+      await addGroupBookmark(null, thread._id);
       setSaved(true);
     }
   };
@@ -67,19 +82,21 @@ const Thread = ({ currentUser, thread, author, group, comments }) => {
           <div
             className={styles.ThreadAuthorAvatar}
             style={{
-              backgroundColor: colorArr[author.avatarColor],
+              backgroundColor: colorArr[thread.author.avatarColor],
             }}
           >
             <img
               className={styles.AuthorAvatarImg}
-              src={avatarImg[author.avatar]}
+              src={avatarImg[thread.author.avatar]}
               alt="Author Avatar"
             />
           </div>
           <div>
-            <Link href={urls.pages.app.profile(author._id)}>
+            <Link href={urls.pages.app.profile(thread.author._id)}>
               <div>
-                <h5 className={styles.ThreadAuthor}>{author.username}</h5>
+                <h5 className={styles.ThreadAuthor}>
+                  {thread.author.username}
+                </h5>
               </div>
             </Link>
 
@@ -91,10 +108,10 @@ const Thread = ({ currentUser, thread, author, group, comments }) => {
         <h4 className={styles.ThreadText}>{thread.content}</h4>
       </div>
       <div className={styles.ThreadComments}>
-        {comments.map((item) => (
+        {comments.map((comment) => (
           <ThreadComment
-            key={item.comment._id}
-            {...item}
+            key={comment._id}
+            comment={comment}
             setReply={setComment}
           />
         ))}
@@ -148,12 +165,12 @@ Thread.propTypes = {
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     postedAt: PropTypes.string.isRequired,
-  }).isRequired,
-  author: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    avatar: PropTypes.number.isRequired,
-    avatarColor: PropTypes.number.isRequired,
+    author: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }).isRequired,
   }).isRequired,
   group: PropTypes.shape({
     _id: PropTypes.string.isRequired,
@@ -161,20 +178,16 @@ Thread.propTypes = {
   }).isRequired,
   comments: PropTypes.arrayOf(
     PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      postedAt: PropTypes.string.isRequired,
+      taggedUsers: PropTypes.arrayOf(PropTypes.string).isRequired,
       author: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
         avatar: PropTypes.number.isRequired,
         avatarColor: PropTypes.number.isRequired,
-      }).isRequired,
-      comment: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
-        parentId: PropTypes.string.isRequired,
-        content: PropTypes.string.isRequired,
-        officialAnswer: PropTypes.bool.isRequired,
-        postedAt: PropTypes.string.isRequired,
-      }).isRequired,
+      }),
     })
   ).isRequired,
 };

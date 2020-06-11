@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import mongoDB from "../index";
 import InvitationCode from "../models/InvitationCode";
 
@@ -9,16 +8,10 @@ export const createCode = async (currentUser) => {
     throw new Error("Only admins can create an invitation code!");
   }
 
-  // Use uuid v4 for codes that are not repeated
-  const code = uuidv4().replace(/-/g, "");
-
   await mongoDB();
 
   return InvitationCode.create({
-    code,
     createdBy: currentUser._id,
-  }).catch(() => {
-    throw new Error("Incorrect user supplied for creation!");
   });
 };
 
@@ -29,15 +22,13 @@ export const verifyCodeUnused = async ({ code }) => {
 
   await mongoDB();
 
-  return InvitationCode.findOne({ code })
-    .exec()
-    .then((invCode) => {
-      if (invCode == null) {
-        throw new Error("Invalid invitation code!");
-      }
+  return InvitationCode.findOne({ _id: code }).then((invCode) => {
+    if (invCode == null) {
+      throw new Error("Invalid invitation code!");
+    }
 
-      return invCode.usedAt == null;
-    });
+    return invCode.usedAt == null;
+  });
 };
 
 export const useCode = async ({ code, usedBy }) => {
@@ -49,7 +40,7 @@ export const useCode = async ({ code, usedBy }) => {
 
   return InvitationCode.findOneAndUpdate(
     {
-      code,
+      _id: code,
       usedAt: null,
     },
     {

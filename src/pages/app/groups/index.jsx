@@ -30,20 +30,20 @@ GroupsPage.propTypes = {
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      parentId: PropTypes.string,
+      parent: PropTypes.string,
     })
   ).isRequired,
   ownGroups: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      moderator: PropTypes.string.isRequired,
       category: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
-        parentId: PropTypes.string,
+        parent: PropTypes.string,
       }).isRequired,
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      admin: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

@@ -82,11 +82,16 @@ const AskMe = ({ featuredQuestions, ownQuestions, bookmarks }) => {
 
 const QuestionType = PropTypes.shape({
   _id: PropTypes.string.isRequired,
-  posterId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   postedAt: PropTypes.string.isRequired,
   numComments: PropTypes.number.isRequired,
+  author: PropTypes.shape({
+    _id: PropTypes.string,
+    username: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+  }),
 }).isRequired;
 
 AskMe.propTypes = {

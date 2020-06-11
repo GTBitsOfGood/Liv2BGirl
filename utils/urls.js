@@ -12,7 +12,7 @@ export default {
       home: "/app",
       thread: (threadId) => `/app/thread/${threadId}`,
       createThread: (groupId) => `/app/groups/${groupId}/new-thread`,
-      groupList: "/app/group",
+      groupList: "/app/groups",
       group: (groupId) => `/app/groups/${groupId}`,
       newGroup: "/app/new-group",
       askMe: "/app/ask-me",
@@ -33,7 +33,7 @@ export default {
       getUserQuestions: () => "/api/AskMeThread/getUserQuestions",
     },
     category: {
-      getCategories: () => "/api/Categiry/getCategories",
+      getCategories: () => "/api/Category/getCategories",
     },
     comment: {
       createComment: () => "/api/Comment/createComment",
@@ -75,6 +75,7 @@ export default {
       addGroupBookmark: () => "/api/User/addGroupBookmark",
       removeGroupBookmark: () => "/api/User/removeGroupBookmark",
       verifyEmailUnused: () => "/api/User/verifyEmailUnused",
+      generateUsernames: () => "/api/User/generateUsernames",
     },
   },
 };

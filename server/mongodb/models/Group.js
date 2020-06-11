@@ -15,6 +15,9 @@ const GroupSchema = new mongoose.Schema({
     index: true,
     required: true,
   },
+  iconUrl: {
+    type: String,
+  },
   moderator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

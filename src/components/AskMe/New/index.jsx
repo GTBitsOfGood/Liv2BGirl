@@ -46,6 +46,7 @@ const NewQuestion = () => {
         description,
         visibility
       );
+
       await Router.push(urls.pages.app.viewQuestion(thread._id));
     }
   };

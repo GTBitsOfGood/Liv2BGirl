@@ -1,12 +1,10 @@
-import { createComment } from "../../../../server/mongodb/actions/Comment";
-import { verifyToken } from "../../../../server/mongodb/actions/User";
+import { generateUsernames } from "../../../../server/mongodb/actions/User";
 
-// @route   POST api/comment/createComment
-// @desc    Create Comment
+// @route   POST api/user/generateUsernames
+// @desc    Generate Usernames Request
 // @access  Public
 const handler = (req, res) =>
-  verifyToken(req, res)
-    .then((currUser) => createComment(currUser, req.body))
+  generateUsernames(req.body)
     .then((payload) =>
       res.status(200).json({
         success: true,

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Router from "next/router";
 import SignUpInfo from "../components/SignUp";
 import CreateAvatar from "../components/SignUp/CreateAvatar";
-import GenUsername from "../components/SignUp/GenUsername";
+import GenUsername from "../components/SignUp/GenUsername/GenUsername";
 import TellUsAbout from "../components/SignUp/TellUsAbout";
 import SignUpProgressBar from "../components/SignUp/SignUpProgressBar";
 import RegistrationCompleted from "../components/SignUp/RegistrationCompleted";

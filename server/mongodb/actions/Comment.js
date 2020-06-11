@@ -1,7 +1,10 @@
 import mongoDB from "../index";
 import Comment from "../models/Comment";
 
-export const createComment = async (currentUser, { parentId, content }) => {
+export const createComment = async (
+  currentUser,
+  { parentId, content, taggedUsers }
+) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a comment!");
   }
@@ -12,6 +15,7 @@ export const createComment = async (currentUser, { parentId, content }) => {
     author: currentUser._id,
     parent: parentId,
     content,
+    taggedUsers,
   });
 };
 

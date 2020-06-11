@@ -29,14 +29,18 @@ export const deleteThread = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  const query = { _id: id };
+  const query = {
+    _id: id,
+  };
   if (currentUser.role === "User") {
     query.author = currentUser._id;
   }
 
   return AskMeThread.findOneAndDelete(query).then((deletedThread) => {
     if (deletedThread == null) {
-      throw new Error("No thread matches the provided id!");
+      throw new Error(
+        "No thread matches the provided id or user does not have permission!"
+      );
     }
 
     return deletedThread;
@@ -51,6 +55,11 @@ export const getUserQuestions = async (currentUser) => {
   await mongoDB();
 
   return AskMeThread.find({ author: currentUser._id })
+    .populate({
+      path: "author",
+      model: "User",
+      select: "_id username avatar avatarColor",
+    })
     .sort({
       postedAt: -1,
     })
@@ -72,17 +81,34 @@ export const getUserQuestions = async (currentUser) => {
 
 export const getThreads = async (currentUser) => {
   if (currentUser == null) {
-    throw new Error("All parameters must be provided!");
+    throw new Error("You must be logged in to view this content!");
   }
 
   await mongoDB();
 
-  const query = {};
+  let query = {};
   if (currentUser.role === "User") {
-    query.visibility = { $ne: "Ambassador" };
+    query = {
+      ...query,
+      $or: [
+        {
+          author: currentUser._id,
+        },
+        {
+          visibility: {
+            $ne: "Ambassador",
+          },
+        },
+      ],
+    };
   }
 
   return AskMeThread.find(query)
+    .populate({
+      path: "author",
+      model: "User",
+      select: "_id username avatar avatarColor",
+    })
     .sort({
       postedAt: -1,
     })
@@ -94,6 +120,16 @@ export const getThreads = async (currentUser) => {
       return Promise.all(
         threads.map(async (thread) => ({
           ...thread.toObject(),
+          ...(thread.visibility === "Anonymous" && currentUser.role === "User"
+            ? {
+                author: {
+                  userId: null,
+                  username: "Anonymous",
+                  avatar: 1,
+                  avatarColor: 1,
+                },
+              }
+            : {}),
           numComments: await Comments.find({
             parent: thread._id,
           }).countDocuments(),
@@ -111,14 +147,31 @@ export const getThread = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  const query = {
+  let query = {
     _id: id,
   };
   if (currentUser.role === "User") {
-    query.visibility = { $ne: "Ambassador" };
+    query = {
+      ...query,
+      $or: [
+        {
+          author: currentUser._id,
+        },
+        {
+          visibility: {
+            $ne: "Ambassador",
+          },
+        },
+      ],
+    };
   }
 
   return AskMeThread.findOne(query)
+    .populate({
+      path: "author",
+      model: "User",
+      select: "_id username avatar avatarColor",
+    })
     .then((thread) => {
       if (thread == null) {
         throw new Error(
@@ -126,7 +179,19 @@ export const getThread = async (currentUser, { id }) => {
         );
       }
 
-      return thread;
+      return {
+        ...thread.toObject(),
+        ...(thread.visibility === "Anonymous" && currentUser.role === "User"
+          ? {
+              author: {
+                userId: null,
+                username: "Anonymous",
+                avatar: 1,
+                avatarColor: 1,
+              },
+            }
+          : {}),
+      };
     })
     .catch(() => {
       throw new Error("Invalid link or thread does not exist!");
@@ -151,10 +216,27 @@ export const filterThreads = async (
     },
   };
   if (currentUser.role === "User") {
-    query.visibility = { $ne: "Ambassador" };
+    query = {
+      ...query,
+      $or: [
+        {
+          author: currentUser._id,
+        },
+        {
+          visibility: {
+            $ne: "Ambassador",
+          },
+        },
+      ],
+    };
   }
 
   return AskMeThread.find(query)
+    .populate({
+      path: "author",
+      model: "User",
+      select: "_id username avatar avatarColor",
+    })
     .sort({
       postedAt: -1,
     })
@@ -163,7 +245,24 @@ export const filterThreads = async (
         throw new Error("Request failed");
       }
 
-      return threads;
+      return Promise.all(
+        threads.map(async (thread) => ({
+          ...thread.toObject(),
+          ...(thread.visibility === "Anonymous" && currentUser.role === "User"
+            ? {
+                author: {
+                  userId: null,
+                  username: "Anonymous",
+                  avatar: 1,
+                  avatarColor: 1,
+                },
+              }
+            : {}),
+          numComments: await Comments.find({
+            parent: thread._id,
+          }).countDocuments(),
+        }))
+      );
     });
 };
 
@@ -180,12 +279,29 @@ export const searchThreads = async (currentUser, { term }) => {
     $text: { $search: term },
   };
   if (currentUser.role === "User") {
-    query.visibility = { $ne: "Ambassador" };
+    query = {
+      ...query,
+      $or: [
+        {
+          author: currentUser._id,
+        },
+        {
+          visibility: {
+            $ne: "Ambassador",
+          },
+        },
+      ],
+    };
   }
 
   return AskMeThread.find(query, {
     score: { $meta: "textScore" },
   })
+    .populate({
+      path: "author",
+      model: "User",
+      select: "_id username avatar avatarColor",
+    })
     .sort({
       score: { $meta: "textScore" },
     })
@@ -194,6 +310,23 @@ export const searchThreads = async (currentUser, { term }) => {
         throw new Error("Request failed");
       }
 
-      return threads;
+      return Promise.all(
+        threads.map(async (thread) => ({
+          ...thread.toObject(),
+          ...(thread.visibility === "Anonymous" && currentUser.role === "User"
+            ? {
+                author: {
+                  userId: null,
+                  username: "Anonymous",
+                  avatar: 1,
+                  avatarColor: 1,
+                },
+              }
+            : {}),
+          numComments: await Comments.find({
+            parent: thread._id,
+          }).countDocuments(),
+        }))
+      );
     });
 };

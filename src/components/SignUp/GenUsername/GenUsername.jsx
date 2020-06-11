@@ -1,47 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./signup.module.scss";
-
-const descriptions = [
-  "Kind",
-  "Cool",
-  "Bubbly",
-  "Neat",
-  "Brave",
-  "Social",
-  "Eager",
-  "Giving",
-  "Shy",
-  "Friendly",
-];
-
-const favThings = [
-  "Dogs",
-  "Biking",
-  "Bowling",
-  "Reading",
-  "Sports",
-  "Skating",
-  "Cats",
-  "Movies",
-  "Birds",
-  "Running",
-];
-
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+import {
+  descriptions,
+  favThings,
+  numbers,
+  randomDescription,
+  randomThing,
+  randomNumber,
+} from "./utils";
+import { generateUsernames } from "../../../actions/User";
+import styles from "../signup.module.scss";
 
 const GenUsername = ({ values, setValues, handleNext }) => {
   const { username } = values;
 
-  const [describe, setDescribe] = React.useState(
-    descriptions[Math.floor(Math.random() * descriptions.length)]
-  );
-  const [like, setLike] = React.useState(
-    favThings[Math.floor(Math.random() * favThings.length)]
-  );
-  const [lucky, setLucky] = React.useState(
-    numbers[Math.floor(Math.random() * numbers.length)]
-  );
+  const [describe, setDescribe] = React.useState(randomDescription());
+  const [like, setLike] = React.useState(randomThing());
+  const [lucky, setLucky] = React.useState(randomNumber());
+  const [usernames, setUsernames] = React.useState([]);
+
+  const makeUsernames = () =>
+    generateUsernames(null, describe, like, lucky, 9).then((newNames) =>
+      setUsernames(newNames)
+    );
 
   const goToNext = () => {
     if (username.length === 0) {
@@ -51,23 +32,9 @@ const GenUsername = ({ values, setValues, handleNext }) => {
     }
   };
 
-  const genUser = () => {
-    const randDescBeg = Math.floor(Math.random() * 2);
-    const randLikeBeg = Math.floor(Math.random() * 2);
-    const randDesc = Math.floor(Math.random() * (describe.length - 2)) + 2;
-    const randLike = Math.floor(Math.random() * (like.length - 2)) + 2;
-
-    return (
-      describe.substring(randDescBeg, randDesc) +
-      like.substring(randLikeBeg, randLike) +
-      lucky +
-      Math.floor(Math.random() * lucky)
-    );
-  };
-
-  const [usernames, setUsernames] = React.useState(
-    Array.from({ length: 9 }, () => genUser())
-  );
+  React.useEffect(() => {
+    makeUsernames();
+  }, []);
 
   return (
     <>
@@ -81,13 +48,13 @@ const GenUsername = ({ values, setValues, handleNext }) => {
             <select
               id="describe-user"
               className={styles.GenSelect}
-              onClick={() => {
-                setUsernames(Array.from({ length: 9 }, () => genUser()));
-              }}
               onChange={(event) => setDescribe(event.target.value)}
+              value={describe}
             >
               {descriptions.map((word) => (
-                <option>{word}</option>
+                <option key={word} value={word}>
+                  {word}
+                </option>
               ))}
             </select>
           </div>
@@ -98,13 +65,13 @@ const GenUsername = ({ values, setValues, handleNext }) => {
             <select
               id="user-likes"
               className={styles.GenSelect}
-              onClick={() => {
-                setUsernames(Array.from({ length: 9 }, () => genUser()));
-              }}
               onChange={(event) => setLike(event.target.value)}
+              value={like}
             >
               {favThings.map((word) => (
-                <option>{word}</option>
+                <option key={word} value={word}>
+                  {word}
+                </option>
               ))}
             </select>
           </div>
@@ -115,24 +82,18 @@ const GenUsername = ({ values, setValues, handleNext }) => {
             <select
               id="lucky-number"
               className={styles.GenSelect}
-              onClick={() => {
-                setUsernames(Array.from({ length: 9 }, () => genUser()));
-              }}
               onChange={(event) => setLucky(event.target.value)}
+              value={lucky}
             >
-              {numbers.map((word) => (
-                <option>{word}</option>
+              {numbers.map((num) => (
+                <option key={num} value={num}>
+                  {num}
+                </option>
               ))}
             </select>
           </div>
         </form>
-        <button
-          type="button"
-          onClick={() =>
-            setUsernames(Array.from({ length: 9 }, () => genUser()))
-          }
-          className={styles.GenBtn}
-        >
+        <button className={styles.GenBtn} type="button" onClick={makeUsernames}>
           Generate!
         </button>
         <h2 className={styles.GenPick}>Pick your username:</h2>
@@ -140,10 +101,12 @@ const GenUsername = ({ values, setValues, handleNext }) => {
           style={{
             display: "flex",
             flexWrap: "wrap",
+            justifyContent: "center",
           }}
         >
           {usernames.map((name) => (
             <button
+              key={name}
               type="button"
               onClick={() => setValues({ username: name })}
               className={

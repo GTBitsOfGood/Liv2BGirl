@@ -1,4 +1,4 @@
-@import "../../public/styles/colors";
+@import "colors";
 
 .Page {
   display: flex;
@@ -119,7 +119,13 @@
 }
 
 .ActivePill {
-  border: 2px solid $gray;
+  border: 3px solid $text;
+
+  &:hover {
+    border: 3px solid $text;
+    background-color: $text;
+    color: white;
+  }
 }
 
 .PostButton {

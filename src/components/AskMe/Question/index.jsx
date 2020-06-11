@@ -14,35 +14,46 @@ import { avatarImg, colorArr } from "../../../../utils/avatars";
 import urls from "../../../../utils/urls";
 import styles from "../askme.module.scss";
 
-const Question = ({ currentUser, threadId, thread, author, comments }) => {
+const usernameRegex = /(?<=@)[^\s]*/g;
+
+const Question = ({ currentUser, thread, comments }) => {
   const [comment, setComment] = React.useState("");
   const [saved, setSaved] = React.useState(
-    currentUser.askBookmarks.includes(threadId)
+    currentUser.askBookmarks.includes(thread._id)
   );
 
   const handlePostComment = async () => {
     if (comment.length > 0) {
-      await createComment(null, threadId, comment);
+      const taggedUsers = new Set();
+
+      const allUsernames = comment.match(usernameRegex);
+      comments.forEach(({ author }) => {
+        const { username } = author;
+
+        if (!taggedUsers.has(username) && allUsernames.includes(username)) {
+          taggedUsers.add(author._id);
+        }
+      });
+
+      const userArray = Array.from(taggedUsers);
+
+      await createComment(null, thread._id, comment, userArray);
       window.location.reload();
     }
   };
 
   const toggleBookmarked = async () => {
     if (saved) {
-      await removeAskBookmark(null, threadId);
+      await removeAskBookmark(null, thread._id);
       setSaved(false);
     } else {
-      await addAskBookmark(null, threadId);
+      await addAskBookmark(null, thread._id);
       setSaved(true);
     }
   };
 
-  const officialAnswers = comments.filter(
-    (item) => item.comment.officialAnswer
-  );
-  const generalComments = comments.filter(
-    (item) => !item.comment.officialAnswer
-  );
+  const officialAnswers = comments.filter((item) => item.officialAnswer);
+  const generalComments = comments.filter((item) => !item.officialAnswer);
 
   return (
     <div className={styles.QuestionPage}>
@@ -74,29 +85,29 @@ const Question = ({ currentUser, threadId, thread, author, comments }) => {
           tabIndex={0}
           className={styles.QuestionDetails}
           onClick={
-            author.userId != null
-              ? () => Router.push(urls.pages.app.profile(author.userId))
+            thread.author.userId != null
+              ? () => Router.push(urls.pages.app.profile(thread.author.userId))
               : () => {}
           }
           onKeyDown={
-            author.userId != null
-              ? () => Router.push(urls.pages.app.profile(author.userId))
+            thread.author.userId != null
+              ? () => Router.push(urls.pages.app.profile(thread.author.userId))
               : () => {}
           }
         >
           <div
             className={styles.QuestionAuthorAvatar}
             style={{
-              backgroundColor: colorArr[author.avatarColor],
+              backgroundColor: colorArr[thread.author.avatarColor],
             }}
           >
             <img
               className={styles.AuthorAvatarImg}
-              src={avatarImg[author.avatar]}
+              src={avatarImg[thread.author.avatar]}
               alt="Author Avatar"
             />
           </div>
-          <h5 className={styles.QuestionAuthor}>{author.username}</h5>
+          <h5 className={styles.QuestionAuthor}>{thread.author.username}</h5>
           <h6 className={styles.QuestionDate}>
             {new Date(thread.postedAt).toLocaleString()}
           </h6>
@@ -106,12 +117,12 @@ const Question = ({ currentUser, threadId, thread, author, comments }) => {
 
       {officialAnswers.length > 0 && (
         <div className={styles.QuestionContent}>
-          <h6 className={styles.SubHeader}>Ambassador's Answer</h6>
+          <h6 className={styles.SubHeader}>{"Ambassador's Answer"}</h6>
           <div>
             {officialAnswers.map((item) => (
               <ThreadComment
-                key={item.comment._id}
-                {...item}
+                key={item._id}
+                comment={item}
                 setReply={setComment}
               />
             ))}
@@ -125,8 +136,8 @@ const Question = ({ currentUser, threadId, thread, author, comments }) => {
         <div>
           {generalComments.map((item) => (
             <ThreadComment
-              key={item.comment._id}
-              {...item}
+              key={item._id}
+              comment={item}
               setReply={setComment}
             />
           ))}
@@ -174,39 +185,34 @@ Question.propTypes = {
     avatarColor: PropTypes.number.isRequired,
     askBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
-  threadId: PropTypes.string.isRequired,
   thread: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    posterId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string,
     visibility: PropTypes.string.isRequired,
     postedAt: PropTypes.string.isRequired,
-  }).isRequired,
-  author: PropTypes.shape({
-    userId: PropTypes.string,
-    username: PropTypes.string.isRequired,
-    avatar: PropTypes.number.isRequired,
-    avatarColor: PropTypes.number.isRequired,
-  }).isRequired,
+    author: PropTypes.shape({
+      userId: PropTypes.string,
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }),
+  }),
   comments: PropTypes.arrayOf(
     PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      parent: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      officialAnswer: PropTypes.bool.isRequired,
+      postedAt: PropTypes.string.isRequired,
       author: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
         avatar: PropTypes.number.isRequired,
         avatarColor: PropTypes.number.isRequired,
       }).isRequired,
-      comment: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
-        parentId: PropTypes.string.isRequired,
-        content: PropTypes.string.isRequired,
-        officialAnswer: PropTypes.bool.isRequired,
-        postedAt: PropTypes.string.isRequired,
-      }).isRequired,
     })
-  ).isRequired,
+  ),
 };
 
 export default Question;

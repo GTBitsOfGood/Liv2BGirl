@@ -115,6 +115,50 @@ export const signUp = async (
     );
 };
 
+/**
+ * Returns a random number between min (inclusive) and max (inclusive)
+ */
+const getRandom = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+export const generateUsernames = async ({
+  description,
+  thing,
+  number,
+  count,
+}) => {
+  if (description == null || thing == null || number == null || count == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  const FilterHelper = require("bad-words");
+  const filter = new FilterHelper();
+
+  const usernames = new Set();
+
+  while (usernames.size < count) {
+    const descriptionStart = getRandom(0, 1);
+    const descriptionLength = getRandom(2, description.length);
+    const thingStart = getRandom(0, 1);
+    const thingLength = getRandom(2, thing.length);
+    const newUsername =
+      description.substring(descriptionStart, descriptionLength) +
+      thing.substring(thingStart, thingLength) +
+      number +
+      Math.floor(Math.random() * 10);
+
+    if (
+      !usernames.has(newUsername) &&
+      !filter.isProfane(newUsername) &&
+      !(await User.exists({ username: newUsername }))
+    ) {
+      usernames.add(newUsername);
+    }
+  }
+
+  return Array.from(usernames);
+};
+
 export const verifyEmailUnused = async ({ email }) => {
   if (email == null) {
     throw new Error("All parameters must be provided!");
@@ -172,6 +216,7 @@ export const verifyTokenSecure = async (req, res) => {
           throw new Error("User does not exist!");
         }
 
+        // eslint-disable-next-line no-unused-vars
         const { password, ...userInfo } = user.toObject();
 
         return userInfo;
@@ -254,6 +299,11 @@ export const getUserAskBookmarks = async (currentUser) => {
     .populate({
       path: "askBookmarks",
       model: "AskMeThread",
+      populate: {
+        path: "author",
+        model: "User",
+        select: "_id username avatar avatarColor",
+      },
     })
     .then((user) => {
       if (user == null) {
@@ -308,7 +358,12 @@ export const getUserGroupBookmarks = async (currentUser) => {
   return User.findById(currentUser._id)
     .populate({
       path: "groupBookmarks",
-      model: "Thread",
+      model: "GroupThread",
+      populate: {
+        path: "author",
+        model: "User",
+        select: "_id username avatar avatarColor",
+      },
     })
     .then((user) => {
       if (user == null) {

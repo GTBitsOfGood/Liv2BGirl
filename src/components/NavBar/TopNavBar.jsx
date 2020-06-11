@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
-import logo from "../../../public/img/logo.png";
+import logo from "../../../public/static/img/logo.png";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import urls from "../../../utils/urls";
 

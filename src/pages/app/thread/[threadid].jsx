@@ -4,17 +4,9 @@ import Thread from "../../../components/Group/Thread";
 import ErrorPage from "../../_error";
 import { getThread } from "../../../actions/GroupThread";
 import { getCommentsByThread } from "../../../actions/Comment";
-import { getUser } from "../../../actions/User";
 import { getGroup } from "../../../actions/Group";
 
-const ThreadPage = ({
-  currentUser,
-  error,
-  thread,
-  author,
-  group,
-  comments,
-}) => {
+const ThreadPage = ({ currentUser, error, thread, group, comments }) => {
   if (error != null) {
     console.error("error", error);
 
@@ -27,7 +19,6 @@ const ThreadPage = ({
     <Thread
       currentUser={currentUser}
       thread={thread}
-      author={author}
       group={group}
       comments={comments}
     />
@@ -40,13 +31,11 @@ ThreadPage.getInitialProps = async ({ query, req }) => {
 
   return getThread(cookies, threadid)
     .then(async (thread) => {
-      const author = await getUser(cookies, thread.posterId);
-      const group = await getGroup(cookies, thread.groupId);
+      const group = await getGroup(cookies, thread.group);
       const comments = await getCommentsByThread(cookies, thread._id);
 
       return {
         thread,
-        author,
         group,
         comments,
       };
@@ -68,12 +57,12 @@ ThreadPage.propTypes = {
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     postedAt: PropTypes.string.isRequired,
-  }),
-  author: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    avatar: PropTypes.number.isRequired,
-    avatarColor: PropTypes.number.isRequired,
+    author: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }),
   }),
   group: PropTypes.shape({
     _id: PropTypes.string.isRequired,
@@ -81,12 +70,10 @@ ThreadPage.propTypes = {
   }),
   comments: PropTypes.arrayOf(
     PropTypes.shape({
-      comment: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
-        content: PropTypes.string.isRequired,
-        postedAt: PropTypes.string.isRequired,
-      }),
+      _id: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      postedAt: PropTypes.string.isRequired,
+      taggedUsers: PropTypes.arrayOf(PropTypes.string).isRequired,
       author: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
@@ -100,7 +87,6 @@ ThreadPage.propTypes = {
 ThreadPage.defaultProps = {
   error: null,
   thread: null,
-  author: null,
   group: null,
   comments: null,
 };

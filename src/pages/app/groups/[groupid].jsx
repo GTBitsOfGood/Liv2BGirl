@@ -5,7 +5,7 @@ import ErrorPage from "../../_error";
 import { getGroup } from "../../../actions/Group";
 import { getGroupThreads } from "../../../actions/GroupThread";
 
-const GroupPage = ({ error, currentUser, groupid, groupData, threads }) => {
+const GroupPage = ({ error, currentUser, groupData, threads }) => {
   if (error) {
     console.error("error", error);
 
@@ -17,7 +17,6 @@ const GroupPage = ({ error, currentUser, groupid, groupData, threads }) => {
   return (
     <ViewGroup
       currentUser={currentUser}
-      groupid={groupid}
       groupData={groupData}
       threads={threads}
     />
@@ -33,7 +32,6 @@ GroupPage.getInitialProps = async ({ query, req }) => {
     const threads = await getGroupThreads(cookies, groupid);
 
     return {
-      groupid,
       groupData,
       threads,
     };
@@ -49,7 +47,6 @@ GroupPage.propTypes = {
   currentUser: PropTypes.shape({
     _id: PropTypes.string.isRequired,
   }).isRequired,
-  groupid: PropTypes.string.isRequired,
   groupData: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -58,7 +55,7 @@ GroupPage.propTypes = {
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       iconUrl: PropTypes.string.isRequired,
-      parentId: PropTypes.string,
+      parent: PropTypes.string,
     }).isRequired,
   }),
   threads: PropTypes.arrayOf(
@@ -67,6 +64,12 @@ GroupPage.propTypes = {
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
       postedAt: PropTypes.string.isRequired,
+      author: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
+        avatar: PropTypes.number.isRequired,
+        avatarColor: PropTypes.number.isRequired,
+      }),
     })
   ),
 };

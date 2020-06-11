@@ -88,6 +88,11 @@ export const getThread = async (currentUser, { id }) => {
   await mongoDB();
 
   return Thread.findById(id)
+    .populate({
+      path: "author",
+      model: "User",
+      select: "_id username avatar avatarColor",
+    })
     .then((thread) => {
       if (thread == null) {
         throw new Error("Thread does not exist!");
@@ -117,13 +122,19 @@ export const filterThreads = async (
   return Thread.find({
     group: groupId,
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
-  }).then((threads) => {
-    if (threads == null) {
-      throw new Error("Request failed");
-    }
+  })
+    .populate({
+      path: "author",
+      model: "User",
+      select: "_id username avatar avatarColor",
+    })
+    .then((threads) => {
+      if (threads == null) {
+        throw new Error("Request failed");
+      }
 
-    return threads;
-  });
+      return threads;
+    });
 };
 
 export const searchThreads = async (currentUser, { term, groupId }) => {
@@ -145,6 +156,11 @@ export const searchThreads = async (currentUser, { term, groupId }) => {
   return Thread.find(query, {
     score: { $meta: "textScore" },
   })
+    .populate({
+      path: "author",
+      model: "User",
+      select: "_id username avatar avatarColor",
+    })
     .sort({
       score: { $meta: "textScore" },
     })

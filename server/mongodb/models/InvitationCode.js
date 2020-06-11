@@ -1,11 +1,6 @@
 import mongoose from "mongoose";
 
 const InvitationCodeSchema = new mongoose.Schema({
-  code: {
-    type: String,
-    required: true,
-    index: true,
-  },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

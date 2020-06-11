@@ -80,6 +80,36 @@ export const verifyEmailUnused = (cookies, email) =>
       return json.payload;
     });
 
+export const generateUsernames = (cookies, description, thing, number, count) =>
+  authedFetch(
+    urls.baseUrl + urls.api.user.generateUsernames(),
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        description,
+        thing,
+        number,
+        count,
+      }),
+    },
+    cookies
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
 export const login = (cookies, email, password) =>
   authedFetch(
     urls.baseUrl + urls.api.user.login(),

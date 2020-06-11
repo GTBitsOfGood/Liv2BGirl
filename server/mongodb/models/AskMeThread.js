@@ -21,6 +21,7 @@ const AskMeThread = new mongoose.Schema({
     default: "Public",
     required: true,
     index: true,
+    enum: ["Public", "Anonymous", "Ambassador"],
   },
   postedAt: {
     type: Date,

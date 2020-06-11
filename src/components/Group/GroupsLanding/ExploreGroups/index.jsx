@@ -79,7 +79,7 @@ ExploreGroups.propTypes = {
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      parentId: PropTypes.string,
+      parent: PropTypes.string,
     })
   ).isRequired,
   likeableGroups: PropTypes.arrayOf(

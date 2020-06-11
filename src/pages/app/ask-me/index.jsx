@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import AskMe from "../../../components/AskMe";
-import { getCurrentUser, getUserAskBookmarks } from "../../../actions/User";
+import { getUserAskBookmarks } from "../../../actions/User";
 import { getAskThreads, getUserQuestions } from "../../../actions/AskMe";
 
 const AskMePage = ({ featuredQuestions, ownQuestions, bookmarks }) => (
@@ -28,11 +28,16 @@ AskMePage.getInitialProps = async ({ req }) => {
 
 const QuestionType = PropTypes.shape({
   _id: PropTypes.string.isRequired,
-  posterId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   postedAt: PropTypes.string.isRequired,
   numComments: PropTypes.number.isRequired,
+  author: PropTypes.shape({
+    _id: PropTypes.string,
+    username: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+  }),
 }).isRequired;
 
 AskMePage.propTypes = {

@@ -9,11 +9,11 @@ import accountCircleOutline from "@iconify/icons-mdi/account-circle-outline";
 import { followGroup, unfollowGroup } from "../../../actions/User";
 import ThreadPost from "../Thread/Post";
 import AdminTab from "./AdminTab";
-import logo from "../../../../public/img/logo.png";
+import logo from "../../../../public/static/img/logo.png";
 import urls from "../../../../utils/urls";
 import styles from "./viewgroup.module.scss";
 
-const ViewGroup = ({ currentUser, groupid, groupData, threads }) => {
+const ViewGroup = ({ currentUser, groupData, threads }) => {
   const [joined, setJoined] = React.useState(false);
   const [sortedBy, setSortedBy] = React.useState("latest comment");
   const [adminTab, setAdminTab] = React.useState(false);
@@ -21,22 +21,22 @@ const ViewGroup = ({ currentUser, groupid, groupData, threads }) => {
 
   const groupAction = async () => {
     if (joined) {
-      await unfollowGroup(null, groupid);
+      await unfollowGroup(null, groupData._id);
       setJoined(false);
     } else {
-      await followGroup(null, groupid);
+      await followGroup(null, groupData._id);
       setJoined(true);
     }
   };
 
   React.useEffect(() => {
-    if (currentUser.groups.includes(groupid)) {
+    if (currentUser.groups.includes(groupData._id)) {
       setJoined(true);
     }
 
     if (
       currentUser.role === "Ambassador" ||
-      currentUser._id === groupData.admin
+      currentUser._id === groupData.moderator
     ) {
       setJoined(true);
       setAdmin(true);
@@ -49,7 +49,7 @@ const ViewGroup = ({ currentUser, groupid, groupData, threads }) => {
 
   return (
     <>
-      {adminTab && <AdminTab onClick={toggle} groupid={groupid} />}
+      {adminTab && <AdminTab onClick={toggle} groupid={groupData._id} />}
       <div className="TopNav">
         <Link href={urls.pages.app.groupList}>
           <div>
@@ -126,7 +126,7 @@ const ViewGroup = ({ currentUser, groupid, groupData, threads }) => {
                 className={styles.CreateBtn}
                 disabled={!joined}
               >
-                <Link href={urls.pages.app.createThread(groupid)}>
+                <Link href={urls.pages.app.createThread(groupData._id)}>
                   <div>
                     <Icon
                       className={styles.AddPost}
@@ -153,16 +153,16 @@ ViewGroup.propTypes = {
     role: PropTypes.string.isRequired,
     groups: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
-  groupid: PropTypes.string.isRequired,
   groupData: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    moderator: PropTypes.string.isRequired,
     category: PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       iconUrl: PropTypes.string.isRequired,
-      parentId: PropTypes.string,
+      parent: PropTypes.string,
     }).isRequired,
   }).isRequired,
   threads: PropTypes.arrayOf(
@@ -171,6 +171,13 @@ ViewGroup.propTypes = {
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
       postedAt: PropTypes.string.isRequired,
+      numComments: PropTypes.number.isRequired,
+      author: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        username: PropTypes.string.isRequired,
+        avatar: PropTypes.number.isRequired,
+        avatarColor: PropTypes.number.isRequired,
+      }),
     })
   ).isRequired,
 };

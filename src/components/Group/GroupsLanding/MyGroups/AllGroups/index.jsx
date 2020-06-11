@@ -75,22 +75,22 @@ AllGroups.propTypes = {
   groups: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      moderator: PropTypes.string.isRequired,
       category: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
-        parentId: PropTypes.string,
+        parent: PropTypes.string,
       }).isRequired,
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      admin: PropTypes.string.isRequired,
     })
   ).isRequired,
   categories: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      parentId: PropTypes.string,
-    }).isRequired
+      parent: PropTypes.string,
+    })
   ).isRequired,
   handleBack: PropTypes.func.isRequired,
 };

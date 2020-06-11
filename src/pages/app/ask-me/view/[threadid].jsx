@@ -4,16 +4,8 @@ import ErrorPage from "../../../_error";
 import Question from "../../../../components/AskMe/Question";
 import { getThread } from "../../../../actions/AskMe";
 import { getCommentsByAskMeThread } from "../../../../actions/Comment";
-import { getUser } from "../../../../actions/User";
 
-const QuestionPage = ({
-  currentUser,
-  error,
-  threadId,
-  thread,
-  author,
-  comments,
-}) => {
+const QuestionPage = ({ currentUser, error, thread, comments }) => {
   if (error) {
     console.error("error", error);
 
@@ -23,42 +15,20 @@ const QuestionPage = ({
   }
 
   return (
-    <Question
-      currentUser={currentUser}
-      threadId={threadId}
-      thread={thread}
-      author={author}
-      comments={comments}
-    />
+    <Question currentUser={currentUser} thread={thread} comments={comments} />
   );
 };
 
 QuestionPage.getInitialProps = async ({ query, req }) => {
-  const { threadId } = query;
+  const { threadid } = query;
   const cookies = req ? req.headers.cookie : null;
 
   try {
-    const thread = await getThread(cookies, threadId);
-    const author =
-      thread.visibility === "Anonymous"
-        ? {
-            userId: null,
-            username: "Anonymous",
-            avatar: 1,
-            avatarColor: 1,
-          }
-        : await getUser(cookies, thread.posterId).then((user) => ({
-            userId: user._id,
-            username: user.username,
-            avatar: user.avatar,
-            avatarColor: user.avatarColor,
-          }));
-    const comments = await getCommentsByAskMeThread(cookies, thread._id);
+    const thread = await getThread(cookies, threadid);
+    const comments = await getCommentsByAskMeThread(cookies, threadid);
 
     return {
-      threadId,
       thread,
-      author,
       comments,
     };
   } catch (error) {
@@ -76,36 +46,31 @@ QuestionPage.propTypes = {
     askBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   error: PropTypes.string,
-  threadId: PropTypes.string.isRequired,
   thread: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    posterId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string,
     visibility: PropTypes.string.isRequired,
     postedAt: PropTypes.string.isRequired,
-  }),
-  author: PropTypes.shape({
-    userId: PropTypes.string,
-    username: PropTypes.string.isRequired,
-    avatar: PropTypes.number.isRequired,
-    avatarColor: PropTypes.number.isRequired,
+    author: PropTypes.shape({
+      userId: PropTypes.string,
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }),
   }),
   comments: PropTypes.arrayOf(
     PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      parent: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      officialAnswer: PropTypes.bool.isRequired,
+      postedAt: PropTypes.string.isRequired,
       author: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
         avatar: PropTypes.number.isRequired,
         avatarColor: PropTypes.number.isRequired,
-      }).isRequired,
-      comment: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
-        parentId: PropTypes.string.isRequired,
-        content: PropTypes.string.isRequired,
-        officialAnswer: PropTypes.bool.isRequired,
-        postedAt: PropTypes.string.isRequired,
       }).isRequired,
     })
   ),

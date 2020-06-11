@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import checkmark from "../../../public/img/checkmark.png";
+import checkmark from "../../../public/static/img/checkmark.png";
 import urls from "../../../utils/urls";
 import styles from "./signup.module.scss";
 
