@@ -29,9 +29,7 @@ export const deleteThread = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  const query = {
-    _id: id,
-  };
+  const query = { _id: id };
   if (currentUser.role === "User") {
     query.author = currentUser._id;
   }
@@ -209,7 +207,7 @@ export const filterThreads = async (
 
   await mongoDB();
 
-  const query = {
+  let query = {
     postedAt: {
       $gte: new Date(lowerBound),
       $lte: new Date(upperBound),
@@ -275,7 +273,7 @@ export const searchThreads = async (currentUser, { term }) => {
 
   await mongoDB();
 
-  const query = {
+  let query = {
     $text: { $search: term },
   };
   if (currentUser.role === "User") {

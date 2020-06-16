@@ -1,28 +1,19 @@
 import React from "react";
-
-// Icons
-import { Icon } from "@iconify/react";
-import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
-
-// Styling
+import PropTypes from "prop-types";
+import TopNavBar from "../../TopNavBar";
 import styles from "./viewgroup.module.scss";
 
-const ManageTab = ({ onClick, groupid }) => {
+const ManageTab = ({ onClick }) => {
   return (
     <>
-      <div className="TopNav" style={{ zIndex: "99999999" }}>
-        <Icon
-          onClick={onClick}
-          className="Back"
-          icon={bxArrowBack}
-          width="18px"
-        />
-        <h3>Manage Members</h3>
-        <div />
-      </div>
+      <TopNavBar backAction={onClick} title="Manage Members" />
       <div className={styles.ManageTab} />
     </>
   );
+};
+
+ManageTab.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ManageTab;

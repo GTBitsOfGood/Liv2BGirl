@@ -3,26 +3,14 @@ import PropTypes from "prop-types";
 import Router from "next/router";
 import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
-import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
-import logo from "../../../public/static/img/logo.png";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import GroupCard from "./GroupCard";
+import TopNavBar from "../TopNavBar";
 import styles from "./profile.module.scss";
 
 const ProfilePage = ({ user, userGroups }) => (
-  <div>
-    <div className="TopNav">
-      <div
-        role="button"
-        tabIndex={-1}
-        onClick={() => Router.back()}
-        onKeyDown={() => Router.back()}
-      >
-        <Icon className="Back" icon={bxArrowBack} width="18px" />
-      </div>
-      <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
-      <div />
-    </div>
+  <>
+    <TopNavBar backAction={Router.back} />
     <div className={styles.ProfileHeader}>
       <div
         className={styles.ProfileAvatar}
@@ -41,9 +29,7 @@ const ProfilePage = ({ user, userGroups }) => (
         <h3 className={styles.ProfileStats}>
           {`${user.age} yo • ${user.grade}th grade`}
         </h3>
-        <h6 className={styles.ProfileDescription}>
-          Description Lorem ipsum dolor sit amet, elit test overflow
-        </h6>
+        <h6 className={styles.ProfileDescription} />
       </div>
     </div>
     <div className={`${styles.ProfilePage} Page`}>
@@ -83,30 +69,34 @@ const ProfilePage = ({ user, userGroups }) => (
       <div className={styles.ProfileGroupDeck}>
         {userGroups.map((group) => (
           <GroupCard
+            key={group._id}
             id={group._id}
             title={group.name}
             description={group.description}
-            image={group.image || "https://picsum.photos/100/100"}
+            image={group.image ?? "https://picsum.photos/100/100"}
           />
         ))}
       </div>
     </div>
-  </div>
+  </>
 );
 
 ProfilePage.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    followers: PropTypes.arrayOf(PropTypes.string).isRequired,
-    following: PropTypes.arrayOf(PropTypes.string).isRequired,
     email: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    followers: PropTypes.arrayOf(PropTypes.string).isRequired,
+    following: PropTypes.arrayOf(PropTypes.string).isRequired,
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,
     age: PropTypes.number.isRequired,
     grade: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
     interests: PropTypes.arrayOf(PropTypes.string).isRequired,
+    askBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
+    groupBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   userGroups: PropTypes.arrayOf(
     PropTypes.shape({

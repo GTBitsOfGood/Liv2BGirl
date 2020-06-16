@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import Router, { useRouter } from "next/router";
-import { Icon } from "@iconify/react";
-import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import TextareaAutosize from "react-textarea-autosize";
 import urls from "../../../../../utils/urls";
 import { createThread } from "../../../../actions/GroupThread";
-import logo from "../../../../../public/static/img/logo.png";
+import TopNavBar from "../../../TopNavBar";
 import styles from "../thread.module.scss";
 
 const CreateThreadComponent = () => {
@@ -17,31 +15,31 @@ const CreateThreadComponent = () => {
 
   const handleCreateThread = async () => {
     if (title.length > 0 && text.length > 0) {
-      createThread(null, groupid, title, text).then((res) =>
-        Router.push(urls.pages.app.thread(res._id))
-      );
+      await createThread(null, groupid, title, text)
+        .then((res) =>
+          Router.push(
+            urls.pages.app.groups.group.threads.view(groupid, res._id)
+          )
+        )
+        .catch((error) => {
+          window.alert(error.message);
+        });
     } else {
-      // eslint-disable-next-line no-alert
       window.alert("Post must have a title and description!");
     }
   };
 
   return (
     <div style={{ marginTop: "48px" }}>
-      <div className="TopNav">
-        <div
-          role="button"
-          tabIndex={-1}
-          onClick={() => Router.back()}
-          onKeyDown={() => Router.back()}
-        >
-          <Icon className="Back" icon={bxArrowBack} width="18px" />
-        </div>
-        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
-        <button type="button" className="Button" onClick={handleCreateThread}>
-          Post
-        </button>
-      </div>
+      <TopNavBar
+        backUrl={urls.pages.app.groups.group.view()}
+        backUrlAs={urls.pages.app.groups.group.view(groupid)}
+        rightNode={
+          <button type="button" className="Button" onClick={handleCreateThread}>
+            Post
+          </button>
+        }
+      />
       <div className="Page">
         <h1 className={styles.CreateThreadHeading}>Start a New Thread.</h1>
         <form className={styles.CreateThreadForm}>

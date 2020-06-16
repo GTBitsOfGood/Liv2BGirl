@@ -43,17 +43,19 @@ ProfilePage.propTypes = {
   }).isRequired,
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    followers: PropTypes.arrayOf(PropTypes.string).isRequired,
-    following: PropTypes.arrayOf(PropTypes.string).isRequired,
     email: PropTypes.string.isRequired,
     username: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    followers: PropTypes.arrayOf(PropTypes.string).isRequired,
+    following: PropTypes.arrayOf(PropTypes.string).isRequired,
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,
     age: PropTypes.number.isRequired,
     grade: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
     interests: PropTypes.arrayOf(PropTypes.string).isRequired,
-    subscriptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    askBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
+    groupBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   userGroups: PropTypes.arrayOf(
     PropTypes.shape({

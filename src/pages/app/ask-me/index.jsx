@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import AskMe from "../../../components/AskMe";
 import { getUserAskBookmarks } from "../../../actions/User";
-import { getAskThreads, getUserQuestions } from "../../../actions/AskMe";
+import { getAskThreads, getUserQuestions } from "../../../actions/AskMeThread";
 
 const AskMePage = ({ featuredQuestions, ownQuestions, bookmarks }) => (
   <AskMe

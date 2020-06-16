@@ -36,6 +36,7 @@ const TellUsAbout = ({ values, setValues, handleNext }) => {
 
   const renderedTopics = topics.map((topic) => (
     <button
+      key={topic}
       type="button"
       className={
         interests.includes(topic) ? "SmallPill ActivePill" : "SmallPill"
@@ -89,7 +90,9 @@ const TellUsAbout = ({ values, setValues, handleNext }) => {
               onChange={(event) => setValues({ age: event.target.value })}
             >
               {ages.map((item) => (
-                <option value={item}>{item}</option>
+                <option key={item} value={item}>
+                  {item}
+                </option>
               ))}
             </select>
           </div>
@@ -104,7 +107,7 @@ const TellUsAbout = ({ values, setValues, handleNext }) => {
               onChange={(event) => setValues({ grade: event.target.value })}
             >
               {grades.map((item) => (
-                <option value={item}>{`${item}th`}</option>
+                <option key={item} value={item}>{`${item}th`}</option>
               ))}
             </select>
           </div>

@@ -2,19 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import commentPlusOutline from "@iconify/icons-mdi/comment-plus-outline";
 import dotsHorizontal from "@iconify/icons-mdi/dots-horizontal";
 import accountCircleOutline from "@iconify/icons-mdi/account-circle-outline";
 import { followGroup, unfollowGroup } from "../../../actions/User";
 import ThreadPost from "../Thread/Post";
 import AdminTab from "./AdminTab";
-import logo from "../../../../public/static/img/logo.png";
+import TopNavBar from "../../TopNavBar";
 import urls from "../../../../utils/urls";
 import styles from "./viewgroup.module.scss";
 
 const ViewGroup = ({ currentUser, groupData, threads }) => {
   const [joined, setJoined] = React.useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [sortedBy, setSortedBy] = React.useState("latest comment");
   const [adminTab, setAdminTab] = React.useState(false);
   const [isAdmin, setAdmin] = React.useState(false);
@@ -50,27 +50,21 @@ const ViewGroup = ({ currentUser, groupData, threads }) => {
   return (
     <>
       {adminTab && <AdminTab onClick={toggle} groupid={groupData._id} />}
-      <div className="TopNav">
-        <Link href={urls.pages.app.groupList}>
-          <div>
-            <Icon className="Back" icon={bxArrowBack} width="18px" />
-          </div>
-        </Link>
-
-        <img className="Logo" src={logo} alt="Liv2BGirl Logo" />
-
-        {groupData && isAdmin ? (
-          <Icon
-            onClick={() => toggle()}
-            className="IconButton"
-            icon={dotsHorizontal}
-            width="18px"
-          />
-        ) : (
-          <div />
-        )}
-      </div>
-
+      <TopNavBar
+        backUrl={urls.pages.app.groups.index}
+        rightNode={
+          groupData && isAdmin ? (
+            <Icon
+              onClick={() => toggle()}
+              className="IconButton"
+              icon={dotsHorizontal}
+              width="18px"
+            />
+          ) : (
+            <div />
+          )
+        }
+      />
       {groupData && (
         <>
           <div className={styles.GroupHeader}>
@@ -126,7 +120,12 @@ const ViewGroup = ({ currentUser, groupData, threads }) => {
                 className={styles.CreateBtn}
                 disabled={!joined}
               >
-                <Link href={urls.pages.app.createThread(groupData._id)}>
+                <Link
+                  href={urls.pages.app.groups.group.threads.createThread()}
+                  as={urls.pages.app.groups.group.threads.createThread(
+                    groupData._id
+                  )}
+                >
                   <div>
                     <Icon
                       className={styles.AddPost}

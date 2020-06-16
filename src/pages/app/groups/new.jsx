@@ -1,13 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getCategories } from "../../actions/GroupCategory";
-import TermsCond from "../../components/Group/New/TermsCond";
-import NewGroup from "../../components/Group/New/NewGroup";
-import NewGroupConfirmation from "../../components/Group/New/NewGroupConfirmation";
-import urls from "../../../utils/urls";
+import { getCategories } from "../../../actions/GroupCategory";
+import TermsCond from "../../../components/Group/New/TermsCond";
+import NewGroup from "../../../components/Group/New/NewGroup";
+import NewGroupConfirmation from "../../../components/Group/New/NewGroupConfirmation";
+import TopNavBar from "../../../components/TopNavBar";
+import urls from "../../../../utils/urls";
 
 const CurrentStep = ({ stage, ...rest }) => {
   switch (stage) {
@@ -40,15 +38,10 @@ const NewGroupPage = ({ currentUser, categories }) => {
 
   return (
     <>
-      <div className="TopNav">
-        <Link href={urls.pages.app.groupList}>
-          <div>
-            <FontAwesomeIcon className="Back" icon={faArrowLeft} />
-          </div>
-        </Link>
-        <h3 className="Text">Create New Group</h3>
-        <div />
-      </div>
+      <TopNavBar
+        backUrl={urls.pages.app.groups.index}
+        title="Create New Group"
+      />
       <CurrentStep
         stage={stage}
         currentUser={currentUser}

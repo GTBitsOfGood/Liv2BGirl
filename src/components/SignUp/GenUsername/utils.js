@@ -1,5 +1,3 @@
-import { generateUsernames } from "../../../actions/User";
-
 /**
  * Returns a random number between min (inclusive) and max (inclusive)
  */

@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Link from "next/link";
 import Router from "next/router";
 import { Icon } from "@iconify/react";
-import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 import TextareaAutosize from "react-textarea-autosize";
 import ThreadComment from "../../ThreadComment";
+import TopNavBar from "../../TopNavBar";
 import { createComment } from "../../../actions/Comment";
 import { addAskBookmark, removeAskBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
@@ -57,27 +56,24 @@ const Question = ({ currentUser, thread, comments }) => {
 
   return (
     <div className={styles.QuestionPage}>
-      <div className="TopNav">
-        <Link href={urls.pages.app.askMe}>
-          <div>
-            <Icon className="Back" icon={bxArrowBack} width="18px" />
-          </div>
-        </Link>
-        <h3 className={styles.QuestionNavTitle}>Question</h3>
-        <button
-          className="IconButton"
-          type="button"
-          onClick={toggleBookmarked}
-          onKeyPress={toggleBookmarked}
-        >
-          {saved ? (
-            <Icon icon={bxsBookmark} height="18px" />
-          ) : (
-            <Icon icon={bxBookmark} height="18px" />
-          )}
-        </button>
-      </div>
-
+      <TopNavBar
+        backUrl={urls.pages.app.askMe.index}
+        title="Question"
+        rightNode={
+          <button
+            className="IconButton"
+            type="button"
+            onClick={toggleBookmarked}
+            onKeyPress={toggleBookmarked}
+          >
+            {saved ? (
+              <Icon icon={bxsBookmark} height="18px" />
+            ) : (
+              <Icon icon={bxBookmark} height="18px" />
+            )}
+          </button>
+        }
+      />
       <div className={`Page ${styles.QuestionMain}`}>
         <h3>{`Question: ${thread.title}`}</h3>
         <div
@@ -86,12 +82,14 @@ const Question = ({ currentUser, thread, comments }) => {
           className={styles.QuestionDetails}
           onClick={
             thread.author.userId != null
-              ? () => Router.push(urls.pages.app.profile(thread.author.userId))
+              ? () =>
+                  Router.push(urls.pages.app.profile.view(thread.author.userId))
               : () => {}
           }
           onKeyDown={
             thread.author.userId != null
-              ? () => Router.push(urls.pages.app.profile(thread.author.userId))
+              ? () =>
+                  Router.push(urls.pages.app.profile.view(thread.author.userId))
               : () => {}
           }
         >

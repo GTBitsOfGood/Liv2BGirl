@@ -20,7 +20,7 @@ const SignInComponent = () => {
     login(null, email, password)
       .then(() =>
         Router.push({
-          pathname: urls.pages.app.home,
+          pathname: urls.pages.app.index,
         })
       )
       .catch((error) => {

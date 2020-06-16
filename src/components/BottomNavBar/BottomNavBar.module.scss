@@ -4,13 +4,12 @@
 $btn: #e0e0e0;
 $active-btn: #bdbdbd;
 
-// Bottom Nav
 .BottomNav {
   position: fixed;
   bottom: 0;
   left: 0;
   height: 100px;
-  width: 100%;
+  width: 100vw;
   background: $background;
   display: flex;
   justify-content: space-between;

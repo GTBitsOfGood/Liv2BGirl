@@ -3,85 +3,12 @@
 .Page {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  padding-bottom: 0;
+  padding: 20px 20px 0;
   margin-bottom: 100px;
 }
 
-.TopNav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 48px;
-  width: 100%;
-  z-index: 999;
-  background: $background;
-  box-sizing: border-box;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  a {
-    display: flex;
-  }
-
-  .Back,
-  .IconButton {
-    display: flex;
-    align-items: center;
-    border: 0;
-    padding: 0;
-    color: $text;
-    cursor: pointer;
-  }
-
-  .Logo {
-    width: 124px;
-  }
-
-  .Avatar {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: $light-gray;
-  }
-
-  .AvatarImg {
-    width: calc(100% / 1.41);
-    height: calc(100% / 1.41);
-    object-fit: contain;
-  }
-
-  .Button {
-    border-radius: 137px;
-    font-size: 14px;
-    line-height: 21px;
-    border: none;
-    background-color: $light-gray;
-    color: $text;
-    font-weight: bold;
-    height: 24px;
-    width: 60px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $text;
-      color: white;
-    }
-  }
-
-  .Text {
-    color: $text;
-  }
-}
-
 .NextButton {
-  margin: 0 auto;
-  margin-bottom: 30px;
+  margin: 0 auto 30px;
   background-color: $light-gray;
   border-radius: 137px;
   border: none;

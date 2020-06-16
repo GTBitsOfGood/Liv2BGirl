@@ -52,7 +52,8 @@ const ExploreGroups = ({
         {likeableGroups.map((group) => (
           <Link
             key={group.id}
-            href={urls.pages.app.group(group.id)}
+            href={urls.pages.app.groups.group.view()}
+            as={urls.pages.app.groups.group.view(group.id)}
             prefetch={false}
           >
             <div className={styles.MayLikeType}>
@@ -65,7 +66,7 @@ const ExploreGroups = ({
     </div>
     <div className={styles.NotFoundText}>
       <h6>Couldn’t find what you want?</h6>
-      <Link href={urls.pages.app.newGroup}>
+      <Link href={urls.pages.app.groups.newGroup}>
         <div>
           <h6 className={styles.CreateText}>Create a Group</h6>
         </div>

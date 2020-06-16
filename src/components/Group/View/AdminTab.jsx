@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Router from "next/router";
 import { deleteGroup } from "../../../actions/Group";
 import ManageTab from "./ManageTab";
@@ -15,7 +16,7 @@ const AdminTab = ({ onClick, groupid }) => {
 
   const handleDelete = () =>
     deleteGroup(null, groupid).then(() =>
-      Router.push(urls.pages.app.groupList)
+      Router.push(urls.pages.app.groups.index)
     );
 
   React.useEffect(() => {
@@ -84,6 +85,11 @@ const AdminTab = ({ onClick, groupid }) => {
       )}
     </>
   );
+};
+
+AdminTab.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  groupid: PropTypes.string.isRequired,
 };
 
 export default AdminTab;

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ErrorPage from "../../../_error";
 import Question from "../../../../components/AskMe/Question";
-import { getThread } from "../../../../actions/AskMe";
+import { getThread } from "../../../../actions/AskMeThread";
 import { getCommentsByAskMeThread } from "../../../../actions/Comment";
 
 const QuestionPage = ({ currentUser, error, thread, comments }) => {

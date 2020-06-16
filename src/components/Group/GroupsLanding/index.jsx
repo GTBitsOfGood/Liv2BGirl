@@ -16,6 +16,7 @@ const GroupsList = ({ categories, ownGroups }) => {
 
   const handleRefresh = () => {
     // Get more likeable group
+    setLikeGroups([]);
   };
 
   const handleSetTerm = (event) => {

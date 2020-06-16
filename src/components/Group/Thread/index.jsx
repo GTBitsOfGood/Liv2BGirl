@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 import TextareaAutosize from "react-textarea-autosize";
 import ThreadComment from "../../ThreadComment";
+import TopNavBar from "../../TopNavBar";
 import { createComment } from "../../../actions/Comment";
 import { addGroupBookmark, removeGroupBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
@@ -53,21 +53,24 @@ const Thread = ({ currentUser, thread, group, comments }) => {
 
   return (
     <div className={styles.ThreadPage}>
-      <div className="TopNav">
-        <Link href={urls.pages.app.group(group._id)}>
-          <div>
-            <Icon className="Back" icon={bxArrowBack} width="18px" />
-          </div>
-        </Link>
-        <h3 className={styles.ThreadNavTitle}>Thread</h3>
-        <button className="IconButton" type="button" onClick={toggleBookmarked}>
-          {saved ? (
-            <Icon icon={bxsBookmark} height="18px" />
-          ) : (
-            <Icon icon={bxBookmark} height="18px" />
-          )}
-        </button>
-      </div>
+      <TopNavBar
+        backUrl={urls.pages.app.groups.group.view()}
+        backUrlAs={urls.pages.app.groups.group.view(group._id)}
+        title="Thread"
+        rightNode={
+          <button
+            className="IconButton"
+            type="button"
+            onClick={toggleBookmarked}
+          >
+            {saved ? (
+              <Icon icon={bxsBookmark} height="18px" />
+            ) : (
+              <Icon icon={bxBookmark} height="18px" />
+            )}
+          </button>
+        }
+      />
       <div className={`Page ${styles.ThreadMain}`}>
         <div className={styles.ThreadInfo}>
           <img
@@ -92,7 +95,10 @@ const Thread = ({ currentUser, thread, group, comments }) => {
             />
           </div>
           <div>
-            <Link href={urls.pages.app.profile(thread.author._id)}>
+            <Link
+              href={urls.pages.app.profile.view()}
+              as={urls.pages.app.profile.view(thread.author._id)}
+            >
               <div>
                 <h5 className={styles.ThreadAuthor}>
                   {thread.author.username}

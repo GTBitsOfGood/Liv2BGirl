@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import NewThread from "../../../../components/Group/Thread/New";
+import NewThread from "../../../../../components/Group/Thread/New";
 
 const NewThreadPage = ({ currentUser }) => (
   <NewThread currentUser={currentUser} />

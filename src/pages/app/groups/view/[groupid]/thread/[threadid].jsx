@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Thread from "../../../components/Group/Thread";
-import ErrorPage from "../../_error";
-import { getThread } from "../../../actions/GroupThread";
-import { getCommentsByThread } from "../../../actions/Comment";
-import { getGroup } from "../../../actions/Group";
+import Thread from "../../../../../../components/Group/Thread";
+import ErrorPage from "../../../../../_error";
+import { getThread } from "../../../../../../actions/GroupThread";
+import { getCommentsByThread } from "../../../../../../actions/Comment";
+import { getGroup } from "../../../../../../actions/Group";
 
 const ThreadPage = ({ currentUser, error, thread, group, comments }) => {
   if (error != null) {

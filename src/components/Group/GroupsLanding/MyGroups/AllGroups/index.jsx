@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Icon } from "@iconify/react";
-import arrowLeftAlt2 from "@iconify/icons-dashicons/arrow-left-alt2";
 import Group from "../../GroupCard";
 import styles from "../../GroupsPage.module.scss";
+import TopNavBar from "../../../../TopNavBar";
 
 const AllGroups = ({ groups, categories, handleBack }) => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = React.useState(null);
 
   const handleSelection = (category) =>
     setSelectedCategory((prevCategory) => {
@@ -19,14 +18,7 @@ const AllGroups = ({ groups, categories, handleBack }) => {
 
   return (
     <>
-      <div className="TopNav">
-        <button className="Back" onClick={handleBack} type="button">
-          <Icon icon={arrowLeftAlt2} />
-        </button>
-        <h3 className="Text">Category</h3>
-        <div />
-      </div>
-
+      <TopNavBar backAction={handleBack} title="Category" />
       <div className={styles.AllGroupsPage}>
         <div className={styles.AllGroupsContainer}>
           <div className={styles.CategoryBar}>
@@ -62,7 +54,7 @@ const AllGroups = ({ groups, categories, handleBack }) => {
                   group.category._id === selectedCategory
               )
               .map((group) => (
-                <Group key={group._id} info={group} />
+                <Group key={group._id} {...group} />
               ))}
           </div>
         </div>

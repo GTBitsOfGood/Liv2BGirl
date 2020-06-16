@@ -1,8 +1,5 @@
 import React from "react";
-import Link from "next/link";
 import Router from "next/router";
-import { Icon } from "@iconify/react";
-import bxArrowBack from "@iconify/icons-bx/bx-arrow-back";
 import {
   faAngleRight,
   faGlobe,
@@ -12,7 +9,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TextareaAutosize from "react-textarea-autosize";
 import Audience from "./Audience";
-import { createThread } from "../../../actions/AskMe";
+import TopNavBar from "../../TopNavBar";
+import { createThread } from "../../../actions/AskMeThread";
 import urls from "../../../../utils/urls";
 import styles from "./newquestion.module.scss";
 
@@ -47,24 +45,21 @@ const NewQuestion = () => {
         visibility
       );
 
-      await Router.push(urls.pages.app.viewQuestion(thread._id));
+      await Router.push(urls.pages.app.askMe.questions.view(thread._id));
     }
   };
 
   return (
     <>
-      <div className="TopNav">
-        <Link href={urls.pages.app.askMe}>
-          <div>
-            <Icon className="Back" icon={bxArrowBack} width="18px" />
-          </div>
-        </Link>
-        <h3>Ask Question</h3>
-        <button type="button" className="Button" onClick={postQuestion}>
-          Post
-        </button>
-      </div>
-
+      <TopNavBar
+        backUrl={urls.pages.app.askMe.index}
+        title="Ask Question"
+        rightNode={
+          <button type="button" className="Button" onClick={postQuestion}>
+            Post
+          </button>
+        }
+      />
       <div className={styles.AskPage}>
         <div className={styles.Audience}>
           <h3>Audience:</h3>

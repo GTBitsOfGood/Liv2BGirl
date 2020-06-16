@@ -272,16 +272,10 @@ export const getUser = async (currentUser, { userId }) => {
         throw new Error("User does not exist!");
       }
 
-      return {
-        _id: user._id,
-        username: user.username,
-        avatar: user.avatar,
-        avatarColor: user.avatarColor,
-        groups: user.groups,
-        age: user.age,
-        grade: user.grade,
-        interests: user.interests,
-      };
+      // eslint-disable-next-line no-unused-vars
+      const { password, ...rest } = user.toObject();
+
+      return rest;
     })
     .catch(() => {
       throw new Error("Invalid link or thread does not exist!");

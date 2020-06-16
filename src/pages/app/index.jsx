@@ -1,10 +1,25 @@
 import React from "react";
+import PropTypes from "prop-types";
+import Link from "next/link";
+import urls from "../../../utils/urls";
 
-const AppHome = () => (
+const AppHome = ({ currentUser }) => (
   <div>
     <h2>Welcome!</h2>
+    {currentUser.role === "Admin" && (
+      <Link href={urls.pages.app.admin.index}>
+        <a>Admin Controls</a>
+      </Link>
+    )}
   </div>
 );
+
+AppHome.propTypes = {
+  currentUser: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 AppHome.showTopNav = true;
 AppHome.showBottomNav = true;

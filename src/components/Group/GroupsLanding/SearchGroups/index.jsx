@@ -33,13 +33,13 @@ const SearchGroups = ({ searchTerm, searchCategory, likeableGroups }) => {
   return (
     <div className={styles.SearchGroupsPage}>
       {groups.map((group) => (
-        <Group key={group._id} info={group} />
+        <Group key={group._id} {...group} />
       ))}
       {isSearching && <Spinner />}
       {groups.length === 0 && !isSearching && (
         <div className={styles.NoGroupsContainer}>
           <h3 className={styles.NoGroupsText}>No groups found.</h3>
-          <Link href={urls.pages.app.newGroup}>
+          <Link href={urls.pages.app.groups.newGroup}>
             <h3 className={styles.NoGroupsButton}>Create a new one?</h3>
           </Link>
         </div>

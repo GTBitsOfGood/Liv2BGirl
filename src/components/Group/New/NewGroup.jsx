@@ -5,7 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { createGroup } from "../../../actions/Group";
 import styles from "./newgroup.module.scss";
 
-const NewGroup = ({ currentUser, categories, handleNext }) => {
+const NewGroup = ({ categories, handleNext }) => {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [category, setCategory] = React.useState(null);
@@ -82,6 +82,12 @@ const NewGroup = ({ currentUser, categories, handleNext }) => {
 
 NewGroup.propTypes = {
   handleNext: PropTypes.func.isRequired,
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default NewGroup;

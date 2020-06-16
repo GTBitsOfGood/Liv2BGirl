@@ -17,4 +17,12 @@ export default async () => {
 
       throw e;
     });
+
+  require("./models/AskMeThread");
+  require("./models/Comment");
+  require("./models/Group");
+  require("./models/GroupCategory");
+  require("./models/InvitationCode");
+  require("./models/Report");
+  require("./models/User");
 };

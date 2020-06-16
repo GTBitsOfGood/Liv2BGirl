@@ -17,8 +17,8 @@ ErrorPage.getInitialProps = ({ res, err }) => {
 ErrorPage.propTypes = {
   currentUser: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-    avatarColor: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
   }),
   statusCode: PropTypes.number.isRequired,
   message: PropTypes.string,

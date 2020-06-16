@@ -1,6 +1,5 @@
 import React from "react";
-
-// Styling
+import PropTypes from "prop-types";
 import styles from "./signup.module.scss";
 
 const ProgressCircle = ({ active, ...rest }) => (
@@ -12,6 +11,10 @@ const ProgressCircle = ({ active, ...rest }) => (
     {...rest}
   />
 );
+
+ProgressCircle.propTypes = {
+  active: PropTypes.bool.isRequired,
+};
 
 const SignUpProgressBar = ({ stage, setStage }) => {
   if (stage < 1 || stage > 3) {
@@ -31,6 +34,11 @@ const SignUpProgressBar = ({ stage, setStage }) => {
       <ProgressCircle active={stage > 2} onClick={() => goToStage(3)} />
     </div>
   );
+};
+
+SignUpProgressBar.propTypes = {
+  stage: PropTypes.number.isRequired,
+  setStage: PropTypes.func.isRequired,
 };
 
 export default SignUpProgressBar;

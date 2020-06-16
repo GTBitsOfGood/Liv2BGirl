@@ -41,8 +41,8 @@ const timeSince = (date) => {
 const QuestionCard = ({ question }) => (
   <>
     <Link
-      href={urls.pages.app.viewQuestion("[threadid]")}
-      as={urls.pages.app.viewQuestion(question._id)}
+      href={urls.pages.app.askMe.questions.view()}
+      as={urls.pages.app.askMe.questions.view(question._id)}
     >
       <div className={styles.QuestionCard}>
         <div className={styles.QuestionHeader}>

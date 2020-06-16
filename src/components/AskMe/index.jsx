@@ -32,7 +32,7 @@ const AskMe = ({ featuredQuestions, ownQuestions, bookmarks }) => {
     <>
       <div className={styles.AskPage}>
         <div className={styles.TopHead}>
-          <Link href={urls.pages.app.askQuestion}>
+          <Link href={urls.pages.app.askMe.askQuestion}>
             <button type="button" className={styles.AskBtn}>
               Ask Question
             </button>

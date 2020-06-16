@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ViewGroup from "../../../components/Group/View";
-import ErrorPage from "../../_error";
-import { getGroup } from "../../../actions/Group";
-import { getGroupThreads } from "../../../actions/GroupThread";
+import ViewGroup from "../../../../components/Group/View";
+import ErrorPage from "../../../_error";
+import { getGroup } from "../../../../actions/Group";
+import { getGroupThreads } from "../../../../actions/GroupThread";
 
 const GroupPage = ({ error, currentUser, groupData, threads }) => {
   if (error) {

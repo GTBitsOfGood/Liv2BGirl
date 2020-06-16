@@ -1,0 +1,78 @@
+@import "../../../public/static/styles/colors";
+
+// Colors
+$btn: #e0e0e0;
+$active-btn: #bdbdbd;
+
+.TopNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 48px;
+  width: 100vw;
+  z-index: 999;
+  background: $background;
+  box-sizing: border-box;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    display: flex;
+  }
+
+  .Back,
+  .IconButton,
+  button {
+    display: flex;
+    align-items: center;
+    border: 0;
+    padding: 0;
+    color: $text;
+    cursor: pointer;
+  }
+
+  .Logo {
+    width: 124px;
+  }
+
+  .Avatar {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: $light-gray;
+    cursor: pointer;
+  }
+
+  .AvatarImg {
+    width: calc(100% / 1.41);
+    height: calc(100% / 1.41);
+    object-fit: contain;
+  }
+
+  .Button {
+    border-radius: 137px;
+    font-size: 14px;
+    line-height: 21px;
+    border: none;
+    background-color: $light-gray;
+    color: $text;
+    font-weight: bold;
+    height: 24px;
+    width: 60px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $text;
+      color: white;
+    }
+  }
+
+  .Text {
+    color: $text;
+  }
+}

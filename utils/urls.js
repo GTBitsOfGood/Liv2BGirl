@@ -9,17 +9,40 @@ export default {
     signUp: "/sign-up",
     signIn: "/sign-in",
     app: {
-      home: "/app",
-      thread: (threadId) => `/app/thread/${threadId}`,
-      createThread: (groupId) => `/app/groups/${groupId}/new-thread`,
-      groupList: "/app/groups",
-      group: (groupId) => `/app/groups/${groupId}`,
-      newGroup: "/app/new-group",
-      askMe: "/app/ask-me",
-      askQuestion: "/app/ask-me/new",
-      viewQuestion: (questionId) => `/app/ask-me/view/${questionId}`,
-      notifications: "/app/notifications",
-      profile: (profileId) => `/app/profile/${profileId}`,
+      index: "/app",
+      admin: {
+        index: "/app/admin",
+        invite: "/app/admin/invite",
+      },
+      askMe: {
+        index: "/app/ask-me",
+        askQuestion: "/app/ask-me/new",
+        questions: {
+          view: (questionId) =>
+            `/app/ask-me/view/${questionId ?? "[threadid]"}`,
+        },
+      },
+      groups: {
+        index: "/app/groups",
+        newGroup: "/app/groups/new",
+        group: {
+          view: (groupId) => `/app/groups/view/${groupId ?? "[groupid]"}`,
+          threads: {
+            createThread: (groupId) =>
+              `/app/groups/view/${groupId ?? "[groupid]"}/new-thread`,
+            view: (groupId, threadId) =>
+              `/app/groups/view/${groupId ?? "[groupid]"}/thread/${
+                threadId ?? "[threadid]"
+              }`,
+          },
+        },
+      },
+      notifications: {
+        index: "/app/notifications",
+      },
+      profile: {
+        view: (profileId) => `/app/profile/${profileId ?? "[userid]"}`,
+      },
     },
   },
   api: {

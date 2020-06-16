@@ -1,19 +1,20 @@
 import React from "react";
 import { useRouter } from "next/router";
+import clsx from "clsx";
 import Link from "next/link";
 import urls from "../../../utils/urls";
-import style from "./navbar.module.scss";
+import style from "./BottomNavBar.module.scss";
 
 const BottomNavBar = () => {
   const router = useRouter();
 
   return (
-    <div className={style.BottomNav}>
-      <Link href={urls.pages.app.home}>
+    <div className={clsx(style.BottomNav, "GlobalBottomNavBar")}>
+      <Link href={urls.pages.app.index}>
         <div className={style.NavItem}>
           <div
             className={
-              router.asPath === urls.pages.app.home
+              router.asPath === urls.pages.app.index
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }
@@ -22,11 +23,11 @@ const BottomNavBar = () => {
         </div>
       </Link>
 
-      <Link href={urls.pages.app.groupList}>
+      <Link href={urls.pages.app.groups.index}>
         <div className={style.NavItem}>
           <div
             className={
-              router.asPath.includes(urls.pages.app.groupList)
+              router.asPath.includes(urls.pages.app.groups.index)
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }
@@ -35,11 +36,11 @@ const BottomNavBar = () => {
         </div>
       </Link>
 
-      <Link href={urls.pages.app.askMe}>
+      <Link href={urls.pages.app.askMe.index}>
         <div className={style.NavItem}>
           <div
             className={
-              router.asPath.includes(urls.pages.app.askMe)
+              router.asPath.includes(urls.pages.app.askMe.index)
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }
@@ -47,11 +48,11 @@ const BottomNavBar = () => {
           <p>Ask Me</p>
         </div>
       </Link>
-      <Link href={urls.pages.app.notifications}>
+      <Link href={urls.pages.app.notifications.index}>
         <div className={style.NavItem}>
           <div
             className={
-              router.asPath === urls.pages.app.notifications
+              router.asPath === urls.pages.app.notifications.index
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }

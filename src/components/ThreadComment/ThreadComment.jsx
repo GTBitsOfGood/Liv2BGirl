@@ -9,7 +9,10 @@ import styles from "./ThreadComment.module.scss";
 const ThreadComment = ({ comment, setReply }) => (
   <div className={styles.Comment}>
     <div className={styles.Details}>
-      <Link href={urls.pages.app.profile(comment.author._id)}>
+      <Link
+        href={urls.pages.app.profile.view()}
+        as={urls.pages.app.profile.view(comment.author._id)}
+      >
         <div className={styles.Author}>
           <div
             className={styles.Avatar}

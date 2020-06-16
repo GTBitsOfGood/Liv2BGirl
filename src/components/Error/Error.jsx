@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
-import TopNavBar from "../NavBar/TopNavBar";
+import TopNavBar from "../TopNavBar";
 import IndexHeader from "../IndexHeader";
-import BottomNavBar from "../NavBar/BottomNavBar";
+import BottomNavBar from "../BottomNavBar";
 import styles from "./Error.module.scss";
 
 const Error = ({ currentUser, statusCode, message }) => {
@@ -34,8 +34,8 @@ const Error = ({ currentUser, statusCode, message }) => {
 Error.propTypes = {
   currentUser: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-    avatarColor: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
   }),
   statusCode: PropTypes.number.isRequired,
   message: PropTypes.string,

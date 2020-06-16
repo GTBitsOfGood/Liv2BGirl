@@ -14,11 +14,11 @@ SignIn.getInitialProps = async ({ req, res }) => {
   if (currentUser != null) {
     if (res) {
       res.writeHead(302, {
-        Location: urls.pages.app.home,
+        Location: urls.pages.app.index,
       });
       res.end();
     } else {
-      await Router.push(urls.pages.app.home);
+      await Router.push(urls.pages.app.index);
     }
   }
 
