@@ -9,12 +9,14 @@ if (!prod) {
 
 module.exports = withImages({
   env: {
+    BASE_URL: process.env.BASE_URL,
     MONGODB: process.env.MONGODB,
     JWTSECRET: process.env.JWTSECRET,
     TINY_API_KEY: process.env.TINY_API_KEY,
   },
   build: {
     env: {
+      BASE_URL: process.env.BASE_URL,
       MONGODB: process.env.MONGODB,
       JWTSECRET: process.env.JWTSECRET,
       TINY_API_KEY: process.env.TINY_API_KEY,

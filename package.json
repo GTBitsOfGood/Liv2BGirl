@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "next -p 3000",
     "build": "next build",
-    "start": "npm run build && next start -p $PORT",
+    "start": "next start -p $PORT",
     "heroku-postbuild": "npm run build",
     "lint": "eslint --fix --ext .jsx --ext .js .",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
