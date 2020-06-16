@@ -1,0 +1,39 @@
+@import "../../../public/static/styles/colors";
+
+// Colors
+$btn: #e0e0e0;
+$active-btn: #bdbdbd;
+
+.BottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 100px;
+  width: 100vw;
+  background: $background;
+  display: flex;
+  justify-content: space-between;
+  color: $text;
+  z-index: 999;
+
+  .NavItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    cursor: pointer;
+
+    .NavButton {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      background-color: $btn;
+      margin-bottom: 6px;
+    }
+
+    .ActiveItem {
+      background-color: $active-btn;
+    }
+  }
+}

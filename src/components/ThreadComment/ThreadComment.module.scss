@@ -1,0 +1,66 @@
+@import "../../../public/static/styles/colors";
+
+.Comment {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  padding: 20px;
+  background-color: white;
+
+  .Details {
+    margin-bottom: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    .Author {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .Avatar {
+        min-width: 32px;
+        min-height: 32px;
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 8px;
+
+        .AvatarImg {
+          width: calc(100% / 1.41);
+          height: calc(100% / 1.41);
+          object-fit: contain;
+        }
+      }
+
+      .Name {
+        font-weight: normal;
+      }
+    }
+
+    .Date {
+      font-weight: normal;
+    }
+  }
+
+  .Text {
+    margin-bottom: 12px;
+    font-weight: normal;
+  }
+
+  .CommentReply {
+    background: transparent;
+    border: none;
+    margin: 8px 0 8px auto;
+    color: $gray;
+    cursor: pointer;
+
+    h5 {
+      font-weight: normal;
+    }
+  }
+}

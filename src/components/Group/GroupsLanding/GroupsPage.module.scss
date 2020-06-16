@@ -1,0 +1,417 @@
+@import "../../../../public/static/styles/colors";
+
+.CategorySelection {
+  height: 100%;
+  box-sizing: content-box;
+  background-color: #333333;
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 8px;
+
+  .CancelButton {
+    margin-left: 8px;
+    background: none;
+    border: none;
+    color: inherit;
+    font-weight: bold;
+    padding: 0;
+    cursor: pointer;
+  }
+}
+
+.GroupsPage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 16px;
+  margin-top: 48px;
+  margin-bottom: 120px;
+
+  .ControlBar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .SearchContainer {
+      width: 100%;
+      height: 32px;
+      display: flex;
+      margin-bottom: 25px;
+
+      .SearchBar {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        border: 1px solid $light-gray;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 8px;
+        border-radius: 32px;
+
+        .SearchIcon {
+          margin-right: 8px;
+        }
+
+        .SearchInput {
+          display: flex;
+          flex: 1;
+          height: 100%;
+          color: $text;
+          border: none;
+        }
+      }
+
+      .SearchCancel {
+        margin-left: 8px;
+        padding: 0;
+        background: none;
+        border: none;
+        color: $text;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .TypeBar {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 25px;
+  }
+
+  .TypeButton {
+    flex: 1;
+    height: 100%;
+    background: $background;
+    color: $gray;
+    border: none;
+    cursor: pointer;
+
+    h4 {
+      font-weight: normal;
+    }
+
+    &:nth-of-type(1) {
+      border-top-left-radius: 32px;
+      border-bottom-left-radius: 32px;
+    }
+
+    &:nth-of-type(2) {
+      border-top-right-radius: 32px;
+      border-bottom-right-radius: 32px;
+    }
+  }
+
+  .TypeButtonSelected {
+    background: $gray;
+    color: $background;
+    h4 {
+      font-weight: bold;
+    }
+  }
+}
+
+.ExploreGroups {
+  display: flex;
+  flex-direction: column;
+
+  .CategoryContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+
+    .CategoryHeader {
+      font-weight: normal;
+      margin-bottom: 16px;
+    }
+
+    .CategoryGroups {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .CategoryType {
+      width: 150px;
+      min-width: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      .CategoryImage {
+        width: 56px;
+        max-width: 90%;
+        height: 56px;
+        max-height: 90%;
+        background-color: $light-gray;
+        border-radius: 100%;
+        margin-bottom: 8px;
+        background-size: cover;
+        background-position: center center;
+      }
+
+      .CategoryTitle {
+        margin-bottom: 16px;
+      }
+    }
+  }
+
+  .MayLikeContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 28px;
+
+    .MayLikeHeader {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 16px;
+
+      .MayLikeHeaderText {
+        font-weight: normal;
+      }
+
+      .MayLikeHeaderRefresh {
+        background: none;
+        border: none;
+        color: $text;
+        cursor: pointer;
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    .MayLikeGroups {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .MayLikeType {
+      flex: 1 0 25%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      .MayLikeImage {
+        width: 72px;
+        height: 72px;
+        background-color: $background;
+        border-radius: 10px;
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .NotFoundText {
+    margin: auto;
+    display: flex;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  .CreateText {
+    margin-left: 6px;
+    text-decoration-line: underline;
+    cursor: pointer;
+  }
+}
+
+.MyGroupsPage {
+  display: flex;
+  flex-direction: column;
+
+  .MyGroupsContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+
+    .MyGroupsHeader {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 16px;
+
+      .MyGroupsHeaderText {
+        font-weight: normal;
+      }
+
+      .MyGroupsButton {
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        color: $text;
+        cursor: pointer;
+
+        h6 {
+          font-weight: normal;
+        }
+      }
+    }
+
+    .MyGroupsGroups {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .MyGroupType {
+      width: 25%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      .MyGroupImage {
+        width: 72px;
+        max-width: 90%;
+        height: 72px;
+        max-height: 90%;
+        background-color: $background;
+        border-radius: 10px;
+        margin-bottom: 8px;
+      }
+
+      p {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.AllGroupsPage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  z-index: 10;
+
+  .AllGroupsContainer {
+    width: 100%;
+    margin: 0 auto;
+
+    @media (min-width: 1056px) {
+      width: 1024px;
+    }
+  }
+
+  .CategoryBar {
+    margin-top: 48px;
+    width: 100%;
+    padding: 24px 16px;
+    overflow-x: auto;
+    white-space: nowrap;
+    background: white;
+    box-sizing: border-box;
+
+    .CategoryPill {
+      height: 32px;
+      min-width: 80px;
+      background: none;
+      border: 2px solid transparent;
+      border-radius: 32px;
+      box-sizing: border-box;
+      margin-right: 16px;
+      cursor: pointer;
+      color: $text;
+    }
+
+    .CategoryPillSelected {
+      border: 2px solid $text;
+    }
+
+    .CategoryName {
+      text-align: center;
+      padding: 8px;
+    }
+
+    .CategoryNameSelected {
+      font-weight: bold;
+      padding: 0;
+    }
+  }
+
+  .GroupsList {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 0 16px;
+    box-sizing: border-box;
+    margin-bottom: 100px;
+  }
+}
+
+.SearchGroupsPage {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 0;
+  box-sizing: border-box;
+
+  .LikeText {
+    margin-bottom: 32px;
+  }
+
+  .NoGroupsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .NoGroupsText {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .NoGroupsButton {
+    width: 225px;
+    max-width: 80%;
+    height: 40px;
+    background: $light-gray;
+    border-radius: 40px;
+    border: none;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $text;
+      color: white;
+    }
+  }
+}

@@ -1,53 +1,104 @@
 const prod = process.env.NODE_ENV === "production";
 
 export default {
-  baseUrl: prod
-    ? process.env.BASE_URL || "https://liv2bgirl.now.sh"
-    : `http://localhost:3000`,
-  dbUrl: prod
-    ? process.env.MONGODB
-    : process.env.MONGO_DEV_DB || "mongodb://localhost:27017",
+  baseUrl: prod ? process.env.BASE_URL : `http://localhost:3000`,
+  dbUrl: process.env.MONGODB,
   dbName: "liv2bgirl",
   pages: {
     index: "/",
     signUp: "/sign-up",
     signIn: "/sign-in",
     app: {
-      home: "/app",
-      groupList: "/app/groups",
-      group: groupId => `/app/groups/${groupId}`,
-      askMe: "/app/ask-me",
-      askquestion: "/app/ask-me/new",
-      viewQuestion: questionId => `/app/ask-me/view/${questionId}`,
-      notifications: "/app/notifications",
-      profile: profileId => `/app/profile/${profileId}`,
-      myProfile: "/app/profile",
-      thread: threadId => `/app/groups/thread/${threadId}`,
-      createThread: groupId => `/app/groups/${groupId}/new-thread`,
-      newgroup: "/app/groups/new",
+      index: "/app",
+      admin: {
+        index: "/app/admin",
+        invite: "/app/admin/invite",
+      },
+      askMe: {
+        index: "/app/ask-me",
+        askQuestion: "/app/ask-me/new",
+        questions: {
+          view: (questionId) =>
+            `/app/ask-me/view/${questionId ?? "[threadid]"}`,
+        },
+      },
+      groups: {
+        index: "/app/groups",
+        newGroup: "/app/groups/new",
+        group: {
+          view: (groupId) => `/app/groups/view/${groupId ?? "[groupid]"}`,
+          threads: {
+            createThread: (groupId) =>
+              `/app/groups/view/${groupId ?? "[groupid]"}/new-thread`,
+            view: (groupId, threadId) =>
+              `/app/groups/view/${groupId ?? "[groupid]"}/thread/${
+                threadId ?? "[threadid]"
+              }`,
+          },
+        },
+      },
+      notifications: {
+        index: "/app/notifications",
+      },
+      profile: {
+        view: (profileId) => `/app/profile/${profileId ?? "[userid]"}`,
+      },
     },
   },
   api: {
-    login: () => "/api/user/login",
-    signUp: () => "/api/user/signUp",
-    getCurrentUser: () => "/api/user/getCurrentUser",
-    getUser: () => "/api/user/getUser",
-    followUser: () => "/api/user/followUser",
-    unfollowUser: () => "/api/user/unfollowUser",
-    createThread: () => "/api/threads/createThread",
-    deleteThread: () => "/api/threads/deleteThread",
-    filterThread: () => "/api/threads/filterThread",
-    searchThreads: () => "/api/threads/searchThreads",
-    getThread: () => "/api/threads/getThread",
-    getGroupThreads: () => "/api/threads/getGroupThreads",
-    getUserQuestions: () => "/api/threads/getUserQuestions",
-    createGroup: () => "/api/groups/createGroup",
-    deleteGroup: () => "/api/groups/deleteGroup",
-    getGroup: () => "/api/groups/getGroup",
-    followGroup: () => "/api/groups/followGroup",
-    unfollowGroup: () => "/api/groups/unfollowGroup",
-    createComment: () => "/api/comments/createComment",
-    deleteComment: () => "/api/comments/deleteComment",
-    getCommentsByThread: () => "/api/comments/getCommentsByThread",
+    askMeThread: {
+      createThread: () => "/api/AskMeThread/createThread",
+      deleteThread: () => "/api/AskMeThread/deleteThread",
+      filterThreads: () => "/api/AskMeThread/filterThreads",
+      searchThreads: () => "/api/AskMeThread/searchThreads",
+      getThread: () => "/api/AskMeThread/getThread",
+      getAskThreads: () => "/api/AskMeThread/getAskThreads",
+      getUserQuestions: () => "/api/AskMeThread/getUserQuestions",
+    },
+    category: {
+      getCategories: () => "/api/Category/getCategories",
+    },
+    comment: {
+      createComment: () => "/api/Comment/createComment",
+      deleteComment: () => "/api/Comment/deleteComment",
+      getCommentsByThread: () => "/api/Comment/getCommentsByThread",
+      getCommentsByAskMeThread: () => "/api/Comment/getCommentsByAskMeThread",
+    },
+    group: {
+      createGroup: () => "/api/Group/createGroup",
+      deleteGroup: () => "/api/Group/deleteGroup",
+      getGroup: () => "/api/Group/getGroup",
+      searchGroups: () => "/api/Group/searchGroups",
+    },
+    invitationCode: {
+      createCode: () => "/api/InvitationCode/createCode",
+      verifyCodeUnused: () => "/api/InvitationCode/verifyCodeUnused",
+    },
+    groupThread: {
+      createThread: () => "/api/GroupThread/createThread",
+      deleteThread: () => "/api/GroupThread/deleteThread",
+      filterThreads: () => "/api/GroupThread/filterThreads",
+      searchThreads: () => "/api/GroupThread/searchThreads",
+      getThread: () => "/api/GroupThread/getThread",
+      getGroupThreads: () => "/api/GroupThread/getGroupThreads",
+    },
+    user: {
+      login: () => "/api/User/login",
+      signUp: () => "/api/User/signUp",
+      getCurrentUser: () => "/api/User/getCurrentUser",
+      getUser: () => "/api/User/getUser",
+      followUser: () => "/api/User/followUser",
+      unfollowUser: () => "/api/User/unfollowUser",
+      followGroup: () => "/api/User/followGroup",
+      unfollowGroup: () => "/api/User/unfollowGroup",
+      getUserAskBookmarks: () => "/api/User/getUserAskBookmarks",
+      addAskBookmark: () => "/api/User/addAskBookmark",
+      removeAskBookmark: () => "/api/User/removeAskBookmark",
+      getUserGroupBookmarks: () => "/api/User/getUserGroupBookmarks",
+      addGroupBookmark: () => "/api/User/addGroupBookmark",
+      removeGroupBookmark: () => "/api/User/removeGroupBookmark",
+      verifyEmailUnused: () => "/api/User/verifyEmailUnused",
+      generateUsernames: () => "/api/User/generateUsernames",
+    },
   },
 };

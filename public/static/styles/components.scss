@@ -1,0 +1,74 @@
+@import "colors";
+
+.Page {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 0;
+  margin-bottom: 100px;
+}
+
+.NextButton {
+  margin: 0 auto 30px;
+  background-color: $light-gray;
+  border-radius: 137px;
+  border: none;
+  width: 255px;
+  padding: 15px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  color: $text;
+
+  &:hover {
+    background-color: $text;
+    color: white;
+  }
+}
+
+.SmallPill {
+  height: 40px;
+  margin: 8px;
+  padding: 0 12px;
+  border: 2px solid $light-gray;
+  border-radius: 43px;
+  color: $gray;
+  background-color: transparent;
+  box-sizing: border-box;
+
+  h2 {
+    font-weight: normal;
+  }
+
+  &:hover {
+    border: 2px solid $text;
+    background-color: $text;
+    color: white;
+  }
+}
+
+.ActivePill {
+  border: 3px solid $text;
+
+  &:hover {
+    border: 3px solid $text;
+    background-color: $text;
+    color: white;
+  }
+}
+
+.PostButton {
+  border-radius: 137px;
+  font-size: 14px;
+  line-height: 21px;
+  border: none;
+  background-color: $light-gray;
+  color: $text;
+  font-weight: bold;
+  height: 24px;
+  width: 60px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $text;
+    color: white;
+  }
+}

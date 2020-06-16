@@ -1,25 +1,25 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose;
-
-const ReportSchema = new Schema({
+const ReportSchema = new mongoose.Schema({
   filedBy: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     index: true,
     required: true,
   },
   reportedUser: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     index: true,
     required: true,
   },
-  parentId: {
-    type: String,
+  parent: {
+    type: mongoose.Schema.Types.ObjectId,
     index: true,
     required: true,
   },
   category: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     index: true,
     required: true,
   },
@@ -29,10 +29,12 @@ const ReportSchema = new Schema({
   },
   decided: {
     type: Boolean,
+    default: false,
   },
   madeAt: {
     type: Date,
     required: true,
+    default: Date.now,
   },
 });
 

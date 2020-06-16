@@ -211,7 +211,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 ### WebStorm Patch ###
-# Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
+# ThreadComment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
 # *.iml
 # modules.xml

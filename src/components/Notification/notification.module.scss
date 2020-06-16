@@ -1,0 +1,40 @@
+@import "../../../public/static/styles/colors";
+
+.NotificationPage {
+  margin-top: 48px;
+  margin-bottom: 99px;
+
+  .NotificationCard {
+    height: 116px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px;
+    border-bottom: 1px solid $light-gray;
+
+    .TopLine {
+      display: flex;
+
+      .Icon {
+        margin-right: 9px;
+      }
+
+      .Response {
+        margin-right: 8px;
+      }
+
+      .NotificationDate {
+        font-weight: normal;
+        margin-left: auto;
+        text-align: right;
+        min-width: 24px;
+        max-width: 24px;
+      }
+    }
+
+    .Message {
+      margin: 0 25px;
+      margin-top: 8px;
+      font-weight: normal;
+    }
+  }
+}

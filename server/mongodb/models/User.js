@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose;
-
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -22,23 +20,28 @@ const UserSchema = new Schema({
   role: {
     type: String,
     required: true,
+    default: "User",
+    enum: ["Admin", "Ambassador", "User"],
   },
   name: {
-    // admin/ambassador only
     type: String,
   },
   groups: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Group",
     required: true,
     index: true,
+    default: [],
   },
   followers: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "User",
     required: true,
     default: [],
   },
   following: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "User",
     required: true,
     default: [],
   },
@@ -63,13 +66,38 @@ const UserSchema = new Schema({
     required: true,
   },
   askBookmarks: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "AskMeThread",
     required: true,
+    default: [],
   },
   groupBookmarks: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Thread",
     required: true,
-  }
+    default: [],
+  },
 });
+
+async function handleDelete(provDoc) {
+  const doc =
+    this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
+
+  if (doc != null) {
+    const id = doc._id;
+
+    await mongoose
+      .model("Group")
+      .updateMany({ moderator: id }, { moderator: null });
+    await mongoose.model("Thread").deleteMany({ author: id });
+    await mongoose.model("Comment").deleteMany({ author: id });
+  }
+}
+
+UserSchema.pre("remove", handleDelete);
+UserSchema.pre("findOneAndDelete", handleDelete);
+UserSchema.pre("findOneAndRemove", handleDelete);
+UserSchema.pre("deleteOne", handleDelete);
+UserSchema.pre("deleteMany", handleDelete);
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

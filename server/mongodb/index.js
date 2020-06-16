@@ -12,9 +12,17 @@ export default async () => {
       useCreateIndex: true,
       dbName: urls.dbName,
     })
-    .catch(e => {
+    .catch((e) => {
       console.error("Error connecting to database.");
 
       throw e;
     });
+
+  require("./models/AskMeThread");
+  require("./models/Comment");
+  require("./models/Group");
+  require("./models/GroupCategory");
+  require("./models/InvitationCode");
+  require("./models/Report");
+  require("./models/User");
 };

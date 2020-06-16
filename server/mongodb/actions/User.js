@@ -1,11 +1,11 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import cookie from "js-cookie";
-import Router from "next/router";
 import mongoDB from "../index";
 import User from "../models/User";
+import Comment from "../models/Comment";
+import { useCode } from "./InvitationCode";
 
-export const login = async (email, password) => {
+export const login = async ({ email, password }) => {
   if (email == null || password == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -13,9 +13,9 @@ export const login = async (email, password) => {
   await mongoDB();
 
   return User.findOne({ email })
-    .then(user => {
+    .then((user) => {
       if (user) {
-        return bcrypt.compare(password, user.password).then(result => {
+        return bcrypt.compare(password, user.password).then((result) => {
           if (result) return Promise.resolve(user);
 
           return Promise.reject(
@@ -26,10 +26,10 @@ export const login = async (email, password) => {
 
       return Promise.reject(new Error("The username does not exist."));
     })
-    .then(user =>
+    .then((user) =>
       jwt.sign(
         {
-          id: user._id,
+          _id: user._id,
           email: user.email,
           role: user.role,
         },
@@ -39,84 +39,142 @@ export const login = async (email, password) => {
         }
       )
     );
-}
+};
 
-export const signUp = async ({
-  email,
-  username,
-  password,
-  avatar = 1,
-  avatarColor = 1,
-  age = 13,
-  grade = 7,
-  role = "User",
-  name = "",
-  followers = [],
-  following = [],
-  interests = [],
-  askBookmarks = [],
-  groupBookmarks = [],
+export const signUp = async (
+  currentUser,
+  {
+    invCode,
+    email,
+    username,
+    password,
+    avatar = 1,
+    avatarColor = 1,
+    age = 13,
+    grade = 7,
+    role = "User",
+    name = "",
+    followers = [],
+    following = [],
+    interests = [],
+    askBookmarks = [],
+    groupBookmarks = [],
+  }
+) => {
+  if (
+    invCode == null ||
+    email == null ||
+    username == null ||
+    password == null
+  ) {
+    throw new Error("All parameters must be provided!");
+  } else if (
+    role !== "User" &&
+    (currentUser == null || currentUser.role !== "Admin")
+  ) {
+    throw new Error("Only admins can create non-user accounts!");
+  }
+
+  await mongoDB();
+
+  const hashedPassword = bcrypt.hashSync(password, 10);
+
+  const user = new User({
+    email,
+    username,
+    password: hashedPassword,
+    avatar,
+    avatarColor,
+    age,
+    grade,
+    role,
+    name,
+    interests,
+    followers,
+    following,
+    askBookmarks,
+    groupBookmarks,
+  });
+
+  return user
+    .validate()
+    .then(() => useCode({ code: invCode, usedBy: user._id }))
+    .then(() => user.save())
+    .then(() =>
+      jwt.sign(
+        {
+          _id: user._id,
+          email: user.email,
+          role: user.role,
+        },
+        process.env.JWTSECRET,
+        {
+          expiresIn: "7d",
+        }
+      )
+    );
+};
+
+/**
+ * Returns a random number between min (inclusive) and max (inclusive)
+ */
+const getRandom = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+export const generateUsernames = async ({
+  description,
+  thing,
+  number,
+  count,
 }) => {
-  if (email == null || username == null || password == null) {
+  if (description == null || thing == null || number == null || count == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  const FilterHelper = require("bad-words");
+  const filter = new FilterHelper();
+
+  const usernames = new Set();
+
+  while (usernames.size < count) {
+    const descriptionStart = getRandom(0, 1);
+    const descriptionLength = getRandom(2, description.length);
+    const thingStart = getRandom(0, 1);
+    const thingLength = getRandom(2, thing.length);
+    const newUsername =
+      description.substring(descriptionStart, descriptionLength) +
+      thing.substring(thingStart, thingLength) +
+      number +
+      Math.floor(Math.random() * 10);
+
+    if (
+      !usernames.has(newUsername) &&
+      !filter.isProfane(newUsername) &&
+      !(await User.exists({ username: newUsername }))
+    ) {
+      usernames.add(newUsername);
+    }
+  }
+
+  return Array.from(usernames);
+};
+
+export const verifyEmailUnused = async ({ email }) => {
+  if (email == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return User.countDocuments({ email })
-    .then(count => {
-      if (count) {
-        return Promise.reject(new Error("This email has already been used."));
-      }
+  return User.exists({ email }).then((exists) => !exists);
+};
 
-      return bcrypt.hashSync(password, 10);
-    })
-    .then(hashedPassword =>
-      User.create({
-        email,
-        username,
-        password: hashedPassword,
-        avatar,
-        avatarColor,
-        age,
-        grade,
-        role,
-        name,
-        interests,
-        followers,
-        following,
-        askBookmarks,
-        groupBookmarks,
-      })
-    )
-    .then(user =>
-      jwt.sign(
-        {
-          id: user._id,
-          email: user.email,
-          role: user.role,
-        },
-        process.env.JWTSECRET,
-        {
-          expiresIn: "7d",
-        }
-      )
-    );
-}
-
-export const signOut = () => {
-  cookie.remove("token");
-
-  return Router.push({
-    pathname: "/",
-  });
+export const signOut = (req, res) => {
+  res.setHeader("Set-Cookie", "token=; Max-Age=0; SameSite=Lax; Path=/");
 };
 
 export const verifyToken = async (req, res) => {
-  // eslint-disable-next-line global-require
-  const cookies = require("cookie-universal")(req, res);
-
-  const token = cookies.get("token");
+  const token = req.cookies != null ? req.cookies.token : null;
   if (token == null) {
     throw new Error("User is not signed in!");
   }
@@ -126,186 +184,244 @@ export const verifyToken = async (req, res) => {
       return decoded;
     }
 
-    cookies.remove("token");
-
+    res.setHeader("Set-Cookie", "token=; Max-Age=0; SameSite=Lax; Path=/");
     throw new Error("Invalid token!");
   });
-}
+};
 
 export const verifyTokenSecure = async (req, res) => {
-  // eslint-disable-next-line global-require
-  const cookies = require("cookie-universal")(req, res);
-
-  const token = cookies.get("token");
+  const token = req.cookies != null ? req.cookies.token : null;
   if (token == null) {
-    throw new Error("User is not signed in!");
+    return null;
   }
 
   await mongoDB();
 
   return jwt.verify(token, process.env.JWTSECRET, (err, decoded) => {
     if (err || decoded == null) {
-      throw new Error("Invalid token!");
+      res.setHeader("Set-Cookie", "token=; Max-Age=0; SameSite=Lax; Path=/");
+
+      return null;
     }
 
-    const { id } = decoded;
+    const { _id } = decoded;
 
-    return User.findOne({ _id: id })
-      .then(user => {
+    return User.findOne({ _id })
+      .then((user) => {
         if (user == null) {
+          res.setHeader(
+            "Set-Cookie",
+            "token=; Max-Age=0; SameSite=Lax; Path=/"
+          );
           throw new Error("User does not exist!");
         }
 
-        return {
-          id: user._id,
-          groups: user.groups,
-          followers: user.followers,
-          following: user.following,
-          email: user.email,
-          username: user.username,
-          avatar: user.avatar,
-          avatarColor: user.avatarColor,
-          age: user.age,
-          grade: user.grade,
-          role: user.role,
-          interests: user.interests,
-        };
-      })
-      .catch(findError => {
-        cookies.remove("token");
+        // eslint-disable-next-line no-unused-vars
+        const { password, ...userInfo } = user.toObject();
 
-        throw findError;
+        return userInfo;
+      })
+      .catch(() => {
+        res.setHeader("Set-Cookie", "token=; Max-Age=0; SameSite=Lax; Path=/");
+
+        return null;
       });
   });
-}
+};
 
-export const follow = async (userId, toFollowId) => {
-  if (userId == null || toFollowId == null) {
+export const followUser = async (currentUser, { toFollowId }) => {
+  if (currentUser == null || toFollowId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
-  // username added to userId's following
-  // userId added to username's follower
 
-  await User.findByIdAndUpdate(userId, { $push: { following: toFollowId } });
-  await User.findByIdAndUpdate(toFollowId, { $push: { followers: userId } });
-}
+  await User.findByIdAndUpdate(currentUser._id, {
+    $push: { following: toFollowId },
+  });
+  await User.findByIdAndUpdate(toFollowId, {
+    $push: { followers: currentUser._id },
+  });
+};
 
-export const unfollow = async (userId, toUnfollowId) => {
-  if (userId == null || toUnfollowId == null) {
+export const unfollowUser = async (currentUser, { toUnfollowId }) => {
+  if (currentUser == null || toUnfollowId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
-  // "username" deleted from userId's following
-  // "userId" deleted from username's follower reduces
 
-  await User.findByIdAndUpdate(userId, { $pull: { following: toUnfollowId } });
-  await User.findByIdAndUpdate(toUnfollowId, { $pull: { followers: userId } });
-}
+  await User.findByIdAndUpdate(currentUser._id, {
+    $pull: { following: toUnfollowId },
+  });
+  await User.findByIdAndUpdate(toUnfollowId, {
+    $pull: { followers: currentUser._id },
+  });
+};
 
-export const getUser = async userId => {
+export const getUser = async (currentUser, { userId }) => {
   if (userId == null) {
     throw new Error("userId must be provided!");
   }
 
   await mongoDB();
 
-  return User.findById(userId).then(user => {
-    if (user == null) {
-      throw new Error("User does not exist!");
-    }
+  return User.findById(userId)
+    .then((user) => {
+      if (user == null) {
+        throw new Error("User does not exist!");
+      }
 
-    return {
-      id: user._id,
-      username: user.username,
-      avatar: user.avatar,
-      avatarColor: user.avatarColor,
-      groups: user.groups,
-      age: user.age,
-      grade: user.grade,
-      interests: user.interests,
-    };
+      // eslint-disable-next-line no-unused-vars
+      const { password, ...rest } = user.toObject();
+
+      return rest;
+    })
+    .catch(() => {
+      throw new Error("Invalid link or thread does not exist!");
+    });
+};
+
+export const getUserAskBookmarks = async (currentUser) => {
+  if (currentUser == null) {
+    throw new Error("User must be logged in!");
+  }
+
+  await mongoDB();
+
+  return User.findById(currentUser._id)
+    .populate({
+      path: "askBookmarks",
+      model: "AskMeThread",
+      populate: {
+        path: "author",
+        model: "User",
+        select: "_id username avatar avatarColor",
+      },
+    })
+    .then((user) => {
+      if (user == null) {
+        throw new Error("User does not exist!");
+      }
+
+      return user.askBookmarks;
+    })
+    .then((bookmarks) =>
+      Promise.all(
+        bookmarks.map(async (bookmark) => ({
+          ...bookmark.toObject(),
+          numComments: await Comment.find({
+            parent: bookmark._id,
+          }).countDocuments(),
+        }))
+      )
+    );
+};
+
+export const addAskBookmark = async (currentUser, { threadId }) => {
+  if (currentUser == null || threadId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return User.findByIdAndUpdate(currentUser._id, {
+    $push: { askBookmarks: threadId },
   });
-}
+};
 
-export const getUserAskBookmarks = async userId => {
-  if (userId == null) {
-    throw new Error("userId must be provided!");
+export const removeAskBookmark = async (currentUser, { threadId }) => {
+  if (currentUser == null || threadId == null) {
+    throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return User.findById(userId).then(user => {
-    if (user == null) {
-      throw new Error("User does not exist!");
-    }
-
-    return {
-      id: user._id,
-      username: user.username,
-      askBookmarks: user.askBookmarks,
-    };
+  return User.findByIdAndUpdate(currentUser._id, {
+    $pull: { askBookmarks: threadId },
   });
-}
+};
 
-export const addAskBookmark = async (userId, threadId) => {
-  if (userId == null || threadId == null) {
+export const getUserGroupBookmarks = async (currentUser) => {
+  if (currentUser == null) {
+    throw new Error("User must be logged in!");
+  }
+
+  await mongoDB();
+
+  return User.findById(currentUser._id)
+    .populate({
+      path: "groupBookmarks",
+      model: "GroupThread",
+      populate: {
+        path: "author",
+        model: "User",
+        select: "_id username avatar avatarColor",
+      },
+    })
+    .then((user) => {
+      if (user == null) {
+        throw new Error("User does not exist!");
+      }
+
+      return user.askBookmarks;
+    })
+    .then((bookmarks) =>
+      Promise.all(
+        bookmarks.map(async (bookmark) => ({
+          ...bookmark.toObject(),
+          numComments: await Comment.find({
+            parent: bookmark._id,
+          }).countDocuments(),
+        }))
+      )
+    );
+};
+
+export const addGroupBookmark = async (currentUser, { threadId }) => {
+  if (currentUser == null || threadId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return User.findByIdAndUpdate(userId, { $push: { askBookmarks: threadId } });
-}
-
-export const removeAskBookmark = async (userId, threadId) => {
-  if (userId == null || threadId == null) {
-    throw new Error("All parameters must be provided!");
-  }
-
-  await mongoDB();
-
-  return User.findByIdAndUpdate(userId, { $pull: { askBookmarks: threadId } });
-}
-
-export const getUserGroupBookmarks = async userId => {
-  if (userId == null) {
-    throw new Error("userId must be provided!");
-  }
-
-  await mongoDB();
-
-  return User.findById(userId).then(user => {
-    if (user == null) {
-      throw new Error("User does not exist!");
-    }
-
-    return {
-      id: user._id,
-      username: user.username,
-      groupBookmarks: user.groupBookmarks,
-    };
+  return User.findByIdAndUpdate(currentUser._id, {
+    $push: { groupBookmarks: threadId },
   });
-}
+};
 
-export const addGroupBookmark = async (userId, threadId) => {
-  if (userId == null || threadId == null) {
+export const removeGroupBookmark = async (currentUser, { threadId }) => {
+  if (currentUser == null || threadId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  return User.findByIdAndUpdate(userId, { $push: { askBookmarks: threadId } });
-}
+  return User.findByIdAndUpdate(currentUser._id, {
+    $pull: { groupBookmarks: threadId },
+  });
+};
 
-export const removeGroupBookmark = async (userId, threadId) => {
-  if (userId == null || threadId == null) {
+export const followGroup = async (currentUser, { groupId }) => {
+  if (currentUser == null || groupId == null) {
     throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
 
-  await User.findByIdAndUpdate(userId, { $pull: { askBookmarks: threadId } });
-}
+  return User.findByIdAndUpdate(currentUser._id, {
+    $push: { groups: groupId },
+  });
+};
+
+export const unfollowGroup = async (currentUser, { groupId }) => {
+  if (currentUser == null || groupId == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return User.findByIdAndUpdate(currentUser._id, {
+    $pull: { groups: groupId },
+  });
+};

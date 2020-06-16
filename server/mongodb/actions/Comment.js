@@ -1,75 +1,99 @@
 import mongoDB from "../index";
 import Comment from "../models/Comment";
-import Thread from "../models/Thread";
-import User from "../models/User";
-import { getUser } from "./User";
 
-export async function createComment(
-  poster,
-  parentId,
-  content,
-  postedAt = Date.now()
-) {
-  await mongoDB();
-
-  if (poster == null) {
+export const createComment = async (
+  currentUser,
+  { parentId, content, taggedUsers }
+) => {
+  if (currentUser == null) {
     throw new Error("You must be logged in to create a comment!");
   }
 
-  return User.findById(poster).then(user => {
-    if (!user) {
-      return Promise.reject(new Error("Invalid User ID for poster"));
-    }
-    return Thread.findById(parentId).then(thread => {
-      if (!thread) {
-        return Promise.reject(new Error("Invalid Thread ID"));
-      }
-
-      return Comment.create({
-        poster,
-        parentId,
-        content,
-        postedAt,
-      });
-    });
-  });
-}
-
-export async function deleteComment(commentId) {
   await mongoDB();
 
-  return Comment.findOneAndDelete({ _id: commentId }).then(deletedComment => {
-    if (deletedComment) {
-      console.log("Successfully deleted comment");
-    } else {
-      return Promise.reject(new Error("No comment matches the provided id"));
+  return Comment.create({
+    author: currentUser._id,
+    parent: parentId,
+    content,
+    taggedUsers,
+  });
+};
+
+export const deleteComment = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  const query = { _id: id };
+  if (currentUser.role === "User") {
+    query.author = currentUser._id;
+  }
+
+  return Comment.findOneAndDelete(query).then((deletedComment) => {
+    if (deletedComment == null) {
+      throw new Error(
+        "No comment matches the provided id or user does not have permission!"
+      );
     }
 
     return deletedComment;
   });
-}
+};
 
-export async function getCommentsByThread(threadId) {
+export const getCommentsByAskMeThread = async (currentUser, { id }) => {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  } else if (id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
   await mongoDB();
 
-  return Thread.findById(threadId)
-    .then(thread => {
-      if (!thread) {
-        return Promise.reject(new Error("Invalid Thread ID"));
+  return Comment.find({ parent: id })
+    .populate({
+      path: "author",
+      model: "User",
+      select: "_id username avatar avatarColor",
+    })
+    .sort({
+      officialAnswer: -1, // official answers come first
+      postedAt: 1, // newest at bottom
+    })
+    .then(async (comments) => {
+      if (comments == null) {
+        throw new Error("Error retrieving comment");
       }
 
-      return Comment.find({ parentId: threadId }).then(async comments => {
-        if (!comments) {
-          return Promise.reject(new Error("Error retrieving comments"));
-        }
+      return comments;
+    });
+};
 
-        return Promise.all(
-          comments.map(async comment => ({
-            ...comment.toObject(),
-            author: await getUser(comment.poster),
-          }))
-        );
-      });
+export const getCommentsByThread = async (currentUser, { id }) => {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  } else if (id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return Comment.find({ parent: id })
+    .populate({
+      path: "author",
+      model: "User",
+      select: "_id username avatar avatarColor",
     })
-    .catch(() => Promise.reject(new Error("Invalid Thread ID")));
-}
+    .sort({
+      officialAnswer: -1, // official answers come first
+      postedAt: 1, // newest at bottom
+    })
+    .then(async (comments) => {
+      if (comments == null) {
+        throw new Error("Error retrieving comment");
+      }
+
+      return comments;
+    });
+};
