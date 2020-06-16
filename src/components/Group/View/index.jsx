@@ -55,7 +55,7 @@ const ViewGroup = ({ currentUser, groupData, threads }) => {
         rightNode={
           groupData && isAdmin ? (
             <Icon
-              onClick={() => toggle()}
+              onClick={toggle}
               className="IconButton"
               icon={dotsHorizontal}
               width="18px"

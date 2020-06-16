@@ -34,9 +34,12 @@ const CommentSchema = new mongoose.Schema({
 async function handleDelete(provDoc) {
   const doc =
     this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
-  const id = doc._id;
 
-  await this.model.deleteMany({ parent: id });
+  if (doc != null) {
+    const id = doc._id;
+
+    await this.model.deleteMany({ parent: id });
+  }
 }
 
 CommentSchema.pre("remove", handleDelete);

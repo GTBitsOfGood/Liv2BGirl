@@ -35,15 +35,17 @@ export const deleteThread = async (currentUser, { id }) => {
     query.author = currentUser._id;
   }
 
-  return Thread.findOneAndDelete(query).then(async (deletedThread) => {
-    if (deletedThread == null) {
-      throw new Error(
-        "No thread matches the provided id or user does not have permission!"
-      );
-    }
+  return Thread.findOneAndDelete(query)
+    .exec()
+    .then(async (deletedThread) => {
+      if (deletedThread == null) {
+        throw new Error(
+          "No thread matches the provided id or user does not have permission!"
+        );
+      }
 
-    return deletedThread;
-  });
+      return deletedThread;
+    });
 };
 
 export const getGroupThreads = async (currentUser, { groupId }) => {

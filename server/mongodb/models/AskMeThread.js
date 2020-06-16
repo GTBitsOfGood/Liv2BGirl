@@ -33,9 +33,12 @@ const AskMeThread = new mongoose.Schema({
 async function handleDelete(provDoc) {
   const doc =
     this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
-  const id = doc._id;
 
-  await mongoose.model("Comment").deleteMany({ parent: id });
+  if (doc != null) {
+    const id = doc._id;
+
+    await mongoose.model("Comment").deleteMany({ parent: id });
+  }
 }
 
 AskMeThread.pre("remove", handleDelete);

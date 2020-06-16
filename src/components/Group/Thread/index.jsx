@@ -1,12 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import Router from "next/router";
 import { Icon } from "@iconify/react";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 import TextareaAutosize from "react-textarea-autosize";
 import ThreadComment from "../../ThreadComment";
 import TopNavBar from "../../TopNavBar";
+import ActionModal from "../../ActionModal";
+import { deleteThread } from "../../../actions/GroupThread";
 import { createComment } from "../../../actions/Comment";
 import { addGroupBookmark, removeGroupBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
@@ -26,13 +29,15 @@ const Thread = ({ currentUser, thread, group, comments }) => {
       const taggedUsers = new Set();
 
       const allUsernames = comment.match(usernameRegex);
-      comments.forEach(({ author }) => {
-        const { username } = author;
+      if (allUsernames != null && allUsernames.length > 0) {
+        comments.forEach(({ author }) => {
+          const { username } = author;
 
-        if (!taggedUsers.has(username) && allUsernames.includes(username)) {
-          taggedUsers.add(author._id);
-        }
-      });
+          if (!taggedUsers.has(username) && allUsernames.includes(username)) {
+            taggedUsers.add(author._id);
+          }
+        });
+      }
 
       const userArray = Array.from(taggedUsers);
 
@@ -50,6 +55,21 @@ const Thread = ({ currentUser, thread, group, comments }) => {
       setSaved(true);
     }
   };
+
+  const actionButtons = [];
+
+  if (
+    thread.author._id === currentUser._id ||
+    ["Admin", "Ambassador"].includes(currentUser.role)
+  ) {
+    actionButtons.push({
+      title: "Delete Thread",
+      action: () =>
+        deleteThread(null, thread._id).then(() =>
+          Router.replace(urls.pages.app.groups.group.view(group._id))
+        ),
+    });
+  }
 
   return (
     <div className={styles.ThreadPage}>
@@ -112,6 +132,7 @@ const Thread = ({ currentUser, thread, group, comments }) => {
           </div>
         </div>
         <h4 className={styles.ThreadText}>{thread.content}</h4>
+        {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
       </div>
       <div className={styles.ThreadComments}>
         {comments.map((comment) => (
@@ -119,6 +140,7 @@ const Thread = ({ currentUser, thread, group, comments }) => {
             key={comment._id}
             comment={comment}
             setReply={setComment}
+            currentUser={currentUser}
           />
         ))}
       </div>
@@ -148,7 +170,7 @@ const Thread = ({ currentUser, thread, group, comments }) => {
         <button
           type="button"
           className="PostButton"
-          onClick={() => postComment()}
+          onClick={postComment}
           style={{ marginLeft: "auto", marginTop: "12px" }}
         >
           Post
@@ -165,6 +187,7 @@ Thread.propTypes = {
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,
     groupBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
+    role: PropTypes.string.isRequired,
   }).isRequired,
   thread: PropTypes.shape({
     _id: PropTypes.string.isRequired,

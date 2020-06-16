@@ -31,7 +31,7 @@ export const createComment = (cookies, parentId, content, taggedUsers) =>
 
 export const deleteComment = (cookies, id) =>
   authedFetch(
-    urls.baseUrl + urls.api.comment.getCommentsByThread(),
+    urls.baseUrl + urls.api.comment.deleteComment(),
     {
       method: "POST",
       mode: "same-origin",

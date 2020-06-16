@@ -82,13 +82,16 @@ const UserSchema = new mongoose.Schema({
 async function handleDelete(provDoc) {
   const doc =
     this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
-  const id = doc._id;
 
-  await mongoose
-    .model("Group")
-    .updateMany({ moderator: id }, { moderator: null });
-  await mongoose.model("Thread").deleteMany({ author: id });
-  await mongoose.model("Comment").deleteMany({ author: id });
+  if (doc != null) {
+    const id = doc._id;
+
+    await mongoose
+      .model("Group")
+      .updateMany({ moderator: id }, { moderator: null });
+    await mongoose.model("Thread").deleteMany({ author: id });
+    await mongoose.model("Comment").deleteMany({ author: id });
+  }
 }
 
 UserSchema.pre("remove", handleDelete);

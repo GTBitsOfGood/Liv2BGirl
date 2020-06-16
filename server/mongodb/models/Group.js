@@ -29,12 +29,15 @@ const GroupSchema = new mongoose.Schema({
 async function handleDelete(provDoc) {
   const doc =
     this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
-  const id = doc._id;
 
-  await mongoose
-    .model("User")
-    .updateMany({ groups: id }, { $pull: { groups: id } });
-  await mongoose.model("Thread").deleteMany({ group: id });
+  if (doc != null) {
+    const id = doc._id;
+
+    await mongoose
+      .model("User")
+      .updateMany({ groups: id }, { $pull: { groups: id } });
+    await mongoose.model("Thread").deleteMany({ group: id });
+  }
 }
 
 GroupSchema.pre("remove", handleDelete);

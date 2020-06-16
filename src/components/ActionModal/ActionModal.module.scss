@@ -1,0 +1,45 @@
+@import "../../../public/static/styles/colors";
+
+.ToggleButton {
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.AdminTab {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba($text, 0.8);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  padding: 8px;
+
+  .AdminButton,
+  .CancelButton {
+    width: 360px;
+    height: 56px;
+    border-radius: 14px;
+    border: none;
+    color: #007aff;
+    cursor: pointer;
+  }
+
+  .AdminButton {
+    background: #d5d5d6;
+
+    h2 {
+      font-weight: normal;
+    }
+  }
+
+  .CancelButton {
+    background: white;
+    margin-top: 8px;
+  }
+}

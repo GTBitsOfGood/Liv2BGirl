@@ -7,11 +7,13 @@ import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
 import TextareaAutosize from "react-textarea-autosize";
 import ThreadComment from "../../ThreadComment";
 import TopNavBar from "../../TopNavBar";
+import ActionModal from "../../ActionModal";
 import { createComment } from "../../../actions/Comment";
 import { addAskBookmark, removeAskBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
 import urls from "../../../../utils/urls";
 import styles from "../askme.module.scss";
+import { deleteThread } from "../../../actions/AskMeThread";
 
 const usernameRegex = /(?<=@)[^\s]*/g;
 
@@ -26,13 +28,15 @@ const Question = ({ currentUser, thread, comments }) => {
       const taggedUsers = new Set();
 
       const allUsernames = comment.match(usernameRegex);
-      comments.forEach(({ author }) => {
-        const { username } = author;
+      if (allUsernames != null && allUsernames.length > 0) {
+        comments.forEach(({ author }) => {
+          const { username } = author;
 
-        if (!taggedUsers.has(username) && allUsernames.includes(username)) {
-          taggedUsers.add(author._id);
-        }
-      });
+          if (!taggedUsers.has(username) && allUsernames.includes(username)) {
+            taggedUsers.add(author._id);
+          }
+        });
+      }
 
       const userArray = Array.from(taggedUsers);
 
@@ -50,6 +54,21 @@ const Question = ({ currentUser, thread, comments }) => {
       setSaved(true);
     }
   };
+
+  const actionButtons = [];
+
+  if (
+    thread.author._id === currentUser._id ||
+    ["Admin", "Ambassador"].includes(currentUser.role)
+  ) {
+    actionButtons.push({
+      title: "Delete Thread",
+      action: () =>
+        deleteThread(null, thread._id).then(() =>
+          Router.replace(urls.pages.app.askMe.index)
+        ),
+    });
+  }
 
   const officialAnswers = comments.filter((item) => item.officialAnswer);
   const generalComments = comments.filter((item) => !item.officialAnswer);
@@ -81,15 +100,15 @@ const Question = ({ currentUser, thread, comments }) => {
           tabIndex={0}
           className={styles.QuestionDetails}
           onClick={
-            thread.author.userId != null
+            thread.author._id != null
               ? () =>
-                  Router.push(urls.pages.app.profile.view(thread.author.userId))
+                  Router.push(urls.pages.app.profile.view(thread.author._id))
               : () => {}
           }
           onKeyDown={
-            thread.author.userId != null
+            thread.author._id != null
               ? () =>
-                  Router.push(urls.pages.app.profile.view(thread.author.userId))
+                  Router.push(urls.pages.app.profile.view(thread.author._id))
               : () => {}
           }
         >
@@ -111,6 +130,7 @@ const Question = ({ currentUser, thread, comments }) => {
           </h6>
         </div>
         <h4 className={styles.QuestionText}>{thread.content}</h4>
+        <ActionModal buttons={actionButtons} />
       </div>
 
       {officialAnswers.length > 0 && (
@@ -122,6 +142,7 @@ const Question = ({ currentUser, thread, comments }) => {
                 key={item._id}
                 comment={item}
                 setReply={setComment}
+                currentUser={currentUser}
               />
             ))}
           </div>
@@ -137,6 +158,7 @@ const Question = ({ currentUser, thread, comments }) => {
               key={item._id}
               comment={item}
               setReply={setComment}
+              currentUser={currentUser}
             />
           ))}
         </div>
@@ -182,6 +204,7 @@ Question.propTypes = {
     avatar: PropTypes.number.isRequired,
     avatarColor: PropTypes.number.isRequired,
     askBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
+    role: PropTypes.string.isRequired,
   }).isRequired,
   thread: PropTypes.shape({
     _id: PropTypes.string.isRequired,
@@ -190,7 +213,7 @@ Question.propTypes = {
     visibility: PropTypes.string.isRequired,
     postedAt: PropTypes.string.isRequired,
     author: PropTypes.shape({
-      userId: PropTypes.string,
+      _id: PropTypes.string,
       username: PropTypes.string.isRequired,
       avatar: PropTypes.number.isRequired,
       avatarColor: PropTypes.number.isRequired,
