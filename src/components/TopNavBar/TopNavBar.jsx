@@ -49,9 +49,9 @@ const TopNavBar = ({
 
     leftSide = (
       <Link href={backUrl} {...optionals}>
-        <div>
+        <a>
           <Icon className={classes.Back} icon={bxArrowBack} width="18px" />
-        </div>
+        </a>
       </Link>
     );
   }
@@ -72,9 +72,11 @@ const TopNavBar = ({
       {title != null ? (
         <h3>{title}</h3>
       ) : (
-        <a href={urls.pages.app.index}>
-          <img className={classes.Logo} src={logo} alt="Liv2BGirl Logo" />
-        </a>
+        <Link href={urls.pages.app.index}>
+          <a>
+            <img className={classes.Logo} src={logo} alt="Liv2BGirl Logo" />
+          </a>
+        </Link>
       )}
       {rightNode}
     </div>

@@ -39,25 +39,23 @@ const timeSince = (date) => {
 };
 
 const QuestionCard = ({ question }) => (
-  <>
-    <Link
-      href={urls.pages.app.askMe.questions.view()}
-      as={urls.pages.app.askMe.questions.view(question._id)}
-    >
-      <div className={styles.QuestionCard}>
-        <div className={styles.QuestionHeader}>
-          <h3 className={styles.Question}>{`Question: ${question.title}`}</h3>
-          <Icon className={styles.CommentIcon} icon={bxCommentDetail} />
-          <h6 className={styles.Comments}>{question.numComments}</h6>
-        </div>
-        <div className={styles.Unanswered}>
-          <p className={styles.AskedDate}>
-            {`Asked ${timeSince(question.postedAt)} ago`}
-          </p>
-        </div>
+  <Link
+    href={urls.pages.app.askMe.questions.view()}
+    as={urls.pages.app.askMe.questions.view(question._id)}
+  >
+    <a className={styles.QuestionCard}>
+      <div className={styles.QuestionHeader}>
+        <h3 className={styles.Question}>{`Question: ${question.title}`}</h3>
+        <Icon className={styles.CommentIcon} icon={bxCommentDetail} />
+        <h6 className={styles.Comments}>{question.numComments}</h6>
       </div>
-    </Link>
-  </>
+      <div className={styles.Unanswered}>
+        <p className={styles.AskedDate}>
+          {`Asked ${timeSince(question.postedAt)} ago`}
+        </p>
+      </div>
+    </a>
+  </Link>
 );
 
 QuestionCard.propTypes = {

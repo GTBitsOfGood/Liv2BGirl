@@ -105,14 +105,18 @@
 }
 
 .QuestionCard {
-  width: 100%;
   max-height: 175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: $background;
   border-radius: 15px;
   box-sizing: border-box;
   padding: 10px;
   margin-bottom: 16px;
   cursor: pointer;
+  text-decoration: none;
+  color: $text;
 
   .QuestionHeader {
     display: flex;

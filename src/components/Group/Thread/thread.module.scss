@@ -32,9 +32,12 @@
 }
 
 .GroupThread {
+  max-height: 175px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: $background;
   border-radius: 15px;
-  height: 120px;
   padding: 16px;
   margin-bottom: 16px;
   text-align: left;
@@ -42,6 +45,7 @@
   border: 2px solid transparent;
   outline: none;
   cursor: pointer;
+  text-decoration: none;
 
   .ThreadTime,
   .ThreadSummary,

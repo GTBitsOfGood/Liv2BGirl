@@ -17,39 +17,37 @@ const ThreadPost = ({
   author,
   numComments,
 }) => (
-  <button type="button" className={styles.GroupThread}>
-    <Link
-      href={urls.pages.app.groups.group.threads.view()}
-      as={urls.pages.app.groups.group.threads.view(group, _id)}
-    >
-      <div>
-        <div style={{ display: "flex", marginBottom: "4px" }}>
-          <h3 className={styles.ThreadName}>{title}</h3>
-          <h6 className={styles.ThreadTime}>{timeSince(postedAt)}</h6>
+  <Link
+    href={urls.pages.app.groups.group.threads.view()}
+    as={urls.pages.app.groups.group.threads.view(group, _id)}
+  >
+    <a className={styles.GroupThread}>
+      <div style={{ display: "flex", marginBottom: "4px" }}>
+        <h3 className={styles.ThreadName}>{title}</h3>
+        <h6 className={styles.ThreadTime}>{timeSince(postedAt)}</h6>
+      </div>
+      <h4 className={styles.ThreadSummary}>{content}</h4>
+      <div className={styles.ThreadDetails}>
+        <div
+          className={styles.AuthorAvatar}
+          style={{
+            backgroundColor: colorArr[author.avatarColor],
+          }}
+        >
+          <img
+            className={styles.AuthorAvatarImg}
+            src={avatarImg[author.avatar]}
+            alt="Author Avatar"
+          />
         </div>
-        <h4 className={styles.ThreadSummary}>{content}</h4>
-        <div className={styles.ThreadDetails}>
-          <div
-            className={styles.AuthorAvatar}
-            style={{
-              backgroundColor: colorArr[author.avatarColor],
-            }}
-          >
-            <img
-              className={styles.AuthorAvatarImg}
-              src={avatarImg[author.avatar]}
-              alt="Author Avatar"
-            />
-          </div>
-          <h4 className={styles.ThreadAuthor}>{author.username}</h4>
-          <div className={styles.ThreadComments}>
-            <Icon icon={bxCommentDetail} />
-            <h6>{numComments}</h6>
-          </div>
+        <h4 className={styles.ThreadAuthor}>{author.username}</h4>
+        <div className={styles.ThreadComments}>
+          <Icon icon={bxCommentDetail} />
+          <h6>{numComments}</h6>
         </div>
       </div>
-    </Link>
-  </button>
+    </a>
+  </Link>
 );
 
 ThreadPost.propTypes = {
