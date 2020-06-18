@@ -4,11 +4,10 @@ import Link from "next/link";
 import Router from "next/router";
 import { Icon } from "@iconify/react";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
-import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
-import TextareaAutosize from "react-textarea-autosize";
 import ThreadComment from "../../ThreadComment";
 import TopNavBar from "../../TopNavBar";
 import ActionModal from "../../ActionModal";
+import DetailedTextField from "../../DetailedTextField";
 import { deleteThread } from "../../../actions/GroupThread";
 import { createComment } from "../../../actions/Comment";
 import { addGroupBookmark, removeGroupBookmark } from "../../../actions/User";
@@ -18,33 +17,14 @@ import styles from "./thread.module.scss";
 
 const Thread = ({ currentUser, thread, group, comments }) => {
   const [comment, setComment] = React.useState("");
+  const [taggedUsers, setTaggedUsers] = React.useState([]);
   const [saved, setSaved] = React.useState(
     currentUser.groupBookmarks.includes(thread._id)
   );
 
   const postComment = async () => {
     if (comment.length > 0) {
-      const taggedUsers = new Set();
-
-      try {
-        const usernameRegex = /(?<=@)[^\s]*/g;
-        const allUsernames = comment.match(usernameRegex);
-        if (allUsernames != null && allUsernames.length > 0) {
-          comments.forEach(({ author }) => {
-            const { username } = author;
-
-            if (!taggedUsers.has(username) && allUsernames.includes(username)) {
-              taggedUsers.add(author._id);
-            }
-          });
-        }
-      } catch (error) {
-        console.log("failed to get users");
-      }
-
-      const userArray = Array.from(taggedUsers);
-
-      await createComment(null, thread._id, comment, userArray);
+      await createComment(null, thread._id, comment, taggedUsers);
       window.location.reload();
     }
   };
@@ -74,9 +54,25 @@ const Thread = ({ currentUser, thread, group, comments }) => {
     });
   }
 
+  const taggableUserMap = new Map();
+  taggableUserMap.set(thread.author._id, {
+    _id: thread.author._id,
+    username: thread.author.username,
+  });
+  comments.forEach(({ author }) => {
+    if (!taggableUserMap.has(author._id)) {
+      taggableUserMap.set(author._id, {
+        _id: author._id,
+        username: author.username,
+      });
+    }
+  });
+  const taggableUsers = Array.from(taggableUserMap.values());
+
   return (
-    <div className={styles.ThreadPage}>
+    <div className={styles.root}>
       <TopNavBar
+        className={styles.NavBar}
         backUrl={urls.pages.app.groups.group.view()}
         backUrlAs={urls.pages.app.groups.group.view(group._id)}
         title="Thread"
@@ -87,14 +83,15 @@ const Thread = ({ currentUser, thread, group, comments }) => {
             onClick={toggleBookmarked}
           >
             {saved ? (
-              <Icon icon={bxsBookmark} height="18px" />
+              <Icon icon={bxBookmark} height="18px" />
             ) : (
               <Icon icon={bxBookmark} height="18px" />
             )}
           </button>
         }
       />
-      <div className={`Page ${styles.ThreadMain}`}>
+
+      <div className={styles.post}>
         <div className={styles.ThreadInfo}>
           <img
             className={styles.ThreadGroupAvatar}
@@ -131,9 +128,17 @@ const Thread = ({ currentUser, thread, group, comments }) => {
             </h6>
           </div>
         </div>
-        <h4 className={styles.ThreadText}>{thread.content}</h4>
+        <DetailedTextField
+          readOnly={true}
+          textNodes={
+            thread.content != null && thread.content.length > 0
+              ? JSON.parse(thread.content)
+              : null
+          }
+        />
       </div>
-      <div className={styles.ThreadComments}>
+
+      <div className={styles.commentsContainer}>
         {comments.map((comment) => (
           <ThreadComment
             key={comment._id}
@@ -145,7 +150,7 @@ const Thread = ({ currentUser, thread, group, comments }) => {
       </div>
 
       <div className={styles.CommentFooter}>
-        <div className={styles.Footer1}>
+        <div className={styles.CommentTextContainer}>
           <div
             className={`${styles.ThreadAuthorAvatar} ${styles.UserAvatar}`}
             style={{
@@ -158,14 +163,16 @@ const Thread = ({ currentUser, thread, group, comments }) => {
               alt="Author Avatar"
             />
           </div>
-          <TextareaAutosize
-            className={styles.CommentInput}
-            placeholder="Comment"
-            onChange={(event) => setComment(event.target.value)}
-            value={comment}
-            maxRows={8}
-            minRows={2}
-          />
+          <div className={styles.NewCommentContainer}>
+            <DetailedTextField
+              readOnly={false}
+              users={taggableUsers}
+              onChange={({ nodes, mentions }) => {
+                setComment(nodes);
+                setTaggedUsers(mentions);
+              }}
+            />
+          </div>
         </div>
         <button
           type="button"

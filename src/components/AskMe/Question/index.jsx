@@ -4,10 +4,10 @@ import Router from "next/router";
 import { Icon } from "@iconify/react";
 import bxBookmark from "@iconify/icons-bx/bx-bookmark";
 import bxsBookmark from "@iconify/icons-bx/bxs-bookmark";
-import TextareaAutosize from "react-textarea-autosize";
 import ThreadComment from "../../ThreadComment";
 import TopNavBar from "../../TopNavBar";
 import ActionModal from "../../ActionModal";
+import DetailedTextField from "../../DetailedTextField";
 import { createComment } from "../../../actions/Comment";
 import { addAskBookmark, removeAskBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
@@ -17,33 +17,14 @@ import { deleteThread } from "../../../actions/AskMeThread";
 
 const Question = ({ currentUser, thread, comments }) => {
   const [comment, setComment] = React.useState("");
+  const [taggedUsers, setTaggedUsers] = React.useState([]);
   const [saved, setSaved] = React.useState(
     currentUser.askBookmarks.includes(thread._id)
   );
 
   const handlePostComment = async () => {
     if (comment.length > 0) {
-      const taggedUsers = new Set();
-
-      try {
-        const usernameRegex = /(?<=@)[^\s]*/g;
-        const allUsernames = comment.match(usernameRegex);
-        if (allUsernames != null && allUsernames.length > 0) {
-          comments.forEach(({ author }) => {
-            const { username } = author;
-
-            if (!taggedUsers.has(username) && allUsernames.includes(username)) {
-              taggedUsers.add(author._id);
-            }
-          });
-        }
-      } catch (error) {
-        console.log("failed to get users");
-      }
-
-      const userArray = Array.from(taggedUsers);
-
-      await createComment(null, thread._id, comment, userArray);
+      await createComment(null, thread._id, comment, taggedUsers);
       window.location.reload();
     }
   };
@@ -76,9 +57,25 @@ const Question = ({ currentUser, thread, comments }) => {
   const officialAnswers = comments.filter((item) => item.officialAnswer);
   const generalComments = comments.filter((item) => !item.officialAnswer);
 
+  const taggableUserMap = new Map();
+  taggableUserMap.set(thread.author._id, {
+    _id: thread.author._id,
+    username: thread.author.username,
+  });
+  comments.forEach(({ author }) => {
+    if (!taggableUserMap.has(author._id)) {
+      taggableUserMap.set(author._id, {
+        _id: author._id,
+        username: author.username,
+      });
+    }
+  });
+  const taggableUsers = Array.from(taggableUserMap.values());
+
   return (
-    <div className={styles.QuestionPage}>
+    <div className={styles.root}>
       <TopNavBar
+        className={styles.NavBar}
         backUrl={urls.pages.app.askMe.index}
         title="Question"
         rightNode={
@@ -96,7 +93,8 @@ const Question = ({ currentUser, thread, comments }) => {
           </button>
         }
       />
-      <div className={`Page ${styles.QuestionMain}`}>
+
+      <div className={styles.post}>
         {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
         <h3>{`Question: ${thread.title}`}</h3>
         <div
@@ -133,11 +131,18 @@ const Question = ({ currentUser, thread, comments }) => {
             {new Date(thread.postedAt).toLocaleString()}
           </h6>
         </div>
-        <h4 className={styles.QuestionText}>{thread.content}</h4>
+        <DetailedTextField
+          readOnly={true}
+          textNodes={
+            thread.content != null && thread.content.length > 0
+              ? JSON.parse(thread.content)
+              : null
+          }
+        />
       </div>
 
       {officialAnswers.length > 0 && (
-        <div className={styles.QuestionContent}>
+        <div className={styles.QuestionAnswers}>
           <h6 className={styles.SubHeader}>{"Ambassador's Answer"}</h6>
           <div>
             {officialAnswers.map((item) => (
@@ -151,7 +156,7 @@ const Question = ({ currentUser, thread, comments }) => {
           </div>
         </div>
       )}
-      <div className={styles.QuestionContent}>
+      <div className={styles.QuestionComments}>
         <h6 className={styles.SubHeader}>
           {`Comments (${generalComments.length})`}
         </h6>
@@ -180,14 +185,16 @@ const Question = ({ currentUser, thread, comments }) => {
               alt="User Avatar"
             />
           </div>
-          <TextareaAutosize
-            className={styles.CommentInput}
-            placeholder="Comment"
-            onChange={(event) => setComment(event.target.value)}
-            value={comment}
-            maxRows={8}
-            minRows={2}
-          />
+          <div className={styles.NewCommentContainer}>
+            <DetailedTextField
+              readOnly={false}
+              users={taggableUsers}
+              onChange={({ nodes, mentions }) => {
+                setComment(nodes);
+                setTaggedUsers(mentions);
+              }}
+            />
+          </div>
         </div>
         <button
           type="button"

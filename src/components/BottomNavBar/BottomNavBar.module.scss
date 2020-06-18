@@ -5,11 +5,11 @@ $btn: #e0e0e0;
 $active-btn: #bdbdbd;
 
 .BottomNav {
-  position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   height: 100px;
-  width: 100vw;
+  width: 100%;
   background: $background;
   display: flex;
   justify-content: space-between;

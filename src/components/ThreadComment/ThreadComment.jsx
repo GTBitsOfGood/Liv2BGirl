@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import Router from "next/router";
 import ActionModal from "../ActionModal";
+import DetailedTextField from "../DetailedTextField";
 import { timeSince } from "./utils";
 import { deleteComment } from "../../actions/Comment";
 import urls from "../../../utils/urls";
@@ -57,7 +58,14 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
           {`~${timeSince(comment.postedAt)} ago`}
         </h6>
       </div>
-      <h4 className={styles.Text}>{comment.content}</h4>
+      <DetailedTextField
+        readOnly={true}
+        textNodes={
+          comment.content != null && comment.content.length > 0
+            ? JSON.parse(comment.content)
+            : null
+        }
+      />
       <button
         type="button"
         className={styles.CommentReply}

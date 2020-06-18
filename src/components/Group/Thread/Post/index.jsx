@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import bxCommentDetail from "@iconify/icons-bx/bx-comment-detail";
+import { Node } from "slate";
 import { timeSince } from "./utils";
 import urls from "../../../../../utils/urls";
 import { avatarImg, colorArr } from "../../../../../utils/avatars";
@@ -16,39 +17,47 @@ const ThreadPost = ({
   postedAt,
   author,
   numComments,
-}) => (
-  <Link
-    href={urls.pages.app.groups.group.threads.view()}
-    as={urls.pages.app.groups.group.threads.view(group, _id)}
-  >
-    <a className={styles.GroupThread}>
-      <div style={{ display: "flex", marginBottom: "4px" }}>
-        <h3 className={styles.ThreadName}>{title}</h3>
-        <h6 className={styles.ThreadTime}>{timeSince(postedAt)}</h6>
-      </div>
-      <h4 className={styles.ThreadSummary}>{content}</h4>
-      <div className={styles.ThreadDetails}>
-        <div
-          className={styles.AuthorAvatar}
-          style={{
-            backgroundColor: colorArr[author.avatarColor],
-          }}
-        >
-          <img
-            className={styles.AuthorAvatarImg}
-            src={avatarImg[author.avatar]}
-            alt="Author Avatar"
-          />
+}) => {
+  const body =
+    JSON.parse(content)
+      .map((n) => Node.string(n))
+      .join(" ")
+      .substring(0, 100) + "...";
+
+  return (
+    <Link
+      href={urls.pages.app.groups.group.threads.view()}
+      as={urls.pages.app.groups.group.threads.view(group, _id)}
+    >
+      <a className={styles.GroupThread}>
+        <div style={{ display: "flex", marginBottom: "4px" }}>
+          <h3 className={styles.ThreadName}>{title}</h3>
+          <h6 className={styles.ThreadTime}>{timeSince(postedAt)}</h6>
         </div>
-        <h4 className={styles.ThreadAuthor}>{author.username}</h4>
-        <div className={styles.ThreadComments}>
-          <Icon icon={bxCommentDetail} />
-          <h6>{numComments}</h6>
+        <h4 className={styles.ThreadSummary}>{body}</h4>
+        <div className={styles.ThreadDetails}>
+          <div
+            className={styles.AuthorAvatar}
+            style={{
+              backgroundColor: colorArr[author.avatarColor],
+            }}
+          >
+            <img
+              className={styles.AuthorAvatarImg}
+              src={avatarImg[author.avatar]}
+              alt="Author Avatar"
+            />
+          </div>
+          <h4 className={styles.ThreadAuthor}>{author.username}</h4>
+          <div className={styles.ThreadComments}>
+            <Icon icon={bxCommentDetail} />
+            <h6>{numComments}</h6>
+          </div>
         </div>
-      </div>
-    </a>
-  </Link>
-);
+      </a>
+    </Link>
+  );
+};
 
 ThreadPost.propTypes = {
   _id: PropTypes.string.isRequired,

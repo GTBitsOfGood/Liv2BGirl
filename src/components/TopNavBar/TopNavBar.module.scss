@@ -5,11 +5,11 @@ $btn: #e0e0e0;
 $active-btn: #bdbdbd;
 
 .TopNav {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   height: 48px;
-  width: 100vw;
+  width: 100%;
   z-index: 999;
   background: $background;
   box-sizing: border-box;

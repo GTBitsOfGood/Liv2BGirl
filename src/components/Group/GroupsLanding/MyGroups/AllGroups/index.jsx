@@ -17,9 +17,9 @@ const AllGroups = ({ groups, categories, handleBack }) => {
     });
 
   return (
-    <>
-      <TopNavBar backAction={handleBack} title="Category" />
-      <div className={styles.AllGroupsPage}>
+    <div className={styles.AllGroupsPage}>
+      <div className={styles.AllGroupsWrapper}>
+        <TopNavBar backAction={handleBack} title="Category" />
         <div className={styles.AllGroupsContainer}>
           <div className={styles.CategoryBar}>
             {categories.map((category) => (
@@ -59,7 +59,7 @@ const AllGroups = ({ groups, categories, handleBack }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

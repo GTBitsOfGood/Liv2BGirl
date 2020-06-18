@@ -17,6 +17,7 @@ const TopNavBar = ({
   title,
   leftNode,
   rightNode,
+  className,
 }) => {
   let leftSide = leftNode ?? <div />;
   if (currentUser != null) {
@@ -67,7 +68,7 @@ const TopNavBar = ({
   }
 
   return (
-    <div className={clsx(classes.TopNav, "GlobalTopNavBar")}>
+    <div className={clsx(classes.TopNav, "GlobalTopNavBar", className)}>
       {leftSide}
       {title != null ? (
         <h3>{title}</h3>
@@ -95,6 +96,7 @@ TopNavBar.propTypes = {
   title: PropTypes.string,
   leftNode: PropTypes.node,
   rightNode: PropTypes.node,
+  className: PropTypes.string,
 };
 
 TopNavBar.defaultProps = {

@@ -7,9 +7,9 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TextareaAutosize from "react-textarea-autosize";
 import Audience from "./Audience";
 import TopNavBar from "../../TopNavBar";
+import DetailedTextField from "../../DetailedTextField";
 import { createThread } from "../../../actions/AskMeThread";
 import urls from "../../../../utils/urls";
 import styles from "./newquestion.module.scss";
@@ -87,12 +87,12 @@ const NewQuestion = () => {
 
         <div className={styles.Description}>
           <h3>Description (Optional)</h3>
-          <TextareaAutosize
-            className={styles.DescriptionBox}
-            placeholder="Add more context to your question."
-            onChange={(event) => setDescription(event.target.value)}
-            minRows={8}
-          />
+          <div className={styles.DescriptionBox}>
+            <DetailedTextField
+              readOnly={false}
+              onChange={({ nodes }) => setDescription(nodes)}
+            />
+          </div>
         </div>
       </div>
 

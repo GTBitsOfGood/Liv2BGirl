@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Router, { useRouter } from "next/router";
-import TextareaAutosize from "react-textarea-autosize";
-import urls from "../../../../../utils/urls";
-import { createThread } from "../../../../actions/GroupThread";
 import TopNavBar from "../../../TopNavBar";
+import DetailedTextField from "../../../DetailedTextField";
+import { createThread } from "../../../../actions/GroupThread";
+import urls from "../../../../../utils/urls";
 import styles from "../thread.module.scss";
 
 const CreateThreadComponent = () => {
@@ -11,13 +11,13 @@ const CreateThreadComponent = () => {
   const { groupid } = router.query;
 
   const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
+  const [body, setBody] = useState("");
 
   const handleCreateThread = async () => {
-    if (title.length > 0 && text.length > 0) {
-      await createThread(null, groupid, title, text)
+    if (title.length > 0 && body.length > 0) {
+      await createThread(null, groupid, title, body)
         .then((res) =>
-          Router.push(
+          Router.replace(
             urls.pages.app.groups.group.threads.view(groupid, res._id)
           )
         )
@@ -44,20 +44,14 @@ const CreateThreadComponent = () => {
         <h1 className={styles.CreateThreadHeading}>Start a New Thread.</h1>
         <form className={styles.CreateThreadForm}>
           <input
-            onChange={(event) => {
-              setTitle(event.target.value);
-            }}
+            onChange={(event) => setTitle(event.target.value)}
             className={styles.CreateThreadTitle}
             type="text"
             placeholder="Title"
           />
-          <TextareaAutosize
-            className={styles.CreateThreadText}
-            placeholder="Description"
-            onChange={(event) => {
-              setText(event.target.value);
-            }}
-            maxRows={8}
+          <DetailedTextField
+            readOnly={false}
+            onChange={({ nodes }) => setBody(nodes)}
           />
         </form>
       </div>

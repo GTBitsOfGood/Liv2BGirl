@@ -1,0 +1,11 @@
+.root {
+  overflow-x: auto;
+
+  & > * {
+    display: inline-block;
+  }
+
+  & > * + * {
+    margin-left: 15px;
+  }
+}

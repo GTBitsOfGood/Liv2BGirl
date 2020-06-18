@@ -1,7 +1,6 @@
 @import "../../../public/static/styles/colors";
 
 .AskPage {
-  margin-top: 48px;
   margin-bottom: 100px;
   box-sizing: border-box;
   padding: 20px;
@@ -178,18 +177,23 @@
   }
 }
 
-.QuestionPage {
+.root {
   height: 100%;
   box-sizing: border-box;
-  padding-top: 48px;
-  padding-bottom: 77px;
   background: $background;
   display: flex;
   flex-direction: column;
 
-  .QuestionMain {
+  .NavBar {
+    flex-shrink: 0;
+  }
+
+  .post {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 13px;
     background-color: white;
+    padding: 20px 20px 0;
 
     .QuestionDetails {
       margin: 13px 0;
@@ -223,13 +227,17 @@
     }
   }
 
-  .QuestionContent {
+  .QuestionContent, .QuestionAnswers, .QuestionComments {
     margin-bottom: 20px;
 
     .SubHeader {
       margin-left: 16px;
       margin-bottom: 13px;
     }
+  }
+
+  .QuestionComments {
+    flex: 1;
   }
 
   .CommentAuthorAvatar {
@@ -251,13 +259,12 @@
   }
 
   .CommentFooter {
-    position: fixed;
+    position: sticky;
     left: 0;
     bottom: 0;
-    min-height: 100px;
     width: 100%;
     background: $background;
-    border: 1px solid $light-gray;
+    border-top: 1px solid $light-gray;
     box-sizing: border-box;
     padding: 10px 16px;
     display: flex;
@@ -268,20 +275,18 @@
       flex-direction: row;
       align-items: center;
 
-      .CommentInput {
+      .NewCommentContainer {
         width: 100%;
-        margin: auto 0;
-        padding: 8px;
-        min-height: 60px;
-        font-size: 16px;
-        line-height: 22px;
-        resize: none;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        border: 1px solid #cccccc;
-        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #c4c4c4;
         border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+        margin-top: 16px;
+        background-color: #ffffff;
         color: $text;
+        overflow: hidden;
       }
     }
   }
