@@ -29,20 +29,21 @@ ThreadPage.getInitialProps = async ({ query, req }) => {
   const { threadid } = query;
   const cookies = req ? req.headers.cookie : null;
 
-  return getThread(cookies, threadid)
-    .then(async (thread) => {
-      const group = await getGroup(cookies, thread.group);
-      const comments = await getCommentsByThread(cookies, thread._id);
+  try {
+    const thread = await getThread(cookies, threadid);
+    const group = await getGroup(cookies, thread.group);
+    const comments = await getCommentsByThread(cookies, thread._id);
 
-      return {
-        thread,
-        group,
-        comments,
-      };
-    })
-    .catch((error) => ({
+    return {
+      thread,
+      group,
+      comments,
+    };
+  } catch (error) {
+    return {
       error: error.message,
-    }));
+    };
+  }
 };
 
 ThreadPage.propTypes = {

@@ -51,6 +51,7 @@
   .ThreadSummary,
   .ThreadAuthor {
     font-weight: normal;
+    cursor: pointer;
   }
 
   .ThreadName {
@@ -203,7 +204,7 @@
         width: 100%;
         margin: auto 0;
         padding: 8px;
-        height: 40px;
+        min-height: 60px;
         font-size: 16px;
         line-height: 22px;
         resize: none;

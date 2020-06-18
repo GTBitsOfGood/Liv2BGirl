@@ -1,13 +1,8 @@
 @import "../../../public/static/styles/colors";
 
 .Logo {
-  margin: 0 auto;
-  margin-top: 40px;
-  border-radius: 100px;
-  width: 115px;
-  height: 115px;
-  border: none;
-  background-color: $light-gray;
+  width: 25%;
+  margin: 40px auto 0;
 }
 
 .LoginButtons {
@@ -24,7 +19,7 @@
 }
 
 .SignUp {
-  border-radius: 137px 0px 0px 137px;
+  border-radius: 137px 0 0 137px;
   background: $background;
   color: $gray;
 
@@ -92,7 +87,7 @@
       border: $gray solid 1px;
       border-radius: 0.25rem;
       transition: background-color 0.15s ease-in-out,
-        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
 
     &::after {

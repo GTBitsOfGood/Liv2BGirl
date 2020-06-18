@@ -10,7 +10,7 @@ const RegistrationCompleted = () => (
       <img className={styles.CompleteCheck} src={checkmark} alt="Checkmark" />
       <h2 className={styles.CompleteText}>Registration Completed</h2>
     </div>
-    <Link href={urls.pages.app.index}>
+    <Link href={urls.pages.app.index} replace>
       <div style={{ display: "flex" }}>
         <button type="button" className="NextButton">
           <h1>GET STARTED</h1>

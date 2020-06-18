@@ -1,14 +1,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
-
-// API Calls
 import { login } from "../../actions/User";
-
-// Navigation
 import urls from "../../../utils/urls";
-
-// Styling
+import logo from "../../../public/static/img/logo.png";
 import styles from "./signin.module.scss";
 
 const SignInComponent = () => {
@@ -19,19 +14,18 @@ const SignInComponent = () => {
   const handleLogin = async () =>
     login(null, email, password)
       .then(() =>
-        Router.push({
+        Router.replace({
           pathname: urls.pages.app.index,
         })
       )
       .catch((error) => {
-        // eslint-disable-next-line no-alert
         window.alert(error.message);
       });
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div className="Page" style={{ marginBottom: "20px" }}>
-        <div className={styles.Logo} />
+        <img className={styles.Logo} src={logo} alt="App logo" />
         <div className={styles.LoginButtons}>
           <Link href={urls.pages.signUp}>
             <button className={styles.SignUp} type="button">

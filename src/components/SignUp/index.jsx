@@ -4,6 +4,7 @@ import Link from "next/link";
 import { verifyEmailUnused } from "../../actions/User";
 import { verifyCodeUnused } from "../../actions/InvitationCode";
 import urls from "../../../utils/urls";
+import logo from "../../../public/static/img/logo.png";
 import styles from "./signup.module.scss";
 
 const SignUpInfo = ({ values, setValues, handleNext }) => {
@@ -46,7 +47,7 @@ const SignUpInfo = ({ values, setValues, handleNext }) => {
   return (
     <>
       <div className="Page" style={{ marginBottom: "60px" }}>
-        <div className={styles.Logo} />
+        <img className={styles.Logo} src={logo} alt="App logo" />
         <div className={styles.LoginButtons}>
           <Link href={urls.pages.signUp}>
             <button className={styles.SignUp} type="button">

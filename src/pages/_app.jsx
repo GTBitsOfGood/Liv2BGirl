@@ -19,40 +19,42 @@ class MyApp extends App {
       ? appContext.ctx.req.headers.cookie
       : null;
 
-    const currentUser = await getCurrentUser(cookies);
-    const pageRequiresRoles = appContext.Component.roles;
+    try {
+      const currentUser = await getCurrentUser(cookies);
+      const pageRequiresRoles = appContext.Component.roles;
 
-    if (currentUser == null && appContext.router.asPath.startsWith("/app")) {
-      if (appContext.ctx.res) {
-        appContext.ctx.res.writeHead(302, {
-          Location: urls.pages.signIn,
-        });
-        appContext.ctx.res.end();
-      } else {
-        await Router.push(urls.pages.signIn);
+      if (currentUser == null && appContext.router.asPath.startsWith("/app")) {
+        if (appContext.ctx.res) {
+          appContext.ctx.res.writeHead(302, {
+            Location: urls.pages.signIn,
+          });
+          appContext.ctx.res.end();
+        } else {
+          await Router.push(urls.pages.signIn);
+        }
+      } else if (
+        pageRequiresRoles != null &&
+        !pageRequiresRoles.includes(currentUser.role)
+      ) {
+        if (appContext.ctx.res) {
+          appContext.ctx.res.writeHead(302, {
+            Location: urls.pages.app.index,
+          });
+          appContext.ctx.res.end();
+        } else {
+          await Router.push(urls.pages.app.index);
+        }
       }
 
-      return appProps;
-    } else if (
-      pageRequiresRoles != null &&
-      !pageRequiresRoles.includes(currentUser.role)
-    ) {
-      if (appContext.ctx.res) {
-        appContext.ctx.res.writeHead(302, {
-          Location: urls.pages.app.index,
-        });
-        appContext.ctx.res.end();
-      } else {
-        await Router.push(urls.pages.app.index);
-      }
+      return {
+        ...appProps,
+        currentUser,
+      };
+    } catch (error) {
+      console.error("error in _app", error);
 
       return appProps;
     }
-
-    return {
-      ...appProps,
-      currentUser,
-    };
   }
 
   render() {

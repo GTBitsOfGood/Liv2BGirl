@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getCategories } from "../../../actions/GroupCategory";
+import ErrorPage from "../../_error";
 import TermsCond from "../../../components/Group/New/TermsCond";
 import NewGroup from "../../../components/Group/New/NewGroup";
 import NewGroupConfirmation from "../../../components/Group/New/NewGroupConfirmation";
 import TopNavBar from "../../../components/TopNavBar";
+import { getCategories } from "../../../actions/GroupCategory";
 import urls from "../../../../utils/urls";
 
 const CurrentStep = ({ stage, ...rest }) => {
@@ -24,7 +25,7 @@ const CurrentStep = ({ stage, ...rest }) => {
   }
 };
 
-const NewGroupPage = ({ currentUser, categories }) => {
+const NewGroupPage = ({ error, currentUser, categories }) => {
   const [stage, setStage] = React.useState(0);
   const [newGroupId, setGroupId] = React.useState("");
 
@@ -35,6 +36,14 @@ const NewGroupPage = ({ currentUser, categories }) => {
 
     setStage((prevStage) => prevStage + 1);
   };
+
+  if (error) {
+    console.error("error", error);
+
+    return (
+      <ErrorPage currentUser={currentUser} statusCode={500} message={error} />
+    );
+  }
 
   return (
     <>
@@ -56,16 +65,26 @@ const NewGroupPage = ({ currentUser, categories }) => {
 NewGroupPage.getInitialProps = async ({ req }) => {
   const cookies = req ? req.headers.cookie : null;
 
-  const categories = await getCategories(cookies);
+  try {
+    const categories = await getCategories(cookies);
 
-  return {
-    categories,
-  };
+    return {
+      categories,
+    };
+  } catch (error) {
+    return {
+      error: error.message,
+    };
+  }
 };
 
 NewGroupPage.propTypes = {
+  error: PropTypes.string,
   currentUser: PropTypes.shape({
     _id: PropTypes.string.isRequired,
+    avatar: PropTypes.number.isRequired,
+    avatarColor: PropTypes.number.isRequired,
+    askBookmarks: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
   categories: PropTypes.arrayOf(
     PropTypes.shape({

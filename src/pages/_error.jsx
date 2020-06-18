@@ -6,7 +6,7 @@ const ErrorPage = ({ currentUser, statusCode, message }) => (
   <Error currentUser={currentUser} statusCode={statusCode} message={message} />
 );
 
-ErrorPage.getInitialProps = ({ res, err }) => {
+ErrorPage.getInitialProps = async ({ res, err }) => {
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
 
   return {

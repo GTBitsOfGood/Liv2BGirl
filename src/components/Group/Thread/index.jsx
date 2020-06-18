@@ -16,8 +16,6 @@ import { avatarImg, colorArr } from "../../../../utils/avatars";
 import urls from "../../../../utils/urls";
 import styles from "./thread.module.scss";
 
-const usernameRegex = /(?<=@)[^\s]*/g;
-
 const Thread = ({ currentUser, thread, group, comments }) => {
   const [comment, setComment] = React.useState("");
   const [saved, setSaved] = React.useState(
@@ -28,15 +26,20 @@ const Thread = ({ currentUser, thread, group, comments }) => {
     if (comment.length > 0) {
       const taggedUsers = new Set();
 
-      const allUsernames = comment.match(usernameRegex);
-      if (allUsernames != null && allUsernames.length > 0) {
-        comments.forEach(({ author }) => {
-          const { username } = author;
+      try {
+        const usernameRegex = /(?<=@)[^\s]*/g;
+        const allUsernames = comment.match(usernameRegex);
+        if (allUsernames != null && allUsernames.length > 0) {
+          comments.forEach(({ author }) => {
+            const { username } = author;
 
-          if (!taggedUsers.has(username) && allUsernames.includes(username)) {
-            taggedUsers.add(author._id);
-          }
-        });
+            if (!taggedUsers.has(username) && allUsernames.includes(username)) {
+              taggedUsers.add(author._id);
+            }
+          });
+        }
+      } catch (error) {
+        console.log("failed to get users");
       }
 
       const userArray = Array.from(taggedUsers);
@@ -100,6 +103,7 @@ const Thread = ({ currentUser, thread, group, comments }) => {
           />
           <h6 className={styles.ThreadGroupName}>{group.name}</h6>
         </div>
+        {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
         <h2 className={styles.ThreadName}>{thread.title}</h2>
         <div className={styles.ThreadDetails}>
           <div
@@ -119,11 +123,7 @@ const Thread = ({ currentUser, thread, group, comments }) => {
               href={urls.pages.app.profile.view()}
               as={urls.pages.app.profile.view(thread.author._id)}
             >
-              <div>
-                <h5 className={styles.ThreadAuthor}>
-                  {thread.author.username}
-                </h5>
-              </div>
+              <h5 className={styles.ThreadAuthor}>{thread.author.username}</h5>
             </Link>
 
             <h6 className={styles.ThreadDate}>
@@ -132,7 +132,6 @@ const Thread = ({ currentUser, thread, group, comments }) => {
           </div>
         </div>
         <h4 className={styles.ThreadText}>{thread.content}</h4>
-        {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
       </div>
       <div className={styles.ThreadComments}>
         {comments.map((comment) => (
@@ -165,6 +164,7 @@ const Thread = ({ currentUser, thread, group, comments }) => {
             onChange={(event) => setComment(event.target.value)}
             value={comment}
             maxRows={8}
+            minRows={2}
           />
         </div>
         <button

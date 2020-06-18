@@ -25,6 +25,7 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
 
   return (
     <div className={styles.Comment}>
+      {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
       <div className={styles.Details}>
         <Link
           href={urls.pages.app.profile.view()}
@@ -64,7 +65,6 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
       >
         <h5>Reply</h5>
       </button>
-      <ActionModal buttons={actionButtons} />
     </div>
   );
 };

@@ -15,8 +15,6 @@ import urls from "../../../../utils/urls";
 import styles from "../askme.module.scss";
 import { deleteThread } from "../../../actions/AskMeThread";
 
-const usernameRegex = /(?<=@)[^\s]*/g;
-
 const Question = ({ currentUser, thread, comments }) => {
   const [comment, setComment] = React.useState("");
   const [saved, setSaved] = React.useState(
@@ -27,15 +25,20 @@ const Question = ({ currentUser, thread, comments }) => {
     if (comment.length > 0) {
       const taggedUsers = new Set();
 
-      const allUsernames = comment.match(usernameRegex);
-      if (allUsernames != null && allUsernames.length > 0) {
-        comments.forEach(({ author }) => {
-          const { username } = author;
+      try {
+        const usernameRegex = /(?<=@)[^\s]*/g;
+        const allUsernames = comment.match(usernameRegex);
+        if (allUsernames != null && allUsernames.length > 0) {
+          comments.forEach(({ author }) => {
+            const { username } = author;
 
-          if (!taggedUsers.has(username) && allUsernames.includes(username)) {
-            taggedUsers.add(author._id);
-          }
-        });
+            if (!taggedUsers.has(username) && allUsernames.includes(username)) {
+              taggedUsers.add(author._id);
+            }
+          });
+        }
+      } catch (error) {
+        console.log("failed to get users");
       }
 
       const userArray = Array.from(taggedUsers);
@@ -94,6 +97,7 @@ const Question = ({ currentUser, thread, comments }) => {
         }
       />
       <div className={`Page ${styles.QuestionMain}`}>
+        {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
         <h3>{`Question: ${thread.title}`}</h3>
         <div
           role="button"
@@ -130,7 +134,6 @@ const Question = ({ currentUser, thread, comments }) => {
           </h6>
         </div>
         <h4 className={styles.QuestionText}>{thread.content}</h4>
-        <ActionModal buttons={actionButtons} />
       </div>
 
       {officialAnswers.length > 0 && (
@@ -183,6 +186,7 @@ const Question = ({ currentUser, thread, comments }) => {
             onChange={(event) => setComment(event.target.value)}
             value={comment}
             maxRows={8}
+            minRows={2}
           />
         </div>
         <button

@@ -9,7 +9,7 @@ const SignIn = () => <SignInComponent />;
 SignIn.getInitialProps = async ({ req, res }) => {
   const cookies = req ? req.headers.cookie : null;
 
-  const currentUser = await getCurrentUser(cookies);
+  const currentUser = await getCurrentUser(cookies).catch(() => null);
 
   if (currentUser != null) {
     if (res) {
