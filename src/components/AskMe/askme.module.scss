@@ -178,7 +178,7 @@
 }
 
 .root {
-  height: 100%;
+  width: 100%;
   box-sizing: border-box;
   background: $background;
   display: flex;
@@ -231,17 +231,20 @@
     }
   }
 
-  .QuestionContent, .QuestionAnswers, .QuestionComments {
-    margin-bottom: 20px;
+  .QuestionAnswers {
+    margin-bottom: 12px;
 
     .SubHeader {
-      margin-left: 16px;
-      margin-bottom: 13px;
+      padding: 0 16px;
     }
   }
 
   .QuestionComments {
     flex: 1;
+
+    .SubHeader {
+      padding: 0 16px;
+    }
   }
 
   .CommentAuthorAvatar {
