@@ -136,6 +136,12 @@
   display: flex;
   flex-direction: column;
   background: $background;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  > * {
+    flex-shrink: 0 !important;
+  }
 
   .NavBar {
     flex-shrink: 0;

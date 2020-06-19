@@ -3,6 +3,7 @@
 .ToggleButton {
   cursor: pointer;
   align-self: flex-end;
+  flex-shrink: 0 !important;
 }
 
 .AdminTab {
