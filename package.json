@@ -56,6 +56,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.20.2",
@@ -66,7 +67,9 @@
     "prettier": "2.0.5",
     "prettier-eslint": "^9.0.1"
   },
-  "cacheDirectories": [".next/cache"],
+  "cacheDirectories": [
+    ".next/cache"
+  ],
   "engines": {
     "node": "12.x",
     "npm": "6.x"
