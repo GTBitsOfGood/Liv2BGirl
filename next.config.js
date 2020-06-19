@@ -1,6 +1,5 @@
 const withImages = require("next-images");
 const dotEnv = require("dotenv");
-const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 
 const prod = process.env.NODE_ENV === "production";
 
@@ -21,8 +20,12 @@ module.exports = withImages({
       JWTSECRET: process.env.JWTSECRET,
     },
   },
-  webpack: (config) => {
-    config.plugins.push(new CaseSensitivePathsPlugin());
+  webpack: (config, { dev }) => {
+    if (dev) {
+      const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
+
+      config.plugins.push(new CaseSensitivePathsPlugin());
+    }
 
     return config;
   },
