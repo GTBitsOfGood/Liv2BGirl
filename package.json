@@ -20,6 +20,7 @@
   "scripts": {
     "dev": "next -p 3000",
     "build": "next build",
+    "postinstall": "next build",
     "analyze-build": "ANALYZE=true next build",
     "start": "next start -p $PORT",
     "lint": "eslint --fix --ext .jsx --ext .js .",
