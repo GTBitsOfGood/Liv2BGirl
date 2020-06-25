@@ -21,7 +21,7 @@
     "dev": "next -p 3000",
     "build": "next build",
     "analyze-build": "ANALYZE=true next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "lint": "eslint --fix --ext .jsx --ext .js .",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
