@@ -20,6 +20,7 @@
   "scripts": {
     "dev": "next -p 3000",
     "build": "next build",
+    "analyze-build": "ANALYZE=true next build",
     "start": "next start",
     "lint": "eslint --fix --ext .jsx --ext .js .",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
@@ -54,6 +55,7 @@
     "slate-react": "^0.58.3"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^9.4.4",
     "babel-eslint": "^10.1.0",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "eslint": "^6.8.0",
