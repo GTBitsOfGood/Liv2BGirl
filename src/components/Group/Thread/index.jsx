@@ -24,8 +24,13 @@ const Thread = ({ currentUser, thread, group, comments }) => {
 
   const postComment = async () => {
     if (comment.length > 0) {
-      await createComment(null, thread._id, comment, taggedUsers);
-      window.location.reload();
+      await createComment(null, thread._id, comment, taggedUsers)
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          window.alert(error.message);
+        });
     }
   };
 

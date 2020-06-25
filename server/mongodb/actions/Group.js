@@ -1,7 +1,10 @@
+const FilterHelper = require("bad-words");
 import mongoDB from "../index";
 import Group from "../models/Group";
 import User from "../models/User";
 import { followGroup } from "./User";
+
+const wordFilter = new FilterHelper();
 
 export const createGroup = async (
   currentUser,
@@ -11,6 +14,8 @@ export const createGroup = async (
     throw new Error("You must be logged in to create a group!");
   } else if (name == null || description == null || category == null) {
     throw new Error("All parameters must be provided!");
+  } else if (wordFilter.isProfane(description)) {
+    throw new Error("Please remove bad language from your description!");
   }
 
   await mongoDB();

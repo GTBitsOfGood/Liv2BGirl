@@ -10,12 +10,14 @@
   overflow: hidden;
 
   .textArea {
+    flex: 1;
     min-height: 60px;
     padding: 12px;
     color: $text;
+    overflow-y: auto;
   }
 
-  .textArea span {
+  .textArea p > span {
     font-size: 14px;
   }
 }

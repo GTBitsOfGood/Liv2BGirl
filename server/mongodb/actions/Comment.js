@@ -1,5 +1,8 @@
+const FilterHelper = require("bad-words");
 import mongoDB from "../index";
 import Comment from "../models/Comment";
+
+const wordFilter = new FilterHelper();
 
 export const createComment = async (
   currentUser,
@@ -7,6 +10,8 @@ export const createComment = async (
 ) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a comment!");
+  } else if (wordFilter.isProfane(content)) {
+    throw new Error("Please remove bad language from your content!");
   }
 
   await mongoDB();

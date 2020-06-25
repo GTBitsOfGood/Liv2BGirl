@@ -11,5 +11,8 @@
   .user {
     padding: 1px 3px;
     border-radius: 3px;
+    pointer-events: all;
+    cursor: pointer;
+    z-index: 10;
   }
 }

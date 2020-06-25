@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import ErrorPage from "../../_error";
 import GroupsList from "../../../components/Group/GroupsLanding";
-import { getCurrentUser } from "../../../actions/User";
 import { getGroup } from "../../../actions/Group";
 import { getCategories } from "../../../actions/GroupCategory";
 
@@ -18,15 +17,14 @@ const GroupsPage = ({ error, currentUser, categories, ownGroups }) => {
   return <GroupsList categories={categories} ownGroups={ownGroups} />;
 };
 
-GroupsPage.getInitialProps = async ({ req }) => {
+GroupsPage.getInitialProps = async ({ req, currentUser }) => {
   const cookies = req ? req.headers.cookie : null;
 
   try {
     const categories = await getCategories(cookies);
 
-    const user = await getCurrentUser(cookies);
     const ownGroups = await Promise.all(
-      user.groups.map((groupId) => getGroup(cookies, groupId))
+      currentUser.groups.map((groupId) => getGroup(cookies, groupId))
     );
 
     return {

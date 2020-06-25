@@ -19,9 +19,8 @@ const NewGroup = ({ categories, handleNext }) => {
 
     return createGroup(null, name, description, category)
       .then((res) => handleNext(res._id))
-      .catch(() => {
-        // eslint-disable-next-line no-alert
-        window.alert("Failed to create group!");
+      .catch((error) => {
+        window.alert(error.message);
       });
   };
 

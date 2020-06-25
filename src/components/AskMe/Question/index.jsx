@@ -24,8 +24,13 @@ const Question = ({ currentUser, thread, comments }) => {
 
   const handlePostComment = async () => {
     if (comment.length > 0) {
-      await createComment(null, thread._id, comment, taggedUsers);
-      window.location.reload();
+      await createComment(null, thread._id, comment, taggedUsers)
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((error) => {
+          window.alert(error.message);
+        });
     }
   };
 
@@ -160,7 +165,7 @@ const Question = ({ currentUser, thread, comments }) => {
         <h6 className={styles.SubHeader}>
           {`Comments (${generalComments.length})`}
         </h6>
-        <div>
+        <div className={styles.AllComments}>
           {generalComments.map((item) => (
             <ThreadComment
               key={item._id}

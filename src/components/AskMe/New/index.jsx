@@ -38,14 +38,13 @@ const NewQuestion = () => {
 
   const postQuestion = async () => {
     if (question.length > 0) {
-      const thread = await createThread(
-        null,
-        question,
-        description,
-        visibility
-      );
-
-      await Router.push(urls.pages.app.askMe.questions.view(thread._id));
+      return createThread(null, question, description, visibility)
+        .then((thread) =>
+          Router.push(urls.pages.app.askMe.questions.view(thread._id))
+        )
+        .catch((error) => {
+          window.alert(error.message);
+        });
     }
   };
 

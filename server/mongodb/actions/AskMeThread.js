@@ -1,6 +1,9 @@
+const FilterHelper = require("bad-words");
 import mongoDB from "../index";
 import AskMeThread from "../models/AskMeThread";
 import Comments from "../models/Comment";
+
+const wordFilter = new FilterHelper();
 
 export const createThread = async (
   currentUser,
@@ -10,6 +13,8 @@ export const createThread = async (
     throw new Error("You must be logged in to create a thread!");
   } else if (title == null) {
     throw new Error("All parameters must be provided!");
+  } else if (wordFilter.isProfane(content)) {
+    throw new Error("Please remove bad language from your content!");
   }
 
   await mongoDB();

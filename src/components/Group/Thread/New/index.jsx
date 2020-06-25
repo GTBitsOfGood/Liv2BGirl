@@ -30,7 +30,7 @@ const CreateThreadComponent = () => {
   };
 
   return (
-    <div style={{ marginTop: "48px" }}>
+    <>
       <TopNavBar
         backUrl={urls.pages.app.groups.group.view()}
         backUrlAs={urls.pages.app.groups.group.view(groupid)}
@@ -49,13 +49,15 @@ const CreateThreadComponent = () => {
             type="text"
             placeholder="Title"
           />
-          <DetailedTextField
-            readOnly={false}
-            onChange={({ nodes }) => setBody(nodes)}
-          />
+          <div className={styles.CreateThreadText}>
+            <DetailedTextField
+              readOnly={false}
+              onChange={({ nodes }) => setBody(nodes)}
+            />
+          </div>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,9 +1,12 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+const FilterHelper = require("bad-words");
 import mongoDB from "../index";
 import User from "../models/User";
 import Comment from "../models/Comment";
 import { useCode } from "./InvitationCode";
+
+const wordFilter = new FilterHelper();
 
 export const login = async ({ email, password }) => {
   if (email == null || password == null) {
@@ -131,9 +134,6 @@ export const generateUsernames = async ({
     throw new Error("All parameters must be provided!");
   }
 
-  const FilterHelper = require("bad-words");
-  const filter = new FilterHelper();
-
   const usernames = new Set();
 
   while (usernames.size < count) {
@@ -149,7 +149,7 @@ export const generateUsernames = async ({
 
     if (
       !usernames.has(newUsername) &&
-      !filter.isProfane(newUsername) &&
+      !wordFilter.isProfane(newUsername) &&
       !(await User.exists({ username: newUsername }))
     ) {
       usernames.add(newUsername);

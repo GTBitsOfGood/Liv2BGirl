@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Icon } from "@iconify/react";
 import dotsHorizontal from "@iconify/icons-mdi/dots-horizontal";
+import Portal from "../Portal";
 import classes from "./ActionModal.module.scss";
 
 const ActionModal = ({ buttons }) => {
@@ -26,26 +27,28 @@ const ActionModal = ({ buttons }) => {
         width="18px"
       />
       {open && (
-        <div className={classes.AdminTab}>
-          {buttons.map(({ title, action }) => (
-            <button
-              key={title}
-              type="button"
-              className={classes.AdminButton}
-              onClick={action}
-            >
-              <h2>{title}</h2>
-            </button>
-          ))}
+        <Portal>
+          <div className={classes.AdminTab}>
+            {buttons.map(({ title, action }) => (
+              <button
+                key={title}
+                type="button"
+                className={classes.AdminButton}
+                onClick={action}
+              >
+                <h2>{title}</h2>
+              </button>
+            ))}
 
-          <button
-            type="button"
-            className={classes.CancelButton}
-            onClick={toggleOpen}
-          >
-            <h2>Cancel</h2>
-          </button>
-        </div>
+            <button
+              type="button"
+              className={classes.CancelButton}
+              onClick={toggleOpen}
+            >
+              <h2>Cancel</h2>
+            </button>
+          </div>
+        </Portal>
       )}
     </>
   );

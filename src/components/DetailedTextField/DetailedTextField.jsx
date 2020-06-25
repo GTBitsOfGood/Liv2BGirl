@@ -29,6 +29,8 @@ const initialNodes = [
   },
 ];
 
+const noOp = () => {};
+
 const DetailedTextField = ({
   textNodes = initialNodes,
   readOnly,
@@ -36,6 +38,7 @@ const DetailedTextField = ({
   users,
 }) => {
   const ref = React.useRef(null);
+  const [editorOpen, setEditorOpen] = React.useState(false);
   const [value, setValue] = React.useState(textNodes ?? initialNodes);
   const [target, setTarget] = React.useState(null);
   const [index, setIndex] = React.useState(0);
@@ -105,18 +108,18 @@ const DetailedTextField = ({
     try {
       const parsedText = JSON.stringify(value);
 
-      const currentMentions = [];
+      const currentMentions = new Set();
       for (const node of value) {
         for (const entry of Node.descendants(node)) {
           if (entry[0]?.type === "mention") {
-            currentMentions.push(entry[0].user._id);
+            currentMentions.add(entry[0].user._id);
           }
         }
       }
 
       onChange({
         nodes: parsedText,
-        mentions: currentMentions,
+        mentions: Array.from(currentMentions),
       });
     } catch (e) {
       console.error("Failed to convert textNodes to text!");
@@ -147,6 +150,11 @@ const DetailedTextField = ({
     setTarget(null);
   };
 
+  const handleFocus = () => {
+    setEditorOpen(true);
+    ReactEditor.focus(editor);
+  };
+
   React.useEffect(() => {
     if (target && users.length > 0) {
       const el = ref.current;
@@ -159,7 +167,7 @@ const DetailedTextField = ({
   }, [users.length, editor, index, search, target]);
 
   return (
-    <div className={classes.root} onClick={() => ReactEditor.focus(editor)}>
+    <div className={classes.root} onClick={readOnly ? noOp : handleFocus}>
       <Slate editor={editor} value={value} onChange={handleChange}>
         <div className={classes.textArea}>
           <Editable
@@ -171,7 +179,7 @@ const DetailedTextField = ({
             onKeyDown={handleKeyDown}
           />
         </div>
-        {!readOnly && ReactEditor.isFocused(editor) && (
+        {!readOnly && editorOpen && (
           <Toolbar>
             <MarkButton format="bold" icon={boldIcon} />
             <MarkButton format="italic" icon={italicIcon} />
@@ -185,7 +193,16 @@ const DetailedTextField = ({
           </Toolbar>
         )}
         {!readOnly && target && users.length > 0 && (
-          <MentionModal ref={ref} users={users} index={index} />
+          <MentionModal
+            ref={ref}
+            users={users}
+            index={index}
+            onMentionClick={(index) => {
+              Transforms.select(editor, target);
+              insertMention(editor, users[index]);
+              setTarget(null);
+            }}
+          />
         )}
       </Slate>
     </div>
