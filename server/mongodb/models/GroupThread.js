@@ -16,16 +16,19 @@ const GroupThreadSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    index: true,
     text: true,
   },
   content: {
     type: String,
+    index: true,
     text: true,
   },
   postedAt: {
     type: Date,
     required: true,
     default: Date.now,
+    index: true,
   },
 });
 

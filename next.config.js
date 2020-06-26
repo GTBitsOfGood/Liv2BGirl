@@ -31,9 +31,9 @@ const base = withImages({
   },
 });
 
-if (!prod) {
+if (process.env.ANALYZE || process.env.ANALYZE === "true") {
   const withBundleAnalyzer = require("@next/bundle-analyzer")({
-    enabled: !prod && process.env.ANALYZE === "true",
+    enabled: true,
   });
 
   module.exports = withBundleAnalyzer(base);

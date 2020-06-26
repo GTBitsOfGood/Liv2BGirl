@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: "User",
     enum: ["Admin", "Ambassador", "User"],
+    index: true,
   },
   name: {
     type: String,
@@ -70,12 +71,14 @@ const UserSchema = new mongoose.Schema({
     ref: "AskMeThread",
     required: true,
     default: [],
+    index: true,
   },
   groupBookmarks: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "Thread",
     required: true,
     default: [],
+    index: true,
   },
 });
 

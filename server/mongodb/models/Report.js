@@ -26,15 +26,18 @@ const ReportSchema = new mongoose.Schema({
   additionalInfo: {
     type: String,
     text: true,
+    index: true,
   },
   decided: {
     type: Boolean,
     default: false,
+    index: true,
   },
   madeAt: {
     type: Date,
     required: true,
     default: Date.now,
+    index: true,
   },
 });
 

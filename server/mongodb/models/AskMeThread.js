@@ -10,10 +10,12 @@ const AskMeThread = new mongoose.Schema({
   title: {
     type: String,
     required: true,
+    index: true,
     text: true,
   },
   content: {
     type: String,
+    index: true,
     text: true,
   },
   visibility: {
@@ -27,6 +29,7 @@ const AskMeThread = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
+    index: true,
   },
 });
 

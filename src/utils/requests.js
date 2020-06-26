@@ -23,40 +23,28 @@ export const authedFetch = (url, options, cookies) => {
   });
 };
 
-export const authedGetRequest = (url, cookies) => {
-  const conditionals = {};
-
-  if (cookies != null) {
-    conditionals.headers = {
-      cookie: cookies,
-    };
-  }
-
-  return fetch(url, {
-    method: "GET",
-    mode: "same-origin",
-    credentials: "include",
-    ...conditionals,
-  });
-};
-
-export const authedPostRequest = (url, body, cookies) => {
-  const conditionals = {};
-
-  if (cookies != null) {
-    conditionals.headers = {
-      cookie: cookies,
-    };
-  }
-
-  return fetch(url, {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+export const authedGetRequest = (url, cookies) =>
+  authedFetch(
+    url,
+    {
+      method: "GET",
+      mode: "same-origin",
+      credentials: "include",
     },
-    body: JSON.stringify(body),
-    ...conditionals,
-  });
-};
+    cookies
+  );
+
+export const authedPostRequest = (url, body, cookies) =>
+  authedFetch(
+    url,
+    {
+      method: "POST",
+      mode: "same-origin",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    },
+    cookies
+  );

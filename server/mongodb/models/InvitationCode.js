@@ -11,6 +11,7 @@ const InvitationCodeSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
+    index: true,
   },
   usedBy: {
     type: mongoose.Schema.Types.ObjectId,
@@ -19,6 +20,7 @@ const InvitationCodeSchema = new mongoose.Schema({
   },
   usedAt: {
     type: Date,
+    index: true,
   },
 });
 

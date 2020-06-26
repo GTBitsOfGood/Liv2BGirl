@@ -15,6 +15,7 @@ const CommentSchema = new mongoose.Schema({
   officialAnswer: {
     type: Boolean,
     default: false,
+    index: true,
   },
   content: {
     type: String,
@@ -28,6 +29,7 @@ const CommentSchema = new mongoose.Schema({
     type: Date,
     required: true,
     default: Date.now,
+    index: true,
   },
 });
 
