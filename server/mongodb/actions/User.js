@@ -101,8 +101,8 @@ export const signUp = async (
 
   return user
     .validate()
-    .then(() => useCode({ code: invCode, usedBy: user._id }))
     .then(() => user.save())
+    .then(() => useCode({ code: invCode, usedBy: user._id }))
     .then(() =>
       jwt.sign(
         {
