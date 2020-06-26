@@ -1,7 +1,11 @@
 const prod = process.env.NODE_ENV === "production";
 
+const localWithPort = process.env.PORT
+  ? `http://localhost:${process.env.PORT}`
+  : "http://localhost:3000";
+
 export default {
-  baseUrl: prod ? process.env.BASE_URL : `http://localhost:3000`,
+  baseUrl: prod ? process.env.BASE_URL ?? localWithPort : localWithPort,
   dbUrl: process.env.MONGODB,
   dbName: "liv2bgirl",
   pages: {

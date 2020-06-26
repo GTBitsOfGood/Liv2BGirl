@@ -1,21 +1,13 @@
-import { authedFetch } from "../utils/requests";
+import { authedPostRequest } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const createComment = (cookies, parentId, content, taggedUsers) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.comment.createComment(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        parentId,
-        content,
-        taggedUsers,
-      }),
+      parentId,
+      content,
+      taggedUsers,
     },
     cookies
   )
@@ -30,18 +22,10 @@ export const createComment = (cookies, parentId, content, taggedUsers) =>
     });
 
 export const deleteComment = (cookies, id) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.comment.deleteComment(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
+      id,
     },
     cookies
   )
@@ -57,18 +41,10 @@ export const deleteComment = (cookies, id) =>
     });
 
 export const getCommentsByThread = (cookies, id) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.comment.getCommentsByThread(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
+      id,
     },
     cookies
   )
@@ -84,18 +60,10 @@ export const getCommentsByThread = (cookies, id) =>
     });
 
 export const getCommentsByAskMeThread = (cookies, id) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.comment.getCommentsByAskMeThread(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
+      id,
     },
     cookies
   )

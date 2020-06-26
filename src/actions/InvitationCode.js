@@ -1,16 +1,8 @@
-import { authedFetch } from "../utils/requests";
+import { authedGetRequest, authedPostRequest } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const createCode = (cookies) =>
-  authedFetch(
-    urls.baseUrl + urls.api.invitationCode.createCode(),
-    {
-      method: "GET",
-      mode: "same-origin",
-      credentials: "include",
-    },
-    cookies
-  )
+  authedGetRequest(urls.baseUrl + urls.api.invitationCode.createCode(), cookies)
     .then((response) => response.json())
     .then((json) => {
       if (json == null) {
@@ -23,18 +15,10 @@ export const createCode = (cookies) =>
     });
 
 export const verifyCodeUnused = (cookies, code) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.invitationCode.verifyCodeUnused(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        code,
-      }),
+      code,
     },
     cookies
   )

@@ -1,17 +1,11 @@
-import { authedFetch } from "../utils/requests";
+import { authedPostRequest } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const getGroup = (cookies, id) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.group.getGroup(),
     {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
+      id,
     },
     cookies
   )
@@ -27,20 +21,12 @@ export const getGroup = (cookies, id) =>
     });
 
 export const createGroup = (cookies, name, description, category) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.group.createGroup(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        description,
-        category,
-      }),
+      name,
+      description,
+      category,
     },
     cookies
   )
@@ -55,18 +41,10 @@ export const createGroup = (cookies, name, description, category) =>
     });
 
 export const deleteGroup = (cookies, id) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.group.deleteGroup(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
+      id,
     },
     cookies
   )
@@ -81,19 +59,11 @@ export const deleteGroup = (cookies, id) =>
     });
 
 export const searchGroups = (cookies, { term, category }) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.group.searchGroups(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        term,
-        category,
-      }),
+      term,
+      category,
     },
     cookies
   )

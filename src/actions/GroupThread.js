@@ -1,19 +1,11 @@
-import { authedFetch } from "../utils/requests";
+import { authedPostRequest } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const getGroupThreads = (cookies, groupId) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.groupThread.getGroupThreads(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        groupId,
-      }),
+      groupId,
     },
     cookies
   )
@@ -29,18 +21,10 @@ export const getGroupThreads = (cookies, groupId) =>
     });
 
 export const getThread = (cookies, id) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.groupThread.getThread(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
+      id,
     },
     cookies
   )
@@ -56,19 +40,11 @@ export const getThread = (cookies, id) =>
     });
 
 export const searchThreads = (cookies, term, groupId) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.groupThread.searchThreads(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        term,
-        groupId,
-      }),
+      term,
+      groupId,
     },
     cookies
   )
@@ -84,20 +60,12 @@ export const searchThreads = (cookies, term, groupId) =>
     });
 
 export const createThread = (cookies, groupId, title, content) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.groupThread.createThread(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        groupId,
-        title,
-        content,
-      }),
+      groupId,
+      title,
+      content,
     },
     cookies
   )
@@ -113,18 +81,10 @@ export const createThread = (cookies, groupId, title, content) =>
     });
 
 export const deleteThread = (cookies, id) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.groupThread.deleteThread(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
+      id,
     },
     cookies
   )

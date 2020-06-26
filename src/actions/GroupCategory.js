@@ -1,16 +1,8 @@
-import { authedFetch } from "../utils/requests";
+import { authedGetRequest } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const getCategories = (cookies) =>
-  authedFetch(
-    urls.baseUrl + urls.api.category.getCategories(),
-    {
-      method: "GET",
-      mode: "same-origin",
-      credentials: "include",
-    },
-    cookies
-  )
+  authedGetRequest(urls.baseUrl + urls.api.category.getCategories(), cookies)
     .then((response) => response.json())
     .then((json) => {
       if (json == null) {

@@ -17,10 +17,9 @@
       "pre-commit": "npm run format"
     }
   },
-  "main": "server.js",
   "scripts": {
     "dev": "next -p 3000",
-    "build": "next build",
+    "build": "NODE_ENV=production next build",
     "postinstall": "next build",
     "analyze-build": "ANALYZE=true next build",
     "start": "NODE_ENV=production node server.js",

@@ -1,4 +1,4 @@
-import { authedFetch } from "../utils/requests";
+import { authedGetRequest, authedPostRequest } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const signUp = (
@@ -17,28 +17,20 @@ export const signUp = (
     interests,
   }
 ) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.signUp(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        invCode,
-        email,
-        username,
-        password,
-        avatar,
-        avatarColor,
-        age,
-        grade,
-        role,
-        name,
-        interests,
-      }),
+      invCode,
+      email,
+      username,
+      password,
+      avatar,
+      avatarColor,
+      age,
+      grade,
+      role,
+      name,
+      interests,
     },
     cookies
   )
@@ -54,18 +46,10 @@ export const signUp = (
     });
 
 export const verifyEmailUnused = (cookies, email) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.verifyEmailUnused(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-      }),
+      email,
     },
     cookies
   )
@@ -81,21 +65,13 @@ export const verifyEmailUnused = (cookies, email) =>
     });
 
 export const generateUsernames = (cookies, description, thing, number, count) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.generateUsernames(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        description,
-        thing,
-        number,
-        count,
-      }),
+      description,
+      thing,
+      number,
+      count,
     },
     cookies
   )
@@ -111,19 +87,11 @@ export const generateUsernames = (cookies, description, thing, number, count) =>
     });
 
 export const login = (cookies, email, password) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.login(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
+      email,
+      password,
     },
     cookies
   )
@@ -139,18 +107,10 @@ export const login = (cookies, email, password) =>
     });
 
 export const followGroup = (cookies, groupId) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.followGroup(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        groupId,
-      }),
+      groupId,
     },
     cookies
   )
@@ -166,18 +126,10 @@ export const followGroup = (cookies, groupId) =>
     });
 
 export const unfollowGroup = (cookies, groupId) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.unfollowGroup(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        groupId,
-      }),
+      groupId,
     },
     cookies
   )
@@ -193,15 +145,7 @@ export const unfollowGroup = (cookies, groupId) =>
     });
 
 export const getCurrentUser = (cookies) =>
-  authedFetch(
-    urls.baseUrl + urls.api.user.getCurrentUser(),
-    {
-      method: "GET",
-      mode: "same-origin",
-      credentials: "include",
-    },
-    cookies
-  )
+  authedGetRequest(urls.baseUrl + urls.api.user.getCurrentUser(), cookies)
     .then((response) => response.json())
     .then((json) => {
       if (json == null) {
@@ -214,18 +158,10 @@ export const getCurrentUser = (cookies) =>
     });
 
 export const getUser = (cookies, userId) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.getUser(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId,
-      }),
+      userId,
     },
     cookies
   )
@@ -241,18 +177,10 @@ export const getUser = (cookies, userId) =>
     });
 
 export const addAskBookmark = (cookies, threadId) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.addAskBookmark(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        threadId,
-      }),
+      threadId,
     },
     cookies
   )
@@ -268,18 +196,10 @@ export const addAskBookmark = (cookies, threadId) =>
     });
 
 export const removeAskBookmark = (cookies, threadId) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.removeAskBookmark(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        threadId,
-      }),
+      threadId,
     },
     cookies
   )
@@ -295,15 +215,7 @@ export const removeAskBookmark = (cookies, threadId) =>
     });
 
 export const getUserAskBookmarks = (cookies) =>
-  authedFetch(
-    urls.baseUrl + urls.api.user.getUserAskBookmarks(),
-    {
-      method: "GET",
-      mode: "same-origin",
-      credentials: "include",
-    },
-    cookies
-  )
+  authedGetRequest(urls.baseUrl + urls.api.user.getUserAskBookmarks(), cookies)
     .then((response) => response.json())
     .then((json) => {
       if (json == null) {
@@ -316,18 +228,10 @@ export const getUserAskBookmarks = (cookies) =>
     });
 
 export const addGroupBookmark = (cookies, threadId) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.addGroupBookmark(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        threadId,
-      }),
+      threadId,
     },
     cookies
   )
@@ -343,18 +247,10 @@ export const addGroupBookmark = (cookies, threadId) =>
     });
 
 export const removeGroupBookmark = (cookies, threadId) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.user.removeGroupBookmark(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        threadId,
-      }),
+      threadId,
     },
     cookies
   )
@@ -370,13 +266,8 @@ export const removeGroupBookmark = (cookies, threadId) =>
     });
 
 export const getUserGroupBookmarks = (cookies) =>
-  authedFetch(
+  authedGetRequest(
     urls.baseUrl + urls.api.user.getUserGroupBookmarks(),
-    {
-      method: "GET",
-      mode: "same-origin",
-      credentials: "include",
-    },
     cookies
   )
     .then((response) => response.json())

@@ -1,16 +1,8 @@
-import { authedFetch } from "../utils/requests";
+import { authedGetRequest, authedPostRequest } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const getAskThreads = (cookies) =>
-  authedFetch(
-    urls.baseUrl + urls.api.askMeThread.getAskThreads(),
-    {
-      method: "GET",
-      mode: "same-origin",
-      credentials: "include",
-    },
-    cookies
-  )
+  authedGetRequest(urls.baseUrl + urls.api.askMeThread.getAskThreads(), cookies)
     .then((response) => response.json())
     .then((json) => {
       if (json == null) {
@@ -23,18 +15,10 @@ export const getAskThreads = (cookies) =>
     });
 
 export const getThread = (cookies, id) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.askMeThread.getThread(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-      }),
+      id,
     },
     cookies
   )
@@ -50,18 +34,10 @@ export const getThread = (cookies, id) =>
     });
 
 export const searchThreads = (cookies, terms) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.askMeThread.searchThreads(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        terms,
-      }),
+      terms,
     },
     cookies
   )
@@ -77,20 +53,12 @@ export const searchThreads = (cookies, terms) =>
     });
 
 export const createThread = (cookies, title, content, visibility) =>
-  authedFetch(
+  authedPostRequest(
     urls.baseUrl + urls.api.askMeThread.createThread(),
     {
-      method: "POST",
-      mode: "same-origin",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        content,
-        visibility,
-      }),
+      title,
+      content,
+      visibility,
     },
     cookies
   )
@@ -106,17 +74,13 @@ export const createThread = (cookies, title, content, visibility) =>
     });
 
 export const deleteThread = (cookies, id) =>
-  authedFetch(urls.baseUrl + urls.api.askMeThread.deleteThread(), {
-    method: "POST",
-    mode: "same-origin",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  authedPostRequest(
+    urls.baseUrl + urls.api.askMeThread.deleteThread(),
+    {
       id,
-    }),
-  })
+    },
+    cookies
+  )
     .then((response) => response.json())
     .then((json) => {
       if (json == null) {
@@ -129,13 +93,8 @@ export const deleteThread = (cookies, id) =>
     });
 
 export const getUserQuestions = (cookies) =>
-  authedFetch(
+  authedGetRequest(
     urls.baseUrl + urls.api.askMeThread.getUserQuestions(),
-    {
-      method: "GET",
-      mode: "same-origin",
-      credentials: "include",
-    },
     cookies
   )
     .then((response) => response.json())
