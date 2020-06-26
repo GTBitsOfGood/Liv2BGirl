@@ -3,10 +3,6 @@ const dotEnv = require("dotenv");
 
 const prod = process.env.NODE_ENV === "production";
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: !prod && process.env.ANALYZE === "true",
-});
-
 if (!prod) {
   dotEnv.config();
 }
@@ -35,4 +31,12 @@ const base = withImages({
   },
 });
 
-module.exports = prod ? base : withBundleAnalyzer(base);
+if (!prod) {
+  const withBundleAnalyzer = require("@next/bundle-analyzer")({
+    enabled: !prod && process.env.ANALYZE === "true",
+  });
+
+  module.exports = withBundleAnalyzer(base);
+} else {
+  module.exports = base;
+}
