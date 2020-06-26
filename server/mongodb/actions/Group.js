@@ -102,11 +102,14 @@ export const searchGroups = async (currentUser, { term, category }) => {
   const projection = {};
   const sort = {};
 
+  /*
+  Disable text search for now due to lack of support by Cosmos DB
   if (term != null && term.length > 0) {
     query.$text = { $search: term };
     projection.score = { $meta: "textScore" };
     sort.score = { $meta: "textScore" };
   }
+   */
 
   if (category != null) {
     query.category = category;

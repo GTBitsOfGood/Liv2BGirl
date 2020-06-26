@@ -42,6 +42,10 @@ div {
   overflow-y: auto;
   letter-spacing: 0.01em;
   color: $text;
+
+  > .GlobalBottomNavBar:nth-of-type(2) {
+    position: absolute !important;
+  }
 }
 
 a {
