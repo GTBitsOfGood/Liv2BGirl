@@ -63,7 +63,6 @@ export const getCommentsByAskMeThread = async (currentUser, { id }) => {
       select: "_id username avatar avatarColor",
     })
     .sort({
-      officialAnswer: -1, // official answers come first
       postedAt: 1, // newest at bottom
     })
     .then(async (comments) => {
@@ -91,7 +90,6 @@ export const getCommentsByThread = async (currentUser, { id }) => {
       select: "_id username avatar avatarColor",
     })
     .sort({
-      officialAnswer: -1, // official answers come first
       postedAt: 1, // newest at bottom
     })
     .then(async (comments) => {

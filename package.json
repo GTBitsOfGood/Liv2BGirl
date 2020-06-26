@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "next -p 3000",
     "build": "NODE_ENV=production next build",
-    "postinstall": "next build",
+    "postinstall": "NODE_ENV=production next build",
     "analyze-build": "NODE_ENV=production ANALYZE=true next build",
     "start": "NODE_ENV=production node server.js",
     "lint": "eslint --fix --ext .jsx --ext .js .",
