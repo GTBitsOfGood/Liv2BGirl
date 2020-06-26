@@ -23,7 +23,7 @@
     "build": "next build",
     "postinstall": "next build",
     "analyze-build": "ANALYZE=true next build",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production node server.js",
     "lint": "eslint --fix --ext .jsx --ext .js .",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
@@ -41,7 +41,6 @@
     "clsx": "^1.1.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
-    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "is-hotkey": "^0.1.6",
