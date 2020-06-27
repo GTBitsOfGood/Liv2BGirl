@@ -21,7 +21,6 @@ app
     server.all("*", (req, res) => handle(req, res));
 
     server.listen(port, (err) => {
-      console.log(err);
       if (err) throw err;
       console.log(`> Ready on http://localhost:${port}`);
     });
