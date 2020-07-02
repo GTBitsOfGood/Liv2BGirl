@@ -22,7 +22,7 @@
     "build": "NODE_ENV=production next build",
     "postinstall": "NODE_ENV=production next build",
     "analyze-build": "NODE_ENV=production ANALYZE=true next build",
-    "start": "NODE_ENV=production node server.js",
+    "start": "NODE_ENV=production node app.js",
     "lint": "eslint --fix --ext .jsx --ext .js .",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\""
   },
