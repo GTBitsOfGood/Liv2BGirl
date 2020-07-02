@@ -18,12 +18,7 @@ app
     server.use(compression());
     server.use(cookieParser());
 
-    server.all("*", (req, res) => {
-      console.log(
-        "I SWEAR I'M ALIVE DOCKER JUST RECOGNIZE MY EXISTENCE PLS :)"
-      );
-      handle(req, res);
-    });
+    server.all("*", (req, res) => handle(req, res));
 
     server.listen(port, (err) => {
       if (err) throw err;
