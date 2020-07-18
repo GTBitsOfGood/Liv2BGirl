@@ -22,6 +22,7 @@ export default async () => {
   require("./models/Comment");
   require("./models/Group");
   require("./models/GroupCategory");
+  require("./models/GroupThread");
   require("./models/InvitationCode");
   require("./models/Report");
   require("./models/User");
