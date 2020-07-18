@@ -37,7 +37,7 @@ async function handleDelete(provDoc) {
     await mongoose
       .model("User")
       .updateMany({ groups: id }, { $pull: { groups: id } });
-    await mongoose.model("Thread").deleteMany({ group: id });
+    await mongoose.model("GroupThread").deleteMany({ group: id });
   }
 }
 
