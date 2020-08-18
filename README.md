@@ -5,24 +5,8 @@
 - React.js: Front-end
 - Next.js: API routes and server-side rendering
 - MongoDB: Permanently storing info
-- Zeit Now: Hosting and automatic GitHub build hooks
 - eslint: Automatically identifying and fixing code errors
 - prettier: Setting a common code style and fixing any issues
-
-## Setup
-
-### Zeit Now Install
-
-- [Create a Zeit Now account](https://zeit.co)
-- Run `npm i -g now`, then type `now login`
-- On your dashboard, click `New Project` then `From GitHub` and select this project
-
-### Updating Env Vars
-
-- For dev, update `.env` and `next.config.js`
-- For production, install Now using the instructions above, then
-- For production, to add, use `now secrets add <secret-name> <secret-value>`
-- For production, to remove, use `now secrets rm <secret-name>`
 
 ## Running
 
