@@ -24,7 +24,11 @@
     "analyze-build": "NODE_ENV=production ANALYZE=true next build",
     "start": "NODE_ENV=production node app.js",
     "lint": "eslint --fix --ext .jsx --ext .js .",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\""
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "secrets": "npm run secrets:logout && cross-env-shell BW_SESSION=`bw login product@bitsofgood.org --raw` \"npm run secrets:sync\"",
+    "secrets:logout": "(bw logout || exit 0)",
+    "secrets:login": "bw login product@bitsofgood.org",
+    "secrets:sync": "bw sync && bw get item f01d76ea-43ca-4487-838c-ac1a0189f150 | fx .notes > \".env\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
