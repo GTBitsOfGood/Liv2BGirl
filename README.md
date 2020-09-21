@@ -27,7 +27,9 @@ A running instance of MongoDB is required this project.
 - Setup MongoDB with the instructions above
 - Clone this project to your computer
 - Navigate to this project in terminal and enter `npm install`
-- Rename `example.env` to `.env` and fill it out with the dev config
+- Setup development environment variables by running `npm run secrets`
+  - You will be prompted for a password. Ask your EM to send it to you.
+  - **NOTE:** Windows users need to run `npm run secrets:login` and `npm run secrets:sync` instead
 - Run the dev version of this project by entering `npm run dev`
 
 ### Styling
