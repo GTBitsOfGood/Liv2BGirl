@@ -27,7 +27,7 @@ export const createGroup = (cookies, name, description, category, image) =>
       name,
       description,
       category,
-      image
+      image,
     },
     cookies
   )

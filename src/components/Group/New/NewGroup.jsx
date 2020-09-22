@@ -12,8 +12,8 @@ const NewGroup = ({ categories, handleNext }) => {
   const [image, setImage] = React.useState(null);
 
   const findImage = () => {
-    setImage("https://pngimg.com/uploads/strawberry/strawberry_PNG89.png")
-  }
+    setImage("https://pngimg.com/uploads/strawberry/strawberry_PNG89.png");
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,7 +34,7 @@ const NewGroup = ({ categories, handleNext }) => {
       <div className="Page" style={{ marginBottom: "32px" }}>
         <div className={styles.AddIcon}>
           <button type="button" className={styles.AddBtn} onClick={findImage}>
-            <img className={styles.GroupIcon} src={image}/>
+            <img className={styles.GroupIcon} src={image} />
           </button>
           <p className={styles.AddText}>Add an icon</p>
         </div>
