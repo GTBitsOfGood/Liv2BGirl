@@ -5,14 +5,25 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { createGroup } from "../../../actions/Group";
 import styles from "./newgroup.module.scss";
 
+
 const NewGroup = ({ categories, handleNext }) => {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [category, setCategory] = React.useState(null);
   const [image, setImage] = React.useState(null);
 
-  const findImage = () => {
-    setImage("https://pngimg.com/uploads/strawberry/strawberry_PNG89.png");
+  const findImage = async placeholder => {
+    let fetchURL = "https://api.unsplash.com/photos/random/?client_id=DVvlFlAgERij109eSjskTs9N9Z4Z0c9LR_4qcjtFhMc"
+    const options = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+    }
+    const res = await fetch(fetchURL, options)
+    const json = await res.json()
+    const imageURL = json.urls.thumb
+    setImage(imageURL)
   };
 
   const handleSubmit = (event) => {
