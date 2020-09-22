@@ -20,13 +20,14 @@ export const getGroup = (cookies, id) =>
       return json.payload;
     });
 
-export const createGroup = (cookies, name, description, category) =>
+export const createGroup = (cookies, name, description, category, image) =>
   authedPostRequest(
     urls.baseUrl + urls.api.group.createGroup(),
     {
       name,
       description,
       category,
+      image
     },
     cookies
   )
