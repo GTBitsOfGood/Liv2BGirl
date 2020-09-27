@@ -1,4 +1,10 @@
 {
   "appService.defaultWebAppToDeploy": "/subscriptions/c7c820d8-884b-40b8-9f34-d4a41e78dfa9/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/bog-spring2020-liv2bgirl",
-  "appService.deploySubpath": "."
+  "appService.deploySubpath": ".",
+  "extensions.ignoreRecommendations": true,
+  "files.autoSave": "off",
+  "typescript.tsc.autoDetect": "off",
+  "npm.autoDetect": "off",
+  "debug.allowBreakpointsEverywhere": true,
+  "html.autoClosingTags": false
 }
