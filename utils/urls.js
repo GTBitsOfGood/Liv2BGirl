@@ -17,6 +17,7 @@ export default {
       admin: {
         index: "/app/admin",
         invite: "/app/admin/invite",
+        reports: "/app/admin/reports"
       },
       askMe: {
         index: "/app/ask-me",

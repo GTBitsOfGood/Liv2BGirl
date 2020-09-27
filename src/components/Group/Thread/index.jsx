@@ -21,6 +21,13 @@ const Thread = ({ currentUser, thread, group, comments }) => {
   const [saved, setSaved] = React.useState(
     currentUser.groupBookmarks.includes(thread._id)
   );
+  const [reported, setReported] = React.useState(false);
+
+  const toggleReported = () => {
+    if (reported) setReported(false);
+    else setReported(true);
+    console.log(reported);
+  };
 
   const postComment = async () => {
     if (comment.length > 0) {
@@ -131,6 +138,7 @@ const Thread = ({ currentUser, thread, group, comments }) => {
             <h6 className={styles.ThreadDate}>
               {new Date(thread.postedAt).toLocaleString()}
             </h6>
+            <button onClick={toggleReported}>Report</button>
           </div>
         </div>
         <DetailedTextField

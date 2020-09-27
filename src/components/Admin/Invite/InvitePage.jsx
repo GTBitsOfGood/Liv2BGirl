@@ -27,7 +27,7 @@ const InvitePage = () => {
         <h1>Create Invitation Code</h1>
         <p>
           This button will create an invitation code that can be used to
-          register a new user. The code can only be used a single time before it
+          register a new user. The code can only be used once before it
           expires and a new code must be generated. Anyone who is given a code
           can create an account, so distribute them carefully.
         </p>
