@@ -31,11 +31,15 @@ const CommentSchema = new mongoose.Schema({
     default: Date.now,
     index: true,
   },
-  Reported: {
-    type: Integer, 
-    required: true, 
+  reported: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  reportCount: {
+    type: Number,
+    required: true,
     default: 0,
-    index: true
   },
 });
 
