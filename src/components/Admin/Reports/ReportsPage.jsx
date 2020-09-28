@@ -10,7 +10,7 @@ const ReportsPage = () => {
       <div className={classes.header}>
         <h1>Reports</h1>
         <p>
-          If someone posts shit you don't like, you can yeet that shit off this platform from here.
+          If someone posts stuff you don't like, you can yeet that stuff off this platform from here.
         </p>
       </div>
     </div>
