@@ -23,7 +23,7 @@ A running instance of MongoDB is required this project.
 - You're done!
 
 ### Development
-np
+
 - Setup MongoDB with the instructions above
 - Clone this project to your computer
 - Navigate to this project in terminal and enter `npm install`
