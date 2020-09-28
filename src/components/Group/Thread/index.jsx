@@ -24,7 +24,7 @@ const Thread = ({ currentUser, thread, group, comments }) => {
   const [reported, setReported] = React.useState(false);
 
   const toggleReported = () => {
-    if (reported) setReported(false);
+    if (reported) setReported(true);
     else setReported(true);
     console.log(reported);
   };
