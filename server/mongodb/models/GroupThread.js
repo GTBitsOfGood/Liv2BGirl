@@ -30,6 +30,12 @@ const GroupThreadSchema = new mongoose.Schema({
     default: Date.now,
     index: true,
   },
+  Reported: {
+    type: Integer, 
+    required: true, 
+    default: 0,
+    index: true
+  },
 });
 
 async function handleDelete(provDoc) {
