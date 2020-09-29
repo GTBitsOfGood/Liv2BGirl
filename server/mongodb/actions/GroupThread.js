@@ -27,6 +27,22 @@ export const createThread = async (
   });
 };
 
+export const reportThread = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
+    throw new Error ("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  const query = { _id: id };
+  if (currentUser.role === "User") {
+    query.author = currentUser.id;
+  }
+
+  return Thread.findOneAndReport
+  
+}
+
 export const deleteThread = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
