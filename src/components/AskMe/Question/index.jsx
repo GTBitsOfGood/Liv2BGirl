@@ -65,25 +65,6 @@ const Question = ({ currentUser, thread, comments }) => {
     });
   }
 
-  // function QuestionTitle() {
-  //   if (isChanging) {
-  //     return (
-  //       <form
-  //         onSubmit={(e) => {
-  //           setChanging(false);
-  //           setTitle(e.target.value);
-  //           console.log(e.target.value);
-  //           editThread(null, thread._id, newTitle);
-  //         }}
-  //       >
-  //         <input />
-  //       </form>
-  //     );
-  //   } else {
-  //     return <h3>{`Question: ${thread.title}`}</h3>;
-  //   }
-  // }
-
   const officialAnswers = comments.filter((item) => item.officialAnswer);
   const generalComments = comments.filter((item) => !item.officialAnswer);
 
