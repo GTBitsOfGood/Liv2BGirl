@@ -24,6 +24,21 @@ export const createComment = async (
   });
 };
 
+export const editComment = async (currentUser, { id, content }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+  const filter = {
+    _id: id,
+  };
+
+  const query = {
+    content: content,
+  };
+
+  return Comment.findOneAndUpdate(filter, query);
+};
+
 export const deleteComment = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");

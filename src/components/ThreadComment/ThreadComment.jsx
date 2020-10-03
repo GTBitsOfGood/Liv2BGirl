@@ -3,14 +3,15 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import Router from "next/router";
 import ActionModal from "../ActionModal";
-import DetailedTextField from "../DetailedTextField";
 import { timeSince } from "./utils";
 import { deleteComment } from "../../actions/Comment";
 import urls from "../../../utils/urls";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import styles from "./ThreadComment.module.scss";
+import CommentTitle from "./CommentTitle";
 
 const ThreadComment = ({ comment, setReply, currentUser }) => {
+  const [isChanging, setChanging] = React.useState(false);
   const actionButtons = [];
 
   if (
@@ -21,6 +22,10 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
       title: "Delete Comment",
       action: () =>
         deleteComment(null, comment._id).then(() => Router.reload()),
+    });
+    actionButtons.push({
+      title: "Edit Comment",
+      action: () => setChanging(true),
     });
   }
 
@@ -58,14 +63,7 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
           {`~${timeSince(comment.postedAt)} ago`}
         </h6>
       </div>
-      <DetailedTextField
-        readOnly={true}
-        textNodes={
-          comment.content != null && comment.content.length > 0
-            ? JSON.parse(comment.content)
-            : null
-        }
-      />
+      <CommentTitle isChanging={isChanging} comment={comment}></CommentTitle>
       <button
         type="button"
         className={styles.CommentReply}

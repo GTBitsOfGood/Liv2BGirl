@@ -21,6 +21,26 @@ export const createComment = (cookies, parentId, content, taggedUsers) =>
       return json.payload;
     });
 
+export const editComment = (cookies, id, content) =>
+  authedPostRequest(
+    urls.baseUrl + urls.api.comment.editComment(),
+    {
+      id,
+      content,
+    },
+    cookies
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
 export const deleteComment = (cookies, id) =>
   authedPostRequest(
     urls.baseUrl + urls.api.comment.deleteComment(),
