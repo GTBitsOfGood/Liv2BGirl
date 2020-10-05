@@ -47,6 +47,27 @@ export const deleteComment = async (currentUser, { id }) => {
   });
 };
 
+export const reportComment = async (CurrentUser, { id }) => {
+  if (CurrentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  const query = { _id: id };
+  if (CurrentUser.role === "User") {
+    query.author = CurrentUser._id;
+  }
+
+  return Comment.report(query).then((reportedComment) => {
+    if (reportedComment == null) {
+      throw new Error(
+        "No comment matches the provided id or user does not have permission!"
+      );
+    }
+  });
+};
+
 export const getCommentsByAskMeThread = async (currentUser, { id }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");

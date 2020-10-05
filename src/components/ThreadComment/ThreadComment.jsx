@@ -6,6 +6,7 @@ import ActionModal from "../ActionModal";
 import DetailedTextField from "../DetailedTextField";
 import { timeSince } from "./utils";
 import { deleteComment } from "../../actions/Comment";
+import { reportComment } from "../../actions/Comment";
 import urls from "../../../utils/urls";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import styles from "./ThreadComment.module.scss";
@@ -21,6 +22,14 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
       title: "Delete Comment",
       action: () =>
         deleteComment(null, comment._id).then(() => Router.reload()),
+    });
+  }
+
+  if (currentUser._id === "User" && comment.author._id != currentUser._id) {
+    actionButtons.push({
+      title: "Report Comment",
+      action: () =>
+        reportComment(null, comment._id).then(() => Router.reload()),
     });
   }
 

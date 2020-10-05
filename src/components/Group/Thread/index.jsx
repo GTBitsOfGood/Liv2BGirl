@@ -21,13 +21,13 @@ const Thread = ({ currentUser, thread, group, comments }) => {
   const [saved, setSaved] = React.useState(
     currentUser.groupBookmarks.includes(thread._id)
   );
-  const [reported, setReported] = React.useState(false);
+  // const [reported, setReported] = React.useState(false);
 
-  const toggleReported = () => {
-    if (reported) setReported(true);
-    else setReported(true);
-    console.log(reported);
-  };
+  // const toggleReported = () => {
+  //   if (reported) setReported(true);
+  //   else setReported(true);
+  //   console.log(reported);
+  // };
 
   const postComment = async () => {
     if (comment.length > 0) {
@@ -64,6 +64,14 @@ const Thread = ({ currentUser, thread, group, comments }) => {
           Router.replace(urls.pages.app.groups.group.view(group._id))
         ),
     });
+
+    // actionButtons.push({
+    //   title: "Report Thread",
+    //   action: () =>
+    //     reportThread(null, thread._id).then(() =>
+    //       Router.replace(urls.pages.app.groups.group.view(group._id))
+    //     ),
+    // });
   }
 
   const taggableUserMap = new Map();
@@ -138,7 +146,6 @@ const Thread = ({ currentUser, thread, group, comments }) => {
             <h6 className={styles.ThreadDate}>
               {new Date(thread.postedAt).toLocaleString()}
             </h6>
-            <button onClick={toggleReported}>Report</button>
           </div>
         </div>
         <DetailedTextField

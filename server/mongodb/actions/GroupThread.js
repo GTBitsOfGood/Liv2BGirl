@@ -29,7 +29,7 @@ export const createThread = async (
 
 export const reportThread = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {
-    throw new Error ("All parameters must be provided!");
+    throw new Error("All parameters must be provided!");
   }
 
   await mongoDB();
@@ -39,9 +39,16 @@ export const reportThread = async (currentUser, { id }) => {
     query.author = currentUser.id;
   }
 
-  return Thread.findOneAndReport
-  
-}
+  return Thread.findOneAndReport(query)
+    .exec()
+    .then(async (reportedThread) => {
+      if (reportedThread == null) {
+        throw new Error(
+          "No thread matches the provided id or user does not have permission!"
+        );
+      }
+    });
+};
 
 export const deleteThread = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {

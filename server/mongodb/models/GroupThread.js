@@ -53,11 +53,26 @@ async function handleDelete(provDoc) {
   }
 }
 
+async function handleReport(provDoc) {
+  const doc =
+    this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
+
+  if (doc != null) {
+    const id = doc._id;
+
+    await mongoose
+      .model("Comment")
+      .updateMany({ parent: id }, { reported: true });
+  }
+}
+
 GroupThreadSchema.pre("remove", handleDelete);
 GroupThreadSchema.pre("findOneAndDelete", handleDelete);
 GroupThreadSchema.pre("findOneAndRemove", handleDelete);
 GroupThreadSchema.pre("deleteOne", handleDelete);
 GroupThreadSchema.pre("deleteMany", handleDelete);
+GroupThreadSchema.pre("findOneAndReport", handleReport);
+GroupThreadSchema.pre("reportOne", handleReport);
 
 export default mongoose.models.GroupThread ||
   mongoose.model("GroupThread", GroupThreadSchema);
