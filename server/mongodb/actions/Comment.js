@@ -65,6 +65,8 @@ export const reportComment = async (CurrentUser, { id }) => {
         "No comment matches the provided id or user does not have permission!"
       );
     }
+
+    return reportedComment;
   });
 };
 
