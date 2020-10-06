@@ -6,7 +6,7 @@ import ActionModal from "../ActionModal";
 import DetailedTextField from "../DetailedTextField";
 import { timeSince } from "./utils";
 import { deleteComment } from "../../actions/Comment";
-import { reportComment } from "../../actions/Comment";
+// import { reportComment } from "../../actions/Comment";
 import urls from "../../../utils/urls";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import styles from "./ThreadComment.module.scss";
@@ -25,13 +25,13 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
     });
   }
 
-  if (["Admin", "Ambassador"].includes(currentUser.role)) {
-    actionButtons.push({
-      title: "Report Comment",
-      action: () =>
-        reportComment(null, comment._id).then(() => Router.reload()),
-    });
-  }
+  // if (["Admin", "User"].includes(currentUser.role)) {
+  //   actionButtons.push({
+  //     title: "Report Comment",
+  //     action: () =>
+  //       reportComment(null, comment._id).then(() => Router.reload()),
+  //   });
+  // }
 
   return (
     <div className={styles.Comment}>

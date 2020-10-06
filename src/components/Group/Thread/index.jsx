@@ -9,6 +9,8 @@ import TopNavBar from "../../TopNavBar";
 import ActionModal from "../../ActionModal";
 import DetailedTextField from "../../DetailedTextField";
 import { deleteThread } from "../../../actions/GroupThread";
+import { reportThread } from "../../../actions/GroupThread";
+
 import { createComment } from "../../../actions/Comment";
 import { addGroupBookmark, removeGroupBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
@@ -21,13 +23,6 @@ const Thread = ({ currentUser, thread, group, comments }) => {
   const [saved, setSaved] = React.useState(
     currentUser.groupBookmarks.includes(thread._id)
   );
-  // const [reported, setReported] = React.useState(false);
-
-  // const toggleReported = () => {
-  //   if (reported) setReported(true);
-  //   else setReported(true);
-  //   console.log(reported);
-  // };
 
   const postComment = async () => {
     if (comment.length > 0) {
@@ -64,14 +59,21 @@ const Thread = ({ currentUser, thread, group, comments }) => {
           Router.replace(urls.pages.app.groups.group.view(group._id))
         ),
     });
+  }
 
-    // actionButtons.push({
-    //   title: "Report Thread",
-    //   action: () =>
-    //     reportThread(null, thread._id).then(() =>
-    //       Router.replace(urls.pages.app.groups.group.view(group._id))
-    //     ),
-    // });
+  // lemme comment that stuff out real quick so i can try ^
+
+  if (
+    thread.author._id != currentUser._id &&
+    ["User", "Admin"].includes(currentUser.role)
+  ) {
+    actionButtons.push({
+    title: "Report Thread",
+    action: () =>
+      reportThread(null, thread._id).then(() =>
+        Router.replace(urls.pages.app.groups.group.view(group._id))
+      ),
+  });
   }
 
   const taggableUserMap = new Map();
