@@ -25,7 +25,7 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
     });
   }
 
-  if (["Admin", "Ambassador"].includes(currentUser.role)) {
+  if (["Admin", "User"].includes(currentUser.role)) {
     actionButtons.push({
       title: "Report Comment",
       action: () =>
