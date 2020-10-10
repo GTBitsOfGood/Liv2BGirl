@@ -1,6 +1,6 @@
 const FilterHelper = require("bad-words");
 import mongoDB from "../index";
-import Thread from "../models/GroupThread";
+import GroupThread from "../models/GroupThread";
 import Comments from "../models/Comment";
 
 const wordFilter = new FilterHelper();
@@ -19,7 +19,7 @@ export const createThread = async (
 
   await mongoDB();
 
-  return Thread.create({
+  return GroupThread.create({
     author: currentUser._id,
     group: groupId,
     title,
@@ -37,7 +37,7 @@ export const reportThread = async (currentUser, { id }) => {
   const query = { _id: id };
   query.author = currentUser.id;
 
-  return GroupThread.findOneAndReport(query)
+  return GroupThread.reportThread(query)
     .exec()
     .then(async (reportedThread) => {
       if (reportedThread == null) {
@@ -60,7 +60,7 @@ export const deleteThread = async (currentUser, { id }) => {
     query.author = currentUser._id;
   }
 
-  return Thread.findOneAndDelete(query)
+  return GroupThread.findOneAndDelete(query)
     .exec()
     .then(async (deletedThread) => {
       if (deletedThread == null) {
@@ -82,7 +82,7 @@ export const getGroupThreads = async (currentUser, { groupId }) => {
 
   await mongoDB();
 
-  return Thread.find({ group: groupId })
+  return GroupThread.find({ group: groupId })
     .populate({
       path: "author",
       model: "User",
@@ -114,7 +114,7 @@ export const getThread = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  return Thread.findById(id)
+  return GroupThread.findById(id)
     .populate({
       path: "author",
       model: "User",
@@ -146,7 +146,7 @@ export const filterThreads = async (
 
   await mongoDB();
 
-  return Thread.find({
+  return GroupThread.find({
     group: groupId,
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
   })
@@ -180,7 +180,7 @@ export const searchThreads = async (currentUser, { term, groupId }) => {
     query.group = groupId;
   }
 
-  return Thread.find(query, {
+  return GroupThread.find(query, {
     score: { $meta: "textScore" },
   })
     .populate({

@@ -60,7 +60,13 @@ async function handleReport(provDoc) {
   if (doc != null) {
     const id = doc._id;
 
-    await this.model.updateMany({ parent: id }, { reported: true }, {reportedCount: reportedCount++});
+    await mongoose
+      .model("GroupThread")
+      .updateMany({ _id: id }, { reported: true });
+
+    await mongoose
+      .model("GroupThread")
+      .updateMany({ _id: id }, { reportCount: this.reportCount++ });
   }
 }
 
@@ -69,8 +75,7 @@ GroupThreadSchema.pre("findOneAndDelete", handleDelete);
 GroupThreadSchema.pre("findOneAndRemove", handleDelete);
 GroupThreadSchema.pre("deleteOne", handleDelete);
 GroupThreadSchema.pre("deleteMany", handleDelete);
-GroupThreadSchema.pre("findOneAndReport", handleReport);
-GroupThreadSchema.pre("reportOne", handleReport);
+GroupThreadSchema.pre("reportThread", handleReport);
 
 export default mongoose.models.GroupThread ||
   mongoose.model("GroupThread", GroupThreadSchema);

@@ -62,6 +62,7 @@ async function handleReport(provDoc) {
     const id = doc._id;
 
     await this.model.update({ _id: id }, { reported: true });
+    await this.model.update({ _id: id }, { reportCount: this.reportCount++ });
   }
 }
 
@@ -70,7 +71,7 @@ CommentSchema.pre("findOneAndDelete", handleDelete);
 CommentSchema.pre("findOneAndRemove", handleDelete);
 CommentSchema.pre("deleteOne", handleDelete);
 CommentSchema.pre("deleteMany", handleDelete);
-CommentSchema.pre("report", handleReport);
+CommentSchema.pre("reportComment", handleReport);
 
 export default mongoose.models.Comment ||
   mongoose.model("Comment", CommentSchema);

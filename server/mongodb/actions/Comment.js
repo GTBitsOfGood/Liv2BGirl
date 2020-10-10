@@ -55,11 +55,9 @@ export const reportComment = async (CurrentUser, { id }) => {
   await mongoDB();
 
   const query = { _id: id };
-  if (CurrentUser.role === "User") {
-    query.author = CurrentUser._id;
-  }
+  query.author = CurrentUser._id;
 
-  return Comment.report(query).then((reportedComment) => {
+  return Comment.reportComment(query).then((reportedComment) => {
     if (reportedComment == null) {
       throw new Error(
         "No comment matches the provided id or user does not have permission!"

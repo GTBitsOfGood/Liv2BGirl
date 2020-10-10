@@ -59,6 +59,18 @@ const Question = ({ currentUser, thread, comments }) => {
     });
   }
 
+  if (
+    thread.author._id != currentUser._id
+  ) {
+    actionButtons.push({
+      title: "Report Thread",
+      action: () =>
+        deleteThread(null, thread._id).then(() =>
+          Router.replace(urls.pages.app.askMe.index)
+        ),
+    });
+  }
+
   const officialAnswers = comments.filter((item) => item.officialAnswer);
   const generalComments = comments.filter((item) => !item.officialAnswer);
 
