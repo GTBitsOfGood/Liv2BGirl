@@ -61,19 +61,18 @@ const Thread = ({ currentUser, thread, group, comments }) => {
     });
   }
 
-  // lemme comment that stuff out real quick so i can try ^
 
   if (
     thread.author._id != currentUser._id &&
     ["User", "Admin"].includes(currentUser.role)
   ) {
     actionButtons.push({
-    title: "Report Thread",
-    action: () =>
-      reportThread(null, thread._id).then(() =>
-        Router.replace(urls.pages.app.groups.group.view(group._id))
-      ),
-  });
+      title: "Report Thread",
+      action: () =>
+        reportThread(null, thread._id).then(() =>
+          Router.replace(urls.pages.app.groups.group.view(group._id))
+        ),
+    });
   }
 
   const taggableUserMap = new Map();
