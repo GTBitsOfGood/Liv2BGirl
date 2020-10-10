@@ -5,11 +5,13 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { createGroup } from "../../../actions/Group";
 import styles from "./newgroup.module.scss";
 
+
 const NewGroup = ({ categories, handleNext }) => {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [category, setCategory] = React.useState(null);
-  const [image, setImage] = React.useState(null);
+  const [iconUrl, setImage] = React.useState(null);
+  const [imgButtonClicked, setClicked] = React.useState(false);
 
   const findImage = async () => {
     let fetchURL =
@@ -23,6 +25,7 @@ const NewGroup = ({ categories, handleNext }) => {
     const res = await fetch(fetchURL, options);
     const json = await res.json();
     const imageURL = json.urls.thumb;
+    setClicked(true);
     setImage(imageURL);
   };
 
@@ -33,7 +36,7 @@ const NewGroup = ({ categories, handleNext }) => {
       return window.alert("A category must be selected!");
     }
 
-    return createGroup(null, name, description, category, image)
+    return createGroup(null, name, description, category, iconUrl)
       .then((res) => handleNext(res._id))
       .catch((error) => {
         window.alert(error.message);
@@ -44,9 +47,18 @@ const NewGroup = ({ categories, handleNext }) => {
     <form className={styles.NewGroupPage} onSubmit={handleSubmit}>
       <div className="Page" style={{ marginBottom: "32px" }}>
         <div className={styles.AddIcon}>
-          <button type="button" className={styles.AddBtn} onClick={findImage}>
-            <img className={styles.GroupIcon} src={image} />
-          </button>
+
+          {!imgButtonClicked && 
+            <button type="button" className={styles.AddBtn} onClick={findImage}>
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
+          } 
+          {imgButtonClicked && 
+            <button type="button" onClick={findImage}>
+              <img className={styles.GroupIcon} src={iconUrl} />
+            </button>
+              
+            }
           <p className={styles.AddText}>Add an icon</p>
         </div>
         <div>

@@ -109,14 +109,13 @@
         height: 33px;
       }
 
-      .GroupIcon {
-        align-items: center;
-        margin: 0 auto;
-        border-radius: 10px;
-        border: none;
-        width: 88px;
-        height: 88px;
-      }
+
+    }
+    .GroupIcon {
+      width: 88px;
+      height: 88px;
+      background-color: $background;
+      border-radius: 10px;
     }
 
 

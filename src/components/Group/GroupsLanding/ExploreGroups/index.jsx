@@ -57,7 +57,7 @@ const ExploreGroups = ({
             prefetch={false}
           >
             <div className={styles.MayLikeType}>
-              <div className={styles.MayLikeImage} />
+              <img className={styles.MayLikeImage} src={group.iconUrl}/>
               <p className={styles.MayLikeTitle}>{group.name}</p>
             </div>
           </Link>

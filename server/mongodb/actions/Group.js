@@ -8,7 +8,7 @@ const wordFilter = new FilterHelper();
 
 export const createGroup = async (
   currentUser,
-  { name, description, category }
+  { name, description, category, iconUrl }
 ) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a group!");
@@ -25,6 +25,7 @@ export const createGroup = async (
     description,
     category,
     moderator: currentUser._id,
+    iconUrl,
   }).then(async (group) => {
     await followGroup(currentUser, {
       groupId: group._id,
