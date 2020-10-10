@@ -9,7 +9,9 @@
   padding: 20px;
 
   .GroupAvatar {
-    max-height: 100%;
+    width: 80px;
+    height: 80px;
+    background-color: $background;
     border-radius: 10px;
   }
 

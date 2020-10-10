@@ -46,7 +46,7 @@ const MyGroups = ({ groups, categories }) => {
               prefetch={false}
             >
               <div className={styles.MyGroupType}>
-                <div className={styles.MyGroupImage} />
+              <img className={styles.MyGroupImage} src={group.iconUrl} />
                 <p className={styles.MyGroupTitle}>{group.name}</p>
               </div>
             </Link>
@@ -63,6 +63,7 @@ MyGroups.propTypes = {
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
       moderator: PropTypes.string.isRequired,
       category: PropTypes.shape({
         _id: PropTypes.string.isRequired,
