@@ -59,9 +59,7 @@ const Question = ({ currentUser, thread, comments }) => {
     });
   }
 
-  if (
-    thread.author._id != currentUser._id
-  ) {
+  if (thread.author._id != currentUser._id) {
     actionButtons.push({
       title: "Report Thread",
       action: () =>
