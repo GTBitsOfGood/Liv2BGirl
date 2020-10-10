@@ -68,6 +68,7 @@ export default {
       deleteComment: () => "/api/Comment/deleteComment",
       getCommentsByThread: () => "/api/Comment/getCommentsByThread",
       getCommentsByAskMeThread: () => "/api/Comment/getCommentsByAskMeThread",
+      reportComment: () => "/api/Comment/reportComment"
     },
     group: {
       createGroup: () => "/api/Group/createGroup",

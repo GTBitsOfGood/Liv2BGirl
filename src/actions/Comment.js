@@ -77,3 +77,22 @@ export const getCommentsByAskMeThread = (cookies, id) =>
 
       return json.payload;
     });
+
+export const reportComment = (cookies, id) =>
+  authedPostRequest(
+    urls.baseUrl + urls.api.comment.reportComment(),
+    {
+      id,
+    },
+    cookies
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
