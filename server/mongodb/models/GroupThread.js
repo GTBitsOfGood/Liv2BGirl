@@ -49,7 +49,7 @@ async function handleDelete(provDoc) {
   if (doc != null) {
     const id = doc._id;
 
-    await mongoose.model("Comment").deleteMany({ parent: id });
+    await this.model.deleteMany({ parent: id });
   }
 }
 
@@ -60,9 +60,7 @@ async function handleReport(provDoc) {
   if (doc != null) {
     const id = doc._id;
 
-    await mongoose
-      .model("Comment")
-      .updateMany({ parent: id }, { reported: true });
+    await this.model.updateMany({ parent: id }, { reported: true }, {reportedCount: reportedCount++});
   }
 }
 

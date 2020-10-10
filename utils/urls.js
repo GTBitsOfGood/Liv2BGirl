@@ -83,6 +83,7 @@ export default {
     groupThread: {
       createThread: () => "/api/GroupThread/createThread",
       deleteThread: () => "/api/GroupThread/deleteThread",
+      reportThread: () => "/api/GroupThread/reportThread",
       filterThreads: () => "/api/GroupThread/filterThreads",
       searchThreads: () => "/api/GroupThread/searchThreads",
       getThread: () => "/api/GroupThread/getThread",

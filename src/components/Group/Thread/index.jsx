@@ -62,8 +62,7 @@ const Thread = ({ currentUser, thread, group, comments }) => {
   }
 
   if (
-    thread.author._id != currentUser._id &&
-    ["User", "Admin"].includes(currentUser.role)
+    thread.author._id != currentUser._id
   ) {
     actionButtons.push({
       title: "Report Thread",
