@@ -35,11 +35,9 @@ export const reportThread = async (currentUser, { id }) => {
   await mongoDB();
 
   const query = { _id: id };
-  if (currentUser.role === "User") {
-    query.author = currentUser.id;
-  }
+  query.author = currentUser.id;
 
-  return Thread.findOneAndReport(query)
+  return GroupThread.findOneAndReport(query)
     .exec()
     .then(async (reportedThread) => {
       if (reportedThread == null) {
