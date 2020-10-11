@@ -36,8 +36,9 @@ export const reportThread = async (currentUser, { id }) => {
 
   const query = { _id: id };
   query.author = currentUser.id;
+  await GroupThread.handleReport(query);
 
-  return GroupThread.reportThread(query)
+  return GroupThread.find(query)
     .exec()
     .then(async (reportedThread) => {
       if (reportedThread == null) {

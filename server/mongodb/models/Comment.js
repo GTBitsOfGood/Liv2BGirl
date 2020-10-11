@@ -56,13 +56,14 @@ async function handleDelete(provDoc) {
 
 async function handleReport(provDoc) {
   const doc =
-    this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
+    this.getQuery != null ? await this.find(this.getQuery()) : provDoc;
 
   if (doc != null) {
     const id = doc._id;
-
-    await this.model.update({ _id: id }, { reported: true });
-    await this.model.update({ _id: id }, { reportCount: this.reportCount++ });
+    if (!this.reported) {
+      await this.update({ _id: id }, { reported: true });
+      //await this.model.update({ _id: id }, { reportCount: this.reportCount++ });
+    }
   }
 }
 
@@ -71,7 +72,8 @@ CommentSchema.pre("findOneAndDelete", handleDelete);
 CommentSchema.pre("findOneAndRemove", handleDelete);
 CommentSchema.pre("deleteOne", handleDelete);
 CommentSchema.pre("deleteMany", handleDelete);
-CommentSchema.pre("reportComment", handleReport);
+
+CommentSchema.statics.handleReport = handleReport;
 
 export default mongoose.models.Comment ||
   mongoose.model("Comment", CommentSchema);

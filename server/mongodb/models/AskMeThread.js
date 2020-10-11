@@ -31,6 +31,16 @@ const AskMeThread = new mongoose.Schema({
     default: Date.now,
     index: true,
   },
+  reported: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  reportCount: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 async function handleDelete(provDoc) {
@@ -44,11 +54,27 @@ async function handleDelete(provDoc) {
   }
 }
 
+async function handleReport(provDoc) {
+  const doc =
+    this.getQuery != null ? await this.find(this.getQuery()) : provDoc;
+
+  if (doc != null) {
+    const id = doc._id;
+    if (!this.reported) {
+      await this.update({ _id: id }, { reported: true });
+      // await mongoose
+      //   .update({ _id: id }, { reportCount: this.reportCount++ });
+    }
+  }
+}
+
 AskMeThread.pre("remove", handleDelete);
 AskMeThread.pre("findOneAndDelete", handleDelete);
 AskMeThread.pre("findOneAndRemove", handleDelete);
 AskMeThread.pre("deleteOne", handleDelete);
 AskMeThread.pre("deleteMany", handleDelete);
+
+AskMeThread.statics.handleReport = handleReport;
 
 export default mongoose.models.AskMeThread ||
   mongoose.model("AskMeThread", AskMeThread);

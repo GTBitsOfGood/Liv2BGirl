@@ -56,8 +56,9 @@ export const reportComment = async (CurrentUser, { id }) => {
 
   const query = { _id: id };
   query.author = CurrentUser._id;
+  await Comment.handleReport(query);
 
-  return Comment.reportComment(query).then((reportedComment) => {
+  return Comment.find(query).then((reportedComment) => {
     if (reportedComment == null) {
       throw new Error(
         "No comment matches the provided id or user does not have permission!"

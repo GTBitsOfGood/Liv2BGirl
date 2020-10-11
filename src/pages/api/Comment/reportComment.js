@@ -1,11 +1,11 @@
 import { reportComment } from "../../../../server/mongodb/actions/Comment";
-import { verifyToken } from "../../../../server/mongodb/actions/User";
+import { verifyTokenSecure } from "../../../../server/mongodb/actions/User";
 
 // @route   POST api/comment/reportComment
 // @desc    Report Comment
 // @access  Public
 const handler = (req, res) =>
-  verifyToken(req, res)
+  verifyTokenSecure(req, res)
     .then((currUser) => reportComment(currUser, req.body))
     .then((payload) =>
       res.status(200).json({

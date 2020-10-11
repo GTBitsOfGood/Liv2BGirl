@@ -27,6 +27,28 @@ export const createThread = async (
   });
 };
 
+export const reportAskMeThread = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  const query = { _id: id };
+  query.author = currentUser.id;
+  await AskMeThread.handleReport(query);
+
+  return AskMeThread.find(query)
+    .exec()
+    .then(async (reportedThread) => {
+      if (reportedThread == null) {
+        throw new Error(
+          "No thread matches the provided id or user does not have permission!"
+        );
+      }
+    });
+};
+
 export const deleteThread = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
