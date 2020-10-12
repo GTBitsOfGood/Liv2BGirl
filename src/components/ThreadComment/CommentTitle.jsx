@@ -4,11 +4,14 @@ import DetailedTextField from "../DetailedTextField";
 import Button from "../DetailedTextField/components/Button";
 import Router from "next/router";
 const CommentTitle = ({ isChanging, comment }) => {
-  const [newTitle, setTitle] = React.useState("");
+  const [newTitle, setTitle] = React.useState(
+    JSON.parse(comment.content)[0]["children"][0]["text"]
+  );
+
   if (isChanging) {
     return (
       <div>
-        <input onChange={(e) => setTitle(e.target.value)} />
+        <input value={newTitle} onChange={(e) => setTitle(e.target.value)} />
         <Button
           onClick={() => {
             var obj = JSON.parse(comment.content);

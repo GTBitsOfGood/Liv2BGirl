@@ -25,7 +25,9 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
     });
     actionButtons.push({
       title: "Edit Comment",
-      action: () => setChanging(true),
+      action: () => {
+        setChanging(true);
+      },
     });
   }
 
