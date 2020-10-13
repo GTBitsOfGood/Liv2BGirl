@@ -52,6 +52,7 @@ const Question = ({ currentUser, thread, comments }) => {
     thread.author._id === currentUser._id ||
     ["Admin", "Ambassador"].includes(currentUser.role)
   ) {
+    console.log(currentUser._id);
     actionButtons.push({
       title: "Delete Thread",
       action: () =>
