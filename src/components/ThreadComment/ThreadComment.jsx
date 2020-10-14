@@ -12,6 +12,7 @@ import CommentTitle from "./CommentTitle";
 
 const ThreadComment = ({ comment, setReply, currentUser }) => {
   const [isChanging, setChanging] = React.useState(false);
+  const [removeButton, changeButton] = React.useState(false);
   const actionButtons = [];
 
   if (
@@ -29,13 +30,16 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
       title: "Edit Comment",
       action: () => {
         setChanging(true);
+        changeButton(true);
       },
     });
   }
 
   return (
     <div className={styles.Comment}>
-      {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
+      {actionButtons.length > 0 && (
+        <ActionModal buttons={actionButtons} reloadButton={removeButton} />
+      )}
       <div className={styles.Details}>
         <Link
           href={urls.pages.app.profile.view()}

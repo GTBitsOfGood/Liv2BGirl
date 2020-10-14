@@ -5,9 +5,12 @@ import dotsHorizontal from "@iconify/icons-mdi/dots-horizontal";
 import Portal from "../Portal";
 import classes from "./ActionModal.module.scss";
 
-const ActionModal = ({ buttons }) => {
+const ActionModal = ({ buttons, reloadButton }) => {
   const [open, setOpen] = React.useState(false);
-
+  const [removeButton] = React.useState(reloadButton);
+  if (removeButton) {
+    toggleOpen();
+  }
   React.useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
 
