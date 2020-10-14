@@ -23,6 +23,8 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
       action: () =>
         deleteComment(null, comment._id).then(() => Router.reload()),
     });
+  }
+  if (comment.author._id === currentUser._id) {
     actionButtons.push({
       title: "Edit Comment",
       action: () => {

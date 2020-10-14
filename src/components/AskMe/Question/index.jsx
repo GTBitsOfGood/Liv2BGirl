@@ -60,6 +60,8 @@ const Question = ({ currentUser, thread, comments }) => {
           Router.replace(urls.pages.app.askMe.index)
         ),
     });
+  }
+  if (thread.author._id === currentUser._id) {
     actionButtons.push({
       title: "Edit Thread",
       action: () => setChanging(true),
