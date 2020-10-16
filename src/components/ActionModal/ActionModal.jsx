@@ -5,12 +5,9 @@ import dotsHorizontal from "@iconify/icons-mdi/dots-horizontal";
 import Portal from "../Portal";
 import classes from "./ActionModal.module.scss";
 
-const ActionModal = ({ buttons, reloadButton }) => {
+const ActionModal = ({ buttons }) => {
   const [open, setOpen] = React.useState(false);
-  const [removeButton] = React.useState(reloadButton);
-  if (removeButton) {
-    toggleOpen();
-  }
+
   React.useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
 
@@ -37,7 +34,10 @@ const ActionModal = ({ buttons, reloadButton }) => {
                 key={title}
                 type="button"
                 className={classes.AdminButton}
-                onClick={action}
+                onClick={() => {
+                  action();
+                  setOpen(false);
+                }}
               >
                 <h2>{title}</h2>
               </button>
@@ -61,13 +61,13 @@ ActionModal.propTypes = {
   buttons: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      action: PropTypes.func.isRequired,
     })
   ),
 };
 
 ActionModal.defaultProps = {
   buttons: [],
+  reloadButton: PropTypes.bool,
 };
 
 export default ActionModal;
