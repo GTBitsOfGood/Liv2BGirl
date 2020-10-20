@@ -2,9 +2,10 @@ import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema({
     createdBy: {
-        type: String, 
-        required:  true, 
-        index: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      index: true,
+      required: true,
     }, 
 
     createdAt: {
@@ -24,5 +25,25 @@ const PostSchema = new mongoose.Schema({
         required: true, 
     },
 }); 
+
+// async function handleDelete(provDoc) {
+//     const doc =
+//       this.getQuery != null ? await this.model.findOne(this.getQuery()) : provDoc;
+  
+//     if (doc != null) {
+//       const id = doc._id;
+//       await mongoose
+//         .model()
+//         .updateMany({ groups: id }, { $pull: { groups: id } });
+//         await mongoose.model("GroupThread").deleteMany({ group: id });
+//     }
+
+//   }
+  
+//   PostSchema.pre("remove", handleDelete);
+//   PostSchema.pre("findOneAndDelete", handleDelete);
+//   PostSchema.pre("findOneAndRemove", handleDelete);
+//   PostSchema.pre("deleteOne", handleDelete);
+//   PostSchema.pre("deleteMany", handleDelete);
 
 export default mongoose.models.Post || mongoose.model("Post", PostSchema);

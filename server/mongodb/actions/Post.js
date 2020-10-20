@@ -7,13 +7,13 @@ import Post from "../models/Post";
 import Comment from "../models/Comment";
 import { useCode } from "./InvitationCode";
 
-export const getApprovedPosts = async (req, res) => {
+export const getApprovedPosts = async () => {
     await mongoDB();
     var approvedPosts = await Post.find({approved: True}); 
     return approvedPosts; 
 };
 
-export const createPost = async (currentUser, content
+export const createPost = async (currentUser, {createdTime, postContent}
 ) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a group!");
@@ -21,14 +21,31 @@ export const createPost = async (currentUser, content
     throw new Error("Content is null!");
   }
 
+  var approvedFlag = false; 
+
+  if (currentUser.role == 'Admin') approved = true; 
+
   await mongoDB();
 
-  return Post.create({
-    name,
-    content,
-  }).then(async (Post) => {
-    return Post;
-  });
+  const post = new Post({
+    createdBy: currentUser._id,
+    createdAt: createdTime,
+    approved: approvedFlag,  
+    content: postContent,
+  }); 
+
+  // return Post.create({
+  //   createdBy: currentUser._id,
+  //   createdAt: createdTime,
+  //   approved: approvedFlag,  
+  //   content: postContent,
+  // }).then(async (Post) => {
+  //   return Post;
+  // });
+
+  return post
+    .validate()
+    .then(() => post.save()); 
 };
 
 export const deletePost = async (currentUser, { id }) => {
@@ -40,18 +57,23 @@ export const deletePost = async (currentUser, { id }) => {
 
   const query = { _id: id };
   if (currentUser.role === "User") {
-    query.moderator = currentUser._id;
+    query.createdBy = currentUser._id;
   }
 
-  return Post.findOneAndDelete({ _id: id }).then(async (deletedPost) => {
+  return Post.findOneAndDelete(query).then((deletedPost) => {
     if (deletedPost == null) {
       throw new Error(
         "No post matches the provided id or user does not have permission!"
       );
     }
+
     return deletedPost;
+
   });
 };
+
+
+
 
 
 
