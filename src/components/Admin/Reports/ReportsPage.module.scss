@@ -1,3 +1,5 @@
+@import "../../../../public/static/styles/colors";
+
 .root {
     display: flex;
     flex-direction: column;
@@ -69,6 +71,46 @@
           font-size: 14px;
           font-weight: bold;
         }
+      }
+    }
+  }
+
+  .AskMeReport {
+    max-height: 175px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $background;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    color: $text;
+  
+    .ReportHeader {
+      display: flex;
+  
+      .Comments,
+      .CommentIcon {
+        margin-top: 4px;
+        color: $gray;
+        font-weight: normal;
+      }
+  
+      .CommentIcon {
+        margin-left: auto;
+        margin-right: 4px;
+      }
+  
+      .Question {
+        margin-right: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }

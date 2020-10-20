@@ -14,6 +14,19 @@ export const getAskThreads = (cookies) =>
       return json.payload;
     });
 
+export const getReportedThreads = (cookies) =>
+  authedGetRequest(urls.baseUrl + urls.api.askMeThread.getReportedThreads(), cookies)
+      .then((response) => response.json())
+      .then((json) => {
+        if (json == null) {
+          throw new Error("Could not connect to API!");
+        } else if (!json.success) {
+          throw new Error(json.message);
+        }
+  
+        return json.payload;
+      });
+
 export const getThread = (cookies, id) =>
   authedPostRequest(
     urls.baseUrl + urls.api.askMeThread.getThread(),

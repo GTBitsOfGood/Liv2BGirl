@@ -49,6 +49,29 @@ export const reportAskMeThread = async (currentUser, { id }) => {
     });
 };
 
+export const unreportAskMeThread = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  } else if (["User", "Ambassador"].includes(currentUser.role)) {
+    throw new Error("Cannot ")
+  }
+
+  await mongoDB();
+
+  const query = { _id: id };
+  query.author = currentUser.id;
+
+  return AskMeThread.findOneAndUpdate(query, {reported: false})
+    .exec()
+    .then(async (reportedThread) => {
+      if (reportedThread == null) {
+        throw new Error(
+          "No thread matches the provided id or user does not have permission!"
+        );
+      }
+    });
+};
+
 export const deleteThread = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
@@ -161,6 +184,22 @@ export const getThreads = async (currentUser) => {
         }))
       );
     });
+};
+
+export const getReportedThreads = async () => {
+  if (currentUser == null) {
+    throw new Error("You must be logged in to view this content!");
+  } 
+  /*else if (currentUser.role != "Admin") {
+    throw new Error("You must be an admin to view this content!")
+  }
+  */
+
+  await mongoDB();
+
+  let query = {reported: true};
+
+  return AskMeThread.find(query);
 };
 
 export const getThread = async (currentUser, { id }) => {

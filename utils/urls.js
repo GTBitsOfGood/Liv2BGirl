@@ -56,6 +56,7 @@ export default {
       deleteThread: () => "/api/AskMeThread/deleteThread",
       filterThreads: () => "/api/AskMeThread/filterThreads",
       searchThreads: () => "/api/AskMeThread/searchThreads",
+      getReportedThreads: () => "/api/AskMeThread/getReportedThreads",
       getThread: () => "/api/AskMeThread/getThread",
       getAskThreads: () => "/api/AskMeThread/getAskThreads",
       getUserQuestions: () => "/api/AskMeThread/getUserQuestions",
