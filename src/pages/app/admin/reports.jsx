@@ -4,6 +4,8 @@ import { getCurrentUser } from "../../../actions/User";
 import ReportsPage from "../../../components/Admin/Reports";
 import PropTypes from "prop-types";
 import {getReportedThreads} from "../../../actions/AskMeThread";
+import urls from "../../../../utils/urls";
+import Router from 'next/router';
 
 const Reports = ({
     error,
@@ -11,7 +13,9 @@ const Reports = ({
     amt, 
     gt, 
     comms,
-  }) => {
+  }) => {  
+    console.log(currentUser)
+
     if (error) {
       console.error("error", error);
   
@@ -22,6 +26,7 @@ const Reports = ({
   
     return (
       <ReportsPage
+        currentUser={currentUser}
         AskMeThreads={amt}
         GroupThreads={gt}
         Comments={comms}
@@ -29,7 +34,7 @@ const Reports = ({
     );
   };
   
-Reports.getInitialProps = async ({ req }) => {
+Reports.getInitialProps = async ({ req, res }) => {
     const cookies = req ? req.headers.cookie : null;
     console.log(cookies);
     try {
@@ -39,17 +44,6 @@ Reports.getInitialProps = async ({ req }) => {
       const currentUser = await getCurrentUser(cookies).catch(() => null);
 
       console.log(currentUser);
-
-      if (currentUser != null) {
-        if (res) {
-          res.writeHead(302, {
-            Location: urls.pages.app.index,
-          });
-          res.end();
-        } else {
-          await Router.push(urls.pages.app.index);
-        }
-      }
   
       return {
         amt,
@@ -58,6 +52,7 @@ Reports.getInitialProps = async ({ req }) => {
         currentUser
       };
     } catch (error) {
+      console.log(error)
       return {
         error: error.message,
       };

@@ -1,8 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
-import { Icon } from "@iconify/react";
-import bxCommentDetail from "@iconify/icons-bx/bx-comment-detail";
 import urls from "../../../../../utils/urls";
 import styles from "../ReportsPage.module.scss";
 
@@ -16,7 +14,8 @@ const AskMeReport = ({ Thread }) => (
     <a className={styles.AskMeReport}>
       <div className={styles.ReportHeader}>
         <h3 className={styles.Question}>{`Question: ${Thread.title}`}</h3>
-        <Icon className={styles.CommentIcon} icon={bxCommentDetail} />
+        <Button variant="success">Success</Button>{' '}
+        <Button variant="danger">Danger</Button>{' '}
       </div>
     </a>
   </Link>

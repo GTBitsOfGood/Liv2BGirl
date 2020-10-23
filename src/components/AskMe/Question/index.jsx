@@ -13,7 +13,7 @@ import { addAskBookmark, removeAskBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
 import urls from "../../../../utils/urls";
 import styles from "../askme.module.scss";
-import { deleteThread } from "../../../actions/AskMeThread";
+import { deleteThread, reportThread } from "../../../actions/AskMeThread";
 
 const Question = ({ currentUser, thread, comments }) => {
   const [comment, setComment] = React.useState("");
@@ -63,7 +63,7 @@ const Question = ({ currentUser, thread, comments }) => {
     actionButtons.push({
       title: "Report Thread",
       action: () =>
-        deleteThread(null, thread._id).then(() =>
+        reportThread(null, thread._id).then(() =>
           Router.replace(urls.pages.app.askMe.index)
         ),
     });

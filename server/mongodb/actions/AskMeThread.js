@@ -27,7 +27,7 @@ export const createThread = async (
   });
 };
 
-export const reportAskMeThread = async (currentUser, { id }) => {
+export const reportThread = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -186,7 +186,7 @@ export const getThreads = async (currentUser) => {
     });
 };
 
-export const getReportedThreads = async () => {
+export const getReportedThreads = async (currentUser) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
   } 

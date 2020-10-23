@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./ReportsPage.module.scss";
 import AskMeReport from "./AskMeReport"
 
-const ReportsPage = ({AskMeThreads, GroupThreads, Comments}) => {
+const ReportsPage = ({currentUser, AskMeThreads, GroupThreads, Comments}) => {
   const askMe = () => {
       console.log(AskMeThreads);
       return AskMeThreads.map((thread) => (<AskMeReport Thread={thread} />));
