@@ -5,7 +5,7 @@ import urls from "../../../../../utils/urls";
 import styles from "../ReportsPage.module.scss";
 //import { unreportThread } from "../../../../actions/AskMeThread.js";
 
-const GroupReport = ( {Thread} ) => (
+const GroupReport = ({ Thread }) => (
   <Link
     href={urls.pages.app.askMe.questions.view()}
     as={urls.pages.app.askMe.questions.view(Thread._id)}
@@ -13,9 +13,7 @@ const GroupReport = ( {Thread} ) => (
     <a className={styles.AskMeReport}>
       <div className={styles.ReportHeader}>
         <h3 className={styles.Question}>{`Question: ${Thread.title}`}</h3>
-        <button variant="success">
-          Approve
-        </button>
+        <button variant="success">Approve</button>
       </div>
     </a>
   </Link>

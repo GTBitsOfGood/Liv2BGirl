@@ -5,7 +5,7 @@ import urls from "../../../../../utils/urls";
 import styles from "../ReportsPage.module.scss";
 //import { unreportThread } from "../../../../actions/AskMeThread.js";
 
-const CommentReport = ( {Comment} ) => (
+const CommentReport = ({ Comment }) => (
   <Link
     href={urls.pages.app.askMe.questions.view()}
     as={urls.pages.app.askMe.questions.view(Comment._id)}
@@ -13,9 +13,7 @@ const CommentReport = ( {Comment} ) => (
     <a className={styles.AskMeReport}>
       <div className={styles.ReportHeader}>
         <h3 className={styles.Question}>{`Question: ${Comment.title}`}</h3>
-        <button variant="success">
-          Approve
-        </button>
+        <button variant="success">Approve</button>
         <button variant="danger">Delete</button>{" "}
       </div>
     </a>
