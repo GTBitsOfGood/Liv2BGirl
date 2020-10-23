@@ -1,4 +1,4 @@
-import { authedPostRequest } from "../utils/requests";
+import { authedPostRequest, authedGetRequest } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const getGroupThreads = (cookies, groupId) =>
@@ -7,6 +7,22 @@ export const getGroupThreads = (cookies, groupId) =>
     {
       groupId,
     },
+    cookies
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+export const getReportedThreads = (cookies) =>
+  authedGetRequest(
+    urls.baseUrl + urls.api.askMeThread.getReportedThreads(),
     cookies
   )
     .then((response) => response.json())

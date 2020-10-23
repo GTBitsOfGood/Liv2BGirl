@@ -1,8 +1,8 @@
 import { reportThread } from "../../../../server/mongodb/actions/AskMeThread";
 import { verifyTokenSecure } from "../../../../server/mongodb/actions/User";
 
-// @route   POST api/ask-me/reportThread
-// @desc    Delete Thread Request
+// @route   POST api/ask-me/unreportThread
+// @desc    Unreport Thread Request
 // @access  Public
 const handler = (req, res) =>
   verifyTokenSecure(req, res)

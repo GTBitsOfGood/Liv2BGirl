@@ -68,6 +68,20 @@ async function handleReport(provDoc) {
   }
 }
 
+async function handleUnreport(provDoc) {
+  const doc =
+    this.getQuery != null ? await this.find(this.getQuery()) : provDoc;
+
+  if (doc != null) {
+    const id = doc._id;
+    if (this.reported) {
+      await this.update({ _id: id }, { reported: false });
+      // await mongoose
+      //   .update({ _id: id }, { reportCount: this.reportCount++ });
+    }
+  }
+}
+
 AskMeThread.pre("remove", handleDelete);
 AskMeThread.pre("findOneAndDelete", handleDelete);
 AskMeThread.pre("findOneAndRemove", handleDelete);
@@ -75,6 +89,7 @@ AskMeThread.pre("deleteOne", handleDelete);
 AskMeThread.pre("deleteMany", handleDelete);
 
 AskMeThread.statics.handleReport = handleReport;
+AskMeThread.statics.handleUnreport = handleUnreport;
 
 export default mongoose.models.AskMeThread ||
   mongoose.model("AskMeThread", AskMeThread);

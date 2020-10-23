@@ -49,19 +49,18 @@ export const reportThread = async (currentUser, { id }) => {
     });
 };
 
-export const unreportAskMeThread = async (currentUser, { id }) => {
+export const unreportThread = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
-  } else if (["User", "Ambassador"].includes(currentUser.role)) {
-    throw new Error("Cannot ")
   }
 
   await mongoDB();
 
   const query = { _id: id };
   query.author = currentUser.id;
+  await AskMeThread.handleUnreport(query);
 
-  return AskMeThread.findOneAndUpdate(query, {reported: false})
+  return AskMeThread.find(query)
     .exec()
     .then(async (reportedThread) => {
       if (reportedThread == null) {
@@ -71,6 +70,29 @@ export const unreportAskMeThread = async (currentUser, { id }) => {
       }
     });
 };
+
+// export const unreportAskMeThread = async (currentUser, { id }) => {
+//   if (currentUser == null || id == null) {
+//     throw new Error("All parameters must be provided!");
+//   } else if (["User", "Ambassador"].includes(currentUser.role)) {
+//     throw new Error("Cannot ");
+//   }
+
+//   await mongoDB();
+
+//   const query = { _id: id };
+//   query.author = currentUser.id;
+
+//   return AskMeThread.findOneAndUpdate(query, { reported: false })
+//     .exec()
+//     .then(async (reportedThread) => {
+//       if (reportedThread == null) {
+//         throw new Error(
+//           "No thread matches the provided id or user does not have permission!"
+//         );
+//       }
+//     });
+// };
 
 export const deleteThread = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {
@@ -189,7 +211,7 @@ export const getThreads = async (currentUser) => {
 export const getReportedThreads = async (currentUser) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
-  } 
+  }
   /*else if (currentUser.role != "Admin") {
     throw new Error("You must be an admin to view this content!")
   }
@@ -197,7 +219,7 @@ export const getReportedThreads = async (currentUser) => {
 
   await mongoDB();
 
-  let query = {reported: true};
+  let query = { reported: true };
 
   return AskMeThread.find(query);
 };

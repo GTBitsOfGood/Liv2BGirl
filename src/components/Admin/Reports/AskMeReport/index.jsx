@@ -3,8 +3,8 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 import urls from "../../../../../utils/urls";
 import styles from "../ReportsPage.module.scss";
-
-
+//import { unreportThread } from "../../../../actions/AskMeThread.js";
+import Router from "next/router";
 
 const AskMeReport = ({ Thread }) => (
   <Link
@@ -14,16 +14,15 @@ const AskMeReport = ({ Thread }) => (
     <a className={styles.AskMeReport}>
       <div className={styles.ReportHeader}>
         <h3 className={styles.Question}>{`Question: ${Thread.title}`}</h3>
-        <Button variant="success">Success</Button>{' '}
-        <Button variant="danger">Danger</Button>{' '}
+        <button variant="success">Go to Thread to Ignore or Delete</button>
       </div>
     </a>
   </Link>
 );
 
 //return bookmarks.map((question) => (
-   // <QuestionCard key={question._id} question={question} />
-   // ));
+// <QuestionCard key={question._id} question={question} />
+// ));
 
 AskMeReport.propTypes = {
   question: PropTypes.shape({
