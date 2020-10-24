@@ -7,10 +7,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 // import {post} from "../../../actions/Post";
 
 const Newsfeed = () => {
-    return(
-        <h1>Please Work</h1>
-    )
-}
+  return <h1>Please Work</h1>;
+};
 // const isApproved = async (post) => {
 //     if (post.approved) {
 //         return (
@@ -21,17 +19,16 @@ const Newsfeed = () => {
 //     }
 // };
 
-
 //index.PropTypes = {
-    //isApproved: PropTypes.func.isRequired,
-    //post: PropTypes.arrayOf (
-    //    PropTypes.shape({
-    //        content: PropTypes.string.isRequired,
-    //        createdAt:PropTypes.string.isRequired,
-    //       createdBy: PropTypes.string.isRequired,
-    //    })
+//isApproved: PropTypes.func.isRequired,
+//post: PropTypes.arrayOf (
+//    PropTypes.shape({
+//        content: PropTypes.string.isRequired,
+//        createdAt:PropTypes.string.isRequired,
+//       createdBy: PropTypes.string.isRequired,
+//    })
 
-    //).isRequired,
+//).isRequired,
 //};
 
 export default Newsfeed;
