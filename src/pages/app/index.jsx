@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import Newsfeed from "../../components/Newsfeed";
 import urls from "../../../utils/urls";
 
 const AppHome = ({ currentUser }) => (
+
   <div>
     <h2>Welcome!</h2>
     {currentUser.role === "Admin" && (
@@ -11,7 +13,10 @@ const AppHome = ({ currentUser }) => (
         <a>Admin Controls</a>
       </Link>
     )}
+
+    <Newsfeed/>
   </div>
+
 );
 
 AppHome.propTypes = {
