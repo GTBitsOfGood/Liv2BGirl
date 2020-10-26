@@ -58,7 +58,7 @@ const Question = ({ currentUser, thread, comments }) => {
       title: "Delete Thread",
       action: () =>
         deleteThread(null, thread._id).then(() =>
-          Router.replace(urls.pages.app.askMe.index)
+          Router.replace(urls.pages.app.admin.reports)
         ),
     });
   }
@@ -66,13 +66,13 @@ const Question = ({ currentUser, thread, comments }) => {
   if (
     thread.reported == true &&
     (thread.author._id === currentUser._id ||
-      ["Admin", "Ambassador"].includes(currentUser.role))
+      ["Admin"].includes(currentUser.role))
   ) {
     actionButtons.push({
       title: "Unreport Thread",
       action: () =>
         unreportThread(null, thread._id).then(() =>
-          Router.replace(urls.pages.app.askMe.index)
+          Router.replace(urls.pages.app.admin.reports)
         ),
     });
   }

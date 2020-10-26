@@ -73,6 +73,7 @@ export default {
       getCommentsByAskMeThread: () => "/api/Comment/getCommentsByAskMeThread",
       getReportedComments: () => "/api/Comment/getReportedComments",
       reportComment: () => "/api/Comment/reportComment",
+      unreportComment: () => "/api/Comment/unreportComment",
     },
     group: {
       createGroup: () => "/api/Group/createGroup",
@@ -88,10 +89,12 @@ export default {
       createThread: () => "/api/GroupThread/createThread",
       deleteThread: () => "/api/GroupThread/deleteThread",
       reportThread: () => "/api/GroupThread/reportThread",
+      unreportGroupThread: () => "/api/GroupThread/unreportGroupThread",
       filterThreads: () => "/api/GroupThread/filterThreads",
       searchThreads: () => "/api/GroupThread/searchThreads",
       getThread: () => "/api/GroupThread/getThread",
       getGroupThreads: () => "/api/GroupThread/getGroupThreads",
+      getReportedGroupThreads: () => "/api/GroupThread/getReportedGroupThreads",
     },
     user: {
       login: () => "/api/User/login",

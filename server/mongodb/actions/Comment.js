@@ -134,3 +134,24 @@ export const getReportedComments = async (currentUser) => {
 
   return Comment.find(query);
 };
+
+export const unreportComment = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  //const query = { _id: id };
+  //query.author = currentUser.id;
+
+  return Comment.findOneAndUpdate({_id: id}, {reported: false})
+    .exec()
+    .then(async (reportedThread) => {
+      if (reportedThread == null) {
+        throw new Error(
+          "No thread matches the provided id or user does not have permission!"
+        );
+      }
+    });
+};

@@ -20,9 +20,9 @@ export const getGroupThreads = (cookies, groupId) =>
       return json.payload;
     });
 
-export const getReportedThreads = (cookies) =>
+export const getReportedGroupThreads = (cookies) =>
   authedGetRequest(
-    urls.baseUrl + urls.api.askMeThread.getReportedThreads(),
+    urls.baseUrl + urls.api.groupThread.getReportedGroupThreads(),
     cookies
   )
     .then((response) => response.json())
@@ -133,3 +133,22 @@ export const reportThread = (cookies, id) =>
 
       return json.payload;
     });
+
+  export const unreportGroupThread = (cookies, id) =>
+    authedPostRequest(
+      urls.baseUrl + urls.api.groupThread.unreportGroupThread(),
+      {
+        id,
+      },
+      cookies
+    )
+      .then((response) => response.json())
+      .then((json) => {
+        if (json == null) {
+          throw new Error("Could not connect to API!");
+        } else if (!json.success) {
+          throw new Error(json.message);
+        }
+  
+        return json.payload;
+      });
