@@ -122,3 +122,15 @@ export const getCommentsByThread = async (currentUser, { id }) => {
       return comments;
     });
 };
+
+export const getReportedComments = async (currentUser) => {
+  if (currentUser == null || currentUser.role != "Admin") {
+    throw new Error("You must be logged in to view this content!");
+  }
+
+  await mongoDB();
+
+  let query = { reported: true };
+
+  return Comment.find(query);
+};

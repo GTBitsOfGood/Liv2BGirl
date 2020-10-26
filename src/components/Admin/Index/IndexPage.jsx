@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+//import { useRouter } from "next/router";
 import urls from "../../../../utils/urls";
 import classes from "./IndexPage.module.scss";
 

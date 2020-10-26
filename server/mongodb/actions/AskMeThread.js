@@ -56,11 +56,10 @@ export const unreportThread = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  const query = { _id: id };
-  query.author = currentUser.id;
-  await AskMeThread.handleUnreport(query);
+  //const query = { _id: id };
+  //query.author = currentUser.id;
 
-  return AskMeThread.find(query)
+  return AskMeThread.findOneAndUpdate({_id: id}, {reported: false})
     .exec()
     .then(async (reportedThread) => {
       if (reportedThread == null) {
@@ -209,13 +208,9 @@ export const getThreads = async (currentUser) => {
 };
 
 export const getReportedThreads = async (currentUser) => {
-  if (currentUser == null) {
+  if (currentUser == null || currentUser.role != "Admin") {
     throw new Error("You must be logged in to view this content!");
   }
-  /*else if (currentUser.role != "Admin") {
-    throw new Error("You must be an admin to view this content!")
-  }
-  */
 
   await mongoDB();
 

@@ -6,18 +6,13 @@ import styles from "../ReportsPage.module.scss";
 //import { unreportThread } from "../../../../actions/AskMeThread.js";
 
 const CommentReport = ({ Comment }) => (
-  <Link
-    href={urls.pages.app.askMe.questions.view()}
-    as={urls.pages.app.askMe.questions.view(Comment._id)}
-  >
     <a className={styles.AskMeReport}>
       <div className={styles.ReportHeader}>
-        <h3 className={styles.Question}>{`Question: ${Comment.title}`}</h3>
+        <h3 className={styles.Question}>{`Comment: ${Comment.content}`}</h3>
         <button variant="success">Approve</button>
         <button variant="danger">Delete</button>{" "}
       </div>
     </a>
-  </Link>
 );
 
 //return bookmarks.map((question) => (
@@ -25,9 +20,11 @@ const CommentReport = ({ Comment }) => (
 // ));
 
 CommentReport.propTypes = {
-  question: PropTypes.shape({
+  comment: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    content: PropTypes.shape({
+      text: PropTypes.string.isRequired,
+    })
   }).isRequired,
 };
 

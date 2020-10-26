@@ -1,12 +1,12 @@
-import { unreportThread } from "../../../../server/mongodb/actions/AskMeThread";
+import { getReportedComments } from "../../../../server/mongodb/actions/Comment";
 import { verifyTokenSecure } from "../../../../server/mongodb/actions/User";
 
-// @route   POST api/ask-me/unreportThread
-// @desc    Unreport Thread Request
+// @route   GET api/comments/getReportedComments
+// @desc    Get reported comments
 // @access  Public
 const handler = (req, res) =>
   verifyTokenSecure(req, res)
-    .then((curUser) => unreportThread(curUser, req.body))
+    .then((curUser) => getReportedComments(curUser))
     .then((payload) =>
       res.status(200).json({
         success: true,

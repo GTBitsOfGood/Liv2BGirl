@@ -4,6 +4,7 @@ import { getCurrentUser } from "../../../actions/User";
 import ReportsPage from "../../../components/Admin/Reports";
 import PropTypes from "prop-types";
 import { getReportedThreads } from "../../../actions/AskMeThread";
+import { getReportedComments } from "../../../actions/Comment";
 import urls from "../../../../utils/urls";
 import Router from "next/router";
 
@@ -34,7 +35,7 @@ Reports.getInitialProps = async ({ req, res }) => {
   try {
     const amt = await getReportedThreads(cookies);
     const gt = await getReportedThreads(cookies);
-    const comms = await getReportedThreads(cookies);
+    const comms = await getReportedComments(cookies);
     const currentUser = await getCurrentUser(cookies).catch(() => null);
 
     console.log(currentUser);
