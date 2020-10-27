@@ -94,6 +94,7 @@ async function handleDelete(provDoc) {
       .updateMany({ moderator: id }, { moderator: null });
     await mongoose.model("Thread").deleteMany({ author: id });
     await mongoose.model("Comment").deleteMany({ author: id });
+    await mongoose.model("Post").deleteMany({ createdBy: id })
   }
 }
 

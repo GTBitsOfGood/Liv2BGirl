@@ -18,6 +18,7 @@ export default {
         index: "/app/admin",
         invite: "/app/admin/invite",
         reports: "/app/admin/reports",
+        posts: "/app/admin/posts",
       },
       askMe: {
         index: "/app/ask-me",
@@ -95,6 +96,12 @@ export default {
       getThread: () => "/api/GroupThread/getThread",
       getGroupThreads: () => "/api/GroupThread/getGroupThreads",
       getReportedGroupThreads: () => "/api/GroupThread/getReportedGroupThreads",
+    },
+    post: {
+      getApprovedPosts: () => "api/Post/getApprovedPosts", 
+      getPendingPosts: () => "api/Post/getPendingPosts", 
+      createPost: () => "api/Post/createPost", 
+      deletePost: () => "api/Post/deletePost",
     },
     user: {
       login: () => "/api/User/login",

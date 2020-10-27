@@ -14,6 +14,10 @@ const IndexPage = () => (
     <Link href={urls.pages.app.admin.reports}>
       <a>View Reported Content</a>
     </Link>
+
+    <Link href={urls.pages.app.admin.posts}>
+      <a>Posts to be Approved</a>
+    </Link>
   </div>
 );
 
