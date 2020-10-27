@@ -8,7 +8,7 @@ import GroupCard from "./GroupCard";
 import TopNavBar from "../TopNavBar";
 import styles from "./profile.module.scss";
 
-const ProfilePage = ({ user, userGroups }) => (
+const ProfilePage = ({ user, userGroups, userPosts }) => (
   <>
     <TopNavBar backAction={Router.back} />
     <div className={styles.ProfileHeader}>
@@ -60,6 +60,21 @@ const ProfilePage = ({ user, userGroups }) => (
           marginBottom: "25px",
         }}
       >
+        <h4 className={styles.ProfileHeading}>Posts</h4>
+        <button type="button" className={styles.ProfileNext}>
+          <Icon icon={arrowRightAlt2} />
+        </button>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginTop: "40px",
+          marginBottom: "25px",
+        }}
+      >
+        
         <h4 className={styles.ProfileHeading}>Joined Groups</h4>
         <button type="button" className={styles.ProfileNext}>
           <Icon icon={arrowRightAlt2} />
@@ -73,7 +88,7 @@ const ProfilePage = ({ user, userGroups }) => (
             id={group._id}
             title={group.name}
             description={group.description}
-            image={group.image ?? "https://picsum.photos/100/100"}
+            image={group.iconUrl}
           />
         ))}
       </div>
