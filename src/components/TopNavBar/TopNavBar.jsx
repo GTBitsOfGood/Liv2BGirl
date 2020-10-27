@@ -19,6 +19,16 @@ const TopNavBar = ({
   rightNode,
   className,
 }) => {
+
+  const logOut = async () => {
+    console.log("You can check out at any time, but you can't leave");
+    /*
+    await logOut(null, Comment._id).then(() => {
+      window.location.reload();
+    })
+    */
+  };
+
   let leftSide = leftNode ?? <div />;
   if (currentUser != null) {
     leftSide = (
@@ -58,12 +68,15 @@ const TopNavBar = ({
   }
   if (backAction != null) {
     leftSide = (
+      <div>
       <Icon
         className={classes.Back}
         icon={bxArrowBack}
         width="18px"
         onClick={backAction}
       />
+      <button variant="danger" onClick={logOut}>Log Out</button>
+      </div>
     );
   }
 
