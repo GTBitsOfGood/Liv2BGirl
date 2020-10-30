@@ -7,6 +7,7 @@ import { avatarImg, colorArr } from "../../../utils/avatars";
 import GroupCard from "./GroupCard";
 import TopNavBar from "../TopNavBar";
 import styles from "./profile.module.scss";
+import PostCard from "./PostCard";
 
 const ProfilePage = ({ user, userGroups, userPosts }) => (
   <>
@@ -64,6 +65,36 @@ const ProfilePage = ({ user, userGroups, userPosts }) => (
         <button type="button" className={styles.ProfileNext}>
           <Icon icon={arrowRightAlt2} />
         </button>
+        <div className={styles.ProfileCardDeck}>
+          <PostCard
+            id={1}
+            createdAt={"Placed Holder Date"}
+            createdBy={"Ethan Xie"}
+            content={"This is a some random text"}
+            image={"https://picsum.photos/200"}
+          />
+          <PostCard
+            id={1}
+            createdAt={"Placed Holder Date"}
+            createdBy={"Ethan Xie"}
+            content={"This is a some random text"}
+            image={"https://picsum.photos/200"}
+          />
+          <PostCard
+            id={1}
+            createdAt={"Placed Holder Date"}
+            createdBy={"Ethan Xie"}
+            content={"This is a some random text"}
+            image={"https://picsum.photos/200"}
+          />
+          <PostCard
+            id={1}
+            createdAt={"Placed Holder Date"}
+            createdBy={"Ethan Xie"}
+            content={"This is a some random text"}
+            image={"https://picsum.photos/200"}
+          />
+        </div>
       </div>
 
       <div
@@ -74,7 +105,6 @@ const ProfilePage = ({ user, userGroups, userPosts }) => (
           marginBottom: "25px",
         }}
       >
-        
         <h4 className={styles.ProfileHeading}>Joined Groups</h4>
         <button type="button" className={styles.ProfileNext}>
           <Icon icon={arrowRightAlt2} />
