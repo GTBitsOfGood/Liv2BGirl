@@ -5,7 +5,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { createGroup } from "../../../actions/Group";
 import styles from "./newgroup.module.scss";
 
-
 const NewGroup = ({ categories, handleNext }) => {
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -47,18 +46,16 @@ const NewGroup = ({ categories, handleNext }) => {
     <form className={styles.NewGroupPage} onSubmit={handleSubmit}>
       <div className="Page" style={{ marginBottom: "32px" }}>
         <div className={styles.AddIcon}>
-
-          {!imgButtonClicked && 
+          {!imgButtonClicked && (
             <button type="button" className={styles.AddBtn} onClick={findImage}>
               <FontAwesomeIcon icon={faPlus} />
             </button>
-          } 
-          {imgButtonClicked && 
+          )}
+          {imgButtonClicked && (
             <button type="button" onClick={findImage}>
               <img className={styles.GroupIcon} src={iconUrl} />
             </button>
-              
-            }
+          )}
           <p className={styles.AddText}>Add an icon</p>
         </div>
         <div>
