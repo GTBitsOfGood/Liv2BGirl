@@ -3,13 +3,11 @@ import ErrorPage from "../../_error";
 import { getCurrentUser } from "../../../actions/User";
 import PostsPage from "../../../components/Admin/Posts";
 import PropTypes from "prop-types";
-import { getReportedThreads } from "../../../actions/AskMeThread";
-import { getReportedGroupThreads } from "../../../actions/GroupThread";
-import { getReportedComments } from "../../../actions/Comment";
+import { getPendingPosts } from "../../../actions/Post";
 import urls from "../../../../utils/urls";
 import Router from "next/router";
 
-const Posts = ({ error, currentUser, amt, gt, comms }) => {
+const Posts = ({ error, currentUser, p }) => {
   console.log(currentUser);
 
   if (error) {
@@ -23,9 +21,7 @@ const Posts = ({ error, currentUser, amt, gt, comms }) => {
   return (
     <PostsPage
       currentUser={currentUser}
-      AskMeThreads={amt}
-      GroupThreads={gt}
-      Comments={comms}
+      Posts={p}
     />
   );
 };
@@ -34,17 +30,13 @@ Posts.getInitialProps = async ({ req, res }) => {
   const cookies = req ? req.headers.cookie : null;
   console.log(cookies);
   try {
-    const amt = await getReportedThreads(cookies);
-    const gt = await getReportedGroupThreads(cookies);
-    const comms = await getReportedComments(cookies);
+    const p = await getPendingPosts(cookies);
     const currentUser = await getCurrentUser(cookies).catch(() => null);
 
-    console.log(currentUser);
+    //console.log(currentUser);
 
     return {
-      amt,
-      gt,
-      comms,
+      p,
       currentUser,
     };
   } catch (error) {

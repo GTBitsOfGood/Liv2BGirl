@@ -30,7 +30,7 @@ const Post = ({ post }) => {
   }
 
   return (
-    <div className={styles.Comment}>
+    <div className={styles.Post}>
       {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
       <div className={styles.Details}>
         <Link
@@ -41,12 +41,12 @@ const Post = ({ post }) => {
             <div
               className={styles.Avatar}
               style={{
-                backgroundColor: colorArr[comment.author.avatarColor],
+                backgroundColor: colorArr[post.author.avatarColor],
               }}
             >
               <img
                 className={styles.AvatarImg}
-                src={avatarImg[comment.author.avatar]}
+                src={avatarImg[post.author.avatar]}
                 alt="Author Avatar"
               />
             </div>
