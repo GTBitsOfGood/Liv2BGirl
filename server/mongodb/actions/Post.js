@@ -22,7 +22,7 @@ export const getPendingPosts = async (currentUser) => {
     await mongoDB();
     var pendingPosts = await Post.find({approved: false});
     return pendingPosts
-}
+} 
 
 export const approvePost = async (currentUser, id) => {
     if (currentUser == null || id == null) {
