@@ -65,15 +65,6 @@ export const createPost = async (currentUser, {createdTime, postContent}
     content: postContent,
   }); 
 
-  // return Post.create({
-  //   createdBy: currentUser._id,
-  //   createdAt: createdTime,
-  //   approved: approvedFlag,  
-  //   content: postContent,
-  // }).then(async (Post) => {
-  //   return Post;
-  // });
-
   return post
     .validate()
     .then(() => post.save()); 

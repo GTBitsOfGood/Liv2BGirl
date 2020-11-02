@@ -142,9 +142,6 @@ export const unreportComment = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  //const query = { _id: id };
-  //query.author = currentUser.id;
-
   return Comment.findOneAndUpdate({_id: id}, {reported: false})
     .exec()
     .then(async (reportedThread) => {

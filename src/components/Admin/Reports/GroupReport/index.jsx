@@ -3,7 +3,6 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 import urls from "../../../../../utils/urls";
 import styles from "../ReportsPage.module.scss";
-//import { unreportThread } from "../../../../actions/AskMeThread.js";
 import Router from "next/router";
 
 const GroupReport = ({ Thread }) => (
@@ -19,10 +18,6 @@ const GroupReport = ({ Thread }) => (
     </a>
   </Link>
 );
-
-//return bookmarks.map((question) => (
-// <QuestionCard key={question._id} question={question} />
-// ));
 
 GroupReport.propTypes = {
   question: PropTypes.shape({

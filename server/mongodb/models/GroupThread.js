@@ -61,9 +61,6 @@ async function handleReport(provDoc) {
     const id = doc._id;
     if (!this.reported) {
       await this.update({ _id: id }, { reported: true });
-      // await mongoose
-      //   .model("GroupThread")
-      //   .updateMany({ _id: id }, { reportCount: this.reportCount++ });
     }
   }
 }
