@@ -62,8 +62,6 @@ async function handleReport(provDoc) {
     const id = doc._id;
     if (!this.reported) {
       await this.update({ _id: id }, { reported: true });
-      // await mongoose
-      //   .update({ _id: id }, { reportCount: this.reportCount++ });
     }
   }
 }
@@ -76,8 +74,6 @@ async function handleUnreport(provDoc) {
     const id = doc._id;
     if (this.reported) {
       await this.update({ _id: id }, { reported: false });
-      // await mongoose
-      //   .update({ _id: id }, { reportCount: this.reportCount++ });
     }
   }
 }

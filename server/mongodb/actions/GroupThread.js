@@ -56,9 +56,6 @@ export const unreportGroupThread = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  //const query = { _id: id };
-  //query.author = currentUser.id;
-
   return GroupThread.findOneAndUpdate({_id: id}, {reported: false})
     .exec()
     .then(async (reportedThread) => {

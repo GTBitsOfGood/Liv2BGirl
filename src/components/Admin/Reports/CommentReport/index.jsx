@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import urls from "../../../../../utils/urls";
 import { unreportComment, deleteComment } from "../../../../actions/Comment";
 import styles from "../ReportsPage.module.scss";
-//import { unreportThread } from "../../../../actions/AskMeThread.js";
 
 const CommentReport = ({ Comment }) => {
    
@@ -30,11 +29,7 @@ const CommentReport = ({ Comment }) => {
     </a>
    );  
  };
-
-//return bookmarks.map((question) => (
-// <QuestionCard key={question._id} question={question} />
-// ));
-
+ 
 CommentReport.propTypes = {
   comment: PropTypes.shape({
     _id: PropTypes.string.isRequired,
