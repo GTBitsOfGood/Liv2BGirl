@@ -3,13 +3,11 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 import urls from "../../../utils/urls";
 import { approvePost, deletePost } from "../../actions/Post";
-import { getUser } from "../../actions/User";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import { timeSince } from "../ThreadComment/utils";
 import styles from "./Post.module.scss";
 import ActionModal from "../ActionModal";
 import DetailedTextField from "../DetailedTextField";
-import Router from "next/router";
 //import { unreportThread } from "../../../../actions/AskMeThread.js";
 
 const Post = ({ currentUser, post }) => {
@@ -20,17 +18,17 @@ const Post = ({ currentUser, post }) => {
     ["Admin", "Ambassador"].includes(currentUser.role)
   ) {
     actionButtons.push({
-      title: "Delete Post",
+      title: "Delete Comment",
       action: () =>
-        deletePost(currentUser, post._id).then(() => Router.reload()),
+        deletePost(null, post._id).then(() => Router.reload()),
     });
   }
 
   if (currentUser.role === "Admin" && post.approved === false) {
     actionButtons.push({
-      title: "Approve Post",
+      title: "Approve Comment",
       action: () =>
-        approvePost(currentUser, post._id).then(() => Router.reload()),
+        approvePost(null, post._id).then(() => Router.reload()),
     });
   }
 
@@ -38,9 +36,21 @@ const Post = ({ currentUser, post }) => {
     <div className={styles.Post}>
       {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
       <div className={styles.Details}>
-      <div className={styles.Author}>
+          <div className={styles.Author}>
+            <div
+              className={styles.Avatar}
+              style={{
+                backgroundColor: colorArr[post.createdBy.avatarColor],
+              }}
+            >
+              <img
+                className={styles.AvatarImg}
+                src={avatarImg[post.createdBy.avatar]}
+                alt="Author Avatar"
+              />
+            </div>
             <div className={styles.NameSection}>
-              <h5 className={styles.Name}>{getUser(currentUser, post.createdBy).username}</h5>
+              <h5 className={styles.Name}>{post.createdBy._id}</h5>
             </div>
           </div>
         <h6
@@ -54,6 +64,10 @@ const Post = ({ currentUser, post }) => {
     </div>
   );
  };
+
+//return bookmarks.map((question) => (
+// <QuestionCard key={question._id} question={question} />
+// ));
 
 Post.propTypes = {
   post: PropTypes.shape({

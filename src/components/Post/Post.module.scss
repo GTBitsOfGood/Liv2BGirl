@@ -1,47 +1,5 @@
 @import "../../../public/static/styles/colors";
 
-
-
-.Details {
-  margin-bottom: 13px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-
-  .Author {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-
-    .Avatar {
-      min-width: 32px;
-      min-height: 32px;
-      width: 32px;
-      height: 32px;
-      border-radius: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-right: 8px;
-
-      .AvatarImg {
-        width: calc(100% / 1.41);
-        height: calc(100% / 1.41);
-        object-fit: contain;
-      }
-    }
-
-    .Name {
-      font-weight: normal;
-    }
-  }
-
-  .Date {
-    font-weight: normal;
-  }
-}
-
 .root {
     display: flex;
     flex-direction: column;
