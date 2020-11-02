@@ -17,6 +17,8 @@ export default {
       admin: {
         index: "/app/admin",
         invite: "/app/admin/invite",
+        reports: "/app/admin/reports",
+        posts: "/app/admin/posts",
       },
       askMe: {
         index: "/app/ask-me",
@@ -57,7 +59,10 @@ export default {
       createThread: () => "/api/AskMeThread/createThread",
       deleteThread: () => "/api/AskMeThread/deleteThread",
       filterThreads: () => "/api/AskMeThread/filterThreads",
+      reportThread: () => "/api/AskMeThread/reportThread",
+      unreportThread: () => "/api/AskMeThread/unreportThread",
       searchThreads: () => "/api/AskMeThread/searchThreads",
+      getReportedThreads: () => "/api/AskMeThread/getReportedThreads",
       getThread: () => "/api/AskMeThread/getThread",
       getAskThreads: () => "/api/AskMeThread/getAskThreads",
       getUserQuestions: () => "/api/AskMeThread/getUserQuestions",
@@ -70,6 +75,9 @@ export default {
       deleteComment: () => "/api/Comment/deleteComment",
       getCommentsByThread: () => "/api/Comment/getCommentsByThread",
       getCommentsByAskMeThread: () => "/api/Comment/getCommentsByAskMeThread",
+      getReportedComments: () => "/api/Comment/getReportedComments",
+      reportComment: () => "/api/Comment/reportComment",
+      unreportComment: () => "/api/Comment/unreportComment",
     },
     group: {
       createGroup: () => "/api/Group/createGroup",
@@ -84,10 +92,19 @@ export default {
     groupThread: {
       createThread: () => "/api/GroupThread/createThread",
       deleteThread: () => "/api/GroupThread/deleteThread",
+      reportThread: () => "/api/GroupThread/reportThread",
+      unreportGroupThread: () => "/api/GroupThread/unreportGroupThread",
       filterThreads: () => "/api/GroupThread/filterThreads",
       searchThreads: () => "/api/GroupThread/searchThreads",
       getThread: () => "/api/GroupThread/getThread",
       getGroupThreads: () => "/api/GroupThread/getGroupThreads",
+      getReportedGroupThreads: () => "/api/GroupThread/getReportedGroupThreads",
+    },
+    post: {
+      getApprovedPosts: () => "/api/Post/getApprovedPosts", 
+      getPendingPosts: () => "/api/Post/getPendingPosts", 
+      createPost: () => "/api/Post/createPost", 
+      deletePost: () => "/api/Post/deletePost",
     },
     user: {
       login: () => "/api/User/login",

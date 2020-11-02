@@ -31,6 +31,16 @@ const CommentSchema = new mongoose.Schema({
     default: Date.now,
     index: true,
   },
+  reported: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  reportCount: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 async function handleDelete(provDoc) {
@@ -44,11 +54,25 @@ async function handleDelete(provDoc) {
   }
 }
 
+async function handleReport(provDoc) {
+  const doc =
+    this.getQuery != null ? await this.find(this.getQuery()) : provDoc;
+
+  if (doc != null) {
+    const id = doc._id;
+    if (!this.reported) {
+      await this.update({ _id: id }, { reported: true });
+    }
+  }
+}
+
 CommentSchema.pre("remove", handleDelete);
 CommentSchema.pre("findOneAndDelete", handleDelete);
 CommentSchema.pre("findOneAndRemove", handleDelete);
 CommentSchema.pre("deleteOne", handleDelete);
 CommentSchema.pre("deleteMany", handleDelete);
+
+CommentSchema.statics.handleReport = handleReport;
 
 export default mongoose.models.Comment ||
   mongoose.model("Comment", CommentSchema);

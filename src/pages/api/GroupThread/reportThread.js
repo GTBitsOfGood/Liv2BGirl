@@ -1,12 +1,12 @@
-import { getApprovedPosts } from "../../../../server/mongodb/actions/Post";
+import { reportThread } from "../../../../server/mongodb/actions/GroupThread";
 import { verifyTokenSecure } from "../../../../server/mongodb/actions/User";
 
-// @route   POST api/groupThread/getGroupThreads
-// @desc    Get a group's groupThread
+// @route   POST api/groupThread/reportThread
+// @desc    Report Thread Request
 // @access  Public
-const handler = (req, res) =>
+const handler = async (req, res) =>
   verifyTokenSecure(req, res)
-    .then(() => getApprovedPosts())
+    .then((currUser) => reportThread(currUser, req.body))
     .then((payload) =>
       res.status(200).json({
         success: true,

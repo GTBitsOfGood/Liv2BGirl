@@ -68,7 +68,6 @@ MyApp.getInitialProps = async ({ Component, ctx, router }) => {
   } catch (error) {
     console.error("error in _app", error);
   }
-
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps({
       ...ctx,

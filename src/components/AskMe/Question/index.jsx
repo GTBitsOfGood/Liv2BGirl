@@ -13,7 +13,11 @@ import { addAskBookmark, removeAskBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
 import urls from "../../../../utils/urls";
 import styles from "../askme.module.scss";
-import { deleteThread } from "../../../actions/AskMeThread";
+import {
+  deleteThread,
+  reportThread,
+  unreportThread,
+} from "../../../actions/AskMeThread";
 
 const Question = ({ currentUser, thread, comments }) => {
   const [comment, setComment] = React.useState("");
@@ -54,6 +58,30 @@ const Question = ({ currentUser, thread, comments }) => {
       title: "Delete Thread",
       action: () =>
         deleteThread(null, thread._id).then(() =>
+          Router.replace(urls.pages.app.admin.reports)
+        ),
+    });
+  }
+
+  if (
+    thread.reported == true &&
+    (thread.author._id === currentUser._id ||
+      ["Admin"].includes(currentUser.role))
+  ) {
+    actionButtons.push({
+      title: "Unreport Thread",
+      action: () =>
+        unreportThread(null, thread._id).then(() =>
+          Router.replace(urls.pages.app.admin.reports)
+        ),
+    });
+  }
+
+  if (thread.author._id != currentUser._id && currentUser.role == "User") {
+    actionButtons.push({
+      title: "Report Thread",
+      action: () =>
+        reportThread(null, thread._id).then(() =>
           Router.replace(urls.pages.app.askMe.index)
         ),
     });

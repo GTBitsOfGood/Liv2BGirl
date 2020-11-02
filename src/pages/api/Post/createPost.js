@@ -2,7 +2,7 @@ import { createPost } from "../../../../server/mongodb/actions/Post";
 import { verifyToken } from "../../../../server/mongodb/actions/User";
 
 // @route   POST api/Post/createPost
-// @desc    Create Post Request
+// @desc    Create Post
 // @access  Public
 const handler = async (req, res) =>
   verifyToken(req, res)
