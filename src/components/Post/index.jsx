@@ -27,7 +27,11 @@ const Post = ({ currentUser, post }) => {
 
   if (currentUser.role === "Admin" && post.approved === false) {
     actionButtons.push({
+<<<<<<< HEAD
       title: "Report Comment",
+=======
+      title: "Approve Comment",
+>>>>>>> parent of f11f232... further post updates
       action: () =>
         approvePost(null, post._id).then(() => Router.reload()),
     });
@@ -37,10 +41,13 @@ const Post = ({ currentUser, post }) => {
     <div className={styles.Post}>
       {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
       <div className={styles.Details}>
+<<<<<<< HEAD
         <Link
           href={urls.pages.app.profile.view()}
           as={urls.pages.app.profile.view(post.createdBy._id)}
         >
+=======
+>>>>>>> parent of f11f232... further post updates
           <div className={styles.Author}>
             <div
               className={styles.Avatar}
@@ -55,7 +62,11 @@ const Post = ({ currentUser, post }) => {
               />
             </div>
             <div className={styles.NameSection}>
+<<<<<<< HEAD
               <h5 className={styles.Name}>{post.createdBy.username}</h5>
+=======
+              <h5 className={styles.Name}>{post.createdBy._id}</h5>
+>>>>>>> parent of f11f232... further post updates
             </div>
           </div>
         </Link>

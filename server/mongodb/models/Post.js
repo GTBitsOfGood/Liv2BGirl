@@ -114,5 +114,9 @@ export default mongoose.models.Post || mongoose.model("Post", PostSchema);
    PostSchema.pre("deleteOne", handleDelete);
    PostSchema.pre("deleteMany", handleDelete);
 
+<<<<<<< HEAD
+export default mongoose.models.Post || mongoose.model("Post", PostSchema);
+>>>>>>> parent of f11f232... further post updates
+=======
 export default mongoose.models.Post || mongoose.model("Post", PostSchema);
 >>>>>>> parent of f11f232... further post updates
