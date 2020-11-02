@@ -35,7 +35,7 @@ const ViewGroup = ({ currentUser, groupData, threads }) => {
     }
 
     if (
-      currentUser.role === "Ambassador" ||
+      ["Admin", "Ambassador"].includes(currentUser.role) ||
       currentUser._id === groupData.moderator
     ) {
       setJoined(true);
@@ -70,7 +70,7 @@ const ViewGroup = ({ currentUser, groupData, threads }) => {
           <div className={styles.GroupHeader}>
             <img
               className={styles.GroupAvatar}
-              src="https://picsum.photos/100/100"
+              src={groupData.iconUrl}
               alt="Group Avatar"
             />
             {isAdmin ? (
@@ -156,6 +156,7 @@ ViewGroup.propTypes = {
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
     moderator: PropTypes.string.isRequired,
     category: PropTypes.shape({
       _id: PropTypes.string.isRequired,

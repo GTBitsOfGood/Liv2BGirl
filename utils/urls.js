@@ -54,6 +54,7 @@ export default {
     askMeThread: {
       createThread: () => "/api/AskMeThread/createThread",
       deleteThread: () => "/api/AskMeThread/deleteThread",
+      editThread: () => "/api/AskMeThread/editThread",
       filterThreads: () => "/api/AskMeThread/filterThreads",
       reportThread: () => "/api/AskMeThread/reportThread",
       unreportThread: () => "/api/AskMeThread/unreportThread",
@@ -69,6 +70,7 @@ export default {
     comment: {
       createComment: () => "/api/Comment/createComment",
       deleteComment: () => "/api/Comment/deleteComment",
+      editComment: () => "/api/Comment/editComment",
       getCommentsByThread: () => "/api/Comment/getCommentsByThread",
       getCommentsByAskMeThread: () => "/api/Comment/getCommentsByAskMeThread",
       getReportedComments: () => "/api/Comment/getReportedComments",
