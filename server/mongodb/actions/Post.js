@@ -24,7 +24,7 @@ export const getPendingPosts = async (currentUser) => {
     return pendingPosts
 } 
 
-export const approvePost = async (currentUser, id) => {
+export const approvePost = async (currentUser, {id} ) => {
     if (currentUser == null || id == null) {
         throw new Error("All parameters must be provided!");
     } else if (currentUser.role != "Admin") {
@@ -34,8 +34,8 @@ export const approvePost = async (currentUser, id) => {
 
     return Post.findOneAndUpdate({_id: id}, {approved: true})
     .exec()
-    .then(async (reportedThread) => {
-      if (reportedThread == null) {
+    .then(async (approvedPost) => {
+      if (approvedPost == null) {
         throw new Error(
           "No thread matches the provided id or user does not have permission!"
         );

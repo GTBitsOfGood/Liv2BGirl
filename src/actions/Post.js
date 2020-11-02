@@ -33,7 +33,7 @@ export const getApprovedPosts = () =>
 
 export const createPost = (cookies, {createdTime, postContent}) =>
   authedPostRequest(
-    urls.baseUrl + urls.api.group.createPost(),
+    urls.baseUrl + urls.api.post.createPost(),
     {
       createdTime,
       postContent,
@@ -52,7 +52,7 @@ export const createPost = (cookies, {createdTime, postContent}) =>
 
 export const deletePost = (cookies, id) =>
   authedPostRequest(
-    urls.baseUrl + urls.api.group.deletePost(),
+    urls.baseUrl + urls.api.post.deletePost(),
     {
       id,
     },
@@ -70,7 +70,7 @@ export const deletePost = (cookies, id) =>
 
 export const approvePost = (cookies, id) =>
     authedPostRequest(
-      urls.baseUrl + urls.api.group.approvePost(),
+      urls.baseUrl + urls.api.post.approvePost(),
       {
         id,
       },
