@@ -2,10 +2,10 @@ import React from "react";
 import classes from "./PostsPage.module.scss";
 import Post from "../../Post";
 
-const PostsPage = ({ Posts }) => {
+const PostsPage = ({ currentUser, Posts }) => {
   const post = () => {
     //console.log(AskMeThreads);
-    return Posts.map((post) => <Post post={post} />);
+    return Posts.map((post) => <Post currentUser={currentUser} post={post} />);
   };
 
   return (

@@ -1,17 +1,21 @@
 import React from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
-import urls from "../../../../../utils/urls";
-import { approvePost, deletePost } from "../../../actions/Post";
+import urls from "../../../utils/urls";
+import { approvePost, deletePost } from "../../actions/Post";
+import { avatarImg, colorArr } from "../../../utils/avatars";
+import { timeSince } from "../ThreadComment/utils";
 import styles from "./Post.module.scss";
+import ActionModal from "../ActionModal";
+import DetailedTextField from "../DetailedTextField";
 //import { unreportThread } from "../../../../actions/AskMeThread.js";
 
-const Post = ({ post }) => {
+const Post = ({ currentUser, post }) => {
    
   const actionButtons = [];
 
   if (
-    post.author._id === currentUser._id ||
+    post.createdBy._id === currentUser._id ||
     ["Admin", "Ambassador"].includes(currentUser.role)
   ) {
     actionButtons.push({
@@ -21,7 +25,7 @@ const Post = ({ post }) => {
     });
   }
 
-  if (currentUser.role === "Admin" && post.approved === False) {
+  if (currentUser.role === "Admin" && post.approved === false) {
     actionButtons.push({
       title: "Report Comment",
       action: () =>
@@ -35,46 +39,45 @@ const Post = ({ post }) => {
       <div className={styles.Details}>
         <Link
           href={urls.pages.app.profile.view()}
-          as={urls.pages.app.profile.view(post.author._id)}
+          as={urls.pages.app.profile.view(post.createdBy._id)}
         >
           <div className={styles.Author}>
             <div
               className={styles.Avatar}
               style={{
-                backgroundColor: colorArr[post.author.avatarColor],
+                backgroundColor: colorArr[post.createdBy.avatarColor],
               }}
             >
               <img
                 className={styles.AvatarImg}
-                src={avatarImg[post.author.avatar]}
+                src={avatarImg[post.createdBy.avatar]}
                 alt="Author Avatar"
               />
             </div>
             <div className={styles.NameSection}>
-              <h5 className={styles.Name}>{comment.author.username}</h5>
-              {comment.officialAnswer && <h6>Official Answer</h6>}
+              <h5 className={styles.Name}>{post.createdBy.username}</h5>
             </div>
           </div>
         </Link>
         <h6
           className={styles.Date}
-          title={new Date(comment.postedAt).toLocaleString()}
+          title={new Date(post.createdAt).toLocaleString()}
         >
-          {`~${timeSince(comment.postedAt)} ago`}
+          {`~${timeSince(post.createdAt)} ago`}
         </h6>
       </div>
-      <DetailedTextField
+      {<DetailedTextField
         readOnly={true}
         textNodes={
-          comment.content != null && comment.content.length > 0
-            ? JSON.parse(comment.content)
+          post.content != null && post.content.length > 0
+            ? JSON.parse(post.content)
             : null
         }
-      />
+      />}
       <button
         type="button"
         className={styles.CommentReply}
-        onClick={() => setReply(`@${comment.author.username} `)}
+        onClick={() => setReply(`@${post.createdBy.username} `)}
       >
         <h5>Reply</h5>
       </button>
@@ -87,7 +90,7 @@ const Post = ({ post }) => {
 // ));
 
 Post.propTypes = {
-  comment: PropTypes.shape({
+  post: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     content: PropTypes.shape({
       text: PropTypes.string.isRequired,
