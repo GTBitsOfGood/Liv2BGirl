@@ -14,9 +14,11 @@ import { avatarImg, colorArr } from "../../../../utils/avatars";
 import urls from "../../../../utils/urls";
 import styles from "../askme.module.scss";
 import { deleteThread } from "../../../actions/AskMeThread";
+import QuestionTitle from "./QuestionTitle";
 
 const Question = ({ currentUser, thread, comments }) => {
   const [comment, setComment] = React.useState("");
+  const [isChanging, setChanging] = React.useState(false);
   const [taggedUsers, setTaggedUsers] = React.useState([]);
   const [saved, setSaved] = React.useState(
     currentUser.askBookmarks.includes(thread._id)
@@ -50,12 +52,19 @@ const Question = ({ currentUser, thread, comments }) => {
     thread.author._id === currentUser._id ||
     ["Admin", "Ambassador"].includes(currentUser.role)
   ) {
+    console.log(currentUser._id);
     actionButtons.push({
       title: "Delete Thread",
       action: () =>
         deleteThread(null, thread._id).then(() =>
           Router.replace(urls.pages.app.askMe.index)
         ),
+    });
+  }
+  if (thread.author._id === currentUser._id) {
+    actionButtons.push({
+      title: "Edit Thread",
+      action: () => setChanging(true),
     });
   }
 
@@ -101,7 +110,11 @@ const Question = ({ currentUser, thread, comments }) => {
 
       <div className={styles.post}>
         {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
-        <h3>{`Question: ${thread.title}`}</h3>
+        <QuestionTitle
+          isChanging={isChanging}
+          thread_id={thread._id}
+          thread_name={thread.title}
+        ></QuestionTitle>
         <div
           role="button"
           tabIndex={0}

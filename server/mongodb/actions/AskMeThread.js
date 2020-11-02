@@ -50,6 +50,21 @@ export const deleteThread = async (currentUser, { id }) => {
   });
 };
 
+export const editThread = async (currentUser, { id, title }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+  const filter = {
+    _id: id,
+  };
+
+  const query = {
+    title: title,
+  };
+
+  return AskMeThread.findOneAndUpdate(filter, query);
+};
+
 export const getUserQuestions = async (currentUser) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
