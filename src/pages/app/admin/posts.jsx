@@ -8,7 +8,7 @@ import urls from "../../../../utils/urls";
 import Router from "next/router";
 
 const Posts = ({ error, currentUser, p }) => {
-  console.log(p);
+  console.log(currentUser);
 
   if (error) {
     console.error("error", error);

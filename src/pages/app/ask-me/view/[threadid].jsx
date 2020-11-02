@@ -9,9 +9,6 @@ const QuestionPage = ({ currentUser, error, thread, comments }) => {
   if (error) {
     console.error("error", error);
 
-    console.log(thread)
-    console.log(comments)
-
     return (
       <ErrorPage currentUser={currentUser} statusCode={500} message={error} />
     );
