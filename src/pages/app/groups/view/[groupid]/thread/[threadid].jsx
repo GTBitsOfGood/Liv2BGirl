@@ -8,6 +8,7 @@ import { getGroup } from "../../../../../../actions/Group";
 
 const ThreadPage = ({ currentUser, error, thread, group, comments }) => {
   if (error != null) {
+    console.log(thread)
     console.error("error", error);
 
     return (

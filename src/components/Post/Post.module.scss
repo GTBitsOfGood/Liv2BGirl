@@ -75,7 +75,7 @@
     }
   }
 
-  .AskMeReport {
+  .Post {
     max-height: 175px;
     display: flex;
     flex-direction: column;
@@ -105,6 +105,7 @@
       }
   
       .Post {
+        background-color: #BBBBBB;
         margin-right: 8px;
         display: -webkit-box;
         -webkit-line-clamp: 2;

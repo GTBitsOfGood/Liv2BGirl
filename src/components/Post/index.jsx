@@ -14,8 +14,7 @@ const Post = ({ currentUser, post }) => {
    
   const actionButtons = [];
 
-  if (
-    post.createdBy._id === currentUser._id ||
+  if (post.createdBy._id === currentUser._id ||
     ["Admin", "Ambassador"].includes(currentUser.role)
   ) {
     actionButtons.push({
@@ -27,7 +26,7 @@ const Post = ({ currentUser, post }) => {
 
   if (currentUser.role === "Admin" && post.approved === false) {
     actionButtons.push({
-      title: "Report Comment",
+      title: "Approve Comment",
       action: () =>
         approvePost(null, post._id).then(() => Router.reload()),
     });
@@ -37,10 +36,6 @@ const Post = ({ currentUser, post }) => {
     <div className={styles.Post}>
       {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
       <div className={styles.Details}>
-        <Link
-          href={urls.pages.app.profile.view()}
-          as={urls.pages.app.profile.view(post.createdBy._id)}
-        >
           <div className={styles.Author}>
             <div
               className={styles.Avatar}
@@ -55,10 +50,9 @@ const Post = ({ currentUser, post }) => {
               />
             </div>
             <div className={styles.NameSection}>
-              <h5 className={styles.Name}>{post.createdBy.username}</h5>
+              <h5 className={styles.Name}>{post.createdBy._id}</h5>
             </div>
           </div>
-        </Link>
         <h6
           className={styles.Date}
           title={new Date(post.createdAt).toLocaleString()}
@@ -66,21 +60,7 @@ const Post = ({ currentUser, post }) => {
           {`~${timeSince(post.createdAt)} ago`}
         </h6>
       </div>
-      {<DetailedTextField
-        readOnly={true}
-        textNodes={
-          post.content != null && post.content.length > 0
-            ? JSON.parse(post.content)
-            : null
-        }
-      />}
-      <button
-        type="button"
-        className={styles.CommentReply}
-        onClick={() => setReply(`@${post.createdBy.username} `)}
-      >
-        <h5>Reply</h5>
-      </button>
+      {post.content}
     </div>
   );
  };
@@ -92,6 +72,12 @@ const Post = ({ currentUser, post }) => {
 Post.propTypes = {
   post: PropTypes.shape({
     _id: PropTypes.string.isRequired,
+    createdBy: PropTypes.shape({
+      _id: PropTypes.string,
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.number.isRequired,
+      avatarColor: PropTypes.number.isRequired,
+    }),
     content: PropTypes.shape({
       text: PropTypes.string.isRequired,
     })
