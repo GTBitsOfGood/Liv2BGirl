@@ -1,0 +1,23 @@
+import { approvePost } from "../../../../server/mongodb/actions/Post";
+import { verifyTokenSecure } from "../../../../server/mongodb/actions/User";
+
+// @route   POST api/post/approvePost
+// @desc    Approve post
+// @access  Public
+const handler = async (req, res) =>
+  verifyTokenSecure(req, res)
+    .then((currUser) => approvePost(currUser, req.body))
+    .then((payload) =>
+      res.status(200).json({
+        success: true,
+        payload,
+      })
+    )
+    .catch((error) =>
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      })
+    );
+
+export default handler;
