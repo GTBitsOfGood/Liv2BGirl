@@ -35,7 +35,7 @@ const ViewGroup = ({ currentUser, groupData, threads }) => {
     }
 
     if (
-      currentUser.role === "Ambassador" ||
+      ["Admin", "Ambassador"].includes(currentUser.role) ||
       currentUser._id === groupData.moderator
     ) {
       setJoined(true);
