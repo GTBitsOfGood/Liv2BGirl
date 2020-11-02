@@ -4,48 +4,70 @@ const FilterHelper = require("bad-words");
 import mongoDB from "../index";
 import User from "../models/User";
 import Post from "../models/Post";
-import Comment from "../models/Comment";
-import { useCode } from "./InvitationCode";
 
 export const getApprovedPosts = async () => {
-    await mongoDB();
-    var approvedPosts = await Post.find({approved: True}); 
-    return approvedPosts; 
+  await mongoDB();
+  var approvedPosts = await Post.find({ approved: true });
+  return approvedPosts;
 };
 
-export const createPost = async (currentUser, {createdTime, postContent}
-) => {
+export const approvePost = async ({ id }) => {
+  if (id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  const query = { _id: id };
+  await Post.handleApprove(query);
+
+  return Post.find(query)
+    .exec()
+    .then(async (approvedThread) => {
+      if (approvedThread == null) {
+        throw new Error(
+          "No post matches the provided id or user does not have permission!"
+        );
+      }
+    });
+};
+
+export const reportPost = async (currentUser, { id }) => {
+
+};
+
+export const createPost = async (currentUser, content) => {
   if (currentUser == null) {
-    throw new Error("You must be logged in to create a group!");
+    throw new Error("You must be logged in to create a post!");
   } else if (content == null) {
     throw new Error("Content is null!");
   }
 
-  var approvedFlag = false; 
+  console.log(content);
+  var approvedFlag = false;
 
-  if (currentUser.role == 'Admin') approved = true; 
+  if (currentUser.role == "Admin") {
+    approvedFlag = true;
+  }
 
   await mongoDB();
 
-  const post = new Post({
-    createdBy: currentUser._id,
-    createdAt: createdTime,
-    approved: approvedFlag,  
-    content: postContent,
-  }); 
-
-  // return Post.create({
+  // const post = new Post({
   //   createdBy: currentUser._id,
   //   createdAt: createdTime,
-  //   approved: approvedFlag,  
+  //   approved: approvedFlag,
   //   content: postContent,
-  // }).then(async (Post) => {
-  //   return Post;
   // });
 
-  return post
-    .validate()
-    .then(() => post.save()); 
+  return Post.create({
+    createdBy: currentUser._id,
+    approved: approvedFlag,
+    content: content.content,
+  }).then(async (Post) => {
+    return Post;
+  });
+
+  // return post.validate().then(() => post.save());
 };
 
 export const deletePost = async (currentUser, { id }) => {
@@ -68,12 +90,5 @@ export const deletePost = async (currentUser, { id }) => {
     }
 
     return deletedPost;
-
   });
 };
-
-
-
-
-
-

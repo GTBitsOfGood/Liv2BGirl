@@ -1,12 +1,12 @@
-import { createPost } from "../../../../server/mongodb/actions/Post";
+import { getApprovedPosts } from "../../../../server/mongodb/actions/Post";
 import { verifyToken } from "../../../../server/mongodb/actions/User";
 
-// @route   POST api/Post/createPost
-// @desc    Create Post Request
+// @route   POST api/groupThread/getGroupThreads
+// @desc    Get a group's groupThread
 // @access  Public
-const handler = async (req, res) =>
+const handler = (req, res) =>
   verifyToken(req, res)
-    .then((currUser) => createPost(currUser, req.body))
+    .then(() => getApprovedPosts())
     .then((payload) =>
       res.status(200).json({
         success: true,

@@ -47,6 +47,9 @@ export default {
       profile: {
         view: (profileId) => `/app/profile/${profileId ?? "[userid]"}`,
       },
+      post: {
+        index: "/app/post/createPost",
+      },
     },
   },
   api: {
@@ -105,9 +108,9 @@ export default {
       generateUsernames: () => "/api/User/generateUsernames",
     },
     post: {
-      getApprovedPosts: () => "api/Post/getApprovedPosts", 
-      createPost: () => "api/Post/createPost", 
+      getApprovedPosts: () => "api/Post/getApprovedPosts",
+      createPost: () => "api/Post/createPost",
       deletePost: () => "api/Post/deletePost",
-    }
+    },
   },
 };

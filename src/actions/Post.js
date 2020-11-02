@@ -2,9 +2,7 @@ import { authedPostRequest } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const getApprovedPosts = () =>
-  authedPostRequest(
-    urls.baseUrl + urls.api.post.getApprovedPosts(),
-  )
+  authedPostRequest(urls.baseUrl + urls.api.post.getApprovedPosts())
     .then((response) => response.json())
     .then((json) => {
       if (json == null) {
@@ -16,12 +14,11 @@ export const getApprovedPosts = () =>
       return json.payload;
     });
 
-export const createPost = (cookies, {createdTime, postContent}) =>
+export const createPost = (cookies, content) =>
   authedPostRequest(
     urls.baseUrl + urls.api.group.createPost(),
     {
-      createdTime,
-      postContent,
+      content,
     },
     cookies
   )
