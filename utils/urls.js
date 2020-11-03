@@ -47,6 +47,9 @@ export default {
       profile: {
         view: (profileId) => `/app/profile/${profileId ?? "[userid]"}`,
       },
+      post: {
+        index: "/app/post/createPost",
+      },
     },
   },
   api: {
@@ -105,6 +108,13 @@ export default {
       removeGroupBookmark: () => "/api/User/removeGroupBookmark",
       verifyEmailUnused: () => "/api/User/verifyEmailUnused",
       generateUsernames: () => "/api/User/generateUsernames",
+    },
+    post: {
+      getApprovedPosts: () => "api/Post/getApprovedPosts",
+      createPost: () => "api/Post/createPost",
+      deletePost: () => "api/Post/deletePost",
+      approvePost: () => "api/Post/approvePost",
+      unapprovePost: () => "api/Post/unapprovePost",
     },
   },
 };
