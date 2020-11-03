@@ -24,12 +24,6 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
-  reported: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
 });
 
 // async function handleDelete(provDoc) {
@@ -51,19 +45,5 @@ const PostSchema = new mongoose.Schema({
 //   PostSchema.pre("findOneAndRemove", handleDelete);
 //   PostSchema.pre("deleteOne", handleDelete);
 //   PostSchema.pre("deleteMany", handleDelete);
-
-async function handleApprove(provDoc) {
-  const doc =
-    this.getQuery != null ? await this.find(this.getQuery()) : provDoc;
-
-  if (doc != null) {
-    const id = doc._id;
-    if (!this.approved) {
-      await this.update({ _id: id }, { reported: true });
-    }
-  }
-}
-
-Post.statics.handleApprove = handleApprove;
 
 export default mongoose.models.Post || mongoose.model("Post", PostSchema);

@@ -11,7 +11,7 @@ export const getApprovedPosts = async () => {
   return approvedPosts;
 };
 
-export const approvePost = async ({ id }) => {
+export const approvePost = async (currentUser, { id }) => {
   if (id == null) {
     throw new Error("All parameters must be provided!");
   }
@@ -19,7 +19,9 @@ export const approvePost = async ({ id }) => {
   await mongoDB();
 
   const query = { _id: id };
-  await Post.handleApprove(query);
+  query.author = currentUser.id;
+
+  await Post.update({ _id: id }, { approved: true });
 
   return Post.find(query)
     .exec()
@@ -32,8 +34,27 @@ export const approvePost = async ({ id }) => {
     });
 };
 
-export const reportPost = async (currentUser, { id }) => {
+export const unapprovePost = async (currentUser, { id }) => {
+  if (id == null) {
+    throw new Error("All parameters must be provided!");
+  }
 
+  await mongoDB();
+
+  const query = { _id: id };
+  query.author = currentUser.id;
+
+  await Post.update({ _id: id }, { approved: false });
+
+  return Post.find(query)
+    .exec()
+    .then(async (unapprovedThread) => {
+      if (unapprovedThread == null) {
+        throw new Error(
+          "No post matches the provided id or user does not have permission!"
+        );
+      }
+    });
 };
 
 export const createPost = async (currentUser, content) => {

@@ -16,7 +16,7 @@ export const getApprovedPosts = () =>
 
 export const createPost = (cookies, content) =>
   authedPostRequest(
-    urls.baseUrl + urls.api.group.createPost(),
+    urls.baseUrl + urls.api.post.createPost(),
     {
       content,
     },
@@ -34,7 +34,43 @@ export const createPost = (cookies, content) =>
 
 export const deletePost = (cookies, id) =>
   authedPostRequest(
-    urls.baseUrl + urls.api.group.deletePost(),
+    urls.baseUrl + urls.api.post.deletePost(),
+    {
+      id,
+    },
+    cookies
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+      return json.payload;
+    });
+
+export const approvePost = (cookies, id) =>
+  authedPostRequest(
+    urls.baseUrl + urls.api.post.approvePost(),
+    {
+      id,
+    },
+    cookies
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+      return json.payload;
+    });
+
+export const unapprovePost = (cookies, id) =>
+  authedPostRequest(
+    urls.baseUrl + urls.api.post.unapprovePost(),
     {
       id,
     },

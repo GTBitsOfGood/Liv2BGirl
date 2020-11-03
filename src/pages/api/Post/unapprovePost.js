@@ -1,12 +1,12 @@
-import { approvePost } from "../../../../server/mongodb/actions/Post";
+import { unapprovePost } from "../../../../server/mongodb/actions/Post";
 import { verifyToken } from "../../../../server/mongodb/actions/User";
 
-// @route   POST api/Post/approvePost
-// @desc    Approve Post Request
+// @route   POST api/Post/unapprovePost
+// @desc    Unapprove Post Request
 // @access  Public
 const handler = async (req, res) =>
   verifyToken(req, res)
-    .then((currentUser) => approvePost(currentUser, req.body))
+    .then((currentUser) => unapprovePost(currentUser, req.body))
     .then((payload) =>
       res.status(200).json({
         success: true,
