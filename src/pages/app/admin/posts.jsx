@@ -8,7 +8,6 @@ import urls from "../../../../utils/urls";
 import Router from "next/router";
 
 const Posts = ({ error, currentUser, p }) => {
-  console.log(p);
 
   if (error) {
     console.error("error", error);
@@ -28,12 +27,9 @@ const Posts = ({ error, currentUser, p }) => {
 
 Posts.getInitialProps = async ({ req, res }) => {
   const cookies = req ? req.headers.cookie : null;
-  console.log(cookies);
   try {
     const p = await getPendingPosts(cookies);
     const currentUser = await getCurrentUser(cookies).catch(() => null);
-
-    console.log(currentUser);
 
     return {
       p,

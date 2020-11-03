@@ -14,6 +14,7 @@ import Router from "next/router";
 
 const Post = ({ currentUser, post }) => {
    
+  console.log(post.createdBy)
   const actionButtons = [];
 
   if (post.createdBy._id === currentUser._id ||
@@ -40,7 +41,7 @@ const Post = ({ currentUser, post }) => {
       <div className={styles.Details}>
       <div className={styles.Author}>
             <div className={styles.NameSection}>
-              <h5 className={styles.Name}>{getUser(currentUser, post.createdBy).username}</h5>
+              <h5 className={styles.Name}>Posted by: <b>{post.createdBy}</b></h5>
             </div>
           </div>
         <h6
