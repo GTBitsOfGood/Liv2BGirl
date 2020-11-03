@@ -1,4 +1,4 @@
-import { authedPostRequest } from "../utils/requests";
+import { authedPostRequest, authedGetRequest } from "../utils/requests";
 import urls from "../../utils/urls";
 
 export const createComment = (cookies, parentId, content, taggedUsers) =>
@@ -97,3 +97,57 @@ export const getCommentsByAskMeThread = (cookies, id) =>
 
       return json.payload;
     });
+
+export const reportComment = (cookies, id) =>
+  authedPostRequest(
+    urls.baseUrl + urls.api.comment.reportComment(),
+    {
+      id,
+    },
+    cookies
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
+
+      return json.payload;
+    });
+
+    export const unreportComment = (cookies, id) =>
+    authedPostRequest(
+      urls.baseUrl + urls.api.comment.unreportComment(),
+      {
+        id,
+      },
+      cookies
+    )
+      .then((response) => response.json())
+      .then((json) => {
+        if (json == null) {
+          throw new Error("Could not connect to API!");
+        } else if (!json.success) {
+          throw new Error(json.message);
+        }
+  
+        return json.payload;
+      });
+
+  export const getReportedComments = (cookies) =>
+    authedGetRequest(
+      urls.baseUrl + urls.api.comment.getReportedComments(),
+      cookies
+    )
+      .then((response) => response.json())
+      .then((json) => {
+        if (json == null) {
+          throw new Error("Could not connect to API!");
+        } else if (!json.success) {
+          throw new Error(json.message);
+        }
+  
+        return json.payload;
+      });

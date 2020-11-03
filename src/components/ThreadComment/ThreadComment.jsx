@@ -5,6 +5,7 @@ import Router from "next/router";
 import ActionModal from "../ActionModal";
 import { timeSince } from "./utils";
 import { deleteComment } from "../../actions/Comment";
+import { reportComment } from "../../actions/Comment";
 import urls from "../../../utils/urls";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import styles from "./ThreadComment.module.scss";
@@ -32,6 +33,14 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
         setChanging(true);
         changeButton(true);
       },
+    });
+  }
+
+  if (comment.author._id != currentUser._id && currentUser.role == "User") {
+    actionButtons.push({
+      title: "Report Comment",
+      action: () =>
+        reportComment(null, comment._id).then(() => Router.reload()),
     });
   }
 

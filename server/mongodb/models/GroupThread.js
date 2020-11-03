@@ -30,6 +30,16 @@ const GroupThreadSchema = new mongoose.Schema({
     default: Date.now,
     index: true,
   },
+  reported: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  reportCount: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 async function handleDelete(provDoc) {
@@ -39,7 +49,19 @@ async function handleDelete(provDoc) {
   if (doc != null) {
     const id = doc._id;
 
-    await mongoose.model("Comment").deleteMany({ parent: id });
+    await this.model.deleteMany({ parent: id });
+  }
+}
+
+async function handleReport(provDoc) {
+  const doc =
+    this.getQuery != null ? await this.find(this.getQuery()) : provDoc;
+
+  if (doc != null) {
+    const id = doc._id;
+    if (!this.reported) {
+      await this.update({ _id: id }, { reported: true });
+    }
   }
 }
 
@@ -48,6 +70,8 @@ GroupThreadSchema.pre("findOneAndDelete", handleDelete);
 GroupThreadSchema.pre("findOneAndRemove", handleDelete);
 GroupThreadSchema.pre("deleteOne", handleDelete);
 GroupThreadSchema.pre("deleteMany", handleDelete);
+
+GroupThreadSchema.statics.handleReport = handleReport;
 
 export default mongoose.models.GroupThread ||
   mongoose.model("GroupThread", GroupThreadSchema);

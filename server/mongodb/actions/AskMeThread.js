@@ -27,6 +27,46 @@ export const createThread = async (
   });
 };
 
+export const reportThread = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  const query = { _id: id };
+  query.author = currentUser.id;
+  await AskMeThread.handleReport(query);
+
+  return AskMeThread.find(query)
+    .exec()
+    .then(async (reportedThread) => {
+      if (reportedThread == null) {
+        throw new Error(
+          "No thread matches the provided id or user does not have permission!"
+        );
+      }
+    });
+};
+
+export const unreportThread = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return AskMeThread.findOneAndUpdate({_id: id}, {reported: false})
+    .exec()
+    .then(async (reportedThread) => {
+      if (reportedThread == null) {
+        throw new Error(
+          "No thread matches the provided id or user does not have permission!"
+        );
+      }
+    });
+};
+
 export const deleteThread = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
@@ -154,6 +194,18 @@ export const getThreads = async (currentUser) => {
         }))
       );
     });
+};
+
+export const getReportedThreads = async (currentUser) => {
+  if (currentUser == null || currentUser.role != "Admin") {
+    throw new Error("You must be logged in to view this content!");
+  }
+
+  await mongoDB();
+
+  let query = { reported: true };
+
+  return AskMeThread.find(query);
 };
 
 export const getThread = async (currentUser, { id }) => {
