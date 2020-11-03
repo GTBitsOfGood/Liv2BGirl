@@ -3,32 +3,43 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-// import { getApprovedPosts } from "../../../actions/Post";
-// import {post} from "../../../actions/Post";
+import {Post} from "../Post";
+import { getApprovedPosts } from "../../actions/Post";
+import { approvePost, deletePost } from "../../actions/Post";
+import { avatarImg, colorArr } from "../../../utils/avatars";
+import { timeSince } from "../ThreadComment/utils";
+import { render } from "node-sass";
 
-const Newsfeed = () => {
-  return <h1>Please Work</h1>;
+
+const Newsfeed = ({posts}) => {
+    const {posts} = getApprovedPosts();
+    return(
+  <div>
+    <ol>
+      {
+        posts.map(post => (
+          <li key = {post._id} align = "start">
+            <div>
+              <p> {post.createdBy}</p>
+              <p> {post.content} </p>
+              <p> {post.createdAt} </p>
+              </div>
+              </li>
+        ))
+      }
+      </ol> 
+      </div>
+    );
+ }
+
+index.PropTypes = {
+  post: PropTypes.arrayOf (
+    PropTypes.shape({
+        content: PropTypes.string.isRequired,
+        createdAt:PropTypes.string.isRequired,
+        createdBy: PropTypes.string.isRequired,
+    })
+).isRequired,
 };
-// const isApproved = async (post) => {
-//     if (post.approved) {
-//         return (
-//         {content},
-//         {createdAt},
-//         {createdBy}
-//         )
-//     }
-// };
-
-//index.PropTypes = {
-//isApproved: PropTypes.func.isRequired,
-//post: PropTypes.arrayOf (
-//    PropTypes.shape({
-//        content: PropTypes.string.isRequired,
-//        createdAt:PropTypes.string.isRequired,
-//       createdBy: PropTypes.string.isRequired,
-//    })
-
-//).isRequired,
-//};
 
 export default Newsfeed;
