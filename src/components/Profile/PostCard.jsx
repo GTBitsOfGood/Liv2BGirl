@@ -4,14 +4,13 @@ import Link from "next/link";
 import urls from "../../../utils/urls";
 import styles from "./profile.module.scss";
 
-const PostCard = ({ id, createdAt, createdBy, content, image }) => (
+const PostCard = ({ id, createdAt, createdBy, content }) => (
   <Link
-    href={urls.pages.app.groups.group.view()}
-    as={urls.pages.app.groups.group.view(id)}
+    href={urls.pages.app.posts.post.view()}
+    as={urls.pages.app.posts.post.view(id)}
     prefetch={false}
   >
     <button type="button" className={styles.ProfileCard}>
-      <img className={styles.GroupAvatar} src={image} alt="Group Pic" />
       <div className={styles.GroupInfo}>
         <h3 className={styles.GroupName}>{createdAt}</h3>
         <h3>Author: {createdBy}</h3>

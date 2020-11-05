@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import GroupCard from "./GroupCard";
+import PostCard from "./PostCard";
 import TopNavBar from "../TopNavBar";
 import styles from "./profile.module.scss";
 import PostCard from "./PostCard";
@@ -95,6 +96,19 @@ const ProfilePage = ({ user, userGroups, userPosts }) => (
             image={"https://picsum.photos/200"}
           />
         </div>
+      </div>
+
+      <div className={styles.ProfileGroupDeck}>
+        {userPosts.map((post) => (
+          <PostCard
+            key={post._id}
+            id={post._id}
+            createdAt={post.createdAt}
+            createdBy={post.createdBy}
+            content={post.content}
+          />
+        ))}
+
       </div>
 
       <div

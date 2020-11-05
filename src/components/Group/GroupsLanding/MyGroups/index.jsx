@@ -46,7 +46,7 @@ const MyGroups = ({ groups, categories }) => {
               prefetch={false}
             >
               <div className={styles.MyGroupType}>
-              <img className={styles.MyGroupImage} src={group.iconUrl} />
+                <img className={styles.MyGroupImage} src={group.iconUrl} />
                 <p className={styles.MyGroupTitle}>{group.name}</p>
               </div>
             </Link>
