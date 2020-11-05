@@ -6,9 +6,10 @@ import styles from "./profile.module.scss";
 
 const PostCard = ({ id, createdAt, createdBy, content }) => (
   <Link
-    href={urls.pages.app.posts.post.view()}
-    as={urls.pages.app.posts.post.view(id)}
-    prefetch={false}
+    href={"youtube.com"}
+    // href={urls.pages.app.posts.post.view()}
+    // as={urls.pages.app.posts.post.view(id)}
+    // prefetch={false}
   >
     <button type="button" className={styles.ProfileCard}>
       <div className={styles.GroupInfo}>

@@ -5,14 +5,13 @@ import ErrorPage from "../../_error";
 import { getUser } from "../../../actions/User";
 import { getGroup } from "../../../actions/Group";
 
-const ProfilePage = ({ currentUser, error, user, userGroups }) => {
+const ProfilePage = ({ currentUser, error, user, userGroups, userPosts }) => {
   if (error != null) {
     return (
       <ErrorPage currentUser={currentUser} statusCode={500} message={error} />
     );
   }
-
-  return <Profile user={user} userGroups={userGroups} />;
+  return <Profile user={user} userGroups={userGroups} userPosts={userPosts} />;
 };
 
 ProfilePage.getInitialProps = async ({ query, req }) => {
@@ -24,10 +23,24 @@ ProfilePage.getInitialProps = async ({ query, req }) => {
     const userGroups = await Promise.all(
       user.groups.map((groupId) => getGroup(cookies, groupId))
     );
+    let userPosts = {
+      _id: "0",
+      createdAt: "Now",
+      createdBy: "Ethan Xie",
+      content: "Example content",
+      image: "Text image",
+    };
+
+    userPosts = [userPosts];
+    console.log(userPosts);
+    //userPosts = [];
+    console.log(userPosts);
+    console.log(userGroups);
 
     return {
       user,
       userGroups,
+      userPosts,
     };
   } catch (error) {
     return {
@@ -62,6 +75,15 @@ ProfilePage.propTypes = {
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
+    })
+  ),
+  userPosts: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      createdBy: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
     })
   ),
 };

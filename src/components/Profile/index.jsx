@@ -8,7 +8,6 @@ import GroupCard from "./GroupCard";
 import PostCard from "./PostCard";
 import TopNavBar from "../TopNavBar";
 import styles from "./profile.module.scss";
-import PostCard from "./PostCard";
 
 const ProfilePage = ({ user, userGroups, userPosts }) => (
   <>
@@ -67,48 +66,17 @@ const ProfilePage = ({ user, userGroups, userPosts }) => (
           <Icon icon={arrowRightAlt2} />
         </button>
         <div className={styles.ProfileCardDeck}>
-          <PostCard
-            id={1}
-            createdAt={"Placed Holder Date"}
-            createdBy={"Ethan Xie"}
-            content={"This is a some random text"}
-            image={"https://picsum.photos/200"}
-          />
-          <PostCard
-            id={1}
-            createdAt={"Placed Holder Date"}
-            createdBy={"Ethan Xie"}
-            content={"This is a some random text"}
-            image={"https://picsum.photos/200"}
-          />
-          <PostCard
-            id={1}
-            createdAt={"Placed Holder Date"}
-            createdBy={"Ethan Xie"}
-            content={"This is a some random text"}
-            image={"https://picsum.photos/200"}
-          />
-          <PostCard
-            id={1}
-            createdAt={"Placed Holder Date"}
-            createdBy={"Ethan Xie"}
-            content={"This is a some random text"}
-            image={"https://picsum.photos/200"}
-          />
+          {userPosts.map((post) => (
+            <PostCard
+              key={post._id}
+              id={post._id}
+              createdAt={post.createdAt}
+              createdBy={post.createdBy}
+              content={post.content}
+              image={post.image}
+            />
+          ))}
         </div>
-      </div>
-
-      <div className={styles.ProfileGroupDeck}>
-        {userPosts.map((post) => (
-          <PostCard
-            key={post._id}
-            id={post._id}
-            createdAt={post.createdAt}
-            createdBy={post.createdBy}
-            content={post.content}
-          />
-        ))}
-
       </div>
 
       <div
@@ -162,6 +130,15 @@ ProfilePage.propTypes = {
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  userPosts: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      createdBy: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
     })
   ).isRequired,
 };
