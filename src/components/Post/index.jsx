@@ -10,11 +10,13 @@ import styles from "./Post.module.scss";
 import ActionModal from "../ActionModal";
 import DetailedTextField from "../DetailedTextField";
 import Router from "next/router";
+var mongoose = require('mongoose');
+
 //import { unreportThread } from "../../../../actions/AskMeThread.js";
 
 const Post = ({ currentUser, post }) => {
    
-  console.log(post.createdBy)
+  console.log(getUser(currentUser, mongoose.Types.ObjectId(post.createdBy)));
   const actionButtons = [];
 
   if (post.createdBy._id === currentUser._id ||
@@ -60,14 +62,12 @@ Post.propTypes = {
   post: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     createdBy: PropTypes.shape({
-      _id: PropTypes.string,
+      _id: PropTypes.string.isRequired,
       username: PropTypes.string.isRequired,
       avatar: PropTypes.number.isRequired,
       avatarColor: PropTypes.number.isRequired,
     }),
-    content: PropTypes.shape({
-      text: PropTypes.string.isRequired,
-    })
+    content: PropTypes.string.isRequired,
   }).isRequired,
 };
 
