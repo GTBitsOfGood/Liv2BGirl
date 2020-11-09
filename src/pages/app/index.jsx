@@ -6,11 +6,20 @@ import urls from "../../../utils/urls";
 const AppHome = ({ currentUser }) => (
   <div>
     <h2>Welcome!</h2>
-    {currentUser.role === "Admin" && (
-      <Link href={urls.pages.app.admin.index}>
-        <a>Admin Controls</a>
-      </Link>
-    )}
+    <div>
+      {currentUser.role === "Admin" && (
+        <Link href={urls.pages.app.admin.index}>
+          <a>Admin Controls</a>
+        </Link>
+      )}
+    </div>
+    <div>
+      {
+        <Link href={urls.pages.app.post.index}>
+          <a>Create a Post!</a>
+        </Link>
+      }
+    </div>
   </div>
 );
 

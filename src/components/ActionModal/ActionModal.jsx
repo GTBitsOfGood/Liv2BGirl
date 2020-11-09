@@ -34,7 +34,10 @@ const ActionModal = ({ buttons }) => {
                 key={title}
                 type="button"
                 className={classes.AdminButton}
-                onClick={action}
+                onClick={() => {
+                  action();
+                  setOpen(false);
+                }}
               >
                 <h2>{title}</h2>
               </button>
@@ -58,13 +61,13 @@ ActionModal.propTypes = {
   buttons: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      action: PropTypes.func.isRequired,
     })
   ),
 };
 
 ActionModal.defaultProps = {
   buttons: [],
+  reloadButton: PropTypes.bool,
 };
 
 export default ActionModal;

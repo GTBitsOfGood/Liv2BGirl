@@ -17,6 +17,7 @@ export default {
       admin: {
         index: "/app/admin",
         invite: "/app/admin/invite",
+        reports: "/app/admin/reports",
       },
       askMe: {
         index: "/app/ask-me",
@@ -47,14 +48,21 @@ export default {
       profile: {
         view: (profileId) => `/app/profile/${profileId ?? "[userid]"}`,
       },
+      post: {
+        index: "/app/post/createPost",
+      },
     },
   },
   api: {
     askMeThread: {
       createThread: () => "/api/AskMeThread/createThread",
       deleteThread: () => "/api/AskMeThread/deleteThread",
+      editThread: () => "/api/AskMeThread/editThread",
       filterThreads: () => "/api/AskMeThread/filterThreads",
+      reportThread: () => "/api/AskMeThread/reportThread",
+      unreportThread: () => "/api/AskMeThread/unreportThread",
       searchThreads: () => "/api/AskMeThread/searchThreads",
+      getReportedThreads: () => "/api/AskMeThread/getReportedThreads",
       getThread: () => "/api/AskMeThread/getThread",
       getAskThreads: () => "/api/AskMeThread/getAskThreads",
       getUserQuestions: () => "/api/AskMeThread/getUserQuestions",
@@ -65,8 +73,12 @@ export default {
     comment: {
       createComment: () => "/api/Comment/createComment",
       deleteComment: () => "/api/Comment/deleteComment",
+      editComment: () => "/api/Comment/editComment",
       getCommentsByThread: () => "/api/Comment/getCommentsByThread",
       getCommentsByAskMeThread: () => "/api/Comment/getCommentsByAskMeThread",
+      getReportedComments: () => "/api/Comment/getReportedComments",
+      reportComment: () => "/api/Comment/reportComment",
+      unreportComment: () => "/api/Comment/unreportComment",
     },
     group: {
       createGroup: () => "/api/Group/createGroup",
@@ -81,10 +93,13 @@ export default {
     groupThread: {
       createThread: () => "/api/GroupThread/createThread",
       deleteThread: () => "/api/GroupThread/deleteThread",
+      reportThread: () => "/api/GroupThread/reportThread",
+      unreportGroupThread: () => "/api/GroupThread/unreportGroupThread",
       filterThreads: () => "/api/GroupThread/filterThreads",
       searchThreads: () => "/api/GroupThread/searchThreads",
       getThread: () => "/api/GroupThread/getThread",
       getGroupThreads: () => "/api/GroupThread/getGroupThreads",
+      getReportedGroupThreads: () => "/api/GroupThread/getReportedGroupThreads",
     },
     user: {
       login: () => "/api/User/login",
@@ -103,6 +118,13 @@ export default {
       removeGroupBookmark: () => "/api/User/removeGroupBookmark",
       verifyEmailUnused: () => "/api/User/verifyEmailUnused",
       generateUsernames: () => "/api/User/generateUsernames",
+    },
+    post: {
+      getApprovedPosts: () => "api/Post/getApprovedPosts",
+      createPost: () => "api/Post/createPost",
+      deletePost: () => "api/Post/deletePost",
+      approvePost: () => "api/Post/approvePost",
+      unapprovePost: () => "api/Post/unapprovePost",
     },
   },
 };

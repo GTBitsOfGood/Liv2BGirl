@@ -8,7 +8,9 @@ import ThreadComment from "../../ThreadComment";
 import TopNavBar from "../../TopNavBar";
 import ActionModal from "../../ActionModal";
 import DetailedTextField from "../../DetailedTextField";
-import { deleteThread } from "../../../actions/GroupThread";
+import { deleteThread, unreportGroupThread } from "../../../actions/GroupThread";
+import { reportThread } from "../../../actions/GroupThread";
+
 import { createComment } from "../../../actions/Comment";
 import { addGroupBookmark, removeGroupBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
@@ -54,6 +56,30 @@ const Thread = ({ currentUser, thread, group, comments }) => {
       title: "Delete Thread",
       action: () =>
         deleteThread(null, thread._id).then(() =>
+          Router.replace(urls.pages.app.admin.reports)
+        ),
+    });
+  }
+
+  if (
+    thread.reported == true &&
+    (thread.author._id === currentUser._id ||
+      ["Admin"].includes(currentUser.role))
+  ) {
+    actionButtons.push({
+      title: "Unreport Thread",
+      action: () =>
+        unreportGroupThread(null, thread._id).then(() =>
+          Router.replace(urls.pages.app.admin.reports)
+        ),
+    });
+  }
+
+  if (thread.author._id != currentUser._id && currentUser.role == "User") {
+    actionButtons.push({
+      title: "Report Thread",
+      action: () =>
+        reportThread(null, thread._id).then(() =>
           Router.replace(urls.pages.app.groups.group.view(group._id))
         ),
     });

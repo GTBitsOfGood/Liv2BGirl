@@ -13,10 +13,16 @@ import { addAskBookmark, removeAskBookmark } from "../../../actions/User";
 import { avatarImg, colorArr } from "../../../../utils/avatars";
 import urls from "../../../../utils/urls";
 import styles from "../askme.module.scss";
-import { deleteThread } from "../../../actions/AskMeThread";
+import {
+  deleteThread,
+  reportThread,
+  unreportThread,
+} from "../../../actions/AskMeThread";
+import QuestionTitle from "./QuestionTitle";
 
 const Question = ({ currentUser, thread, comments }) => {
   const [comment, setComment] = React.useState("");
+  const [isChanging, setChanging] = React.useState(false);
   const [taggedUsers, setTaggedUsers] = React.useState([]);
   const [saved, setSaved] = React.useState(
     currentUser.askBookmarks.includes(thread._id)
@@ -50,12 +56,43 @@ const Question = ({ currentUser, thread, comments }) => {
     thread.author._id === currentUser._id ||
     ["Admin", "Ambassador"].includes(currentUser.role)
   ) {
+    console.log(currentUser._id);
     actionButtons.push({
       title: "Delete Thread",
       action: () =>
         deleteThread(null, thread._id).then(() =>
+          Router.replace(urls.pages.app.admin.reports)
+        ),
+    });
+  }
+
+  if (
+    thread.reported == true &&
+    (thread.author._id === currentUser._id ||
+      ["Admin"].includes(currentUser.role))
+  ) {
+    actionButtons.push({
+      title: "Unreport Thread",
+      action: () =>
+        unreportThread(null, thread._id).then(() =>
+          Router.replace(urls.pages.app.admin.reports)
+        ),
+    });
+  }
+
+  if (thread.author._id != currentUser._id && currentUser.role == "User") {
+    actionButtons.push({
+      title: "Report Thread",
+      action: () =>
+        reportThread(null, thread._id).then(() =>
           Router.replace(urls.pages.app.askMe.index)
         ),
+    });
+  }
+  if (thread.author._id === currentUser._id) {
+    actionButtons.push({
+      title: "Edit Thread",
+      action: () => setChanging(true),
     });
   }
 
@@ -101,7 +138,11 @@ const Question = ({ currentUser, thread, comments }) => {
 
       <div className={styles.post}>
         {actionButtons.length > 0 && <ActionModal buttons={actionButtons} />}
-        <h3>{`Question: ${thread.title}`}</h3>
+        <QuestionTitle
+          isChanging={isChanging}
+          thread_id={thread._id}
+          thread_name={thread.title}
+        ></QuestionTitle>
         <div
           role="button"
           tabIndex={0}
