@@ -1,6 +1,6 @@
 const FilterHelper = require("bad-words");
 import mongoDB from "../index";
-import Thread from "../models/GroupThread";
+import GroupThread from "../models/GroupThread";
 import Comments from "../models/Comment";
 
 const wordFilter = new FilterHelper();
@@ -19,12 +19,52 @@ export const createThread = async (
 
   await mongoDB();
 
-  return Thread.create({
+  return GroupThread.create({
     author: currentUser._id,
     group: groupId,
     title,
     content,
   });
+};
+
+export const reportThread = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  const query = { _id: id };
+  query.author = currentUser.id;
+  await GroupThread.handleReport(query);
+
+  return GroupThread.find(query)
+    .exec()
+    .then(async (reportedThread) => {
+      if (reportedThread == null) {
+        throw new Error(
+          "No thread matches the provided id or user does not have permission!"
+        );
+      }
+    });
+};
+
+export const unreportGroupThread = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return GroupThread.findOneAndUpdate({_id: id}, {reported: false})
+    .exec()
+    .then(async (reportedThread) => {
+      if (reportedThread == null) {
+        throw new Error(
+          "No thread matches the provided id or user does not have permission!"
+        );
+      }
+    });
 };
 
 export const deleteThread = async (currentUser, { id }) => {
@@ -39,7 +79,7 @@ export const deleteThread = async (currentUser, { id }) => {
     query.author = currentUser._id;
   }
 
-  return Thread.findOneAndDelete(query)
+  return GroupThread.findOneAndDelete(query)
     .exec()
     .then(async (deletedThread) => {
       if (deletedThread == null) {
@@ -61,7 +101,7 @@ export const getGroupThreads = async (currentUser, { groupId }) => {
 
   await mongoDB();
 
-  return Thread.find({ group: groupId })
+  return GroupThread.find({ group: groupId })
     .populate({
       path: "author",
       model: "User",
@@ -86,6 +126,18 @@ export const getGroupThreads = async (currentUser, { groupId }) => {
     });
 };
 
+export const getReportedThreads = async (currentUser) => {
+  if (currentUser == null || currentUser.role != "Admin") {
+    throw new Error("You must be logged in to view this content!");
+  }
+
+  await mongoDB();
+
+  let query = { reported: true };
+
+  return GroupThread.find(query);
+};
+
 export const getThread = async (currentUser, { id }) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to view this content!");
@@ -93,7 +145,7 @@ export const getThread = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  return Thread.findById(id)
+  return GroupThread.findById(id)
     .populate({
       path: "author",
       model: "User",
@@ -125,7 +177,7 @@ export const filterThreads = async (
 
   await mongoDB();
 
-  return Thread.find({
+  return GroupThread.find({
     group: groupId,
     postedAt: { $gte: new Date(lowerBound), $lte: new Date(upperBound) },
   })
@@ -159,7 +211,7 @@ export const searchThreads = async (currentUser, { term, groupId }) => {
     query.group = groupId;
   }
 
-  return Thread.find(query, {
+  return GroupThread.find(query, {
     score: { $meta: "textScore" },
   })
     .populate({

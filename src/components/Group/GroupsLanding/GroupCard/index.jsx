@@ -4,14 +4,14 @@ import Link from "next/link";
 import styles from "./Group.module.scss";
 import urls from "../../../../../utils/urls";
 
-const Group = ({ _id, name, people, description }) => (
+const Group = ({ _id, name, people, description, iconUrl }) => (
   <Link
     href={urls.pages.app.groups.group.view()}
     as={urls.pages.app.groups.group.view(_id)}
     prefetch={false}
   >
     <div className={styles.GroupCard}>
-      <div className={styles.Icon} />
+      <img className={styles.Icon} src={iconUrl}/>
       <div className={styles.Info}>
         <h6 className={styles.Name}>{name}</h6>
         <p className={styles.MemberCount}>

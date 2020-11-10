@@ -24,6 +24,21 @@ export const createComment = async (
   });
 };
 
+export const editComment = async (currentUser, { id, content }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+  const filter = {
+    _id: id,
+  };
+
+  const query = {
+    content: content,
+  };
+
+  return Comment.findOneAndUpdate(filter, query);
+};
+
 export const deleteComment = async (currentUser, { id }) => {
   if (currentUser == null || id == null) {
     throw new Error("All parameters must be provided!");
@@ -44,6 +59,28 @@ export const deleteComment = async (currentUser, { id }) => {
     }
 
     return deletedComment;
+  });
+};
+
+export const reportComment = async (CurrentUser, { id }) => {
+  if (CurrentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  const query = { _id: id };
+  query.author = CurrentUser._id;
+  await Comment.handleReport(query);
+
+  return Comment.find(query).then((reportedComment) => {
+    if (reportedComment == null) {
+      throw new Error(
+        "No comment matches the provided id or user does not have permission!"
+      );
+    }
+
+    return reportedComment;
   });
 };
 
@@ -98,5 +135,35 @@ export const getCommentsByThread = async (currentUser, { id }) => {
       }
 
       return comments;
+    });
+};
+
+export const getReportedComments = async (currentUser) => {
+  if (currentUser == null || currentUser.role != "Admin") {
+    throw new Error("You must be logged in to view this content!");
+  }
+
+  await mongoDB();
+
+  let query = { reported: true };
+
+  return Comment.find(query);
+};
+
+export const unreportComment = async (currentUser, { id }) => {
+  if (currentUser == null || id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  return Comment.findOneAndUpdate({_id: id}, {reported: false})
+    .exec()
+    .then(async (reportedThread) => {
+      if (reportedThread == null) {
+        throw new Error(
+          "No thread matches the provided id or user does not have permission!"
+        );
+      }
     });
 };
