@@ -49,12 +49,16 @@ export default {
       profile: {
         view: (profileId) => `/app/profile/${profileId ?? "[userid]"}`,
       },
+      post: {
+        index: "/app/post/createPost",
+      },
     },
   },
   api: {
     askMeThread: {
       createThread: () => "/api/AskMeThread/createThread",
       deleteThread: () => "/api/AskMeThread/deleteThread",
+      editThread: () => "/api/AskMeThread/editThread",
       filterThreads: () => "/api/AskMeThread/filterThreads",
       reportThread: () => "/api/AskMeThread/reportThread",
       unreportThread: () => "/api/AskMeThread/unreportThread",
@@ -70,6 +74,7 @@ export default {
     comment: {
       createComment: () => "/api/Comment/createComment",
       deleteComment: () => "/api/Comment/deleteComment",
+      editComment: () => "/api/Comment/editComment",
       getCommentsByThread: () => "/api/Comment/getCommentsByThread",
       getCommentsByAskMeThread: () => "/api/Comment/getCommentsByAskMeThread",
       getReportedComments: () => "/api/Comment/getReportedComments",
@@ -121,6 +126,13 @@ export default {
       removeGroupBookmark: () => "/api/User/removeGroupBookmark",
       verifyEmailUnused: () => "/api/User/verifyEmailUnused",
       generateUsernames: () => "/api/User/generateUsernames",
+    },
+    post: {
+      getApprovedPosts: () => "api/Post/getApprovedPosts",
+      createPost: () => "api/Post/createPost",
+      deletePost: () => "api/Post/deletePost",
+      approvePost: () => "api/Post/approvePost",
+      unapprovePost: () => "api/Post/unapprovePost",
     },
   },
 };

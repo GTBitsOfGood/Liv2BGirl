@@ -6,12 +6,10 @@ import CommentReport from "./CommentReport";
 
 const ReportsPage = ({ currentUser, AskMeThreads, GroupThreads, Comments }) => {
   const askMe = () => {
-    //console.log(AskMeThreads);
     return AskMeThreads.map((thread) => <AskMeReport Thread={thread} />);
   };
 
   const group = () => {
-    //console.log(GroupThreads);
     return GroupThreads.map((thread) => <GroupReport Thread={thread} />);
   };
 
