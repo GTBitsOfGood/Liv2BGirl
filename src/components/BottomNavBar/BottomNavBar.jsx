@@ -19,6 +19,7 @@ const BottomNavBar = () => {
                 : style.NavButton
             }
           />
+          <img src="./icons/home/home.png" />
           <p>Home</p>
         </div>
       </Link>
