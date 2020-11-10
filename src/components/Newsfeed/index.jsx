@@ -12,17 +12,19 @@ import { render } from "node-sass";
 
 
 const Newsfeed = ({posts}) => {
-    const {posts} = getApprovedPosts();
+    console.log(JSON.parse(posts.content));
     return(
   <div>
     <ol>
       {
         posts.map(post => (
-          <li key = {post._id} align = "start">
+          <li key = {posts._id} align = "start">
             <div>
-              <p> {post.createdBy}</p>
-              <p> {post.content} </p>
-              <p> {post.createdAt} </p>
+              <p> {posts.createdBy}</p>
+              <p> {posts.content != null && posts.content.length > 0
+            ? JSON.parse(posts.content)
+            : null} </p>
+              <p> {posts.createdAt} </p>
               </div>
               </li>
         ))

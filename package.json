@@ -47,6 +47,7 @@
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "fs": "0.0.1-security",
     "is-hotkey": "^0.1.6",
     "isomorphic-unfetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
