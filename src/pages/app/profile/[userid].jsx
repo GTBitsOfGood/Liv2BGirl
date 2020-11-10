@@ -31,7 +31,7 @@ ProfilePage.getInitialProps = async ({ query, req }) => {
   try {
     const user = await getUser(cookies, userId);
     let posts = ["user"];
-    let userPosts = await getApprovedPosts();
+    let userPosts = await getApprovedPosts(cookies);
     const userGroups = await Promise.all(
       user.groups.map((groupId) => getGroup(cookies, groupId)),
     );
