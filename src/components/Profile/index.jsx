@@ -65,7 +65,8 @@ const ProfilePage = ({ user, userGroups, userPosts }) => (
         <button type="button" className={styles.ProfileNext}>
           <Icon icon={arrowRightAlt2} />
         </button>
-        <div className={styles.ProfileCardDeck}>
+      </div>
+              <div className={styles.ProfileCardDeck}>
           {userPosts.map((post) => (
             <PostCard
               key={post._id}
@@ -73,10 +74,8 @@ const ProfilePage = ({ user, userGroups, userPosts }) => (
               createdAt={post.createdAt}
               createdBy={post.createdBy}
               content={post.content}
-              image={post.image}
             />
-          ))}
-        </div>
+        ))}
       </div>
 
       <div
@@ -138,7 +137,6 @@ ProfilePage.propTypes = {
       content: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,
       createdBy: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

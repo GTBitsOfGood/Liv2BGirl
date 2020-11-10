@@ -4,8 +4,18 @@ import Profile from "../../../components/Profile";
 import ErrorPage from "../../_error";
 import { getUser } from "../../../actions/User";
 import { getGroup } from "../../../actions/Group";
+import { getApprovedPosts } from "../../../actions/Post";
 
 const ProfilePage = ({ currentUser, error, user, userGroups, userPosts }) => {
+  let filteredUserPost = [];
+  if (userPosts != null) {
+    for (const post of userPosts) {
+      if (post.createdBy === user._id) {
+        filteredUserPost.push(post);
+      }
+    }
+  }
+  userPosts = filteredUserPost;
   if (error != null) {
     return (
       <ErrorPage currentUser={currentUser} statusCode={500} message={error} />
@@ -20,23 +30,11 @@ ProfilePage.getInitialProps = async ({ query, req }) => {
 
   try {
     const user = await getUser(cookies, userId);
+    let posts = ["user"];
+    let userPosts = await getApprovedPosts();
     const userGroups = await Promise.all(
-      user.groups.map((groupId) => getGroup(cookies, groupId))
+      user.groups.map((groupId) => getGroup(cookies, groupId)),
     );
-    let userPosts = {
-      _id: "0",
-      createdAt: "Now",
-      createdBy: "Ethan Xie",
-      content: "Example content",
-      image: "Text image",
-    };
-
-    userPosts = [userPosts];
-    console.log(userPosts);
-    //userPosts = [];
-    console.log(userPosts);
-    console.log(userGroups);
-
     return {
       user,
       userGroups,
@@ -86,12 +84,21 @@ ProfilePage.propTypes = {
       image: PropTypes.string.isRequired,
     })
   ),
+  userPosts: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      createdBy: PropTypes.string.isRequired,
+    })
+  )
 };
 
 ProfilePage.defaultProps = {
   error: null,
   user: null,
   userGroups: null,
+  userPosts: null,
 };
 
 ProfilePage.showTopNav = false;
