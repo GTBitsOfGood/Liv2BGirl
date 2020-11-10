@@ -8,7 +8,10 @@ import ThreadComment from "../../ThreadComment";
 import TopNavBar from "../../TopNavBar";
 import ActionModal from "../../ActionModal";
 import DetailedTextField from "../../DetailedTextField";
-import { deleteThread, unreportGroupThread } from "../../../actions/GroupThread";
+import {
+  deleteThread,
+  unreportGroupThread,
+} from "../../../actions/GroupThread";
 import { reportThread } from "../../../actions/GroupThread";
 
 import { createComment } from "../../../actions/Comment";
