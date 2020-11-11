@@ -97,14 +97,14 @@
 
     .AddBtn {
       margin: 0 auto;
-      background: $light-gray;
+      background: white;
       border-radius: 10px;
-      border: none;
+      border: 2px solid #FFA54D;
       width: 88px;
       height: 88px;
 
       svg {
-        color: $gray;
+        color: #FFA54D;
         width: 33px;
         height: 33px;
       }
