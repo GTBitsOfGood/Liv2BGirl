@@ -1,8 +1,5 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 const FilterHelper = require("bad-words");
 import mongoDB from "../index";
-import User from "../models/User";
 import Post from "../models/Post";
 
 export const getApprovedPosts = async () => {
@@ -21,7 +18,7 @@ export const approvePost = async (currentUser, { id }) => {
   const query = { _id: id };
   query.author = currentUser.id;
 
-  await Post.update({ _id: id }, { approved: true });
+  await Post.updateOne({ _id: id }, { approved: true });
 
   return Post.find(query)
     .exec()
@@ -44,7 +41,7 @@ export const unapprovePost = async (currentUser, { id }) => {
   const query = { _id: id };
   query.author = currentUser.id;
 
-  await Post.update({ _id: id }, { approved: false });
+  await Post.updateOne({ _id: id }, { approved: false });
 
   return Post.find(query)
     .exec()
@@ -64,7 +61,6 @@ export const createPost = async (currentUser, content) => {
     throw new Error("Content is null!");
   }
 
-  console.log(content);
   var approvedFlag = false;
 
   if (currentUser.role == "Admin") {
@@ -73,13 +69,6 @@ export const createPost = async (currentUser, content) => {
 
   await mongoDB();
 
-  // const post = new Post({
-  //   createdBy: currentUser._id,
-  //   createdAt: createdTime,
-  //   approved: approvedFlag,
-  //   content: postContent,
-  // });
-
   return Post.create({
     createdBy: currentUser._id,
     approved: approvedFlag,
@@ -87,8 +76,6 @@ export const createPost = async (currentUser, content) => {
   }).then(async (Post) => {
     return Post;
   });
-
-  // return post.validate().then(() => post.save());
 };
 
 export const deletePost = async (currentUser, { id }) => {

@@ -1,24 +1,37 @@
 import React from "react";
 import { createPost } from "../../../actions/Post";
+import styles from "./postPage.module.scss";
+import { useRouter } from "next/router";
+import urls from "../../../../utils/urls";
 
-const PostPage = (currentUser) => {
+const PostPage = () => {
   const [content, setContent] = React.useState("");
+  const router = useRouter();
 
   const getText = (event) => {
     setContent(event.target.value);
   };
 
-  const createPostHelper = (currentUser) => {
-    createPost(currentUser, content);
+  const createPostHelper = () => {
+    createPost(null, content);
+    router.push(urls.pages.app.index);
   };
 
   return (
     <>
-      <h1>Create a Post!</h1>
-      <body>
+      <body className={styles.PostPage}>
+        <h1>Create a Post!</h1>
         <h2>Insert the contents of what you would like to post here!</h2>
-        <input onChange={getText} placeholder="Enter text here..."></input>
-        <button onClick={() => createPostHelper(currentUser)}>Post</button>
+        <h5>
+          Note: You will be redirected to the home page once you click Post!
+        </h5>
+        <input className={styles.Input} onChange={getText}></input>
+        <button
+          className={styles.PostPage.button}
+          onClick={() => createPostHelper()}
+        >
+          Post
+        </button>
       </body>
     </>
   );
