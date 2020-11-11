@@ -19,6 +19,11 @@ const ViewGroup = ({ currentUser, groupData, threads }) => {
   const [adminTab, setAdminTab] = React.useState(false);
   const [isAdmin, setAdmin] = React.useState(false);
 
+  let iconUrlExists = true;
+  if (groupData.iconUrl == undefined) {
+    iconUrlExists = false;
+  }
+
   const groupAction = async () => {
     if (joined) {
       await unfollowGroup(null, groupData._id);
@@ -68,11 +73,14 @@ const ViewGroup = ({ currentUser, groupData, threads }) => {
       {groupData && (
         <>
           <div className={styles.GroupHeader}>
-            <img
-              className={styles.GroupAvatar}
-              src={groupData.iconUrl}
-              alt="Group Avatar"
-            />
+            {iconUrlExists && (
+              <img
+                className={styles.GroupAvatar}
+                src={groupData.iconUrl}
+                alt="No Image"
+              />
+            )}
+            {!iconUrlExists && <div className={styles.GroupAvatar}></div>}
             {isAdmin ? (
               <Icon
                 className={styles.AdminIcon}
