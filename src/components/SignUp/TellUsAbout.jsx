@@ -117,7 +117,12 @@ const TellUsAbout = ({ values, setValues, handleNext }) => {
         </form>
       </div>
       <div style={{ display: "flex" }}>
-        <button type="button" className="NextButton" onClick={goToNext}>
+        <button
+          type="button"
+          className="NextButton"
+          onClick={goToNext}
+          style={{ color: "white", backgroundColor: "orange" }}
+        >
           <h1>CREATE PROFILE</h1>
         </button>
       </div>

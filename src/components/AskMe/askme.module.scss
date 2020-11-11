@@ -17,8 +17,10 @@
       font-size: 13px;
       line-height: 19px;
       border: none;
-      background-color: $light-gray;
-      color: $text;
+      background-color: #FFA54D;
+      outline-color: #FFA54D;
+      outline-width: 1px;
+      color: white;
       font-weight: bold;
       height: 32px;
       min-width: 116px;
@@ -26,8 +28,10 @@
       margin-right: 8px;
 
       &:hover {
-        background-color: $text;
-        color: white;
+        background-color: white;
+        color: #FFA54D;
+        border: 2px solid #FFA54D
+        
       }
     }
 
@@ -80,7 +84,8 @@
       }
 
       .SelectedNav {
-        border: 2px solid $text;
+        border: 2px solid #FFA54D;
+        color: #FFA54D;
         box-sizing: border-box;
         padding: 8px;
         border-radius: 43px;
@@ -261,6 +266,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 8px;
+  }
+
+  .PostButton {
+    border-radius: 137px;
+    font-size: 13px;
+    line-height: 19px;
+    border: none;
+    background-color: #FFA54D;
+    outline-color: #FFA54D;
+    outline-width: 1px;
+    color: white;
+    font-weight: bold;
+    height: 24px;
+    min-width: 64px;
+    max-width: 64px;
     margin-right: 8px;
   }
 

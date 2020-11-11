@@ -68,7 +68,12 @@ const SignInComponent = () => {
           </div>
         </form>
       </div>
-      <button type="submit" className="NextButton" onClick={handleLogin}>
+      <button
+        type="submit"
+        className="NextButton"
+        onClick={handleLogin}
+        style={{ backgroundColor: "orange", color: "white" }}
+      >
         <h1>SIGN IN</h1>
       </button>
     </div>

@@ -93,7 +93,12 @@ const GenUsername = ({ values, setValues, handleNext }) => {
             </select>
           </div>
         </form>
-        <button className={styles.GenBtn} type="button" onClick={makeUsernames}>
+        <button
+          className={styles.GenBtn}
+          type="button"
+          onClick={makeUsernames}
+          style={{ backgroundColor: "orange", color: "white" }}
+        >
           Generate!
         </button>
         <h2 className={styles.GenPick}>Pick your username:</h2>
@@ -119,7 +124,12 @@ const GenUsername = ({ values, setValues, handleNext }) => {
         </div>
       </div>
       <div style={{ display: "flex" }}>
-        <button type="button" className="NextButton" onClick={goToNext}>
+        <button
+          type="button"
+          className="NextButton"
+          onClick={goToNext}
+          styles={{ color: "white", backgroundColor: "orange" }}
+        >
           <h1>NEXT STEP</h1>
         </button>
       </div>

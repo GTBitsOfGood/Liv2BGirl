@@ -54,7 +54,18 @@ const NewQuestion = () => {
         backUrl={urls.pages.app.askMe.index}
         title="Ask Question"
         rightNode={
-          <button type="button" className="Button" onClick={postQuestion}>
+          <button
+            type="button"
+            className="Button"
+            onClick={postQuestion}
+            style={{
+              color: "white",
+              borderRadius: 120,
+              backgroundColor: "orange",
+              padding: 9,
+              fontWeight: "bold",
+            }}
+          >
             Post
           </button>
         }

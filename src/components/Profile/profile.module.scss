@@ -74,18 +74,18 @@
   }
 
   .InterestPill {
-    border: 2px solid $text;
+    border: 2px solid #FFA54D;
     border-radius: 43px;
     padding: 6px 8px;
     margin-right: 10px;
-
+    color: #FFA54D;
     font-weight: normal;
     font-size: 14px;
     line-height: 19px;
     cursor: pointer;
 
     &:hover {
-      background-color: $text;
+      background-color: #FFA54D;
       color: white;
     }
   }

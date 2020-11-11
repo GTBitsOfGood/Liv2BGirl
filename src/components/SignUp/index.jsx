@@ -105,7 +105,12 @@ const SignUpInfo = ({ values, setValues, handleNext }) => {
         </form>
       </div>
       <div style={{ display: "flex" }}>
-        <button type="button" className="NextButton" onClick={goToNext}>
+        <button
+          type="button"
+          className="NextButton"
+          onClick={goToNext}
+          style={{ backgroundColor: "orange", color: "white" }}
+        >
           <h1>SIGN UP</h1>
         </button>
       </div>

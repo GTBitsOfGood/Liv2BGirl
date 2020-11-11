@@ -35,7 +35,18 @@ const CreateThreadComponent = () => {
         backUrl={urls.pages.app.groups.group.view()}
         backUrlAs={urls.pages.app.groups.group.view(groupid)}
         rightNode={
-          <button type="button" className="Button" onClick={handleCreateThread}>
+          <button
+            type="button"
+            className="Button"
+            onClick={handleCreateThread}
+            style={{
+              color: "white",
+              borderRadius: 120,
+              backgroundColor: "orange",
+              padding: 9,
+              fontWeight: "bold",
+            }}
+          >
             Post
           </button>
         }
