@@ -18,7 +18,12 @@ const Posts = ({ error, currentUser, p }) => {
     );
   }
 
-  return <PostsPage currentUser={currentUser} Posts={p} />;
+  return (
+    <PostsPage
+      currentUser={currentUser}
+      Posts={p}
+    />
+  );
 };
 
 Posts.getInitialProps = async ({ req, res }) => {

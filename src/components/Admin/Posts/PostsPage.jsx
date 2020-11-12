@@ -12,10 +12,11 @@ const PostsPage = ({ currentUser, Posts }) => {
     <div className={classes.root}>
       <h1>Posts</h1>
       <p>
-        These posts have been created by users of the platform. Approve or
-        reject them.
+        These posts have been created by users of the platform. Approve or reject them.  
       </p>
-      <div>{post()}</div>
+      <div>
+        {post()}
+      </div>
     </div>
   );
 };

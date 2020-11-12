@@ -8,31 +8,31 @@ import Comment from "../models/Comment";
 import { useCode } from "./InvitationCode";
 
 export const getApprovedPosts = async () => {
-  await mongoDB();
-  var approvedPosts = await Post.find({ approved: true });
-  return approvedPosts;
+    await mongoDB();
+    var approvedPosts = await Post.find({approved: true}); 
+    return approvedPosts; 
 };
 
 export const getPendingPosts = async (currentUser) => {
-  if (currentUser == null) {
-    throw new Error("Are you a ghost?");
-  } else if (currentUser.role != "Admin") {
-    throw new Error("You must be an admin to approve posts!");
-  }
-  await mongoDB();
-  var pendingPosts = await Post.find({ approved: false });
-  return pendingPosts;
-};
+    if (currentUser == null) {
+        throw new Error("Are you a ghost?");
+    } else if (currentUser.role != "Admin") {
+        throw new Error("You must be an admin to approve posts!");
+    }
+    await mongoDB();
+    var pendingPosts = await Post.find({approved: false});
+    return pendingPosts
+} 
 
 export const approvePost = async (currentUser, id) => {
-  if (currentUser == null || id == null) {
-    throw new Error("All parameters must be provided!");
-  } else if (currentUser.role != "Admin") {
-    throw new Error("You must be an admin to approve posts!");
-  }
-  await mongoDB();
+    if (currentUser == null || id == null) {
+        throw new Error("All parameters must be provided!");
+    } else if (currentUser.role != "Admin") {
+        throw new Error("You must be an admin to approve posts!");
+    }
+    await mongoDB();
 
-  return Post.findOneAndUpdate({ _id: id }, { approved: true })
+    return Post.findOneAndUpdate({_id: id}, {approved: true})
     .exec()
     .then(async (reportedThread) => {
       if (reportedThread == null) {
@@ -41,29 +41,33 @@ export const approvePost = async (currentUser, id) => {
         );
       }
     });
-};
+    
+}
 
-export const createPost = async (currentUser, { createdTime, postContent }) => {
+export const createPost = async (currentUser, {createdTime, postContent}
+) => {
   if (currentUser == null) {
     throw new Error("You must be logged in to create a group!");
   } else if (content == null) {
     throw new Error("Content is null!");
   }
 
-  var approvedFlag = false;
+  var approvedFlag = false; 
 
-  if (currentUser.role == "Admin") approved = true;
+  if (currentUser.role == 'Admin') approved = true; 
 
   await mongoDB();
 
   const post = new Post({
     createdBy: currentUser._id,
     createdAt: createdTime,
-    approved: approvedFlag,
+    approved: approvedFlag,  
     content: postContent,
-  });
+  }); 
 
-  return post.validate().then(() => post.save());
+  return post
+    .validate()
+    .then(() => post.save()); 
 };
 
 export const deletePost = async (currentUser, { id }) => {
@@ -86,5 +90,6 @@ export const deletePost = async (currentUser, { id }) => {
     }
 
     return deletedPost;
+
   });
 };
