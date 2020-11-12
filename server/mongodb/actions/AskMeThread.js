@@ -56,7 +56,7 @@ export const unreportThread = async (currentUser, { id }) => {
 
   await mongoDB();
 
-  return AskMeThread.findOneAndUpdate({_id: id}, {reported: false})
+  return AskMeThread.findOneAndUpdate({ _id: id }, { reported: false })
     .exec()
     .then(async (reportedThread) => {
       if (reportedThread == null) {

@@ -101,9 +101,9 @@ export default {
       getReportedGroupThreads: () => "/api/GroupThread/getReportedGroupThreads",
     },
     post: {
-      getApprovedPosts: () => "/api/Post/getApprovedPosts", 
-      getPendingPosts: () => "/api/Post/getPendingPosts", 
-      createPost: () => "/api/Post/createPost", 
+      getApprovedPosts: () => "/api/Post/getApprovedPosts",
+      getPendingPosts: () => "/api/Post/getPendingPosts",
+      createPost: () => "/api/Post/createPost",
       deletePost: () => "/api/Post/deletePost",
     },
     user: {
