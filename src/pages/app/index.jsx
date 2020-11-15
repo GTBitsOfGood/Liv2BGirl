@@ -5,7 +5,6 @@ import Newsfeed from "../../components/Newsfeed";
 import urls from "../../../utils/urls";
 import { getApprovedPosts } from "../../actions/Post";
 
-
 const AppHome = ({ currentUser, posts }) => (
   <div>
     <h2>Welcome!</h2>
@@ -26,7 +25,7 @@ AppHome.getInitialProps = async ({ req }) => {
     const posts = await getApprovedPosts();
 
     return {
-      posts
+      posts,
     };
   } catch (error) {
     return {
