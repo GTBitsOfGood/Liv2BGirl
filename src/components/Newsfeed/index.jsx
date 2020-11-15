@@ -21,11 +21,11 @@ const Newsfeed = ({ posts }) => {
               <p> {post.createdBy}</p>
               <p>
                 {" "}
-                {posts.content != null && posts.content.length > 0
-                  ? JSON.parse(posts.content)
+                {post.content != null && post.content.length > 0
+                  ? JSON.parse(post.content)
                   : null}{" "}
               </p>
-              <p> {posts.createdAt} </p>
+              <p> {post.createdAt} </p>
             </div>
           </li>
         ))}
@@ -34,8 +34,8 @@ const Newsfeed = ({ posts }) => {
   );
 };
 
-Newsfeed.PropTypes = {
-  post: PropTypes.arrayOf(
+Newsfeed.propTypes = {
+  posts: PropTypes.arrayOf(
     PropTypes.shape({
       content: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,

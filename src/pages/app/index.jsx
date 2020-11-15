@@ -22,7 +22,8 @@ AppHome.getInitialProps = async ({ req }) => {
   const cookies = req ? req.headers.cookie : null;
 
   try {
-    const posts = await getApprovedPosts();
+    console.log(await getApprovedPosts())
+    const posts = await Promise.all(getApprovedPosts());
 
     return {
       posts,
@@ -39,12 +40,12 @@ AppHome.propTypes = {
     _id: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
   }).isRequired,
-  post: PropTypes.arrayOf(
+  posts: PropTypes.arrayOf(
     PropTypes.shape({
       content: PropTypes.string.isRequired,
       createdAt: PropTypes.string.isRequired,
       createdBy: PropTypes.string.isRequired,
-    })
+    }).isRequired,
   ).isRequired,
 };
 
