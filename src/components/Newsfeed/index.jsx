@@ -11,14 +11,14 @@ import { timeSince } from "../ThreadComment/utils";
 // import { render } from "node-sass";
 
 const Newsfeed = ({ posts }) => {
-  console.log(JSON.parse(posts.content));
+  // console.log(JSON.parse(posts.content));
   return (
     <div>
       <ol>
         {posts.map((post) => (
-          <li key={posts._id} align="start">
+          <li key={post._id} align="start">
             <div>
-              <p> {posts.createdBy}</p>
+              <p> {post.createdBy}</p>
               <p>
                 {" "}
                 {posts.content != null && posts.content.length > 0
@@ -34,7 +34,7 @@ const Newsfeed = ({ posts }) => {
   );
 };
 
-index.PropTypes = {
+Newsfeed.PropTypes = {
   post: PropTypes.arrayOf(
     PropTypes.shape({
       content: PropTypes.string.isRequired,
