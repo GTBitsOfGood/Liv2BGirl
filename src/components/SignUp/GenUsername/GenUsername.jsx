@@ -128,7 +128,7 @@ const GenUsername = ({ values, setValues, handleNext }) => {
           type="button"
           className="NextButton"
           onClick={goToNext}
-          styles={{ color: "white", backgroundColor: "orange" }}
+          style={{ color: "white", backgroundColor: "orange"}}
         >
           <h1>NEXT STEP</h1>
         </button>
