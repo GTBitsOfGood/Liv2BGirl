@@ -50,6 +50,7 @@ export default {
       },
       post: {
         index: "/app/post/createPost",
+        success: "app/post/postSuccessful",
       },
     },
   },
@@ -120,11 +121,11 @@ export default {
       generateUsernames: () => "/api/User/generateUsernames",
     },
     post: {
-      getApprovedPosts: () => "api/Post/getApprovedPosts",
-      createPost: () => "api/Post/createPost",
-      deletePost: () => "api/Post/deletePost",
-      approvePost: () => "api/Post/approvePost",
-      unapprovePost: () => "api/Post/unapprovePost",
+      getApprovedPosts: () => "/api/Post/getApprovedPosts",
+      createPost: () => "/api/Post/createPost",
+      deletePost: () => "/api/Post/deletePost",
+      approvePost: () => "/api/Post/approvePost",
+      unapprovePost: () => "/api/Post/unapprovePost",
     },
   },
 };
