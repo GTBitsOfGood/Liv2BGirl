@@ -30,7 +30,8 @@ Posts.getInitialProps = async ({ req, res }) => {
   try {
     const currentUser = await getCurrentUser(cookies).catch(() => null);
     //console.log(currentUser);
-    const p = await getPendingPosts(currentUser);
+    console.log("may the force be with you.")
+    const p = getPendingPosts(currentUser);
     console.log(p);
 
     return {
