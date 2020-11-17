@@ -1,12 +1,12 @@
 import { getPendingPosts } from "../../../../server/mongodb/actions/Post";
 import { verifyTokenSecure } from "../../../../server/mongodb/actions/User";
 
-// @route   GET api/post/getPendingPosts
+// @route   GET api/post/getPendingdPosts
 // @desc    Get pending posts
 // @access  Public
 const handler = (req, res) =>
   verifyTokenSecure(req, res)
-    .then((currentUser) => getPendingPosts(currentUser))
+    .then((currUser) => getPendingPosts(currUser))
     .then((payload) =>
       res.status(200).json({
         success: true,

@@ -14,15 +14,15 @@ export const getApprovedPosts = async () => {
 };
 
 export const getPendingPosts = async (currentUser) => {
-    if (currentUser == null) {
-        throw new Error("Are you a ghost?");
-    } else if (currentUser.role != "Admin") {
-        throw new Error("You must be an admin to approve posts!");
-    }
-    await mongoDB();
-    var pendingPosts = await Post.find({approved: false});
-    return pendingPosts
-} 
+  if (currentUser == null) {
+      throw new Error("Are you a ghost?");
+  } else if (currentUser.role != "Admin") {
+      throw new Error("You must be an admin to approve posts!");
+  }
+  await mongoDB();
+  var pendingPosts = await Post.find({approved: false});
+  return pendingPosts;
+};
 
 export const approvePost = async (currentUser, {id} ) => {
     if (currentUser == null || id == null) {

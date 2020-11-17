@@ -104,7 +104,7 @@ export default {
     },
     post: {
       getApprovedPosts: () => "/api/Post/getApprovedPosts", 
-      getPendingPosts: () => "/api/Post/getPendingPosts", 
+      getPendingPosts: () => "/api/Post/getPendingPosts",
       approvePost: () => "/api/Post/approvePost",
       createPost: () => "/api/Post/createPost", 
       deletePost: () => "/api/Post/deletePost",

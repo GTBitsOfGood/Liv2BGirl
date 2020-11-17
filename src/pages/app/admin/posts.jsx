@@ -28,8 +28,10 @@ const Posts = ({ error, currentUser, p }) => {
 Posts.getInitialProps = async ({ req, res }) => {
   const cookies = req ? req.headers.cookie : null;
   try {
-    const p = await getPendingPosts(cookies);
     const currentUser = await getCurrentUser(cookies).catch(() => null);
+    //console.log(currentUser);
+    const p = await getPendingPosts(currentUser);
+    console.log(p);
 
     return {
       p,

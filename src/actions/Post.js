@@ -16,20 +16,20 @@ export const getApprovedPosts = () =>
       return json.payload;
     });
 
-  export const getPendingPosts = () =>
-    authedPostRequest(
-      urls.baseUrl + urls.api.post.getPendingPosts(),
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        if (json == null) {
-          throw new Error("Could not connect to API!");
-        } else if (!json.success) {
-          throw new Error(json.message);
-        }
+export const getPendingPosts = () =>
+  authedPostRequest(
+    urls.baseUrl + urls.api.post.getPendingPosts(),
+  )
+    .then((response) => response.json())
+    .then((json) => {
+      if (json == null) {
+        throw new Error("Could not connect to API!");
+      } else if (!json.success) {
+        throw new Error(json.message);
+      }
   
-        return json.payload;
-      });
+      return json.payload;
+    });
 
 export const createPost = (cookies, {createdTime, postContent}) =>
   authedPostRequest(
