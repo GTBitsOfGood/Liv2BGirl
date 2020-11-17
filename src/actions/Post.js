@@ -16,13 +16,10 @@ export const getApprovedPosts = () =>
       return json.payload;
     });
 
-export const getPendingPosts = (cookies, currentUser) =>
+export const getPendingPosts = (currentUser) =>
   authedPostRequest(
     urls.baseUrl + urls.api.post.getPendingPosts(),
-    {
-      currentUser
-    },
-    cookies,
+    currentUser,
   )
     .then((response) => response.json())
     .then((json) => {

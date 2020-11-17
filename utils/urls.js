@@ -127,12 +127,5 @@ export default {
       verifyEmailUnused: () => "/api/User/verifyEmailUnused",
       generateUsernames: () => "/api/User/generateUsernames",
     },
-    post: {
-      getApprovedPosts: () => "api/Post/getApprovedPosts",
-      createPost: () => "api/Post/createPost",
-      deletePost: () => "api/Post/deletePost",
-      approvePost: () => "api/Post/approvePost",
-      unapprovePost: () => "api/Post/unapprovePost",
-    },
   },
 };

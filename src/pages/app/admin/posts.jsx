@@ -4,6 +4,7 @@ import { getCurrentUser } from "../../../actions/User";
 import PostsPage from "../../../components/Admin/Posts";
 import PropTypes from "prop-types";
 import { getPendingPosts } from "../../../actions/Post";
+import { getApprovedPosts } from "../../../actions/Post";
 import urls from "../../../../utils/urls";
 import Router from "next/router";
 
@@ -31,7 +32,7 @@ Posts.getInitialProps = async ({ req, res }) => {
     const currentUser = await getCurrentUser(cookies).catch(() => null);
     //console.log(currentUser);
     console.log("may the force be with you.")
-    const p = getPendingPosts(currentUser);
+    const p = await getPendingPosts(currentUser);
     console.log(p);
 
     return {
