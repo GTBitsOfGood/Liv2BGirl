@@ -7,6 +7,8 @@ import style from "./BottomNavBar.module.scss";
 import home from "../../../public/static/img/home.png";
 import groups from "../../../public/static/img/groups.png";
 import bell from "../../../public/static/img/bell.png";
+import post from "../../../public/static/img/post.png";
+import askme from "../../../public/static/img/askme.png";
 
 const BottomNavBar = () => {
   const router = useRouter();
@@ -22,8 +24,8 @@ const BottomNavBar = () => {
               router.asPath === urls.pages.app.index
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
-            }
-          />
+            }>
+            </div>
         </div>
       </Link>
 
@@ -40,13 +42,13 @@ const BottomNavBar = () => {
           />
         </div>
       </Link>
-      <Link href={urls.pages.app.askMe.index}>
+      <Link href={urls.pages.app.post.index}>
         <div className={style.NavItem}>
-          <p>Post</p>
+        <img src={post} alt="post" />
           <br></br>
           <div
             className={
-              router.asPath.includes(urls.pages.app.askMe.index)
+              router.asPath.includes(urls.pages.app.post.index)
                 ? `${style.NavButton} ${style.ActiveItem}`
                 : style.NavButton
             }
@@ -55,7 +57,7 @@ const BottomNavBar = () => {
       </Link>
       <Link href={urls.pages.app.askMe.index}>
         <div className={style.NavItem}>
-          <p>Ask Me</p>
+          <img src={askme} alt="askme" />
           <br></br>
           <div
             className={
