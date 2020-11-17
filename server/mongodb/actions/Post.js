@@ -1,8 +1,5 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 const FilterHelper = require("bad-words");
 import mongoDB from "../index";
-import User from "../models/User";
 import Post from "../models/Post";
 import Comment from "../models/Comment";
 import { useCode } from "./InvitationCode";
@@ -32,6 +29,34 @@ export const approvePost = async (currentUser, {id} ) => {
     }
     await mongoDB();
 
+  const query = { _id: id };
+  query.author = currentUser.id;
+
+  await Post.updateOne({ _id: id }, { approved: true });
+
+  return Post.find(query)
+    .exec()
+    .then(async (approvedThread) => {
+      if (approvedThread == null) {
+        throw new Error(
+          "No post matches the provided id or user does not have permission!"
+        );
+      }
+    });
+};
+
+export const unapprovePost = async (currentUser, { id }) => {
+  if (id == null) {
+    throw new Error("All parameters must be provided!");
+  }
+
+  await mongoDB();
+
+  const query = { _id: id };
+  query.author = currentUser.id;
+
+  await Post.updateOne({ _id: id }, { approved: false });
+
     return Post.findOneAndUpdate({_id: id}, {approved: true})
     .exec()
     .then(async (approvedPost) => {
@@ -58,16 +83,13 @@ export const createPost = async (currentUser, {createdTime, postContent}
 
   await mongoDB();
 
-  const post = new Post({
+  return Post.create({
     createdBy: currentUser._id,
-    createdAt: createdTime,
-    approved: approvedFlag,  
-    content: postContent,
-  }); 
-
-  return post
-    .validate()
-    .then(() => post.save()); 
+    approved: approvedFlag,
+    content: content.content,
+  }).then(async (Post) => {
+    return Post;
+  });
 };
 
 export const deletePost = async (currentUser, { id }) => {

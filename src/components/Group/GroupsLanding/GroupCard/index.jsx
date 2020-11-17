@@ -11,7 +11,7 @@ const Group = ({ _id, name, people, description, iconUrl }) => (
     prefetch={false}
   >
     <div className={styles.GroupCard}>
-      <img className={styles.Icon} src={iconUrl}/>
+      <img className={styles.Icon} src={iconUrl} />
       <div className={styles.Info}>
         <h6 className={styles.Name}>{name}</h6>
         <p className={styles.MemberCount}>

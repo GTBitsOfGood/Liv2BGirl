@@ -102,7 +102,20 @@
     }
   }
 }
+.ProfileCardDeck {
 
+}
+.ProfileCard {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 30px;
+  background: transparent;
+  text-align: left;
+  border: 2px solid transparent;
+  cursor: pointer;
+  color: $text;
+}
 .GroupCard {
   display: flex;
   width: 100%;

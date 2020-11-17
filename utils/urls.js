@@ -51,6 +51,7 @@ export default {
       },
       post: {
         index: "/app/post/createPost",
+        success: "app/post/postSuccessful",
       },
     },
   },

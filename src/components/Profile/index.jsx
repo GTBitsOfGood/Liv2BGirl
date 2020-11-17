@@ -5,10 +5,11 @@ import { Icon } from "@iconify/react";
 import arrowRightAlt2 from "@iconify/icons-dashicons/arrow-right-alt2";
 import { avatarImg, colorArr } from "../../../utils/avatars";
 import GroupCard from "./GroupCard";
+import PostCard from "./PostCard";
 import TopNavBar from "../TopNavBar";
 import styles from "./profile.module.scss";
 
-const ProfilePage = ({ user, userGroups }) => (
+const ProfilePage = ({ user, userGroups, userPosts }) => (
   <>
     <TopNavBar backAction={Router.back} />
     <div className={styles.ProfileHeader}>
@@ -60,6 +61,31 @@ const ProfilePage = ({ user, userGroups }) => (
           marginBottom: "25px",
         }}
       >
+        <h4 className={styles.ProfileHeading}>Posts</h4>
+        <button type="button" className={styles.ProfileNext}>
+          <Icon icon={arrowRightAlt2} />
+        </button>
+      </div>
+              <div className={styles.ProfileCardDeck}>
+          {userPosts.map((post) => (
+            <PostCard
+              key={post._id}
+              id={post._id}
+              createdAt={post.createdAt}
+              createdBy={post.createdBy}
+              content={post.content}
+            />
+        ))}
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginTop: "40px",
+          marginBottom: "25px",
+        }}
+      >
         <h4 className={styles.ProfileHeading}>Joined Groups</h4>
         <button type="button" className={styles.ProfileNext}>
           <Icon icon={arrowRightAlt2} />
@@ -73,7 +99,7 @@ const ProfilePage = ({ user, userGroups }) => (
             id={group._id}
             title={group.name}
             description={group.description}
-            image={group.image ?? "https://picsum.photos/100/100"}
+            image={group.iconUrl}
           />
         ))}
       </div>
@@ -103,6 +129,14 @@ ProfilePage.propTypes = {
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  userPosts: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      createdBy: PropTypes.string.isRequired,
     })
   ).isRequired,
 };
