@@ -64,6 +64,6 @@ async function handleApprove(provDoc) {
   }
 }
 
-Post.statics.handleApprove = handleApprove;
+PostSchema.statics.handleApprove = handleApprove;
 
 export default mongoose.models.Post || mongoose.model("Post", PostSchema);

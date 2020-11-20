@@ -8,12 +8,11 @@ import { getApprovedPosts } from "../../actions/Post";
 const AppHome = ({ currentUser, posts }) => (
   <div>
     <h2>Welcome!</h2>
-    {currentUser.role === "Admin" && (
+     { (
       <Link href={urls.pages.app.admin.index}>
         <a>Admin Controls</a>
       </Link>
     )}
-
     <Newsfeed posts={posts} />
   </div>
 );
@@ -22,9 +21,7 @@ AppHome.getInitialProps = async ({ req }) => {
   const cookies = req ? req.headers.cookie : null;
 
   try {
-    console.log(await getApprovedPosts());
-    const posts = await Promise.all(getApprovedPosts());
-
+    const posts = await getApprovedPosts();
     return {
       posts,
     };
