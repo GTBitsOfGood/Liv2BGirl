@@ -53,16 +53,17 @@
     font-size: 13px;
     line-height: 19px;
     border: none;
-    background-color: $light-gray;
-    color: $text;
+    background-color: #FFA54D;
+    color: white;
     cursor: pointer;
     font-weight: bold;
     height: 24px;
     width: 64px;
 
     &:hover {
-      background-color: $text;
-      color: white;
+      background-color: transparent;
+      color: #FFA54D;
+      border: 2px solid #FFA54D
     }
   }
 }

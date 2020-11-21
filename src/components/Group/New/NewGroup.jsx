@@ -96,7 +96,7 @@ const NewGroup = ({ categories, handleNext }) => {
         </div>
       </div>
       <div style={{ display: "flex" }}>
-        <button className="NextButton" type="submit">
+        <button className="NextButton" type="submit" style={{color: "white", backgroundColor: "orange"}}>
           <h1>CREATE</h1>
         </button>
       </div>

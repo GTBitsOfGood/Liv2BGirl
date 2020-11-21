@@ -12,7 +12,11 @@ const RegistrationCompleted = () => (
     </div>
     <Link href={urls.pages.app.index} replace>
       <div style={{ display: "flex" }}>
-        <button type="button" className="NextButton">
+        <button
+          type="button"
+          className="NextButton"
+          style={{ color: "white", backgroundColor: "orange" }}
+        >
           <h1>GET STARTED</h1>
         </button>
       </div>

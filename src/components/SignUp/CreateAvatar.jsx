@@ -101,7 +101,12 @@ const CreateAvatar = ({ values, setValues, handleNext }) => {
         </div>
       </div>
       <div style={{ display: "flex" }}>
-        <button type="button" className="NextButton" onClick={handleNext}>
+        <button
+          type="button"
+          className="NextButton"
+          onClick={handleNext}
+          style={{ backgroundColor: "orange", color: "white" }}
+        >
           <h1>NEXT STEP</h1>
         </button>
       </div>

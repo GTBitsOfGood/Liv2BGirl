@@ -31,6 +31,27 @@
     .Toggle {
       margin-left: auto;
     }
+
+    .AskBtn {
+      border-radius: 137px;
+      font-size: 13px;
+      line-height: 19px;
+      border: none;
+      background-color: #FFA54D;
+      outline-color: #FFA54D;
+      outline-width: 1px;
+      color: white;
+      font-weight: bold;
+      height: 32px;
+      min-width: 116px;
+      max-width: 116px;
+      margin-right: 8px;
+
+      &:hover {
+        background-color: $text;
+        color: white;
+      }
+    }
   }
 
   .Question {

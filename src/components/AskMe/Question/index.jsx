@@ -244,7 +244,7 @@ const Question = ({ currentUser, thread, comments }) => {
         </div>
         <button
           type="button"
-          className="PostButton"
+          className={styles.PostButton}
           onClick={handlePostComment}
           style={{ marginLeft: "auto", marginTop: "12px" }}
         >

@@ -44,6 +44,7 @@ const TermsCond = ({ handleNext }) => {
           type="button"
           onClick={goToNext}
           onKeyPress={goToNext}
+          style={{color: "white", backgroundColor: "orange"}}
         >
           <h1>NEXT STEP</h1>
         </button>
