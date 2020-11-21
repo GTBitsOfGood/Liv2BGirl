@@ -13,19 +13,19 @@ import { timeSince } from "../ThreadComment/utils";
 const Newsfeed = ({ posts }) => {
   return (
     <div>
-  { <ol>
-    {posts.map((post) => (
-      <li key={post._id} align="start">
-        <div>
-          <p> {post.createdBy}</p>
-          <p>
-            {post.content}
-          </p>
-          <p> {post.createdAt} </p>
-        </div>
-      </li>
-    ))}
-            </ol> }
+      {
+        <ol>
+          {posts.map((post) => (
+            <li key={post._id} align="start">
+              <div>
+                <p> {post.createdBy.username}</p>
+                <p>{post.content}</p>
+                <p> {post.createdAt} </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      }
     </div>
   );
 };
