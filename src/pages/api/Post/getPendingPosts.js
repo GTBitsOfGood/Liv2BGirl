@@ -1,12 +1,12 @@
-import { deletePost } from "../../../../server/mongodb/actions/Post";
+import { getPendingPosts } from "../../../../server/mongodb/actions/Post";
 import { verifyTokenSecure } from "../../../../server/mongodb/actions/User";
 
-// @route   POST api/post/deletePost
-// @desc    Delete Post
+// @route   GET api/post/getPendingdPosts
+// @desc    Get pending posts
 // @access  Public
-const handler = async (req, res) =>
+const handler = (req, res) =>
   verifyTokenSecure(req, res)
-    .then((currUser) => deletePost(currUser, req.body))
+    .then((currUser) => getPendingPosts(currUser))
     .then((payload) =>
       res.status(200).json({
         success: true,

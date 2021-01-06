@@ -1,0 +1,160 @@
+@import "../../../public/static/styles/colors";
+
+
+
+.Details {
+  margin-bottom: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+
+  .Author {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .Avatar {
+      min-width: 32px;
+      min-height: 32px;
+      width: 32px;
+      height: 32px;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 8px;
+
+      .AvatarImg {
+        width: calc(100% / 1.41);
+        height: calc(100% / 1.41);
+        object-fit: contain;
+      }
+    }
+
+    .Name {
+      font-weight: normal;
+    }
+  }
+
+  .Date {
+    font-weight: normal;
+  }
+}
+
+.root {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+  
+    @media (min-width: 1056px) {
+      padding: 0;
+    }
+  
+    .header {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+  
+      h1, p {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+  
+      h1 {
+        font-size: 24px;
+      }
+  
+      p {
+        font-size: 14px;
+      }
+  
+      .createButton {
+        align-self: flex-end;
+        padding: 16px 24px;
+        border: 1px solid black;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+  
+    .result {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 64px;
+  
+      .inputSection {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  
+        @media (min-width: 1056px) {
+          flex-direction: row;
+        }
+  
+        input {
+          flex: 1 1;
+          width: 100%;
+          height: 100%;
+          margin: 0 16px;
+          border: 1px solid black;
+          padding: 8px;
+          box-sizing: border-box;
+          font-size: 16px;
+        }
+  
+        button {
+          padding: 16px 24px;
+          border: 1px solid black;
+          border-radius: 4px;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .Post {
+    max-height: 175px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $background;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    color: $text;
+  
+    .ReportHeader {
+      display: flex;
+  
+      .Comments,
+      .CommentIcon {
+        margin-top: 4px;
+        color: $gray;
+        font-weight: normal;
+      }
+  
+      .CommentIcon {
+        margin-left: auto;
+        margin-right: 4px;
+      }
+  
+      .Post {
+        background-color: #BBBBBB;
+        margin-right: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  

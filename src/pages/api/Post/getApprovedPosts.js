@@ -1,12 +1,12 @@
 import { getApprovedPosts } from "../../../../server/mongodb/actions/Post";
-import { verifyToken } from "../../../../server/mongodb/actions/User";
+import { verifyTokenSecure } from "../../../../server/mongodb/actions/User";
 
-// @route   POST api/groupThread/getGroupThreads
-// @desc    Get a group's groupThread
+// @route   GET api/post/getApprovedPosts
+// @desc    Get approved posts
 // @access  Public
 const handler = (req, res) =>
-  verifyToken(req, res)
-    .then(() => getApprovedPosts())
+  verifyTokenSecure(req, res)
+    .then(getApprovedPosts())
     .then((payload) =>
       res.status(200).json({
         success: true,

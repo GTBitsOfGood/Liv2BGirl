@@ -44,6 +44,14 @@ const ThreadComment = ({ comment, setReply, currentUser }) => {
     });
   }
 
+  if (comment.author._id != currentUser._id && currentUser.role == "User") {
+    actionButtons.push({
+      title: "Report Comment",
+      action: () =>
+        reportComment(null, comment._id).then(() => Router.reload()),
+    });
+  }
+
   return (
     <div className={styles.Comment}>
       {actionButtons.length > 0 && (

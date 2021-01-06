@@ -18,6 +18,7 @@ export default {
         index: "/app/admin",
         invite: "/app/admin/invite",
         reports: "/app/admin/reports",
+        posts: "/app/admin/posts",
       },
       askMe: {
         index: "/app/ask-me",
@@ -102,6 +103,13 @@ export default {
       getGroupThreads: () => "/api/GroupThread/getGroupThreads",
       getReportedGroupThreads: () => "/api/GroupThread/getReportedGroupThreads",
     },
+    post: {
+      getApprovedPosts: () => "/api/Post/getApprovedPosts", 
+      getPendingPosts: () => "/api/Post/getPendingPosts",
+      approvePost: () => "/api/Post/approvePost",
+      createPost: () => "/api/Post/createPost", 
+      deletePost: () => "/api/Post/deletePost",
+    },
     user: {
       login: () => "/api/User/login",
       signUp: () => "/api/User/signUp",
@@ -119,13 +127,6 @@ export default {
       removeGroupBookmark: () => "/api/User/removeGroupBookmark",
       verifyEmailUnused: () => "/api/User/verifyEmailUnused",
       generateUsernames: () => "/api/User/generateUsernames",
-    },
-    post: {
-      getApprovedPosts: () => "/api/Post/getApprovedPosts",
-      createPost: () => "/api/Post/createPost",
-      deletePost: () => "/api/Post/deletePost",
-      approvePost: () => "/api/Post/approvePost",
-      unapprovePost: () => "/api/Post/unapprovePost",
     },
   },
 };
