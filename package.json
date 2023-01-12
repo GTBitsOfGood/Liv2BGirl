@@ -65,7 +65,7 @@
     "slate-react": "^0.58.3"
   },
   "devDependencies": {
-    "@bitwarden/cli": "^1.12.0",
+    "@bitwarden/cli": "^1.22.1",
     "@next/bundle-analyzer": "^9.4.4",
     "babel-eslint": "^10.1.0",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
